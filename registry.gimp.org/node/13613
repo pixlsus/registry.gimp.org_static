@@ -1,0 +1,693 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML+RDFa 1.0//EN"
+  "http://www.w3.org/MarkUp/DTD/xhtml-rdfa-1.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" version="XHTML+RDFa 1.0" dir="ltr">
+
+<head profile="http://www.w3.org/1999/xhtml/vocab">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="shortcut icon" href="../files/favicon.png" type="image/png" />
+<link rel="alternate" type="application/rss+xml" title="Comments for &quot;How do I manually install Gimp GAP on gimp 2.6?&quot;" href="../crss/node/13613" />
+<link rel="canonical" href="13613" />
+<meta name="Generator" content="Drupal 7 (http://drupal.org)" />
+<link rel="shortlink" href="13613" />
+  <title>How do I manually install Gimp GAP on gimp 2.6? | GIMP Plugin Registry</title>
+  <style type="text/css" media="all">@import url("../modules/system/system.base.css?n48fl6");
+@import url("../modules/system/system.menus.css?n48fl6");
+@import url("../modules/system/system.messages.css?n48fl6");
+@import url("../modules/system/system.theme.css?n48fl6");</style>
+<style type="text/css" media="all">@import url("../modules/aggregator/aggregator.css?n48fl6");
+@import url("../modules/book/book.css?n48fl6");
+@import url("../modules/comment/comment.css?n48fl6");
+@import url("../sites/all/modules/date/date_api/date.css?n48fl6");
+@import url("../sites/all/modules/date/date_popup/themes/datepicker.1.7.css?n48fl6");
+@import url("../sites/all/modules/date/date_repeat_field/date_repeat_field.css?n48fl6");
+@import url("../modules/field/theme/field.css?n48fl6");
+@import url("../sites/all/modules/mollom/mollom.css?n48fl6");
+@import url("../modules/node/node.css?n48fl6");
+@import url("../modules/poll/poll.css?n48fl6");
+@import url("../modules/search/search.css?n48fl6");
+@import url("../modules/user/user.css?n48fl6");
+@import url("../modules/forum/forum.css?n48fl6");
+@import url("../sites/all/modules/views/css/views.css?n48fl6");</style>
+<style type="text/css" media="all">@import url("../sites/all/modules/ctools/css/ctools.css?n48fl6");
+@import url("../sites/all/modules/rate/rate.css?n48fl6");
+@import url("../sites/all/modules/tagclouds/tagclouds.css?n48fl6");
+@import url("../sites/all/modules/panels/css/panels.css?n48fl6");
+@import url("../sites/all/modules/best_answer/best_answer.css?n48fl6");</style>
+<style type="text/css" media="all">@import url("../files/color/garland-5ac73a91/style.css?n48fl6");</style>
+<style type="text/css" media="print">@import url("../themes/garland/print.css?n48fl6");</style>
+
+<!--[if lt IE 7]>
+<link type="text/css" rel="stylesheet" href="http://registry.gimp.org/themes/garland/fix-ie.css?n48fl6" media="all" />
+<![endif]-->
+  <script type="text/javascript" src="../misc/jquery.js?v=1.4.4"></script>
+<script type="text/javascript" src="../misc/jquery.once.js?v=1.2"></script>
+<script type="text/javascript" src="../misc/drupal.js?n48fl6"></script>
+<script type="text/javascript">
+<!--//--><![CDATA[//><!--
+jQuery.extend(Drupal.settings, {"basePath":"\/","pathPrefix":"","ajaxPageState":{"theme":"garland","theme_token":"qlgigB9Hb2FANyWTXiSfh65NvwBoHIBaZjddaPX47bg","js":{"misc\/jquery.js":1,"misc\/jquery.once.js":1,"misc\/drupal.js":1},"css":{"modules\/system\/system.base.css":1,"modules\/system\/system.menus.css":1,"modules\/system\/system.messages.css":1,"modules\/system\/system.theme.css":1,"modules\/aggregator\/aggregator.css":1,"modules\/book\/book.css":1,"modules\/comment\/comment.css":1,"sites\/all\/modules\/date\/date_api\/date.css":1,"sites\/all\/modules\/date\/date_popup\/themes\/datepicker.1.7.css":1,"sites\/all\/modules\/date\/date_repeat_field\/date_repeat_field.css":1,"modules\/field\/theme\/field.css":1,"sites\/all\/modules\/mollom\/mollom.css":1,"modules\/node\/node.css":1,"modules\/poll\/poll.css":1,"modules\/search\/search.css":1,"modules\/user\/user.css":1,"modules\/forum\/forum.css":1,"sites\/all\/modules\/views\/css\/views.css":1,"sites\/all\/modules\/ctools\/css\/ctools.css":1,"sites\/all\/modules\/rate\/rate.css":1,"sites\/all\/modules\/tagclouds\/tagclouds.css":1,"sites\/all\/modules\/panels\/css\/panels.css":1,"sites\/all\/modules\/best_answer\/best_answer.css":1,"themes\/garland\/style.css":1,"themes\/garland\/print.css":1,"themes\/garland\/fix-ie.css":1}}});
+//--><!]]>
+</script>
+</head>
+<body class="html not-front not-logged-in two-sidebars page-node page-node- page-node-13613 node-type-forum fluid-width" >
+  <div id="skip-link">
+    <a href="13613#main-content" class="element-invisible element-focusable">Skip to main content</a>
+  </div>
+      
+  <div id="wrapper">
+    <div id="container" class="clearfix">
+
+      <div id="header">
+        <div id="logo-floater">
+                              <div id="branding"><strong><a href="../index.html">
+                          <img src="../files/logo.png" alt="GIMP Plugin Registry " title="GIMP Plugin Registry " id="logo" />
+                        <span>GIMP Plugin Registry</span>            </a></strong></div>
+                          </div>
+
+        <h2 class="element-invisible">Main menu</h2><ul class="links inline main-menu"><li class="menu-100 first"><a href="../about" title="Information about the Registry">About</a></li>
+<li class="menu-136"><a href="23851" title="Documentation and How-Tos">Documentation</a></li>
+<li class="menu-88"><a href="../forum">Forums</a></li>
+<li class="menu-74"><a href="http://gug.criticalhit.dk" title="The GIMP User Group">GIMP User Group</a></li>
+<li class="menu-1142"><a href="25574" title="GIMP Help">Get Help</a></li>
+<li class="menu-1256"><a href="26216" title="Get info on using RSS to stay updated about what&#039;s going on on the site.">Stay Updated!</a></li>
+<li class="menu-73 last"><a href="http://www.gimp.org/" title="The GIMP Homepage">gimp.org</a></li>
+</ul>              </div> <!-- /#header -->
+
+              <div id="sidebar-first" class="sidebar">
+            <div class="region region-sidebar-first">
+    <div id="block-system-navigation" class="block block-system block-menu clearfix">
+
+    <h2 class="title">Navigation</h2>
+  
+  <div class="content">
+    <ul class="menu"><li class="first leaf"><a href="25574" title="FAQ &amp; How To&#039;s">FAQ &amp; How To&#039;s</a></li>
+<li class="leaf"><a href="../glossary.1" title="">Content By Name</a></li>
+<li class="collapsed"><a href="../aggregator">Feed aggregator</a></li>
+<li class="leaf"><a href="../popular">Popular content</a></li>
+<li class="leaf"><a href="25392" title="Report Spam Here">Report Spam Here</a></li>
+<li class="last leaf"><a href="../tagclouds">Tags</a></li>
+</ul>  </div>
+</div>
+<div id="block-block-1" class="block block-block clearfix">
+
+    
+  <div class="content">
+    If you'd like to upload plug-ins, please create an account below. You do <em>not</em> need one for download. Enjoy :-)  </div>
+</div>
+<div id="block-user-login" class="block block-user clearfix">
+
+    <h2 class="title">User login</h2>
+  
+  <div class="content">
+    <form action="http://registry.gimp.org/node/13613?destination=node/13613" method="post" id="user-login-form" accept-charset="UTF-8"><div><div class="form-item form-type-textfield form-item-name">
+  <label for="edit-name">Username <span class="form-required" title="This field is required.">*</span></label>
+ <input type="text" id="edit-name" name="name" value="" size="15" maxlength="60" class="form-text required" />
+</div>
+<div class="form-item form-type-password form-item-pass">
+  <label for="edit-pass">Password <span class="form-required" title="This field is required.">*</span></label>
+ <input type="password" id="edit-pass" name="pass" size="15" maxlength="128" class="form-text required" />
+</div>
+<div class="item-list"><ul><li class="first last"><a href="../user/password" title="Request new password via e-mail.">Request new password</a></li>
+</ul></div><input type="hidden" name="form_build_id" value="form-bDHMuq56NhqZoWOXGUZMXxZcVut8p_kr7z7-L68NXGs" />
+<input type="hidden" name="form_id" value="user_login_block" />
+<div class="form-actions form-wrapper" id="edit-actions"><input type="submit" id="edit-submit" name="op" value="Log in" class="form-submit" /></div></div></form>  </div>
+</div>
+<div id="block-node-syndicate" class="block block-node clearfix">
+
+    <h2 class="title">Syndicate</h2>
+  
+  <div class="content">
+    <a href="../rss.xml" class="feed-icon" title="Subscribe to Syndicate"><img src="../misc/feed.png" width="16" height="16" alt="Subscribe to Syndicate" /></a>  </div>
+</div>
+  </div>
+        </div>
+      
+      <div id="center"><div id="squeeze"><div class="right-corner"><div class="left-corner">
+          <h2 class="element-invisible">You are here</h2><div class="breadcrumb"><a href="../index.html">Home</a> › <a href="../forum">Forums</a> › <a href="../forum/26">Help</a></div>                    <a id="main-content"></a>
+          <div id="tabs-wrapper" class="clearfix">                                <h1 class="with-tabs">How do I manually install Gimp GAP on gimp 2.6?</h1>
+                              </div>                                                  <div class="clearfix">
+              <div class="region region-content">
+    <div id="block-system-main" class="block block-system clearfix">
+
+    
+  <div class="content">
+    <div id="node-13613" class="node node-forum">
+
+  
+      
+      <span class="submitted">January 19, 2009 - 21:26 — <span class="username">Benson</span></span>
+  
+  <div class="content clearfix">
+    <div class="field field-name-body field-type-text-with-summary field-label-hidden"><div class="field-items"><div class="field-item even"><p>How do I do this? I can't get any other method to work. Thanks</p>
+</div></div></div><div class="field field-name-taxonomy-forums field-type-taxonomy-term-reference field-label-above"><div class="field-label">Forums:&nbsp;</div><div class="field-items"><div class="field-item even"><a href="../forum/26">Help</a></div></div></div>  </div>
+
+  <div class="clearfix">
+          <div class="links"><ul class="links inline"><li class="comment_forbidden first last"><span><a href="../user/login?destination=comment%252Freply%252F13613%2523comment-form">Log in</a> to post comments</span></li>
+</ul></div>
+    
+    <div id="comments" class="comment-wrapper">
+  
+  
+  <a id="comment-2106"></a>
+<div class="comment odd">
+
+  <div class="clearfix">
+
+    <span class="submitted">January 20, 2009 - 11:52 — <span class="username">PhotoComiX</span></span>
+
+  
+  
+        <h3><a href="../comment/2106#comment-2106" class="permalink" rel="bookmark">How do I manually install Gimp GAP on gimp 2.6?</a></h3>
+    
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even">How we may guess if you use Windows, Mac, or Linux ?
+
+And what you mean for manually ?
+
+Anyway GAP is not yet updated for Gimp 2.6 most of its features will work, but for a few there are problems.
+
+So if you want make a intensive use of GAP may be better install also Gimp 2.4 (2 different version of gimp may run alongside,details on "how to "are different ,again for Windows and Linux).
+
+Anyway take care to install GAP 2.4 NOT previous versions</div></div></div>          </div>
+  </div>
+
+  <ul class="links inline"><li class="comment_forbidden first last"><span><a href="../user/login?destination=comment%252Freply%252F13613%2523comment-form">Log in</a> to post comments</span></li>
+</ul></div>
+
+<div class="indented"><a id="comment-2107"></a>
+<div class="comment comment-by-node-author even">
+
+  <div class="clearfix">
+
+    <span class="submitted">January 20, 2009 - 12:35 — <span class="username">Benson</span></span>
+
+  
+  
+        <h3><a href="../comment/2107#comment-2107" class="permalink" rel="bookmark">Not sure how to install</a></h3>
+    
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even">Thanks, sorry I forgot to say I have windows. I want to make a gif from a video file so will this feature work with 2.6? also what I meant by manually installing Gimp GAP is I have used this link: <a href="ftp://ftp.gimp.org/pub/gimp/plug-ins/v2.4/gap/">ftp://ftp.gimp.org/pub/gimp/plug-ins/v2.4/gap/</a> but I don't know what to do with the downloaded rar? it seems like I have to manually install the plug-ins and files if that makes sense. thanks</div></div></div>          </div>
+  </div>
+
+  <ul class="links inline"><li class="comment_forbidden first last"><span><a href="../user/login?destination=comment%252Freply%252F13613%2523comment-form">Log in</a> to post comments</span></li>
+</ul></div>
+
+<div class="indented"><a id="comment-2112"></a>
+<div class="comment odd">
+
+  <div class="clearfix">
+
+    <span class="submitted">January 20, 2009 - 19:30 — <span class="username">PhotoComiX</span></span>
+
+  
+  
+        <h3><a href="../comment/2112#comment-2112" class="permalink" rel="bookmark">GAP,Not sure how to install</a></h3>
+    
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even">Ok i'm mirroring the only GAP-2.4 installer available at the moment , see <a href="http://www.registry.gimp.org/node/3700">http://www.registry.gimp.org/node/3700</a>
+
+Please note that the link are 2 there, second is needed to fix a bug, all instruction are included (or in the comment ).
+
+If you want be more sure all gap plugin will work, may be better for you get the latest 2.4 PORTABLE version of gimp.
+(you may install also on the HD here a link
+<a href="http://sourceforge.net/project/showfiles.php?group_id=151265&amp;package_id=263568&amp;release_id=621968">http://sourceforge.net/project/showfiles.php?group_id=151265&amp;package_id=...</a> ...portable version will avoid conflict )
+
+Now about installing may be needed a bit a tweaking:
+
+Create in Program Files a new empty  folder called Gimp-2.4 and run the installer.
+
+Done that  you will see in your bogus Gimp-2.4 folder   2 folders, "plug-ins" and "scripts"
+
+Now open Gimp (portable or 2.6) go in Edit/Preferences/folder/plugin and add there the path for that plugin folder
+
+Then ,again in preference folder/script and do the same
+for the script folder
+(that in gimp 2.6, in 24 Preferences are in Toolbox/File menu)
+
+That is all , reload gimp and you will see a new "video" menu
+
+If you need more detail let me know here, or for quicker reply on <a href="http://www.gimptalk.com/forum/">http://www.gimptalk.com/forum/</a></div></div></div>          </div>
+  </div>
+
+  <ul class="links inline"><li class="comment_forbidden first last"><span><a href="../user/login?destination=comment%252Freply%252F13613%2523comment-form">Log in</a> to post comments</span></li>
+</ul></div>
+
+<div class="indented"><a id="comment-2127"></a>
+<div class="comment comment-by-node-author even">
+
+  <div class="clearfix">
+
+    <span class="submitted">January 22, 2009 - 12:25 — <span class="username">Benson</span></span>
+
+  
+  
+        <h3><a href="../comment/2127#comment-2127" class="permalink" rel="bookmark">Error with installer executing</a></h3>
+    
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even">I've downloaded the link with the installer you posted and I'm getting this error message when I double click the installer: Cannot execute "C:\Users\Username\AppData\Local\Temp\Rar$EX00.754\gimp-gap_2.4\Gimp-GAP-2.4.0-Setup.exe". I also created the bogus "gimp 2.4" folder in the program files as you said yet it will let me extract everything in the rar to here apart from the installer. Am I doing something wrong here? Thanks</div></div></div>          </div>
+  </div>
+
+  <ul class="links inline"><li class="comment_forbidden first last"><span><a href="../user/login?destination=comment%252Freply%252F13613%2523comment-form">Log in</a> to post comments</span></li>
+</ul></div>
+
+<div class="indented"><a id="comment-2129"></a>
+<div class="comment odd">
+
+  <div class="clearfix">
+
+    <span class="submitted">January 22, 2009 - 14:33 — <span class="username">PhotoComiX</span></span>
+
+  
+  
+        <h3><a href="../comment/2129#comment-2129" class="permalink" rel="bookmark">Error with installer executing</a></h3>
+    
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even">Extract from the .rar?  How that is possible ?
+I may check this evening now i can't take another break from work
+
+But i'm surprised to read about RAR, i never used that format
+to  compress files for Windows...on the other side does not seems probable that the original file was replaced by someone else.
+
+Please wait few hours and thank for the heads up
+
+PS
+In any case , if there is a problem will be fixed within no more then 24 hours (but i believe much less)</div></div></div>          </div>
+  </div>
+
+  <ul class="links inline"><li class="comment_forbidden first last"><span><a href="../user/login?destination=comment%252Freply%252F13613%2523comment-form">Log in</a> to post comments</span></li>
+</ul></div>
+
+<div class="indented"><a id="comment-2140"></a>
+<div class="comment even">
+
+  <div class="clearfix">
+
+    <span class="submitted">January 23, 2009 - 15:21 — <span class="username">PhotoComiX</span></span>
+
+  
+  
+        <h3><a href="../comment/2140#comment-2140" class="permalink" rel="bookmark">Installer works , ...where you get that RAR ?</a></h3>
+    
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even">I have no idea from where you got that .rar.
+
+I checked GAP files on deviantart, are integer ,are not compressed as .rar, but zipped in a .zip file.
+
+So if you downloaded a rar you did somewhere else no idea on where,...nobody as far i know offer download of GIMP-GAP installer compressed in that format ,not for Windows, not for Linux (will be tar.gz, or .deb , .rpm ,ect) not for the source code (that will be tar.gz )
+
+The installer works well
+Even if was created for gimp 2.4 there is no problem to use for 2.6 or for Gimpportable2.4 or 2.6  just changing  the installation path offered by default.
+
+ (that is no rocket science,that path is the first and only option offered by the installer, replace there "gimp-2.4 "with "gimp-2.6" will solve for gimp-2.6)</div></div></div>          </div>
+  </div>
+
+  <ul class="links inline"><li class="comment_forbidden first last"><span><a href="../user/login?destination=comment%252Freply%252F13613%2523comment-form">Log in</a> to post comments</span></li>
+</ul></div>
+
+<div class="indented"><a id="comment-2146"></a>
+<div class="comment odd">
+
+  <div class="clearfix">
+
+    <span class="submitted">January 23, 2009 - 18:33 — <span class="username">schumaml</span></span>
+
+  
+  
+        <h3><a href="../comment/2146#comment-2146" class="permalink" rel="bookmark">Maybe &quot;rar&quot; is being</a></h3>
+    
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even">Maybe "rar" is being introduced into the temporary file name by the apparently somewhat popular WinRAR application?</div></div></div>          </div>
+  </div>
+
+  <ul class="links inline"><li class="comment_forbidden first last"><span><a href="../user/login?destination=comment%252Freply%252F13613%2523comment-form">Log in</a> to post comments</span></li>
+</ul></div>
+
+<div class="indented"><a id="comment-2148"></a>
+<div class="comment even">
+
+  <div class="clearfix">
+
+    <span class="submitted">January 23, 2009 - 19:00 — <span class="username">PhotoComiX</span></span>
+
+  
+  
+        <h3><a href="../comment/2148#comment-2148" class="permalink" rel="bookmark">Maybe &quot;rar&quot; is being</a></h3>
+    
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even">AH..that is possible i didn't use that crap ,free and Open Source 7zip, or ICEOWS are much better.
+
+The most relevant point is that the installer works
+
+Only possible reason to failure i may imagine is try to run the installer from inside the zip, without first extract it.
+
+(sometimes that may even work but will be not surprising if
+will not, or with  not too satisfying results )</div></div></div>          </div>
+  </div>
+
+  <ul class="links inline"><li class="comment_forbidden first last"><span><a href="../user/login?destination=comment%252Freply%252F13613%2523comment-form">Log in</a> to post comments</span></li>
+</ul></div>
+</div></div></div></div></div></div></div><a id="comment-6024"></a>
+<div class="comment odd">
+
+  <div class="clearfix">
+
+    <span class="submitted">November 18, 2009 - 19:15 — <span class="username">Hanziness</span></span>
+
+  
+  
+        <h3><a href="../comment/6024#comment-6024" class="permalink" rel="bookmark">HELP</a></h3>
+    
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>Hi, can anyone give me a SAFE link, you can check your deviantart links at:</p>
+<p><a href="http://mywot.com/scorecard/deviantart.com">http://mywot.com/scorecard/deviantart.com</a></p>
+<p>Can anyone give me a safe link?<br />
+(for Gimp 2.6)</p>
+</div></div></div>          </div>
+  </div>
+
+  <ul class="links inline"><li class="comment_forbidden first last"><span><a href="../user/login?destination=comment%252Freply%252F13613%2523comment-form">Log in</a> to post comments</span></li>
+</ul></div>
+
+<div class="indented"><a id="comment-6025"></a>
+<div class="comment even">
+
+  <div class="clearfix">
+
+    <span class="submitted">November 18, 2009 - 22:03 — <span class="username">PhotoComiX</span></span>
+
+  
+  
+        <h3><a href="../comment/6025#comment-6025" class="permalink" rel="bookmark">Safe ?</a></h3>
+    
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>as far i know my DA gallery is safe as all files i host there  </p>
+<p>Anyway i am not interested to check the opinion of mywot.com on DeviantArt<br />
+( are you sure that mywot.com.is a safe side ?)</p>
+</div></div></div>          </div>
+  </div>
+
+  <ul class="links inline"><li class="comment_forbidden first last"><span><a href="../user/login?destination=comment%252Freply%252F13613%2523comment-form">Log in</a> to post comments</span></li>
+</ul></div>
+
+<div class="indented"><a id="comment-6033"></a>
+<div class="comment odd">
+
+  <div class="clearfix">
+
+    <span class="submitted">November 19, 2009 - 09:39 — <span class="username">Hanziness</span></span>
+
+  
+  
+        <h3><a href="../comment/6033#comment-6033" class="permalink" rel="bookmark">RE: Safe?</a></h3>
+    
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>Yes, I always use MyWOT when I want to check a link, my FireFox 3 has the MyWOT plugin too. So, you can trust in it, and in it's users :)</p>
+<p>Please give me a "safe" link</p>
+<p>And, the site's ads hijacks your security system, I think your gallery is safe, but I don't trust in this site (DeviantArt)</p>
+</div></div></div>          </div>
+  </div>
+
+  <ul class="links inline"><li class="comment_forbidden first last"><span><a href="../user/login?destination=comment%252Freply%252F13613%2523comment-form">Log in</a> to post comments</span></li>
+</ul></div>
+
+<div class="indented"><a id="comment-6041"></a>
+<div class="comment even">
+
+  <div class="clearfix">
+
+    <span class="submitted">November 19, 2009 - 11:54 — <span class="username">schumaml</span></span>
+
+  
+  
+        <h3><a href="../comment/6041#comment-6041" class="permalink" rel="bookmark">Your comments are strange.</a></h3>
+    
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>Your comments are strange. mywot seems to rate deviantart as safe, so didn't you just find what you were looking for?</p>
+</div></div></div>          </div>
+  </div>
+
+  <ul class="links inline"><li class="comment_forbidden first last"><span><a href="../user/login?destination=comment%252Freply%252F13613%2523comment-form">Log in</a> to post comments</span></li>
+</ul></div>
+
+<div class="indented"><a id="comment-6045"></a>
+<div class="comment odd">
+
+  <div class="clearfix">
+
+    <span class="submitted">November 19, 2009 - 13:24 — <span class="username">Hanziness</span></span>
+
+  
+  
+        <h3><a href="../comment/6045#comment-6045" class="permalink" rel="bookmark">And why are there comments?</a></h3>
+    
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>Did you look at the comments? I think no</p>
+</div></div></div>          </div>
+  </div>
+
+  <ul class="links inline"><li class="comment_forbidden first last"><span><a href="../user/login?destination=comment%252Freply%252F13613%2523comment-form">Log in</a> to post comments</span></li>
+</ul></div>
+
+<div class="indented"><a id="comment-6047"></a>
+<div class="comment even">
+
+  <div class="clearfix">
+
+    <span class="submitted">November 19, 2009 - 14:16 — <span class="username">mahvin</span></span>
+
+  
+  
+        <h3><a href="../comment/6047#comment-6047" class="permalink" rel="bookmark">You can block ads</a></h3>
+    
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>MyWOT isn't 100% reliable or effective, it has consistent false positives (usually involving outdated javascripts) and relies too much on user input/ratings rather than web protocol.</p>
+<p>Your request for a safe link makes the whole thing odd for those of us who strive to keep everyone's security in mind.</p>
+<p>The only safe computer is one that is unplugged.</p>
+</div></div></div>          </div>
+  </div>
+
+  <ul class="links inline"><li class="comment_forbidden first last"><span><a href="../user/login?destination=comment%252Freply%252F13613%2523comment-form">Log in</a> to post comments</span></li>
+</ul></div>
+
+<div class="indented"><a id="comment-6068"></a>
+<div class="comment odd">
+
+  <div class="clearfix">
+
+    <span class="submitted">November 20, 2009 - 09:38 — <span class="username">Hanziness</span></span>
+
+  
+  
+        <h3><a href="../comment/6068#comment-6068" class="permalink" rel="bookmark">False positive? I didn&#039;t get</a></h3>
+    
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>I know, there are False positives but I didn't get from there.</p>
+<p>WOT was always right in my brownsing, and their users too. WOT is safe, I'm using avast! and a FireWall, and I never get virus.</p>
+</div></div></div>          </div>
+  </div>
+
+  <ul class="links inline"><li class="comment_forbidden first last"><span><a href="../user/login?destination=comment%252Freply%252F13613%2523comment-form">Log in</a> to post comments</span></li>
+</ul></div>
+
+<div class="indented"><a id="comment-6071"></a>
+<div class="comment even">
+
+  <div class="clearfix">
+
+    <span class="submitted">November 20, 2009 - 17:13 — <span class="username">PhotoComiX</span></span>
+
+  
+  
+        <h3><a href="../comment/6071#comment-6071" class="permalink" rel="bookmark">Sure there are not false positives</a></h3>
+    
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>Not in this case the Wot report consider the side really  safe as most of the comments </p>
+<p>only concern limited to very few  comments seems about children that may risk to see occasionally some more cm of bare skin of what moralist may consider safe</p>
+<p>If you want be even more safe better you disconnect your PC from the net, and again remember my full disclaimer posted few message ago, i just offered a free service without any reward, i do not want risk to have even nuisances</p>
+</div></div></div>          </div>
+  </div>
+
+  <ul class="links inline"><li class="comment_forbidden first last"><span><a href="../user/login?destination=comment%252Freply%252F13613%2523comment-form">Log in</a> to post comments</span></li>
+</ul></div>
+
+<div class="indented"><a id="comment-6178"></a>
+<div class="comment odd">
+
+  <div class="clearfix">
+
+    <span class="submitted">December 2, 2009 - 13:24 — <span class="username">Hanziness</span></span>
+
+  
+  
+        <h3><a href="../comment/6178#comment-6178" class="permalink" rel="bookmark">...</a></h3>
+    
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>No link needed! I have downloaded it</p>
+</div></div></div>          </div>
+  </div>
+
+  <ul class="links inline"><li class="comment_forbidden first last"><span><a href="../user/login?destination=comment%252Freply%252F13613%2523comment-form">Log in</a> to post comments</span></li>
+</ul></div>
+<a id="comment-6191"></a>
+<div class="comment even">
+
+  <div class="clearfix">
+
+    <span class="submitted">December 2, 2009 - 13:24 — <span class="username">Hanziness</span></span>
+
+  
+  
+        <h3><a href="../comment/6191#comment-6191" class="permalink" rel="bookmark">...</a></h3>
+    
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>OK I got it.</p>
+<p>Thank you for helping</p>
+</div></div></div>          </div>
+  </div>
+
+  <ul class="links inline"><li class="comment_forbidden first last"><span><a href="../user/login?destination=comment%252Freply%252F13613%2523comment-form">Log in</a> to post comments</span></li>
+</ul></div>
+</div></div></div><a id="comment-6048"></a>
+<div class="comment odd">
+
+  <div class="clearfix">
+
+    <span class="submitted">November 19, 2009 - 15:46 — <span class="username">PhotoComiX</span></span>
+
+  
+  
+        <h3><a href="../comment/6048#comment-6048" class="permalink" rel="bookmark">Almost all comment iare positive</a></h3>
+    
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>Ok mine on safety of mywot was a joke<br />
+anyway ALL rating are positive there is even the official WOT congratulation on top left </p>
+<p>Even more then 90% of comments are positive,</p>
+<p> except very few  concerned on the risk that  "mature content ",( no porn ) may occasionally slip trough and remain unfiltered ( for very short time)</p>
+<p>Very few concern about ads and i can't  imagine what dangers may come from that ads (ads on top of google search pages are much more dangerous, at least for ingenuous cliking on their links)</p>
+<p>BUT SINCE YOU ARE SO CAREFUL LET ME ADD AGAIN A FULL DISCLAIMER</p>
+<p>the file i upload are clean, side is respectable but i do not accept any responsibility on what malicious hacker may do, including create fishing mock up of the pages or hijack my account, there as here</p>
+</div></div></div>          </div>
+  </div>
+
+  <ul class="links inline"><li class="comment_forbidden first last"><span><a href="../user/login?destination=comment%252Freply%252F13613%2523comment-form">Log in</a> to post comments</span></li>
+</ul></div>
+</div></div></div></div></div>
+        </div>
+  </div>
+
+</div>
+  </div>
+</div>
+  </div>
+          </div>
+          <a href="../crss/node/13613" class="feed-icon" title="Subscribe to Comments for &quot;How do I manually install Gimp GAP on gimp 2.6?&quot;"><img src="../misc/feed.png" width="16" height="16" alt="Subscribe to Comments for &quot;How do I manually install Gimp GAP on gimp 2.6?&quot;" /></a>            <div class="region region-footer">
+    <div id="block-block-5" class="block block-block clearfix">
+
+    
+  <div class="content">
+    Unless otherwise noted, the rights for the individual plugins are with their respective authors. Logo image by Jakub Steiner.
+<marquee style="width: 0px; position: absolute"> <a href="http://brazzersdeporno.com" title="porno">porno</a> - <a href="http://www.porno724.com/" target="_blank" title="Porno izle">Porno izle</a> <a href="http://www.yokyokpornolar.com/" target="_blank" title="porno abi">porno abi</a> </marquee>  </div>
+</div>
+  </div>
+      </div></div></div></div> <!-- /.left-corner, /.right-corner, /#squeeze, /#center -->
+
+              <div id="sidebar-second" class="sidebar">
+            <div class="region region-sidebar-second">
+    <div id="block-search-form" class="block block-search clearfix">
+
+    
+  <div class="content">
+    <form action="13613" method="post" id="search-block-form" accept-charset="UTF-8"><div><div class="container-inline">
+      <h2 class="element-invisible">Search form</h2>
+    <div class="form-item form-type-textfield form-item-search-block-form">
+  <label class="element-invisible" for="edit-search-block-form--2">Search </label>
+ <input title="Enter the terms you wish to search for." type="text" id="edit-search-block-form--2" name="search_block_form" value="" size="15" maxlength="128" class="form-text" />
+</div>
+<div class="form-actions form-wrapper" id="edit-actions--2"><input type="submit" id="edit-submit--2" name="op" value="Search" class="form-submit" /></div><input type="hidden" name="form_build_id" value="form-FVE_f6Z-eGvYS7t_C7VrpCbtBXGtwkdxsxLL4B-d3ws" />
+<input type="hidden" name="form_id" value="search_block_form" />
+</div>
+</div></form>  </div>
+</div>
+<div id="block-forum-active" class="block block-forum clearfix">
+
+    <h2 class="title">Active forum topics</h2>
+  
+  <div class="content">
+    <div class="item-list"><ul><li class="first"><a href="32356" title="3 comments">Can&#039;t access &quot;My account&quot;</a></li>
+<li><a href="32371">Delete account</a></li>
+<li class="last"><a href="32363">Outline</a></li>
+</ul></div><div class="more-link"><a href="../forum" title="Read the latest forum topics.">More</a></div>  </div>
+</div>
+<div id="block-views-newest-questions-block-1" class="block block-views clearfix">
+
+    <h2 class="title">Updated Questions</h2>
+  
+  <div class="content">
+    <div class="view view-newest-questions view-id-newest_questions view-display-id-block_1 view-dom-id-61fe694a04c8ef66ebd06668642c34cb">
+        
+  
+  
+      <div class="view-content">
+      <div class="item-list">    <ul>          <li class="views-row views-row-1 views-row-odd views-row-first">  
+  <span class="views-field views-field-title">        <span class="field-content"><a href="32373">Shadow and Highlights Recovery - Adding group undo</a></span>  </span>  
+  <div class="views-field views-field-last-updated">    <span class="views-label views-label-last-updated">Last change</span>    <span class="field-content">3 hours 25 min</span>  </div>  
+  <div class="views-field views-field-field-answer-count">        <div class="field-content">No answers, yet!</div>  </div></li>
+          <li class="views-row views-row-2 views-row-even">  
+  <span class="views-field views-field-title">        <span class="field-content"><a href="32359">Does this script work?</a></span>  </span>  
+  <div class="views-field views-field-last-updated">    <span class="views-label views-label-last-updated">Last change</span>    <span class="field-content">4 months 2 weeks</span>  </div>  
+  <div class="views-field views-field-field-answer-count">        <div class="field-content">No answers, yet!</div>  </div></li>
+          <li class="views-row views-row-3 views-row-odd views-row-last">  
+  <span class="views-field views-field-title">        <span class="field-content"><a href="32349">File upload problem</a></span>  </span>  
+  <div class="views-field views-field-last-updated">    <span class="views-label views-label-last-updated">Last change</span>    <span class="field-content">6 months 38 min</span>  </div>  
+  <div class="views-field views-field-field-answer-count">        <div class="field-content">1 Answer(s)</div>  </div></li>
+      </ul></div>    </div>
+  
+  
+  
+      
+<div class="more-link">
+  <a href="../newest-questions">
+    more  </a>
+</div>
+  
+  
+  
+</div>  </div>
+</div>
+<div id="block-comment-recent" class="block block-comment clearfix">
+
+    <h2 class="title">Recent comments</h2>
+  
+  <div class="content">
+    <div class="item-list"><ul><li class="first"><a href="../comment/19262#comment-19262">Black triangles</a>&nbsp;<span>2 hours 31 min ago</span></li>
+<li><a href="../comment/19261#comment-19261">I use the Python version of</a>&nbsp;<span>4 days 4 hours ago</span></li>
+<li class="last"><a href="../comment/19260#comment-19260">I have the same problem too</a>&nbsp;<span>1 week 2 days ago</span></li>
+</ul></div>  </div>
+</div>
+<div id="block-node-recent" class="block block-node clearfix">
+
+    <h2 class="title">Recent content</h2>
+  
+  <div class="content">
+    <table>
+<tbody>
+ <tr class="odd"><td class="title-author"><div class="node-title"><a href="32373">Shadow and Highlights Recovery - Adding group undo</a></div><div class="node-author"><span class="username">programmer_ceds</span></div></td><td class="edit"></td><td class="delete"></td> </tr>
+ <tr class="even"><td class="title-author"><div class="node-title"><a href="32360">GIMP Plugin Registry in Lockdown mode</a></div><div class="node-author"><span class="username">schumaml</span></div></td><td class="edit"></td><td class="delete"></td> </tr>
+ <tr class="odd"><td class="title-author"><div class="node-title"><a href="32372">Split to Special PNG&#039;s</a></div><div class="node-author"><span class="username">Efenstor</span></div></td><td class="edit"></td><td class="delete"></td> </tr>
+ <tr class="even"><td class="title-author"><div class="node-title"><a href="32371">Delete account</a></div><div class="node-author"><span class="username">amarz82</span></div></td><td class="edit"></td><td class="delete"></td> </tr>
+ <tr class="odd"><td class="title-author"><div class="node-title"><a href="32370">Export with MozJPEG</a></div><div class="node-author"><span class="username">Efenstor</span></div></td><td class="edit"></td><td class="delete"></td> </tr>
+ <tr class="even"><td class="title-author"><div class="node-title"><a href="32369">Shadow and Highlights Recovery</a></div><div class="node-author"><span class="username">erwinsoo</span></div></td><td class="edit"></td><td class="delete"></td> </tr>
+ <tr class="odd"><td class="title-author"><div class="node-title"><a href="27656">GIMP Extensions Pack for Windows</a></div><div class="node-author"><span class="username">GIMP Extensions</span></div></td><td class="edit"></td><td class="delete"></td> </tr>
+ <tr class="even"><td class="title-author"><div class="node-title"><a href="32341">Removed...</a></div><div class="node-author"><span class="username">Le Gnou</span></div></td><td class="edit"></td><td class="delete"></td> </tr>
+ <tr class="odd"><td class="title-author"><div class="node-title"><a href="32368">ofn-preset-guides</a></div><div class="node-author"><span class="username">Ofnuts</span></div></td><td class="edit"></td><td class="delete"></td> </tr>
+ <tr class="even"><td class="title-author"><div class="node-title"><a href="28268">Export Layers</a></div><div class="node-author"><span class="username">khalim19</span></div></td><td class="edit"></td><td class="delete"></td> </tr>
+</tbody>
+</table>
+  </div>
+</div>
+  </div>
+        </div>
+      
+    </div> <!-- /#container -->
+  </div> <!-- /#wrapper -->
+  </body>
+</html>

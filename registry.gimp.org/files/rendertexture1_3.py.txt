@@ -1,0 +1,519 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+#
+# ---------------------------------------------------------------------
+import gimp, gimpplugin, math
+from gimpenums import *
+pdb = gimp.pdb
+import gtk, gimpui, gimpcolor
+from gimpshelf import shelf
+import random
+
+def debugMessage(Message):
+    dialog = gtk.MessageDialog(None, 0, gtk.MESSAGE_INFO, gtk.BUTTONS_OK, Message)
+    dialog.run()
+    dialog.hide()
+
+PARNAME = "Render-Texture-Values"
+
+class reuse_init(object):
+        previewLayer = None
+
+        def save_values(self):
+                data = []
+                for v in self.fxParams:
+                     data.append(str(v))   
+                ndata = "|".join(data)
+                if not gimp.parasite_find(PARNAME) == None:
+                        gimp.parasite_detach(PARNAME)
+                gimp.attach_new_parasite(PARNAME, 0, ndata)
+                
+
+        def restore_values(self):
+                p = gimp.parasite_find(PARNAME)
+                if p == None:
+                        return None
+                return p.data.split("|")
+
+                                
+                
+
+        def get_layer_pos(self, layer):
+                i = 0
+                while i < len(self.img.layers):
+                        if layer == self.img.layers[i]:
+                                return i
+                else:
+                        i += 1
+                return -1
+
+
+        def layer_exists(self, layer):
+                return layer != None and layer in self.img.layers
+
+        def removePreviews(self):
+                if self.layer_exists(self.previewLayer):
+                        self.img.remove_layer(self.previewLayer)
+                        self.previewLayer = None
+                gimp.displays_flush()
+
+        def make_label(self, text):
+                label = gtk.Label(text)
+                label.set_use_underline(True)
+                label.set_alignment(1.0, 0.5)
+                label.show()
+                return label
+
+        def make_slider_and_spinner(self, init, min, max, step, page, digits):
+                controls = {'adj':gtk.Adjustment(init, min, max, step, page), 'slider':gtk.HScale(), 'spinner':gtk.SpinButton()}
+                controls['slider'].set_adjustment(controls['adj'])
+                controls['slider'].set_draw_value(False)
+                controls['spinner'].set_adjustment(controls['adj'])
+                controls['spinner'].set_digits(digits)
+                controls['slider'].show()
+                controls['spinner'].show()
+                return controls
+
+        def make_spinner(self, init, min, max, step, page, digits):
+                controls = {'adj':gtk.Adjustment(init, min, max, step, page), 'spinner':gtk.SpinButton()}                
+                controls['spinner'].set_adjustment(controls['adj'])
+                controls['spinner'].set_digits(digits)                
+                controls['spinner'].show()
+                return controls
+
+
+        def make_blend_mode_box(self):
+            return gimpui.IntComboBox((
+              "Normal",        NORMAL_MODE,
+              "Dissolve",      DISSOLVE_MODE,
+              "Multiply",      MULTIPLY_MODE,
+              "Divide",        DIVIDE_MODE,
+              "Screen",        SCREEN_MODE,
+              "Overlay",       OVERLAY_MODE,
+              "Dodge",         DODGE_MODE,
+              "Burn",          BURN_MODE,
+              "Hard Light",    HARDLIGHT_MODE,
+              "Soft Light",    SOFTLIGHT_MODE,
+              "Grain Extract", GRAIN_EXTRACT_MODE,
+              "Grain Merge",   GRAIN_MERGE_MODE,
+              "Difference",    DIFFERENCE_MODE,
+              "Addition",      ADDITION_MODE,
+              "Subtract",      SUBTRACT_MODE,
+              "Darken Only",   DARKEN_ONLY_MODE,
+              "Lighten Only",  LIGHTEN_ONLY_MODE,
+              "Hue",           HUE_MODE,
+              "Saturation",    SATURATION_MODE,
+              "Color",         COLOR_MODE,
+              "Value",         VALUE_MODE
+            ))
+
+        def show_error_msg(self, msg):
+                origMsgHandler = pdb.gimp_message_get_handler()
+                pdb.gimp_message_set_handler(ERROR_CONSOLE)
+                pdb.gimp_message(msg)
+                pdb.gimp_message_set_handler(origMsgHandler)
+
+        def stringToColor(self, string):
+                colorlist = string[5:-1].split(", ")
+                return gimpcolor.RGB(float(colorlist[0]), float(colorlist[1]), float(colorlist[2]), float(colorlist[3]))
+
+
+
+class texture(reuse_init):
+        def __init__(self, runmode, img, drawable, lmode, seed, detail, xsize, ysize, anoise, preblur, azimuth, elevation, depth, opacity):
+                self.img = img
+                self.drawable = drawable
+                self.shelfkey = 'py-texture-plugin'
+
+                self.fxParams = [
+                        lmode,
+                        seed,
+                        detail,
+                        xsize,
+                        ysize,
+                        anoise,
+                        preblur,
+                        azimuth,
+                        elevation,
+                        depth,
+                        opacity
+                        ]
+
+                if runmode == RUN_INTERACTIVE:                        
+                        self.showDialog()
+                elif runmode == RUN_NONINTERACTIVE:
+                        fxlayer = self.makeLayer()
+                elif runmode == RUN_WITH_LAST_VALS:
+                        d = self.restore_values()
+                        if d == None:
+                                self.showDialog()
+                        else:
+                                self.fxParams[0] = int(d[0])
+                                for x in range(1, len(d)):
+                                        self.fxParams[x] = float(d[x])
+                                fxlayer = self.makeLayer()
+                                
+
+
+        def showDialog(self):
+                self.dialog = gimpui.Dialog("Render Texture", "texturedialog")
+
+                self.table = gtk.Table(13, 4, True)
+                self.table.set_homogeneous(False)
+                self.table.set_row_spacings(8)
+                self.table.set_col_spacings(8)
+                self.table.show()
+                
+#parameters begin
+
+#layermode
+                self.lmode_label = self.make_label("_Layer mode:")
+                self.table.attach(self.lmode_label, 0, 1, 1, 2)
+
+                self.lmode_box = self.make_blend_mode_box()
+                self.lmode_box.set_active(HARDLIGHT_MODE)
+                self.lmode_label.set_mnemonic_widget(self.lmode_box)
+                self.table.attach(self.lmode_box, 1, 4, 1, 2)
+                self.lmode_box.show()
+                
+#seed parameter
+                self.seed_label = self.make_label("_Seed:")
+                self.table.attach(self.seed_label, 0, 1, 2, 3)
+                
+                self.seed_spinner = self.make_spinner(0,0,4294967295,1,10,0)                
+                self.seed_spinner['adj'].set_value(0)
+                
+                self.seed_label.set_mnemonic_widget(self.seed_spinner['spinner'])                
+                self.table.attach(self.seed_spinner['spinner'], 2, 3, 2, 3)
+
+                self.seed_button = gtk.Button("Randomize")                
+                self.seed_button.connect("clicked", self.seedbutton)
+                self.table.attach(self.seed_button, 1, 2, 2, 3)
+                self.seed_button.show()
+
+
+#detail
+                self.detail_label = self.make_label("_Detail:")
+                self.table.attach(self.detail_label, 0, 1, 3, 4)
+
+                self.detail_spinner = self.make_slider_and_spinner(7, 1, 15, 1, 10, 0)
+                self.detail_spinner['adj'].set_value(7)
+
+                self.detail_label.set_mnemonic_widget(self.detail_spinner['spinner'])
+                self.table.attach(self.detail_spinner['slider'], 1, 2, 3, 4)
+                self.table.attach(self.detail_spinner['spinner'], 2, 3, 3, 4)
+
+#xsize
+                self.xsize_label = self.make_label("_X size:")
+                self.table.attach(self.xsize_label, 0, 1, 4, 5)
+
+                self.xsize_spinner = self.make_slider_and_spinner(4, 0.1, 16.0, 0.1, 1, 1)
+                self.xsize_spinner['adj'].set_value(4)
+
+                self.xsize_label.set_mnemonic_widget(self.xsize_spinner['spinner'])
+                self.table.attach(self.xsize_spinner['slider'], 1, 2, 4, 5)
+                self.table.attach(self.xsize_spinner['spinner'], 2, 3, 4, 5)
+
+#ysize
+                self.ysize_label = self.make_label("_Y size:")
+                self.table.attach(self.ysize_label, 0, 1, 5, 6)
+
+                self.ysize_spinner = self.make_slider_and_spinner(4, 0.1, 16.0, 0.1, 1, 1)
+                self.ysize_spinner['adj'].set_value(4)
+
+                self.ysize_label.set_mnemonic_widget(self.ysize_spinner['spinner'])
+                self.table.attach(self.ysize_spinner['slider'], 1, 2, 5, 6)
+                self.table.attach(self.ysize_spinner['spinner'], 2, 3, 5, 6)
+
+#anoise
+                self.anoise_label = self.make_label("Additional _noise:")
+                self.table.attach(self.anoise_label, 0, 1, 6, 7)
+
+                self.anoise_spinner = self.make_slider_and_spinner(0, 0, 30, 1, 10, 0)
+                self.anoise_spinner['adj'].set_value(0)
+
+                self.anoise_label.set_mnemonic_widget(self.anoise_spinner['spinner'])
+                self.table.attach(self.anoise_spinner['slider'], 1, 2, 6, 7)
+                self.table.attach(self.anoise_spinner['spinner'], 2, 3, 6, 7)
+
+#preblur
+                self.preblur_label = self.make_label("Pre-emboss _blur:")
+                self.table.attach(self.preblur_label, 0, 1, 7, 8)
+
+                self.preblur_spinner = self.make_slider_and_spinner(0.5, 0, 50, 0.1, 1, 1)
+                self.preblur_spinner['adj'].set_value(0.5)
+
+                self.preblur_label.set_mnemonic_widget(self.preblur_spinner['spinner'])
+                self.table.attach(self.preblur_spinner['slider'], 1, 2, 7, 8)
+                self.table.attach(self.preblur_spinner['spinner'], 2, 3, 7, 8)
+
+#azimuth
+                self.azimuth_label = self.make_label("_Light angle:")
+                self.table.attach(self.azimuth_label, 0, 1, 8, 9)
+
+                self.azimuth_spinner = self.make_slider_and_spinner(135, 0, 360, 1, 10, 1)
+                self.azimuth_spinner['adj'].set_value(135)
+
+                self.azimuth_label.set_mnemonic_widget(self.azimuth_spinner['spinner'])
+                self.table.attach(self.azimuth_spinner['slider'], 1, 2, 8, 9)
+                self.table.attach(self.azimuth_spinner['spinner'], 2, 3, 8, 9)                
+
+#elevation
+                self.elevation_label = self.make_label("Light _elevation:")
+                self.table.attach(self.elevation_label, 0, 1, 9, 10)
+
+                self.elevation_spinner = self.make_slider_and_spinner(40, 0, 90, 0.5, 5, 1)
+                self.elevation_spinner['adj'].set_value(40)
+
+                self.elevation_label.set_mnemonic_widget(self.elevation_spinner['spinner'])
+                self.table.attach(self.elevation_spinner['slider'], 1, 2, 9, 10)
+                self.table.attach(self.elevation_spinner['spinner'], 2, 3, 9, 10)
+
+#depth
+                self.depth_label = self.make_label("D_epth:")
+                self.table.attach(self.depth_label, 0, 1, 10, 11)
+
+                self.depth_spinner = self.make_slider_and_spinner(5, 1, 100, 1, 10, 0)
+                self.depth_spinner['adj'].set_value(5)
+
+                self.depth_label.set_mnemonic_widget(self.depth_spinner['spinner'])
+                self.table.attach(self.depth_spinner['slider'], 1, 2, 10, 11)
+                self.table.attach(self.depth_spinner['spinner'], 2, 3, 10, 11)
+
+#opacity
+                self.opacity_label = self.make_label("Opa_city:")
+                self.table.attach(self.opacity_label, 0, 1, 11, 12)
+
+                self.opacity_spinner = self.make_slider_and_spinner(100, 0, 100, 1, 10, 1)
+                self.opacity_spinner['adj'].set_value(100)
+
+                self.opacity_label.set_mnemonic_widget(self.opacity_spinner['spinner'])
+                self.table.attach(self.opacity_spinner['slider'], 1, 2, 11, 12)
+                self.table.attach(self.opacity_spinner['spinner'], 2, 3, 11, 12)
+
+#end parameters
+                
+#find saved parameters if any
+                d = self.restore_values()
+                if not d == None:
+                        self.lmode_box.set_active(int(d[0]))
+                        self.seed_spinner['adj'].set_value(float(d[1]))
+                        self.detail_spinner['adj'].set_value(float(d[2]))
+                        self.xsize_spinner['adj'].set_value(float(d[3]))
+                        self.ysize_spinner['adj'].set_value(float(d[4]))
+                        self.anoise_spinner['adj'].set_value(float(d[5]))
+                        self.preblur_spinner['adj'].set_value(float(d[6]))
+                        self.azimuth_spinner['adj'].set_value(float(d[7]))
+                        self.elevation_spinner['adj'].set_value(float(d[8]))
+                        self.depth_spinner['adj'].set_value(float(d[9]))
+                        self.opacity_spinner['adj'].set_value(float(d[10]))
+                        
+
+#buttons
+                
+                self.dialog.vbox.hbox1 = gtk.HBox(False, 7)
+                self.dialog.vbox.hbox1.show()
+                self.dialog.vbox.pack_start(self.dialog.vbox.hbox1, True, True, 7)
+                self.dialog.vbox.hbox1.pack_start(self.table, True, True, 7)
+
+                reset_button = gtk.Button("_Reset")
+                reset_button.connect("clicked", self.resetbutton)
+                reset_button.show()
+
+                self.preview_button = gtk.Button("Preview")
+                self.preview_button.connect("clicked", self.preview)
+                self.preview_button.set_size_request(100, -1)
+                self.preview_button.show()
+
+                self.dialog.action_area.add(reset_button)
+                self.dialog.action_area.add(self.preview_button)
+                
+                cancel_button = self.dialog.add_button(gtk.STOCK_CANCEL, gtk.RESPONSE_CANCEL)
+                ok_button = self.dialog.add_button(gtk.STOCK_OK, gtk.RESPONSE_OK)
+
+                ok_button.connect("clicked", self.okbutton)
+                cancel_button.connect("clicked", self.cancelbutton)
+
+                self.dialog.show()
+                self.dialog.run()
+                self.removePreviews()
+
+        def setparams(self):                
+                self.fxParams[0] = self.lmode_box.get_active()                
+                self.fxParams[1] = self.seed_spinner['adj'].get_value()
+                self.fxParams[2] = self.detail_spinner['adj'].get_value()
+                self.fxParams[3] = self.xsize_spinner['adj'].get_value()
+                self.fxParams[4] = self.ysize_spinner['adj'].get_value()
+                self.fxParams[5] = self.anoise_spinner['adj'].get_value()
+                self.fxParams[6] = self.preblur_spinner['adj'].get_value()
+                self.fxParams[7] = self.azimuth_spinner['adj'].get_value()
+                self.fxParams[8] = self.elevation_spinner['adj'].get_value()
+                self.fxParams[9] = self.depth_spinner['adj'].get_value()
+                self.fxParams[10] = self.opacity_spinner['adj'].get_value()
+
+        def seedbutton(self, widget):                
+                r = random.Random()
+                
+                val = r.randrange(0, 4294967296)
+                
+                self.seed_spinner['adj'].set_value(val)
+
+        def cancelbutton(self, widget):
+                if self.layer_exists(self.previewLayer):
+                        self.img.remove_layer(self.previewLayer)
+                        self.previewLayer = None       
+
+        def okbutton(self, widget):
+                # remove old preview layer if it exists
+                if self.layer_exists(self.previewLayer):
+                        self.img.remove_layer(self.previewLayer)
+                        self.previewLayer = None
+                # get values of the settings and save to parasite
+                self.setparams()                
+                self.save_values()
+                # then build new layer with current settings 
+                fxlayer = self.makeLayer()
+
+
+        def resetbutton(self, widget):
+               self.lmode_box.set_active(HARDLIGHT_MODE)
+               self.seed_spinner['adj'].set_value(0)
+               self.detail_spinner['adj'].set_value(7)
+               self.xsize_spinner['adj'].set_value(4)
+               self.ysize_spinner['adj'].set_value(4)
+               self.anoise_spinner['adj'].set_value(0)
+               self.preblur_spinner['adj'].set_value(0.5)
+               self.azimuth_spinner['adj'].set_value(135)
+               self.elevation_spinner['adj'].set_value(40)
+               self.depth_spinner['adj'].set_value(5)
+               self.opacity_spinner['adj'].set_value(100)
+
+
+        def preview(self, widget):
+                ptxt = self.preview_button.get_label()
+
+                if self.layer_exists(self.previewLayer):
+                        self.img.remove_layer(self.previewLayer)
+                        gimp.displays_flush()
+
+                else:                     
+                        self.setparams()
+                        self.previewLayer = self.makeLayer()
+
+
+                if ptxt == "Preview":
+                        ptxt = "Undo Preview"
+                else:
+                        ptxt = "Preview"
+                self.preview_button.set_label(ptxt)
+
+
+        def makeLayer(self):
+                timg = self.img
+                tdrawable = self.drawable
+                lmode = self.fxParams[0]
+                seed = self.fxParams[1]
+                detail = self.fxParams[2]
+                xsize = self.fxParams[3]
+                ysize = self.fxParams[4]
+                anoise = self.fxParams[5]
+                preblur = self.fxParams[6]
+                azimuth = self.fxParams[7]
+                elevation = self.fxParams[8]
+                depth = self.fxParams[9]
+                opacity = self.fxParams[10]
+                
+
+                if timg.base_type is RGB:
+                        ltype = RGBA_IMAGE
+                else:
+                        ltype = GRAYA_IMAGE
+
+        #save context and start undo group        
+                gimp.context_push()
+                timg.undo_group_start()
+
+        #create texture layer
+                newlayer = gimp.Layer(timg, "Texture", timg.width, timg.height, ltype, opacity, lmode)
+                newlayer.fill(TRANSPARENT_FILL)
+
+        #get active layer and add above it
+                timg.add_layer(newlayer, -1)
+
+        #save selection to temporary channel
+                tmpchan = pdb.gimp_selection_save(timg)
+                
+        #select all...
+                pdb.gimp_selection_all(timg)
+
+        #noise...	
+                pdb.plug_in_solid_noise(timg, newlayer, 0, 0, seed, detail, xsize, ysize)
+
+        #additional noise
+                if anoise > 0:
+                        pdb.plug_in_hsv_noise(timg, newlayer, 4, 0, 0, anoise)
+
+        #blur
+                if preblur > 0:
+                        pdb.plug_in_gauss_rle(timg, newlayer, preblur, 1, 1)
+
+        #emboss	
+                pdb.plug_in_emboss(timg, newlayer, azimuth, elevation, depth, 1)
+
+        #reload selection, mask with selection
+                pdb.gimp_selection_load(tmpchan)
+                mask = pdb.gimp_layer_create_mask(newlayer, 4)
+                pdb.gimp_layer_add_mask(newlayer, mask)
+                
+                
+        #delete temp channel, end undo group
+                timg.remove_channel(tmpchan)
+                        
+                gimp.context_pop()
+                timg.undo_group_end()
+                return newlayer
+
+
+class pyTexture(gimpplugin.plugin):
+        def start(self):
+                gimp.main(self.init, self.quit, self.query, self._run)
+
+        def init(self):
+                pass
+
+        def quit(self):
+                pass
+
+        def query(self):
+                authorname = "dd"
+                copyrightname = "dd"
+                menu_location = "<Image>/Filters/Render/Texture..."
+                date = "2011"
+                plug_description = "Creates an embossed texture"
+                plug_help = "Creates an embossed texture"
+                plug_params = [
+                        (PDB_INT32, "run_mode", "Run mode"),
+                        (PDB_IMAGE, "image", "Input image"),
+                        (PDB_DRAWABLE, "drawable", "Input drawable"),
+                        ####### 3 params above needed by all scripts using gimpplugin.plugin ######################
+                        (PDB_FLOAT, "first", "The first"),
+                        (PDB_FLOAT, "second", "The second")
+                        ]
+
+                gimp.install_procedure("py_texture",
+                        plug_description,
+                        plug_help,
+                        authorname,
+                        copyrightname,
+                        date,
+                        menu_location,
+                        "RGB*, GRAY*",
+                        PLUGIN,
+                        plug_params,
+                        [])
+
+        def py_texture(self, runmode, img, drawable, lmode=HARDLIGHT_MODE, seed=0, detail=7, xsize=4.0, ysize=4.0, anoise=0, preblur=0.5, azimuth=135, elevation=40, depth=5, opacity=100):
+                texture(runmode, img, drawable, lmode, seed, detail, xsize, ysize, anoise, preblur, azimuth, elevation, depth, opacity)
+
+if __name__ == '__main__':
+        pyTexture().start()

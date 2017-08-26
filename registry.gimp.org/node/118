@@ -1,0 +1,534 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML+RDFa 1.0//EN"
+  "http://www.w3.org/MarkUp/DTD/xhtml-rdfa-1.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" version="XHTML+RDFa 1.0" dir="ltr">
+
+<head profile="http://www.w3.org/1999/xhtml/vocab">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="shortcut icon" href="../files/favicon.png" type="image/png" />
+<link rel="alternate" type="application/rss+xml" title="Comments for &quot;Line Border&quot;" href="../crss/node/118" />
+<link rel="canonical" href="118" />
+<meta name="Generator" content="Drupal 7 (http://drupal.org)" />
+<link rel="shortlink" href="118" />
+  <title>Line Border | GIMP Plugin Registry</title>
+  <style type="text/css" media="all">@import url("../modules/system/system.base.css?n48fl6");
+@import url("../modules/system/system.menus.css?n48fl6");
+@import url("../modules/system/system.messages.css?n48fl6");
+@import url("../modules/system/system.theme.css?n48fl6");</style>
+<style type="text/css" media="all">@import url("../modules/aggregator/aggregator.css?n48fl6");
+@import url("../modules/book/book.css?n48fl6");
+@import url("../modules/comment/comment.css?n48fl6");
+@import url("../sites/all/modules/date/date_api/date.css?n48fl6");
+@import url("../sites/all/modules/date/date_popup/themes/datepicker.1.7.css?n48fl6");
+@import url("../sites/all/modules/date/date_repeat_field/date_repeat_field.css?n48fl6");
+@import url("../modules/field/theme/field.css?n48fl6");
+@import url("../sites/all/modules/mollom/mollom.css?n48fl6");
+@import url("../modules/node/node.css?n48fl6");
+@import url("../modules/poll/poll.css?n48fl6");
+@import url("../modules/search/search.css?n48fl6");
+@import url("../modules/user/user.css?n48fl6");
+@import url("../modules/forum/forum.css?n48fl6");
+@import url("../sites/all/modules/views/css/views.css?n48fl6");</style>
+<style type="text/css" media="all">@import url("../sites/all/modules/ctools/css/ctools.css?n48fl6");
+@import url("../sites/all/modules/rate/rate.css?n48fl6");
+@import url("../sites/all/modules/tagclouds/tagclouds.css?n48fl6");
+@import url("../sites/all/modules/panels/css/panels.css?n48fl6");
+@import url("../sites/all/modules/best_answer/best_answer.css?n48fl6");
+@import url("../sites/all/modules/rate/templates/fivestar/fivestar.css?n48fl6");</style>
+<style type="text/css" media="all">@import url("../files/color/garland-5ac73a91/style.css?n48fl6");</style>
+<style type="text/css" media="print">@import url("../themes/garland/print.css?n48fl6");</style>
+
+<!--[if lt IE 7]>
+<link type="text/css" rel="stylesheet" href="http://registry.gimp.org/themes/garland/fix-ie.css?n48fl6" media="all" />
+<![endif]-->
+  <script type="text/javascript" src="../misc/jquery.js?v=1.4.4"></script>
+<script type="text/javascript" src="../misc/jquery.once.js?v=1.2"></script>
+<script type="text/javascript" src="../misc/drupal.js?n48fl6"></script>
+<script type="text/javascript" src="../sites/all/modules/rate/rate.js?n48fl6"></script>
+<script type="text/javascript" src="../sites/all/modules/rate/templates/fivestar/fivestar.js?n48fl6"></script>
+<script type="text/javascript" src="../misc/tableheader.js?n48fl6"></script>
+<script type="text/javascript">
+<!--//--><![CDATA[//><!--
+jQuery.extend(Drupal.settings, {"basePath":"\/","pathPrefix":"","ajaxPageState":{"theme":"garland","theme_token":"1rq7ZAB8r7xotw61YI03qEgMcgfGEpIrJLKyoNCRW5w","js":{"misc\/jquery.js":1,"misc\/jquery.once.js":1,"misc\/drupal.js":1,"sites\/all\/modules\/rate\/rate.js":1,"sites\/all\/modules\/rate\/templates\/fivestar\/fivestar.js":1,"misc\/tableheader.js":1},"css":{"modules\/system\/system.base.css":1,"modules\/system\/system.menus.css":1,"modules\/system\/system.messages.css":1,"modules\/system\/system.theme.css":1,"modules\/aggregator\/aggregator.css":1,"modules\/book\/book.css":1,"modules\/comment\/comment.css":1,"sites\/all\/modules\/date\/date_api\/date.css":1,"sites\/all\/modules\/date\/date_popup\/themes\/datepicker.1.7.css":1,"sites\/all\/modules\/date\/date_repeat_field\/date_repeat_field.css":1,"modules\/field\/theme\/field.css":1,"sites\/all\/modules\/mollom\/mollom.css":1,"modules\/node\/node.css":1,"modules\/poll\/poll.css":1,"modules\/search\/search.css":1,"modules\/user\/user.css":1,"modules\/forum\/forum.css":1,"sites\/all\/modules\/views\/css\/views.css":1,"sites\/all\/modules\/ctools\/css\/ctools.css":1,"sites\/all\/modules\/rate\/rate.css":1,"sites\/all\/modules\/tagclouds\/tagclouds.css":1,"sites\/all\/modules\/panels\/css\/panels.css":1,"sites\/all\/modules\/best_answer\/best_answer.css":1,"sites\/all\/modules\/rate\/templates\/fivestar\/fivestar.css":1,"themes\/garland\/style.css":1,"themes\/garland\/print.css":1,"themes\/garland\/fix-ie.css":1}},"rate":{"basePath":"\/rate\/vote\/js","destination":"node\/118"}});
+//--><!]]>
+</script>
+</head>
+<body class="html not-front not-logged-in two-sidebars page-node page-node- page-node-118 node-type-scriptfu fluid-width" >
+  <div id="skip-link">
+    <a href="118#main-content" class="element-invisible element-focusable">Skip to main content</a>
+  </div>
+      
+  <div id="wrapper">
+    <div id="container" class="clearfix">
+
+      <div id="header">
+        <div id="logo-floater">
+                              <div id="branding"><strong><a href="../index.html">
+                          <img src="../files/logo.png" alt="GIMP Plugin Registry " title="GIMP Plugin Registry " id="logo" />
+                        <span>GIMP Plugin Registry</span>            </a></strong></div>
+                          </div>
+
+        <h2 class="element-invisible">Main menu</h2><ul class="links inline main-menu"><li class="menu-100 first"><a href="../about" title="Information about the Registry">About</a></li>
+<li class="menu-136"><a href="23851" title="Documentation and How-Tos">Documentation</a></li>
+<li class="menu-88"><a href="../forum">Forums</a></li>
+<li class="menu-74"><a href="http://gug.criticalhit.dk" title="The GIMP User Group">GIMP User Group</a></li>
+<li class="menu-1142"><a href="25574" title="GIMP Help">Get Help</a></li>
+<li class="menu-1256"><a href="26216" title="Get info on using RSS to stay updated about what&#039;s going on on the site.">Stay Updated!</a></li>
+<li class="menu-73 last"><a href="http://www.gimp.org/" title="The GIMP Homepage">gimp.org</a></li>
+</ul>              </div> <!-- /#header -->
+
+              <div id="sidebar-first" class="sidebar">
+            <div class="region region-sidebar-first">
+    <div id="block-system-navigation" class="block block-system block-menu clearfix">
+
+    <h2 class="title">Navigation</h2>
+  
+  <div class="content">
+    <ul class="menu"><li class="first leaf"><a href="25574" title="FAQ &amp; How To&#039;s">FAQ &amp; How To&#039;s</a></li>
+<li class="leaf"><a href="../glossary.1" title="">Content By Name</a></li>
+<li class="collapsed"><a href="../aggregator">Feed aggregator</a></li>
+<li class="leaf"><a href="../popular">Popular content</a></li>
+<li class="leaf"><a href="25392" title="Report Spam Here">Report Spam Here</a></li>
+<li class="last leaf"><a href="../tagclouds">Tags</a></li>
+</ul>  </div>
+</div>
+<div id="block-block-1" class="block block-block clearfix">
+
+    
+  <div class="content">
+    If you'd like to upload plug-ins, please create an account below. You do <em>not</em> need one for download. Enjoy :-)  </div>
+</div>
+<div id="block-user-login" class="block block-user clearfix">
+
+    <h2 class="title">User login</h2>
+  
+  <div class="content">
+    <form action="http://registry.gimp.org/node/118?destination=node/118" method="post" id="user-login-form" accept-charset="UTF-8"><div><div class="form-item form-type-textfield form-item-name">
+  <label for="edit-name">Username <span class="form-required" title="This field is required.">*</span></label>
+ <input type="text" id="edit-name" name="name" value="" size="15" maxlength="60" class="form-text required" />
+</div>
+<div class="form-item form-type-password form-item-pass">
+  <label for="edit-pass">Password <span class="form-required" title="This field is required.">*</span></label>
+ <input type="password" id="edit-pass" name="pass" size="15" maxlength="128" class="form-text required" />
+</div>
+<div class="item-list"><ul><li class="first last"><a href="../user/password" title="Request new password via e-mail.">Request new password</a></li>
+</ul></div><input type="hidden" name="form_build_id" value="form-jlPyojlIR1BsPw5_5GiYEc0DiOq4L9DZHdaBcnyp7m8" />
+<input type="hidden" name="form_id" value="user_login_block" />
+<div class="form-actions form-wrapper" id="edit-actions"><input type="submit" id="edit-submit" name="op" value="Log in" class="form-submit" /></div></div></form>  </div>
+</div>
+<div id="block-node-syndicate" class="block block-node clearfix">
+
+    <h2 class="title">Syndicate</h2>
+  
+  <div class="content">
+    <a href="../rss.xml" class="feed-icon" title="Subscribe to Syndicate"><img src="../misc/feed.png" width="16" height="16" alt="Subscribe to Syndicate" /></a>  </div>
+</div>
+  </div>
+        </div>
+      
+      <div id="center"><div id="squeeze"><div class="right-corner"><div class="left-corner">
+          <h2 class="element-invisible">You are here</h2><div class="breadcrumb"><a href="../index.html">Home</a></div>                    <a id="main-content"></a>
+          <div id="tabs-wrapper" class="clearfix">                                <h1 class="with-tabs">Line Border</h1>
+                              </div>                                                  <div class="clearfix">
+              <div class="region region-content">
+    <div id="block-system-main" class="block block-system clearfix">
+
+    
+  <div class="content">
+    <div id="node-118" class="node node-scriptfu node-promoted">
+
+  
+      
+      <span class="submitted">January 7, 2008 - 23:06 — <span class="username">mkyral</span></span>
+  
+  <div class="content clearfix">
+    <div class="form-item form-type-item">
+  <label>Rate </label>
+ <div class="rate-widget-2 rate-widget clear-block rate-average rate-widget-fivestar rate-e82fa49d14d73b7c4ac61625b878c496 rate-node-118-2-3" id="rate-node-118-2-3"><div class="item-list"><ul><li class="first"><span class="rate-button rate-fivestar-btn-empty rate-fivestar-1" id="rate-button-1">1</span></li>
+<li><span class="rate-button rate-fivestar-btn-empty rate-fivestar-2" id="rate-button-2">2</span></li>
+<li><span class="rate-button rate-fivestar-btn-empty rate-fivestar-3" id="rate-button-3">3</span></li>
+<li><span class="rate-button rate-fivestar-btn-empty rate-fivestar-4" id="rate-button-4">4</span></li>
+<li class="last"><span class="rate-button rate-fivestar-btn-empty rate-fivestar-5" id="rate-button-5">5</span></li>
+</ul></div><div class="rate-info">Total votes: 0</div><div class="rate-description">Rate this item!</div></div>
+</div>
+<div class="field field-name-upload field-type-file field-label-hidden"><div class="field-items"><div class="field-item even"><table class="sticky-enabled">
+ <thead><tr><th>Attachment</th><th>Size</th> </tr></thead>
+<tbody>
+ <tr class="odd"><td><span class="file"><img class="file-icon" alt="" title="application/octet-stream" src="../modules/file/icons/application-octet-stream.png" /> <a href="../files/kym-Border.scm" type="application/octet-stream; length=15404" title="kym-Border.scm">kym-Border.scm</a></span></td><td>15.04 KB</td> </tr>
+</tbody>
+</table>
+</div></div></div><div class="field field-name-body field-type-text-with-summary field-label-hidden"><div class="field-items"><div class="field-item even"><p>A script to create a border around an image. Border can contains additional lines (inner and outer). Size of lines and distance to image/border can be set independently. The bottom border can be extended and can contains text. There is no auto extension according to text size. The text is always in the middle of the bottom border.</p>
+<p>(based on Eg-Border.scm script)</p>
+<p><strong>NOTE:</strong> I've created a new version in python and this version have much more functionality and uses own dialog, so it fits to screen ;-)  Check it at: <a href="24784">http://registry.gimp.org/node/24784</a>.</p>
+<p><strong>The script is installed under Filters/Decor/Borders.</strong></p>
+<p>Example:<br /><img src="http://marian.kyralovi.cz/linux/gimp_link_border/img/bordered_image_1_v1.3.jpg" /></p>
+<p>Script dialog:<br /><img src="http://marian.kyralovi.cz/linux/gimp_link_border/img/dialog_ss_v1.3.png" /></p>
+<p><strong>Changelog</strong>:<br />
+08.10.2008 - v1.4</p>
+<ul><li>CHANGE: Fixed to work with gimp 2.6</li>
+</ul><p>12.07.2008 - v1.3</p>
+<ul><li>CHANGE: Outer line size is independent on inner line size</li>
+<li>ADD: Distance between inner line and image</li>
+<li>ADD: Distance between outer line and border</li>
+</ul><p>13.06.2008 - v1.2</p>
+<ul><li>ADD: The size of the bottom border can be extended</li>
+<li>ADD: Text in the border</li>
+</ul><p>More examples:<br /><img src="http://marian.kyralovi.cz/linux/gimp_link_border/img/bordered_image_2_v1.3.jpg" /><br /><img src="http://marian.kyralovi.cz/linux/gimp_link_border/img/bordered_image_3_v1.3.jpg" /></p>
+</div></div></div><div class="field field-name-taxonomy-vocabulary-7 field-type-taxonomy-term-reference field-label-inline clearfix"><div class="field-label">Code License:&nbsp;</div><div class="field-items"><div class="field-item even"><a href="../taxonomy/term/43">GPLv2+</a></div></div></div><div class="field field-name-taxonomy-vocabulary-5 field-type-taxonomy-term-reference field-label-inline clearfix"><div class="field-label">Tags:&nbsp;</div><div class="field-items"><div class="field-item even"><a href="../taxonomy/term/88">border</a></div><div class="field-item odd"><a href="../taxonomy/term/117">text</a></div><div class="field-item even"><a href="../taxonomy/term/157">photo</a></div><div class="field-item odd"><a href="../taxonomy/term/1157">line</a></div></div></div><div class="field field-name-taxonomy-vocabulary-1 field-type-taxonomy-term-reference field-label-inline clearfix"><div class="field-label">GIMP Version:&nbsp;</div><div class="field-items"><div class="field-item even"><a href="../taxonomy/term/25">2.4</a></div><div class="field-item odd"><a href="../taxonomy/term/1">2.2</a></div><div class="field-item even"><a href="../taxonomy/term/523">2.6</a></div></div></div><div class="field field-name-taxonomy-vocabulary-3 field-type-taxonomy-term-reference field-label-inline clearfix"><div class="field-label">Scripting Engine:&nbsp;</div><div class="field-items"><div class="field-item even"><a href="../taxonomy/term/20">Script-Fu</a></div></div></div>  </div>
+
+  <div class="clearfix">
+          <div class="links"><ul class="links inline"><li class="comment_forbidden first last"><span><a href="../user/login?destination=comment%252Freply%252F118%2523comment-form">Log in</a> to post comments</span></li>
+</ul></div>
+    
+    <div id="comments" class="comment-wrapper">
+  
+          <h2 class="title">Comments</h2>
+      
+  <a id="comment-11738"></a>
+<div class="comment odd">
+
+  <div class="clearfix">
+
+    <span class="submitted">May 14, 2011 - 16:42 — <span class="username">ssuuddoo</span></span>
+
+  
+  
+        <h3><a href="../comment/11738#comment-11738" class="permalink" rel="bookmark">great</a></h3>
+    
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>thnx</p>
+</div></div></div>          </div>
+  </div>
+
+  <ul class="links inline"><li class="comment_forbidden first last"><span><a href="../user/login?destination=comment%252Freply%252F118%2523comment-form">Log in</a> to post comments</span></li>
+</ul></div>
+<a id="comment-9477"></a>
+<div class="comment even">
+
+  <div class="clearfix">
+
+    <span class="submitted">September 19, 2010 - 12:44 — <span class="username">RonBu</span></span>
+
+  
+  
+        <h3><a href="../comment/9477#comment-9477" class="permalink" rel="bookmark">Thanks for the Script</a></h3>
+    
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>Works a treat!  This will be really useful from my point of view and it's so versatile.  I have not mastered writing scripts yet so will find it a great help.  Thankyou for a great tool.</p>
+</div></div></div>          </div>
+  </div>
+
+  <ul class="links inline"><li class="comment_forbidden first last"><span><a href="../user/login?destination=comment%252Freply%252F118%2523comment-form">Log in</a> to post comments</span></li>
+</ul></div>
+<a id="comment-6093"></a>
+<div class="comment odd">
+
+  <div class="clearfix">
+
+    <span class="submitted">November 23, 2009 - 15:10 — <span class="username">mahvin</span></span>
+
+  
+  
+        <h3><a href="../comment/6093#comment-6093" class="permalink" rel="bookmark">Love this script, I have a request</a></h3>
+    
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>Thanks for making this script.</p>
+<p>I have one small problem. Is there a way you can add a scroll bar to the menu prompt for when you select the line border script?</p>
+<p>I have my screen resolution set for optimal viewing/performance and when the menu pops up, the bottom buttons are below the taskbar on my screen. I've tried using the tab, the page scroll buttons, and arrow keys, nothing could get the menu to move up. A scroll bar would would work perfectly, if its possible to do so.</p>
+</div></div></div>          </div>
+  </div>
+
+  <ul class="links inline"><li class="comment_forbidden first last"><span><a href="../user/login?destination=comment%252Freply%252F118%2523comment-form">Log in</a> to post comments</span></li>
+</ul></div>
+
+<div class="indented"><a id="comment-9802"></a>
+<div class="comment comment-by-node-author even">
+
+  <div class="clearfix">
+
+    <span class="submitted">October 22, 2010 - 05:34 — <span class="username">mkyral</span></span>
+
+  
+  
+        <h3><a href="../comment/9802#comment-9802" class="permalink" rel="bookmark">dialog size</a></h3>
+    
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>Hi,<br />
+unfortunately it is not possible in current gimp in script-fu engine. If you are on linux, should work ALT+m_mouse to move the dialog up and down.</p>
+<p>Now I'm working on python version which have solved this. Give me a ẅeek or two, I'll release an initial version.</p>
+</div></div></div>          </div>
+  </div>
+
+  <ul class="links inline"><li class="comment_forbidden first last"><span><a href="../user/login?destination=comment%252Freply%252F118%2523comment-form">Log in</a> to post comments</span></li>
+</ul></div>
+</div><a id="comment-1999"></a>
+<div class="comment odd">
+
+  <div class="clearfix">
+
+    <span class="submitted">January 6, 2009 - 23:58 — <span class="username">JacqDjo</span></span>
+
+  
+  
+        <h3><a href="../comment/1999#comment-1999" class="permalink" rel="bookmark">Line Border</a></h3>
+    
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even">Très bien et utile
+I hope :
+Large border also in % of image
+Angle with round (if possible)
+Sign (text,and color) in image with choice corner.</div></div></div>          </div>
+  </div>
+
+  <ul class="links inline"><li class="comment_forbidden first last"><span><a href="../user/login?destination=comment%252Freply%252F118%2523comment-form">Log in</a> to post comments</span></li>
+</ul></div>
+
+<div class="indented"><a id="comment-9409"></a>
+<div class="comment comment-by-node-author even">
+
+  <div class="clearfix">
+
+    <span class="submitted">September 12, 2010 - 08:22 — <span class="username">mkyral</span></span>
+
+  
+  
+        <h3><a href="../comment/9409#comment-9409" class="permalink" rel="bookmark">Suggestions</a></h3>
+    
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>JacqDjo:<br />
+&gt; Très bien et utile I hope : Large border also in % of image Angle with round (if possible) Sign (text,and color) in image with choice corner. </p>
+<p>Hi,<br />
+thanks for your suggestions. All is possible to realize, the only problem is current script-fu gui. Any new option in script will add next row to the dialog and dialog height will be greater that is height of standard screen (800/900 px). Split the whole dialog to more tabs would be great, but it is currently not possible in script-fu. Don't know if it is possible with python.</p>
+</div></div></div>          </div>
+  </div>
+
+  <ul class="links inline"><li class="comment_forbidden first last"><span><a href="../user/login?destination=comment%252Freply%252F118%2523comment-form">Log in</a> to post comments</span></li>
+</ul></div>
+
+<div class="indented"><a id="comment-9413"></a>
+<div class="comment odd">
+
+  <div class="clearfix">
+
+    <span class="submitted">September 12, 2010 - 12:53 — <span class="username">E. Sullock Enzlin</span></span>
+
+  
+  
+        <h3><a href="../comment/9413#comment-9413" class="permalink" rel="bookmark">Suggestions</a></h3>
+    
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p><cite>....the dialog and dialog height will be greater that is height of standard screen (800/900 px). Split the whole dialog to more tabs would be great, but it is currently not possible in script-fu. Don't know if it is possible with python.</cite></p>
+<p>Yes it is possible with python to split your dialog. I had the same problem with my dialog height while developing contactsheet v2.xx. So I made my dialog with glade and interfaced that to python, just have a look at contactsheet v3.xx (<a href="24503">http://registry.gimp.org/node/24503</a> --&gt; (du) manual) for the result, it fits within a 800x600 screen. But you can program your dialog also directly in Python but I found that more complicated. Look for instance at the gutenprint plugin (<a href="14567">http://registry.gimp.org/node/14567</a>).</p>
+</div></div></div>          </div>
+  </div>
+
+  <ul class="links inline"><li class="comment_forbidden first last"><span><a href="../user/login?destination=comment%252Freply%252F118%2523comment-form">Log in</a> to post comments</span></li>
+</ul></div>
+
+<div class="indented"><a id="comment-9624"></a>
+<div class="comment comment-by-node-author even">
+
+  <div class="clearfix">
+
+    <span class="submitted">September 30, 2010 - 14:46 — <span class="username">mkyral</span></span>
+
+  
+  
+        <h3><a href="../comment/9624#comment-9624" class="permalink" rel="bookmark">Thanks</a></h3>
+    
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>Thanks, it looks good.<br />
+I've finished a big project in work, so I hope to have more time now and I can look on it. I need to learn python first :-(</p>
+<p>Do you have some tip to a tutorial gimp+python+glade?</p>
+</div></div></div>          </div>
+  </div>
+
+  <ul class="links inline"><li class="comment_forbidden first last"><span><a href="../user/login?destination=comment%252Freply%252F118%2523comment-form">Log in</a> to post comments</span></li>
+</ul></div>
+
+<div class="indented"><a id="comment-9631"></a>
+<div class="comment odd">
+
+  <div class="clearfix">
+
+    <span class="submitted">September 30, 2010 - 22:40 — <span class="username">E. Sullock Enzlin</span></span>
+
+  
+  
+        <h3><a href="../comment/9631#comment-9631" class="permalink" rel="bookmark">tutorial gimp+python+glade</a></h3>
+    
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>For Python look at the python site: <a href="http://www.python.org/">http://www.python.org/</a> (a good book: <a href="http://diveintopython.org">http://diveintopython.org</a>)<br />
+For Glade look at: <a href="http://glade.gnome.org/">http://glade.gnome.org/</a></p>
+<p>Further you should study a few examples by Bootchk: <a href="24300">http://registry.gimp.org/node/24300</a> this is one of his good examples and study <a href="24503">http://registry.gimp.org/node/24503</a>.</p>
+<p>If you use windows to develop follow the installation notes on <a href="24503">http://registry.gimp.org/node/24503</a>. If you don't follow it Glade will not work together with Gimp. Same for Linux.</p>
+<p>If you use windows there is also a windows installer for glade version 3.7.1.</p>
+<p>A nice tutorial is written by Micah Carrick: <a href="http://www.micahcarrick.com/12-24-2007/gtk-glade-tutorial-part-1.html">www.micahcarrick.com/12-24-2007/gtk-glade-tutorial-part-1.html</a></p>
+</div></div></div>          </div>
+  </div>
+
+  <ul class="links inline"><li class="comment_forbidden first last"><span><a href="../user/login?destination=comment%252Freply%252F118%2523comment-form">Log in</a> to post comments</span></li>
+</ul></div>
+
+<div class="indented"><a id="comment-9733"></a>
+<div class="comment comment-by-node-author even">
+
+  <div class="clearfix">
+
+    <span class="submitted">October 12, 2010 - 22:15 — <span class="username">mkyral</span></span>
+
+  
+  
+        <h3><a href="../comment/9733#comment-9733" class="permalink" rel="bookmark">Thanks,
+I had some minor</a></h3>
+    
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>Thanks,<br />
+I had some minor issues, but now I've finished the simple conversion to python. It is still using the Gimp script parameters dialog, but have the same functionality. I've created a new project for it: <a href="24784">http://registry.gimp.org/node/24784</a></p>
+<p>Now the harder part, the Glade integration.</p>
+</div></div></div>          </div>
+  </div>
+
+  <ul class="links inline"><li class="comment_forbidden first last"><span><a href="../user/login?destination=comment%252Freply%252F118%2523comment-form">Log in</a> to post comments</span></li>
+</ul></div>
+</div></div></div></div></div>
+        </div>
+  </div>
+
+</div>
+  </div>
+</div>
+  </div>
+          </div>
+          <a href="../crss/node/118" class="feed-icon" title="Subscribe to Comments for &quot;Line Border&quot;"><img src="../misc/feed.png" width="16" height="16" alt="Subscribe to Comments for &quot;Line Border&quot;" /></a>            <div class="region region-footer">
+    <div id="block-block-5" class="block block-block clearfix">
+
+    
+  <div class="content">
+    Unless otherwise noted, the rights for the individual plugins are with their respective authors. Logo image by Jakub Steiner.
+<marquee style="width: 0px; position: absolute"> <a href="http://brazzersdeporno.com" title="porno">porno</a> - <a href="http://www.porno724.com/" target="_blank" title="Porno izle">Porno izle</a> <a href="http://www.yokyokpornolar.com/" target="_blank" title="porno abi">porno abi</a> </marquee>  </div>
+</div>
+  </div>
+      </div></div></div></div> <!-- /.left-corner, /.right-corner, /#squeeze, /#center -->
+
+              <div id="sidebar-second" class="sidebar">
+            <div class="region region-sidebar-second">
+    <div id="block-views-relevant-questions-block-1" class="block block-views clearfix">
+
+    <h2 class="title">Questions</h2>
+  
+  <div class="content">
+    <div class="view view-relevant-questions view-id-relevant_questions view-display-id-block_1 view-dom-id-0c6e7b54d2c1ab8215a755e5752749be">
+        
+  
+  
+      <div class="view-content">
+      <div class="item-list">    <ul>          <li class="views-row views-row-1 views-row-odd views-row-first views-row-last">  
+  <div class="views-field views-field-title">        <span class="field-content"><a href="27288">Line Border 2 doesn&#039;t work</a></span>  </div></li>
+      </ul></div>    </div>
+  
+  
+  
+  
+  
+  
+</div>  </div>
+</div>
+<div id="block-search-form" class="block block-search clearfix">
+
+    
+  <div class="content">
+    <form action="118" method="post" id="search-block-form" accept-charset="UTF-8"><div><div class="container-inline">
+      <h2 class="element-invisible">Search form</h2>
+    <div class="form-item form-type-textfield form-item-search-block-form">
+  <label class="element-invisible" for="edit-search-block-form--2">Search </label>
+ <input title="Enter the terms you wish to search for." type="text" id="edit-search-block-form--2" name="search_block_form" value="" size="15" maxlength="128" class="form-text" />
+</div>
+<div class="form-actions form-wrapper" id="edit-actions--2"><input type="submit" id="edit-submit--2" name="op" value="Search" class="form-submit" /></div><input type="hidden" name="form_build_id" value="form-E7h4xefLKPY1aojb19Xc3QRD1CiZ4Vb_5ocP1j280f8" />
+<input type="hidden" name="form_id" value="search_block_form" />
+</div>
+</div></form>  </div>
+</div>
+<div id="block-forum-active" class="block block-forum clearfix">
+
+    <h2 class="title">Active forum topics</h2>
+  
+  <div class="content">
+    <div class="item-list"><ul><li class="first"><a href="32356" title="3 comments">Can&#039;t access &quot;My account&quot;</a></li>
+<li><a href="32371">Delete account</a></li>
+<li class="last"><a href="32363">Outline</a></li>
+</ul></div><div class="more-link"><a href="../forum" title="Read the latest forum topics.">More</a></div>  </div>
+</div>
+<div id="block-views-newest-questions-block-1" class="block block-views clearfix">
+
+    <h2 class="title">Updated Questions</h2>
+  
+  <div class="content">
+    <div class="view view-newest-questions view-id-newest_questions view-display-id-block_1 view-dom-id-1ed436fee9ee4d88d22c22e6d2418c3c">
+        
+  
+  
+      <div class="view-content">
+      <div class="item-list">    <ul>          <li class="views-row views-row-1 views-row-odd views-row-first">  
+  <span class="views-field views-field-title">        <span class="field-content"><a href="32373">Shadow and Highlights Recovery - Adding group undo</a></span>  </span>  
+  <div class="views-field views-field-last-updated">    <span class="views-label views-label-last-updated">Last change</span>    <span class="field-content">3 hours 23 min</span>  </div>  
+  <div class="views-field views-field-field-answer-count">        <div class="field-content">No answers, yet!</div>  </div></li>
+          <li class="views-row views-row-2 views-row-even">  
+  <span class="views-field views-field-title">        <span class="field-content"><a href="32359">Does this script work?</a></span>  </span>  
+  <div class="views-field views-field-last-updated">    <span class="views-label views-label-last-updated">Last change</span>    <span class="field-content">4 months 2 weeks</span>  </div>  
+  <div class="views-field views-field-field-answer-count">        <div class="field-content">No answers, yet!</div>  </div></li>
+          <li class="views-row views-row-3 views-row-odd views-row-last">  
+  <span class="views-field views-field-title">        <span class="field-content"><a href="32349">File upload problem</a></span>  </span>  
+  <div class="views-field views-field-last-updated">    <span class="views-label views-label-last-updated">Last change</span>    <span class="field-content">6 months 35 min</span>  </div>  
+  <div class="views-field views-field-field-answer-count">        <div class="field-content">1 Answer(s)</div>  </div></li>
+      </ul></div>    </div>
+  
+  
+  
+      
+<div class="more-link">
+  <a href="../newest-questions">
+    more  </a>
+</div>
+  
+  
+  
+</div>  </div>
+</div>
+<div id="block-comment-recent" class="block block-comment clearfix">
+
+    <h2 class="title">Recent comments</h2>
+  
+  <div class="content">
+    <div class="item-list"><ul><li class="first"><a href="../comment/19262#comment-19262">Black triangles</a>&nbsp;<span>2 hours 29 min ago</span></li>
+<li><a href="../comment/19261#comment-19261">I use the Python version of</a>&nbsp;<span>4 days 4 hours ago</span></li>
+<li class="last"><a href="../comment/19260#comment-19260">I have the same problem too</a>&nbsp;<span>1 week 2 days ago</span></li>
+</ul></div>  </div>
+</div>
+<div id="block-node-recent" class="block block-node clearfix">
+
+    <h2 class="title">Recent content</h2>
+  
+  <div class="content">
+    <table>
+<tbody>
+ <tr class="odd"><td class="title-author"><div class="node-title"><a href="32373">Shadow and Highlights Recovery - Adding group undo</a></div><div class="node-author"><span class="username">programmer_ceds</span></div></td><td class="edit"></td><td class="delete"></td> </tr>
+ <tr class="even"><td class="title-author"><div class="node-title"><a href="32360">GIMP Plugin Registry in Lockdown mode</a></div><div class="node-author"><span class="username">schumaml</span></div></td><td class="edit"></td><td class="delete"></td> </tr>
+ <tr class="odd"><td class="title-author"><div class="node-title"><a href="32372">Split to Special PNG&#039;s</a></div><div class="node-author"><span class="username">Efenstor</span></div></td><td class="edit"></td><td class="delete"></td> </tr>
+ <tr class="even"><td class="title-author"><div class="node-title"><a href="32371">Delete account</a></div><div class="node-author"><span class="username">amarz82</span></div></td><td class="edit"></td><td class="delete"></td> </tr>
+ <tr class="odd"><td class="title-author"><div class="node-title"><a href="32370">Export with MozJPEG</a></div><div class="node-author"><span class="username">Efenstor</span></div></td><td class="edit"></td><td class="delete"></td> </tr>
+ <tr class="even"><td class="title-author"><div class="node-title"><a href="32369">Shadow and Highlights Recovery</a></div><div class="node-author"><span class="username">erwinsoo</span></div></td><td class="edit"></td><td class="delete"></td> </tr>
+ <tr class="odd"><td class="title-author"><div class="node-title"><a href="27656">GIMP Extensions Pack for Windows</a></div><div class="node-author"><span class="username">GIMP Extensions</span></div></td><td class="edit"></td><td class="delete"></td> </tr>
+ <tr class="even"><td class="title-author"><div class="node-title"><a href="32341">Removed...</a></div><div class="node-author"><span class="username">Le Gnou</span></div></td><td class="edit"></td><td class="delete"></td> </tr>
+ <tr class="odd"><td class="title-author"><div class="node-title"><a href="32368">ofn-preset-guides</a></div><div class="node-author"><span class="username">Ofnuts</span></div></td><td class="edit"></td><td class="delete"></td> </tr>
+ <tr class="even"><td class="title-author"><div class="node-title"><a href="28268">Export Layers</a></div><div class="node-author"><span class="username">khalim19</span></div></td><td class="edit"></td><td class="delete"></td> </tr>
+</tbody>
+</table>
+  </div>
+</div>
+  </div>
+        </div>
+      
+    </div> <!-- /#container -->
+  </div> <!-- /#wrapper -->
+  </body>
+</html>

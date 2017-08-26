@@ -1,0 +1,483 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML+RDFa 1.0//EN"
+  "http://www.w3.org/MarkUp/DTD/xhtml-rdfa-1.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" version="XHTML+RDFa 1.0" dir="ltr">
+
+<head profile="http://www.w3.org/1999/xhtml/vocab">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="shortcut icon" href="../files/favicon.png" type="image/png" />
+<link rel="alternate" type="application/rss+xml" title="Comments for &quot;3-D Rotation Script&quot;" href="../crss/node/25104" />
+<link rel="canonical" href="25104" />
+<meta name="Generator" content="Drupal 7 (http://drupal.org)" />
+<link rel="shortlink" href="25104" />
+  <title>3-D Rotation Script | GIMP Plugin Registry</title>
+  <style type="text/css" media="all">@import url("../modules/system/system.base.css?n48fl6");
+@import url("../modules/system/system.menus.css?n48fl6");
+@import url("../modules/system/system.messages.css?n48fl6");
+@import url("../modules/system/system.theme.css?n48fl6");</style>
+<style type="text/css" media="all">@import url("../modules/aggregator/aggregator.css?n48fl6");
+@import url("../modules/book/book.css?n48fl6");
+@import url("../modules/comment/comment.css?n48fl6");
+@import url("../sites/all/modules/date/date_api/date.css?n48fl6");
+@import url("../sites/all/modules/date/date_popup/themes/datepicker.1.7.css?n48fl6");
+@import url("../sites/all/modules/date/date_repeat_field/date_repeat_field.css?n48fl6");
+@import url("../modules/field/theme/field.css?n48fl6");
+@import url("../sites/all/modules/mollom/mollom.css?n48fl6");
+@import url("../modules/node/node.css?n48fl6");
+@import url("../modules/poll/poll.css?n48fl6");
+@import url("../modules/search/search.css?n48fl6");
+@import url("../modules/user/user.css?n48fl6");
+@import url("../modules/forum/forum.css?n48fl6");
+@import url("../sites/all/modules/views/css/views.css?n48fl6");</style>
+<style type="text/css" media="all">@import url("../sites/all/modules/ctools/css/ctools.css?n48fl6");
+@import url("../sites/all/modules/rate/rate.css?n48fl6");
+@import url("../sites/all/modules/tagclouds/tagclouds.css?n48fl6");
+@import url("../sites/all/modules/panels/css/panels.css?n48fl6");
+@import url("../sites/all/modules/best_answer/best_answer.css?n48fl6");
+@import url("../sites/all/modules/rate/templates/fivestar/fivestar.css?n48fl6");</style>
+<style type="text/css" media="all">@import url("../files/color/garland-5ac73a91/style.css?n48fl6");</style>
+<style type="text/css" media="print">@import url("../themes/garland/print.css?n48fl6");</style>
+
+<!--[if lt IE 7]>
+<link type="text/css" rel="stylesheet" href="http://registry.gimp.org/themes/garland/fix-ie.css?n48fl6" media="all" />
+<![endif]-->
+  <script type="text/javascript" src="../misc/jquery.js?v=1.4.4"></script>
+<script type="text/javascript" src="../misc/jquery.once.js?v=1.2"></script>
+<script type="text/javascript" src="../misc/drupal.js?n48fl6"></script>
+<script type="text/javascript" src="../sites/all/modules/rate/rate.js?n48fl6"></script>
+<script type="text/javascript" src="../sites/all/modules/rate/templates/fivestar/fivestar.js?n48fl6"></script>
+<script type="text/javascript" src="../misc/tableheader.js?n48fl6"></script>
+<script type="text/javascript">
+<!--//--><![CDATA[//><!--
+jQuery.extend(Drupal.settings, {"basePath":"\/","pathPrefix":"","ajaxPageState":{"theme":"garland","theme_token":"To5inOclo0DkSdqu9L0yXLbK1XQbHlUcESNCQgCZOf8","js":{"misc\/jquery.js":1,"misc\/jquery.once.js":1,"misc\/drupal.js":1,"sites\/all\/modules\/rate\/rate.js":1,"sites\/all\/modules\/rate\/templates\/fivestar\/fivestar.js":1,"misc\/tableheader.js":1},"css":{"modules\/system\/system.base.css":1,"modules\/system\/system.menus.css":1,"modules\/system\/system.messages.css":1,"modules\/system\/system.theme.css":1,"modules\/aggregator\/aggregator.css":1,"modules\/book\/book.css":1,"modules\/comment\/comment.css":1,"sites\/all\/modules\/date\/date_api\/date.css":1,"sites\/all\/modules\/date\/date_popup\/themes\/datepicker.1.7.css":1,"sites\/all\/modules\/date\/date_repeat_field\/date_repeat_field.css":1,"modules\/field\/theme\/field.css":1,"sites\/all\/modules\/mollom\/mollom.css":1,"modules\/node\/node.css":1,"modules\/poll\/poll.css":1,"modules\/search\/search.css":1,"modules\/user\/user.css":1,"modules\/forum\/forum.css":1,"sites\/all\/modules\/views\/css\/views.css":1,"sites\/all\/modules\/ctools\/css\/ctools.css":1,"sites\/all\/modules\/rate\/rate.css":1,"sites\/all\/modules\/tagclouds\/tagclouds.css":1,"sites\/all\/modules\/panels\/css\/panels.css":1,"sites\/all\/modules\/best_answer\/best_answer.css":1,"sites\/all\/modules\/rate\/templates\/fivestar\/fivestar.css":1,"themes\/garland\/style.css":1,"themes\/garland\/print.css":1,"themes\/garland\/fix-ie.css":1}},"rate":{"basePath":"\/rate\/vote\/js","destination":"node\/25104"}});
+//--><!]]>
+</script>
+</head>
+<body class="html not-front not-logged-in two-sidebars page-node page-node- page-node-25104 node-type-scriptfu fluid-width" >
+  <div id="skip-link">
+    <a href="25104#main-content" class="element-invisible element-focusable">Skip to main content</a>
+  </div>
+      
+  <div id="wrapper">
+    <div id="container" class="clearfix">
+
+      <div id="header">
+        <div id="logo-floater">
+                              <div id="branding"><strong><a href="../index.html">
+                          <img src="../files/logo.png" alt="GIMP Plugin Registry " title="GIMP Plugin Registry " id="logo" />
+                        <span>GIMP Plugin Registry</span>            </a></strong></div>
+                          </div>
+
+        <h2 class="element-invisible">Main menu</h2><ul class="links inline main-menu"><li class="menu-100 first"><a href="../about" title="Information about the Registry">About</a></li>
+<li class="menu-136"><a href="23851" title="Documentation and How-Tos">Documentation</a></li>
+<li class="menu-88"><a href="../forum">Forums</a></li>
+<li class="menu-74"><a href="http://gug.criticalhit.dk" title="The GIMP User Group">GIMP User Group</a></li>
+<li class="menu-1142"><a href="25574" title="GIMP Help">Get Help</a></li>
+<li class="menu-1256"><a href="26216" title="Get info on using RSS to stay updated about what&#039;s going on on the site.">Stay Updated!</a></li>
+<li class="menu-73 last"><a href="http://www.gimp.org/" title="The GIMP Homepage">gimp.org</a></li>
+</ul>              </div> <!-- /#header -->
+
+              <div id="sidebar-first" class="sidebar">
+            <div class="region region-sidebar-first">
+    <div id="block-system-navigation" class="block block-system block-menu clearfix">
+
+    <h2 class="title">Navigation</h2>
+  
+  <div class="content">
+    <ul class="menu"><li class="first leaf"><a href="25574" title="FAQ &amp; How To&#039;s">FAQ &amp; How To&#039;s</a></li>
+<li class="leaf"><a href="../glossary.1" title="">Content By Name</a></li>
+<li class="collapsed"><a href="../aggregator">Feed aggregator</a></li>
+<li class="leaf"><a href="../popular">Popular content</a></li>
+<li class="leaf"><a href="25392" title="Report Spam Here">Report Spam Here</a></li>
+<li class="last leaf"><a href="../tagclouds">Tags</a></li>
+</ul>  </div>
+</div>
+<div id="block-block-1" class="block block-block clearfix">
+
+    
+  <div class="content">
+    If you'd like to upload plug-ins, please create an account below. You do <em>not</em> need one for download. Enjoy :-)  </div>
+</div>
+<div id="block-user-login" class="block block-user clearfix">
+
+    <h2 class="title">User login</h2>
+  
+  <div class="content">
+    <form action="http://registry.gimp.org/node/25104?destination=node/25104" method="post" id="user-login-form" accept-charset="UTF-8"><div><div class="form-item form-type-textfield form-item-name">
+  <label for="edit-name">Username <span class="form-required" title="This field is required.">*</span></label>
+ <input type="text" id="edit-name" name="name" value="" size="15" maxlength="60" class="form-text required" />
+</div>
+<div class="form-item form-type-password form-item-pass">
+  <label for="edit-pass">Password <span class="form-required" title="This field is required.">*</span></label>
+ <input type="password" id="edit-pass" name="pass" size="15" maxlength="128" class="form-text required" />
+</div>
+<div class="item-list"><ul><li class="first last"><a href="../user/password" title="Request new password via e-mail.">Request new password</a></li>
+</ul></div><input type="hidden" name="form_build_id" value="form-fi82fVnIVE7nZ-NFiGkV6_YBjwz3gXMc9_z4jtv_NI4" />
+<input type="hidden" name="form_id" value="user_login_block" />
+<div class="form-actions form-wrapper" id="edit-actions"><input type="submit" id="edit-submit" name="op" value="Log in" class="form-submit" /></div></div></form>  </div>
+</div>
+<div id="block-node-syndicate" class="block block-node clearfix">
+
+    <h2 class="title">Syndicate</h2>
+  
+  <div class="content">
+    <a href="../rss.xml" class="feed-icon" title="Subscribe to Syndicate"><img src="../misc/feed.png" width="16" height="16" alt="Subscribe to Syndicate" /></a>  </div>
+</div>
+  </div>
+        </div>
+      
+      <div id="center"><div id="squeeze"><div class="right-corner"><div class="left-corner">
+          <h2 class="element-invisible">You are here</h2><div class="breadcrumb"><a href="../index.html">Home</a></div>                    <a id="main-content"></a>
+          <div id="tabs-wrapper" class="clearfix">                                <h1 class="with-tabs">3-D Rotation Script</h1>
+                              </div>                                                  <div class="clearfix">
+              <div class="region region-content">
+    <div id="block-system-main" class="block block-system clearfix">
+
+    
+  <div class="content">
+    <div id="node-25104" class="node node-scriptfu node-promoted">
+
+  
+      
+      <span class="submitted">March 5, 2011 - 13:28 — <span class="username">sambrookjm</span></span>
+  
+  <div class="content clearfix">
+    <div class="form-item form-type-item">
+  <label>Rate </label>
+ <div class="rate-widget-2 rate-widget clear-block rate-average rate-widget-fivestar rate-bfd9e5fb07ca8de38d710f2b1b325195 rate-node-25104-2-3" id="rate-node-25104-2-3"><div class="item-list"><ul><li class="first"><span class="rate-button rate-fivestar-btn-empty rate-fivestar-1" id="rate-button-1">1</span></li>
+<li><span class="rate-button rate-fivestar-btn-empty rate-fivestar-2" id="rate-button-2">2</span></li>
+<li><span class="rate-button rate-fivestar-btn-empty rate-fivestar-3" id="rate-button-3">3</span></li>
+<li><span class="rate-button rate-fivestar-btn-empty rate-fivestar-4" id="rate-button-4">4</span></li>
+<li class="last"><span class="rate-button rate-fivestar-btn-empty rate-fivestar-5" id="rate-button-5">5</span></li>
+</ul></div><div class="rate-info">Total votes: 0</div><div class="rate-description">Rate this item!</div></div>
+</div>
+<div class="field field-name-upload field-type-file field-label-hidden"><div class="field-items"><div class="field-item even"><table class="sticky-enabled">
+ <thead><tr><th>Attachment</th><th>Size</th> </tr></thead>
+<tbody>
+ <tr class="odd"><td><span class="file"><img class="file-icon" alt="" title="application/octet-stream" src="../modules/file/icons/application-octet-stream.png" /> <a href="../files/JMS-3DRotImage_0.scm" type="application/octet-stream; length=8440" title="JMS-3DRotImage.scm">JMS-3DRotImage.scm</a></span></td><td>8.24 KB</td> </tr>
+ <tr class="even"><td><span class="file"><img class="file-icon" alt="" title="image/jpeg" src="../modules/file/icons/image-x-generic.png" /> <a href="../files/grid1.jpg" type="image/jpeg; length=61947" title="grid1.jpg">Original Grid</a></span></td><td>60.5 KB</td> </tr>
+ <tr class="odd"><td><span class="file"><img class="file-icon" alt="" title="image/gif" src="../modules/file/icons/image-x-generic.png" /> <a href="../files/rotated.gif" type="image/gif; length=126345" title="rotated.gif">Rotated Grid</a></span></td><td>123.38 KB</td> </tr>
+</tbody>
+</table>
+</div></div></div><div class="field field-name-body field-type-text-with-summary field-label-hidden"><div class="field-items"><div class="field-item even"><p>This script will rotate an existing image about the X, Y and Z axes.  It will also include a magnification factor so you can scale your image while rotating.</p>
+<p>The inputs are the angles to rotate the image around the X, Y, and Z axes.  Some values (usually high X and Y values) will result in a very distorted picture, regardless of what other inputs you have.  If you get one of those, just undo and try again.  That's just the way math works, folks!</p>
+<p>The "Camera Position" controls several things, including how distorted the image will be.  The default value gives good results most of the time.  Very large values will tend to somewhat smooth out larger rotation angles.</p>
+<p>The magnification factor will scale up the area of the image.  A 640x480 image with a magnification factor of 1.5x, would have a rotated area of 640x480x1.5 pixels.  The canvas itself will be larger than that, as there will be transparent areas around the rotated base image.  As you would expect, large values for the magnification factor will result in very large images that will take up lots of memory.</p>
+<p>In addition to the script, I've attached a picture of a rendered grid, and the picture of that grid rotated with the default values of the script.  When installed, the script will appear in the Filters/SambrookJM menu, but that can be changed by editing the last line of the script to put it wherever you want in your menu hierarchy.</p>
+<p>For some more information on what this script does, check out <a href="http://en.wikipedia.org/wiki/3D_projection">http://en.wikipedia.org/wiki/3D_projection</a></p>
+<p>[Edit]  I've added a "(Zero will give you an error.  Please do not use that value.)" message on the script window for the camera location, and changed the default camera value to 9.9 to make it more difficult to get to 0 via the arrows.</p>
+</div></div></div><div class="field field-name-taxonomy-vocabulary-7 field-type-taxonomy-term-reference field-label-inline clearfix"><div class="field-label">Code License:&nbsp;</div><div class="field-items"><div class="field-item even"><a href="../taxonomy/term/36">GPLv3</a></div></div></div><div class="field field-name-taxonomy-vocabulary-5 field-type-taxonomy-term-reference field-label-inline clearfix"><div class="field-label">Tags:&nbsp;</div><div class="field-items"><div class="field-item even"><a href="../taxonomy/term/96">3D</a></div><div class="field-item odd"><a href="../taxonomy/term/299">script-fu</a></div><div class="field-item even"><a href="../taxonomy/term/971">2.6</a></div><div class="field-item odd"><a href="../taxonomy/term/1222">gimp</a></div><div class="field-item even"><a href="../taxonomy/term/1245">rotation</a></div></div></div><div class="field field-name-taxonomy-vocabulary-1 field-type-taxonomy-term-reference field-label-inline clearfix"><div class="field-label">GIMP Version:&nbsp;</div><div class="field-items"><div class="field-item even"><a href="../taxonomy/term/523">2.6</a></div></div></div><div class="field field-name-taxonomy-vocabulary-3 field-type-taxonomy-term-reference field-label-inline clearfix"><div class="field-label">Scripting Engine:&nbsp;</div><div class="field-items"><div class="field-item even"><a href="../taxonomy/term/20">Script-Fu</a></div></div></div>  </div>
+
+  <div class="clearfix">
+          <div class="links"><ul class="links inline"><li class="comment_forbidden first last"><span><a href="../user/login?destination=comment%252Freply%252F25104%2523comment-form">Log in</a> to post comments</span></li>
+</ul></div>
+    
+    <div id="comments" class="comment-wrapper">
+  
+          <h2 class="title">Comments</h2>
+      
+  <a id="comment-11024"></a>
+<div class="comment odd">
+
+  <div class="clearfix">
+
+    <span class="submitted">March 5, 2011 - 17:17 — <span class="username">lylejk</span></span>
+
+  
+  
+        <h3><a href="../comment/11024#comment-11024" class="permalink" rel="bookmark">GIMP&#039;s Map Object filter</a></h3>
+    
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>GIMP's Map Object filter (choose the default plane option) should do this and it has a cool preview too.    :)</p>
+</div></div></div>          </div>
+  </div>
+
+  <ul class="links inline"><li class="comment_forbidden first last"><span><a href="../user/login?destination=comment%252Freply%252F25104%2523comment-form">Log in</a> to post comments</span></li>
+</ul></div>
+
+<div class="indented"><a id="comment-11030"></a>
+<div class="comment comment-by-node-author even">
+
+  <div class="clearfix">
+
+    <span class="submitted">March 6, 2011 - 04:12 — <span class="username">sambrookjm</span></span>
+
+  
+  
+        <h3><a href="../comment/11030#comment-11030" class="permalink" rel="bookmark">Huh...</a></h3>
+    
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>I'd almost always used the Map to Sphere option (see my planet scripts on this site for that) on that menu, and never used the map to plane.</p>
+<p>Well, at least this one lets you scale the image at the same time...  Other than that, it was good practice for the math that is required for these transformations.</p>
+<p>Think I should add the "redundant" tag to the script??</p>
+</div></div></div>          </div>
+  </div>
+
+  <ul class="links inline"><li class="comment_forbidden first last"><span><a href="../user/login?destination=comment%252Freply%252F25104%2523comment-form">Log in</a> to post comments</span></li>
+</ul></div>
+
+<div class="indented"><a id="comment-11031"></a>
+<div class="comment odd">
+
+  <div class="clearfix">
+
+    <span class="submitted">March 6, 2011 - 07:25 — <span class="username">lylejk</span></span>
+
+  
+  
+        <h3><a href="../comment/11031#comment-11031" class="permalink" rel="bookmark">Controlling the Z option will</a></h3>
+    
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>Controlling the Z option will scale the result too, so yes, add it to your redundancy list.   lol</p>
+<p>edit:</p>
+<p>Cool that you are able to figure out another way to do things though.   Like how you think.  :)</p>
+</div></div></div>          </div>
+  </div>
+
+  <ul class="links inline"><li class="comment_forbidden first last"><span><a href="../user/login?destination=comment%252Freply%252F25104%2523comment-form">Log in</a> to post comments</span></li>
+</ul></div>
+</div></div><a id="comment-11022"></a>
+<div class="comment even">
+
+  <div class="clearfix">
+
+    <span class="submitted">March 5, 2011 - 15:35 — <span class="username">froGgy factory</span></span>
+
+  
+  
+        <h3><a href="../comment/11022#comment-11022" class="permalink" rel="bookmark">Camera postion = 0</a></h3>
+    
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>I put 0 for the "Camera Position" and I got the following error:<br />
+"Message: Error: /: division by zero "</p>
+</div></div></div>          </div>
+  </div>
+
+  <ul class="links inline"><li class="comment_forbidden first last"><span><a href="../user/login?destination=comment%252Freply%252F25104%2523comment-form">Log in</a> to post comments</span></li>
+</ul></div>
+
+<div class="indented"><a id="comment-11027"></a>
+<div class="comment comment-by-node-author odd">
+
+  <div class="clearfix">
+
+    <span class="submitted">March 6, 2011 - 00:17 — <span class="username">sambrookjm</span></span>
+
+  
+  
+        <h3><a href="../comment/11027#comment-11027" class="permalink" rel="bookmark">Yes, it does</a></h3>
+    
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>"Hey, doc.  It hurts when I do this."<br />
+"Then don't do that!"</p>
+<p>:-)</p>
+<p>In all seriousness, the script calculates the new location to "see" the rotated image (chosen by your magnification factor) by dividing by the area after the first run through of the script.  If your camera position is zero, then the area will be zero, which will result in a divide by zero error.</p>
+<p>I should have put a warning about that in the script window.  Sorry, but there's not much else that can be done about that.</p>
+</div></div></div>          </div>
+  </div>
+
+  <ul class="links inline"><li class="comment_forbidden first last"><span><a href="../user/login?destination=comment%252Freply%252F25104%2523comment-form">Log in</a> to post comments</span></li>
+</ul></div>
+<a id="comment-11026"></a>
+<div class="comment even">
+
+  <div class="clearfix">
+
+    <span class="submitted">March 5, 2011 - 20:08 — <span class="username">gerard82</span></span>
+
+  
+  
+        <h3><a href="../comment/11026#comment-11026" class="permalink" rel="bookmark">Same error with your Brick</a></h3>
+    
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>Same error with your Brick Wall script when you set "color variatons" to zero.<br />
+This is on Linux.<br />
+Does Windows intercept programs that risk doing division by zero automatically?<br />
+Gerard.</p>
+</div></div></div>          </div>
+  </div>
+
+  <ul class="links inline"><li class="comment_forbidden first last"><span><a href="../user/login?destination=comment%252Freply%252F25104%2523comment-form">Log in</a> to post comments</span></li>
+</ul></div>
+
+<div class="indented"><a id="comment-11029"></a>
+<div class="comment odd">
+
+  <div class="clearfix">
+
+    <span class="submitted">March 6, 2011 - 00:31 — <span class="username">froGgy factory</span></span>
+
+  
+  
+        <h3><a href="../comment/11029#comment-11029" class="permalink" rel="bookmark">error under XP</a></h3>
+    
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>I tried with gimp 2.6.11 under windows XP and I had the error.<br />
+This is easily corrected, in the Brick Wall script, by changing the lowest value for "Color Variations ". There just has to replace 0 by 1.<br />
+It is more difficult for "3-D Rotation Script". Why not put "0 = random" or an option like that?<br />
+[edit] you were quicker than me to post</p>
+</div></div></div>          </div>
+  </div>
+
+  <ul class="links inline"><li class="comment_forbidden first last"><span><a href="../user/login?destination=comment%252Freply%252F25104%2523comment-form">Log in</a> to post comments</span></li>
+</ul></div>
+<a id="comment-11028"></a>
+<div class="comment comment-by-node-author even">
+
+  <div class="clearfix">
+
+    <span class="submitted">March 6, 2011 - 00:17 — <span class="username">sambrookjm</span></span>
+
+  
+  
+        <h3><a href="../comment/11028#comment-11028" class="permalink" rel="bookmark">Nope</a></h3>
+    
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>I wish Windows were that efficient, but alas, it's just my sloppy coding. :-(</p>
+<p>When did you get the divide by zero error in this script?  If it's when you set the camera location to zero, then yes, you will get a division by zero error.  (See the above comment.)</p>
+<p>I didn't catch the comment in the Brick Wall thread about the color variation being set to zero giving an error...sorry about that.  That error was caused something different; GIMP trying to run the command (rand 0) because of the way the variables were calculated.  It now does (rand 1) instead, which should result in zero.  I fixed that one, and I'll repost the script with the fix.  Good catch on that one.</p>
+</div></div></div>          </div>
+  </div>
+
+  <ul class="links inline"><li class="comment_forbidden first last"><span><a href="../user/login?destination=comment%252Freply%252F25104%2523comment-form">Log in</a> to post comments</span></li>
+</ul></div>
+</div></div>
+        </div>
+  </div>
+
+</div>
+  </div>
+</div>
+  </div>
+          </div>
+          <a href="../crss/node/25104" class="feed-icon" title="Subscribe to Comments for &quot;3-D Rotation Script&quot;"><img src="../misc/feed.png" width="16" height="16" alt="Subscribe to Comments for &quot;3-D Rotation Script&quot;" /></a>            <div class="region region-footer">
+    <div id="block-block-5" class="block block-block clearfix">
+
+    
+  <div class="content">
+    Unless otherwise noted, the rights for the individual plugins are with their respective authors. Logo image by Jakub Steiner.
+<marquee style="width: 0px; position: absolute"> <a href="http://brazzersdeporno.com" title="porno">porno</a> - <a href="http://www.porno724.com/" target="_blank" title="Porno izle">Porno izle</a> <a href="http://www.yokyokpornolar.com/" target="_blank" title="porno abi">porno abi</a> </marquee>  </div>
+</div>
+  </div>
+      </div></div></div></div> <!-- /.left-corner, /.right-corner, /#squeeze, /#center -->
+
+              <div id="sidebar-second" class="sidebar">
+            <div class="region region-sidebar-second">
+    <div id="block-views-relevant-questions-block-1" class="block block-views clearfix">
+
+    <h2 class="title">Questions</h2>
+  
+  <div class="content">
+    <div class="view view-relevant-questions view-id-relevant_questions view-display-id-block_1 view-dom-id-dc5496e805c86786afe98e35179ef4bf">
+        
+  
+  
+      <div class="view-empty">
+      <p><em>No questions yet ... </em></p>
+    </div>
+  
+  
+  
+  
+  
+  
+</div>  </div>
+</div>
+<div id="block-search-form" class="block block-search clearfix">
+
+    
+  <div class="content">
+    <form action="25104" method="post" id="search-block-form" accept-charset="UTF-8"><div><div class="container-inline">
+      <h2 class="element-invisible">Search form</h2>
+    <div class="form-item form-type-textfield form-item-search-block-form">
+  <label class="element-invisible" for="edit-search-block-form--2">Search </label>
+ <input title="Enter the terms you wish to search for." type="text" id="edit-search-block-form--2" name="search_block_form" value="" size="15" maxlength="128" class="form-text" />
+</div>
+<div class="form-actions form-wrapper" id="edit-actions--2"><input type="submit" id="edit-submit--2" name="op" value="Search" class="form-submit" /></div><input type="hidden" name="form_build_id" value="form--frlr6DG6kFR7onmtk9BAUPhEipmYJKW0__MC1YCKx0" />
+<input type="hidden" name="form_id" value="search_block_form" />
+</div>
+</div></form>  </div>
+</div>
+<div id="block-forum-active" class="block block-forum clearfix">
+
+    <h2 class="title">Active forum topics</h2>
+  
+  <div class="content">
+    <div class="item-list"><ul><li class="first"><a href="32356" title="3 comments">Can&#039;t access &quot;My account&quot;</a></li>
+<li><a href="32371">Delete account</a></li>
+<li class="last"><a href="32363">Outline</a></li>
+</ul></div><div class="more-link"><a href="../forum" title="Read the latest forum topics.">More</a></div>  </div>
+</div>
+<div id="block-views-newest-questions-block-1" class="block block-views clearfix">
+
+    <h2 class="title">Updated Questions</h2>
+  
+  <div class="content">
+    <div class="view view-newest-questions view-id-newest_questions view-display-id-block_1 view-dom-id-2caa6c9ca11f92555bd4b55baa2e5c55">
+        
+  
+  
+      <div class="view-content">
+      <div class="item-list">    <ul>          <li class="views-row views-row-1 views-row-odd views-row-first">  
+  <span class="views-field views-field-title">        <span class="field-content"><a href="32373">Shadow and Highlights Recovery - Adding group undo</a></span>  </span>  
+  <div class="views-field views-field-last-updated">    <span class="views-label views-label-last-updated">Last change</span>    <span class="field-content">3 hours 20 min</span>  </div>  
+  <div class="views-field views-field-field-answer-count">        <div class="field-content">No answers, yet!</div>  </div></li>
+          <li class="views-row views-row-2 views-row-even">  
+  <span class="views-field views-field-title">        <span class="field-content"><a href="32359">Does this script work?</a></span>  </span>  
+  <div class="views-field views-field-last-updated">    <span class="views-label views-label-last-updated">Last change</span>    <span class="field-content">4 months 2 weeks</span>  </div>  
+  <div class="views-field views-field-field-answer-count">        <div class="field-content">No answers, yet!</div>  </div></li>
+          <li class="views-row views-row-3 views-row-odd views-row-last">  
+  <span class="views-field views-field-title">        <span class="field-content"><a href="32349">File upload problem</a></span>  </span>  
+  <div class="views-field views-field-last-updated">    <span class="views-label views-label-last-updated">Last change</span>    <span class="field-content">6 months 32 min</span>  </div>  
+  <div class="views-field views-field-field-answer-count">        <div class="field-content">1 Answer(s)</div>  </div></li>
+      </ul></div>    </div>
+  
+  
+  
+      
+<div class="more-link">
+  <a href="../newest-questions">
+    more  </a>
+</div>
+  
+  
+  
+</div>  </div>
+</div>
+<div id="block-comment-recent" class="block block-comment clearfix">
+
+    <h2 class="title">Recent comments</h2>
+  
+  <div class="content">
+    <div class="item-list"><ul><li class="first"><a href="../comment/19262#comment-19262">Black triangles</a>&nbsp;<span>2 hours 26 min ago</span></li>
+<li><a href="../comment/19261#comment-19261">I use the Python version of</a>&nbsp;<span>4 days 4 hours ago</span></li>
+<li class="last"><a href="../comment/19260#comment-19260">I have the same problem too</a>&nbsp;<span>1 week 2 days ago</span></li>
+</ul></div>  </div>
+</div>
+<div id="block-node-recent" class="block block-node clearfix">
+
+    <h2 class="title">Recent content</h2>
+  
+  <div class="content">
+    <table>
+<tbody>
+ <tr class="odd"><td class="title-author"><div class="node-title"><a href="32373">Shadow and Highlights Recovery - Adding group undo</a></div><div class="node-author"><span class="username">programmer_ceds</span></div></td><td class="edit"></td><td class="delete"></td> </tr>
+ <tr class="even"><td class="title-author"><div class="node-title"><a href="32360">GIMP Plugin Registry in Lockdown mode</a></div><div class="node-author"><span class="username">schumaml</span></div></td><td class="edit"></td><td class="delete"></td> </tr>
+ <tr class="odd"><td class="title-author"><div class="node-title"><a href="32372">Split to Special PNG&#039;s</a></div><div class="node-author"><span class="username">Efenstor</span></div></td><td class="edit"></td><td class="delete"></td> </tr>
+ <tr class="even"><td class="title-author"><div class="node-title"><a href="32371">Delete account</a></div><div class="node-author"><span class="username">amarz82</span></div></td><td class="edit"></td><td class="delete"></td> </tr>
+ <tr class="odd"><td class="title-author"><div class="node-title"><a href="32370">Export with MozJPEG</a></div><div class="node-author"><span class="username">Efenstor</span></div></td><td class="edit"></td><td class="delete"></td> </tr>
+ <tr class="even"><td class="title-author"><div class="node-title"><a href="32369">Shadow and Highlights Recovery</a></div><div class="node-author"><span class="username">erwinsoo</span></div></td><td class="edit"></td><td class="delete"></td> </tr>
+ <tr class="odd"><td class="title-author"><div class="node-title"><a href="27656">GIMP Extensions Pack for Windows</a></div><div class="node-author"><span class="username">GIMP Extensions</span></div></td><td class="edit"></td><td class="delete"></td> </tr>
+ <tr class="even"><td class="title-author"><div class="node-title"><a href="32341">Removed...</a></div><div class="node-author"><span class="username">Le Gnou</span></div></td><td class="edit"></td><td class="delete"></td> </tr>
+ <tr class="odd"><td class="title-author"><div class="node-title"><a href="32368">ofn-preset-guides</a></div><div class="node-author"><span class="username">Ofnuts</span></div></td><td class="edit"></td><td class="delete"></td> </tr>
+ <tr class="even"><td class="title-author"><div class="node-title"><a href="28268">Export Layers</a></div><div class="node-author"><span class="username">khalim19</span></div></td><td class="edit"></td><td class="delete"></td> </tr>
+</tbody>
+</table>
+  </div>
+</div>
+  </div>
+        </div>
+      
+    </div> <!-- /#container -->
+  </div> <!-- /#wrapper -->
+  </body>
+</html>

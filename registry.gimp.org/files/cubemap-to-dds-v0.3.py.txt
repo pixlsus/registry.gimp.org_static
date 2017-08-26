@@ -1,0 +1,207 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+import math, time
+from gimpfu import *
+
+def get_width_height(layout, power):
+	width = 0;
+	height = 0;
+	pot = 0;
+
+	if "H-strip" in layout:
+		pot = math.pow(2, power);
+		height = pot;
+		width = 6 * pot;
+
+	elif "H-cross" in layout:
+		pot = math.pow(2, power);
+		height = pot * 3;
+		width = 4 * pot;
+
+	elif "V-cross" in layout:
+		pot = math.pow(2, power);
+		height = pot * 4;
+		width = 3 * pot;
+
+	return [width, height, pot]
+
+def rename_layer_horizontal_strip(idx, layer):
+	faces = [
+		"positive z",
+		"positive x",
+		"negative z",
+		"negative x",
+		"positive y",
+		"negative y"
+	];
+	pdb.gimp_layer_set_name(layer, faces[idx]);
+
+def rename_layer_horizontal_strip_xyz(idx, layer):
+	faces = [
+		"positive x",
+		"negative x",
+		"positive y",
+		"negative y",
+		"positive z",
+		"negative z"
+	];
+	pdb.gimp_layer_set_name(layer, faces[idx]);
+
+def rename_layer_horizontal_cross(idx, layer):
+	faces = [
+		"negative x",
+		"positive z",
+		"positive x",
+		"negative z",
+		"positive y",
+		"negative y"
+	];
+	pdb.gimp_layer_set_name(layer, faces[idx]);
+
+def rename_layer_vertical_cross(idx, layer):
+	faces = [
+		"negative x",
+		"positive z",
+		"positive x",
+		"positive y",
+		"negative y",
+		"negative z"
+	];
+	pdb.gimp_layer_set_name(layer, faces[idx]);
+
+def crop_layer(img, layer, x, y, width, height, trans_x, trans_y):
+	trans_x = int(trans_x);
+	trans_y = int(trans_y);
+	pdb.gimp_rect_select(img, x, y, width, height, CHANNEL_OP_REPLACE , False, 0);
+	mask = pdb.gimp_layer_create_mask(layer, ADD_SELECTION_MASK);
+	pdb.gimp_layer_add_mask(layer, mask);
+	layer.remove_mask(MASK_APPLY);
+	pdb.gimp_image_set_active_layer(img, layer);
+	pdb.plug_in_autocrop_layer(img, layer);
+	layer.translate(trans_x, trans_y);
+
+def cube_map_to_dds(img, drawable, source, layout, power):
+	if not source:
+		pdb.gimp_message("No cubemap image was selected.");
+		return();
+
+	img.undo_group_start();
+
+	# Resize image
+	width, height, pot = get_width_height(layout, power);
+	width = int(width);
+	height = int(height);
+	pdb.gimp_image_resize(img, width, height, 0, 0);
+
+	# Delete all layers
+	for layer in img.layers:
+		pdb.gimp_image_remove_layer(img, layer);
+
+	# Load image into a new layer
+	layer = pdb.gimp_file_load_layer(img, source);
+	pdb.gimp_image_add_layer(img, layer, 0);
+	layer.scale(width, height, 0);
+	layer.resize(width, height, 0, 0);
+
+	# Duplicate image 5 times
+	for i in range(1, 6):
+		copy_layer = pdb.gimp_layer_copy(layer, True);
+		pdb.gimp_image_add_layer(img, copy_layer, i);
+
+	# Crop out each face
+	if layout == "H-strip xyz":
+		for layer in img.layers:
+			i = pdb.gimp_image_get_layer_position(img, layer);
+			rename_layer_horizontal_strip_xyz(i, layer);
+			crop_layer(img, layer, pot*i, 0, pot, pot, -(pot*i), 0);
+
+	elif layout == "H-strip":
+		for layer in img.layers:
+			i = pdb.gimp_image_get_layer_position(img, layer);
+			rename_layer_horizontal_strip(i, layer);
+			crop_layer(img, layer, pot*i, 0, pot, pot, -(pot*i), 0);
+
+	elif layout == "H-cross":
+		for layer in img.layers:
+			i = pdb.gimp_image_get_layer_position(img, layer);
+			if i == 4:
+				x = pot;
+				y = 0;
+			elif i == 5:
+				x = pot;
+				y = pot * 2;
+			else:
+				x = pot * i;
+				y = pot;
+			rename_layer_horizontal_cross(i, layer);
+			crop_layer(img, layer, x, y, pot, pot, -x, -y);
+
+	elif layout == "V-cross":
+		for layer in img.layers:
+			i = pdb.gimp_image_get_layer_position(img, layer);
+			if i == 3:
+				x = pot;
+				y = 0;
+			elif i == 4:
+				x = pot;
+				y = pot * 2;
+			elif i == 5:
+				x = pot;
+				y = pot * 3;
+			else:
+				x = pot * i;
+				y = pot;
+			rename_layer_vertical_cross(i, layer);
+			crop_layer(img, layer, x, y, pot, pot, -x, -y);
+			# Todo: find a cleaner way of doing this:
+			# Unfortunately, negative z, by default, is upside down for v-cross;
+			#  need to flip it vertically and horizontally...
+			if i == 5:
+				pdb.gimp_selection_all(img);
+				pdb.gimp_edit_copy(layer);
+				floating = pdb.gimp_edit_paste(layer, True);
+				pdb.gimp_drawable_transform_flip_simple(floating, ORIENTATION_VERTICAL, True, 0, False);
+				floating = pdb.gimp_image_get_floating_sel(img);
+				pdb.gimp_drawable_transform_flip_simple(floating, ORIENTATION_HORIZONTAL, True, 0, False);
+				floating = pdb.gimp_image_get_floating_sel(img);
+				pdb.gimp_floating_sel_to_layer(floating);
+				pdb.gimp_image_remove_layer(img, layer);
+				rename_layer_vertical_cross(i, pdb.gimp_image_get_active_layer(img));
+
+	# Remove selection
+	pdb.gimp_selection_none(img);
+
+	# Resize canvas
+	pdb.gimp_image_crop(img, pot, pot, 0, 0);
+
+	# Have GIMP update the canvas
+	img.undo_group_end();
+	gimp.displays_flush();
+
+register(
+	"cubemap2dds",
+	"Generate layers for DDS format",
+	"Generate layers for DDS format",
+	"Anonymous",
+	"Anonymous",
+	"0000",
+	"<Image>/Filters/Generic/Cubemap Layers Generator...",
+	"RGB*, GRAY*",
+	[
+		(PF_FILE, "cmSource", "Source Image:", None),
+		(PF_RADIO, "cmType", "Cubemap Layout:", "H-strip xyz",
+			(
+				("Horizontal Strip (XYZ)", "H-strip xyz"), ("Horizontal Strip", "H-strip"),
+				("Horizontal Cross", "H-cross"),# ("Horizontal Cross (Flipped)", "H-cross 2"),
+				("Vertical Cross", "V-cross")#, ("Vertical Cross (Flipped)", "V-cross 2")
+			)
+		),
+		(PF_SPINNER, "cmMultiplier", "2 to the power of:", 9, [1,100,1])
+	],
+	[],
+	cube_map_to_dds
+)
+
+main()
+

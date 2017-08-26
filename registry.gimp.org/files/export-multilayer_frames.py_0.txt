@@ -1,0 +1,176 @@
+#!/usr/bin/env python
+
+
+import math
+from gimpfu import *
+gettext.install("gimp20-python", gimp.locale_directory, unicode=True)
+def python_multilayer_export(img, tdrawable, dirname="/",usefilmstrip=False, CEGUIName="Image", AnimationLength=3.0, ReplayMode="Once", TrailEffect=False, TwoPass=False, ManualBounce=False):
+	layers = img.layers
+	last_layer = len(layers)-1
+	layers.reverse()# = reversed(layers)
+	t=0;
+	gimp.pdb.gimp_message_set_handler( ERROR_CONSOLE )
+	frame_count = 0
+	for layer in layers:
+		if(pdb.gimp_layer_get_visible(layer) != True):
+			frame_count = frame_count+1;
+	original_x = tdrawable.width
+	original_y = tdrawable.height
+	rendered = 0;
+	if usefilmstrip == True:
+		trailed = []
+		if TwoPass == True:
+			frame_count = frame_count * 2;
+		film_strip = gimp.Image(original_x *frame_count,original_y,RGB)
+		layer_one = gimp.Layer(film_strip, "background", original_x *frame_count,original_y, RGB_IMAGE,100, NORMAL_MODE)
+		film_strip.add_layer(layer_one, 0)
+		film_display = gimp.Display(film_strip)
+		gimp.displays_flush()
+		for layer in layers:
+			if(pdb.gimp_layer_get_visible(layer) != True):
+				pdb.gimp_layer_set_visible(layer, True)
+				image = pdb.gimp_image_duplicate(img)
+				export_layer = pdb.gimp_image_merge_visible_layers( image,  CLIP_TO_IMAGE)
+				pdb.gimp_selection_all (image)
+				if not pdb.gimp_edit_copy(export_layer):
+					continue
+				nlayer_one = gimp.Layer(film_strip, "Frame %d"%(rendered), original_x, original_y, RGB_IMAGE, 100, NORMAL_MODE)
+				film_strip.add_layer(nlayer_one, 0)
+				x_off, y_off = nlayer_one.offsets
+				pdb.gimp_layer_translate( nlayer_one, (original_x*rendered)-x_off, 0-y_off);
+				floating_sel = pdb.gimp_edit_paste(nlayer_one, True)
+				pdb.gimp_layer_set_offsets(floating_sel, *nlayer_one.offsets)
+				pdb.gimp_floating_sel_anchor(floating_sel)
+				if TrailEffect != True:
+					pdb.gimp_layer_set_visible(layer, False)
+				else:
+					trailed.append(layer)
+				gimp.pdb.gimp_message( "Layer %s merged to film strip with background"%(layer.name) );
+				rendered = rendered+1
+
+
+		if TwoPass == True:
+			lpd = False
+			for layer in layers:
+				if(lpd == False):
+					lpd = True
+					continue
+				if(pdb.gimp_layer_get_visible(layer) == True):
+					pdb.gimp_layer_set_visible(layer, False)
+					image = pdb.gimp_image_duplicate(img)
+					export_layer = pdb.gimp_image_merge_visible_layers( image,  CLIP_TO_IMAGE)
+					pdb.gimp_selection_all (image)
+					if not pdb.gimp_edit_copy(export_layer):
+						continue
+					nlayer_one = gimp.Layer(film_strip, "Frame %d"%(rendered), original_x, original_y, RGB_IMAGE, 100, NORMAL_MODE)
+					film_strip.add_layer(nlayer_one, 0)
+					x_off, y_off = nlayer_one.offsets
+					pdb.gimp_layer_translate( nlayer_one, (original_x*rendered)-x_off, 0-y_off);
+					floating_sel = pdb.gimp_edit_paste(nlayer_one, True)
+					pdb.gimp_layer_set_offsets(floating_sel, *nlayer_one.offsets)
+					pdb.gimp_floating_sel_anchor(floating_sel)
+					if TrailEffect != True:
+						pdb.gimp_layer_set_visible(layer, False)
+					gimp.pdb.gimp_message( "Layer %s merged to film strip with background"%(layer.name) );
+					rendered = rendered+1
+		for layer in trailed:
+			pdb.gimp_layer_set_visible(layer, False)
+		frame_name = CEGUIName+".png"
+		export_layer = pdb.gimp_image_merge_visible_layers( film_strip,  CLIP_TO_IMAGE)
+		pdb.file_png_save2(film_strip, export_layer, dirname+"/"+frame_name, frame_name,1,9,1,1,1,1,1,0,1)
+		#pdb.gimp_image_delete(film_strip)
+		# CEGUI Imageset xml
+		imagestring = ""
+		for i in range(0,frame_count):
+			imagestring = imagestring+"""
+<Image Name="%s%d" XPos="%d" YPos="%d" Width="%d" Height="%d" />"""%(CEGUIName, i, i*original_x, 0, original_x, original_y)
+		imageset = """<?xml version="1.0" ?>
+<Imageset Name="%s" Imagefile="%s" NativeHorzRes="%d" NativeVertRes="%d" AutoScaled="true">
+	%s
+</Imageset> """%(CEGUIName, frame_name, original_x*frame_count, original_y, imagestring)
+		pdb.gimp_message("%s"%(imageset))
+		f = open(dirname+"/"+CEGUIName+".imageset", "w")
+		f.write(imageset)
+		f.close()
+		keyframes = ""
+		if(ManualBounce == True):
+			for i in range(0,frame_count):
+				keyframes=keyframes+"""
+					<KeyFrame position="%f" value="set:%s image:%s" progression="discrete" />"""%( (i/float(frame_count*2))*AnimationLength, CEGUIName, CEGUIName+str(i) )
+			for i in range(frame_count,frame_count*2):
+				keyframes=keyframes+"""
+					<KeyFrame position="%f" value="set:%s image:%s" progression="discrete" />"""%( (i/float(frame_count*2))*AnimationLength, CEGUIName, CEGUIName+str(frame_count-(i-frame_count)) )
+		else:
+			for i in range(0,frame_count):
+				keyframes=keyframes+"""
+					<KeyFrame position="%f" value="set:%s image:%s" progression="discrete" />"""%( (i/float(frame_count))*AnimationLength, CEGUIName, CEGUIName+str(i) )
+		animation = """
+<Animations>
+	<AnimationDefinition name="%s" duration="%f" replayMode="%s">
+		<Affector property="Image" interpolator="String">
+			%s
+		</Affector>
+	</AnimationDefinition>
+</Animations>
+"""%(CEGUIName, AnimationLength, ReplayMode, keyframes)
+		f = open(dirname+"/"+CEGUIName+".animation","w")
+		f.write(animation)
+		f.close()
+		scheme = """
+<GUIScheme Name="%s">
+	<Imageset Name="%s" Filename="%s.imageset"/>
+</GUIScheme>
+"""%(CEGUIName,CEGUIName, CEGUIName)
+		f = open(dirname+"/"+CEGUIName+".scheme","w")
+		f.write(scheme)
+		f.close()
+		return
+	#Heh, return above makes it so I don't need to indent the rest in an else.
+	for layer in layers:
+		if t != 0:
+			if(pdb.gimp_layer_get_visible(layer) != True):
+				pdb.gimp_layer_set_visible(layer, True)
+				image = pdb.gimp_image_duplicate(img)
+				export_layer = pdb.gimp_image_merge_visible_layers( image,  CLIP_TO_IMAGE)
+				frame_name = CEGUIName+str(rendered)+".png"
+				rendered = rendered+1
+				pdb.file_png_save2(image, export_layer, dirname+"/"+frame_name, frame_name,1,9,1,1,1,1,1,0,1)
+				pdb.gimp_image_delete(image)
+				if TrailEffect != True:
+					pdb.gimp_layer_set_visible(layer, False)
+				gimp.pdb.gimp_message( "Layer %s merged with background"%(layer.name) );
+		t=t+1;
+register(
+        "python_fu_multilayer_export",
+        "Export images not visible layers as png as animation filmstrip for CEGUI with CEGUI xml files, or individual png files per frame",
+        "Export images not visible layers as png as animation filmstrip for CEGUI with CEGUI xml files, or individual png files per frame",
+        "Matthew Adams",
+        "Matthew Adams",
+        "2013-whatever",
+        "<Image>/File/Export/MultiLayerExport",
+        "RGB*, GRAY*",
+        [
+                (PF_DIRNAME, "base_directory", "Output Directory", "/"),
+                (PF_BOOL, "useFilmstrip", "Single Film Strip Export(If {no} exports frames as seperate png files)", True),
+		(PF_STRING, "ceguiname", "Imageset Name(Controls filenames)", "FilmStrip"),
+		(PF_FLOAT, "animationtime", "Animation Runtime(seconds) (CEGUI+Film Strip Only))", 3.0),
+		(PF_STRING, "ReplayMode", "Replay Mode(Once, Loop, Bounce) (CEGUI+Film Strip Only))", "Once"),
+                (PF_BOOL, "doTrailEffect", "Trail Effect(if true, already rendered frames will stay rendered.)", False),
+		(PF_BOOL, "twopass", "Do two passes(For use with trail effect. Will erase the trail)", False),
+		(PF_BOOL, "ManualBounce", "create bounce animation via animation xml to overcome cegui bug", False)
+		
+        ],
+        [],
+        python_multilayer_export)
+
+main()
+
+
+__author__ = "Matthew Adams"
+__copyright__ = "Copyright 2013, The Game-One Project"
+__credits__ = ["Matthew Adams"]
+__license__ = "GPL"
+__version__ = "1.0"
+__maintainer__ = "Matthew Adams"
+__email__ = "NotPuttingThisHere..Seriously.Contact@registry.gimp.org"
+__status__ = "Production"

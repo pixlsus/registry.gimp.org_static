@@ -1,0 +1,564 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML+RDFa 1.0//EN"
+  "http://www.w3.org/MarkUp/DTD/xhtml-rdfa-1.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" version="XHTML+RDFa 1.0" dir="ltr">
+
+<head profile="http://www.w3.org/1999/xhtml/vocab">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="shortcut icon" href="../files/favicon.png" type="image/png" />
+<link rel="alternate" type="application/rss+xml" title="Comments for &quot;Gimp Plugins installers for Win32&quot;" href="../crss/node/24520" />
+<link rel="canonical" href="24520" />
+<meta name="Generator" content="Drupal 7 (http://drupal.org)" />
+<link rel="shortlink" href="24520" />
+  <title>Gimp Plugins installers for Win32 | GIMP Plugin Registry</title>
+  <style type="text/css" media="all">@import url("../modules/system/system.base.css?n48fl6");
+@import url("../modules/system/system.menus.css?n48fl6");
+@import url("../modules/system/system.messages.css?n48fl6");
+@import url("../modules/system/system.theme.css?n48fl6");</style>
+<style type="text/css" media="all">@import url("../modules/aggregator/aggregator.css?n48fl6");
+@import url("../modules/book/book.css?n48fl6");
+@import url("../modules/comment/comment.css?n48fl6");
+@import url("../sites/all/modules/date/date_api/date.css?n48fl6");
+@import url("../sites/all/modules/date/date_popup/themes/datepicker.1.7.css?n48fl6");
+@import url("../sites/all/modules/date/date_repeat_field/date_repeat_field.css?n48fl6");
+@import url("../modules/field/theme/field.css?n48fl6");
+@import url("../sites/all/modules/mollom/mollom.css?n48fl6");
+@import url("../modules/node/node.css?n48fl6");
+@import url("../modules/poll/poll.css?n48fl6");
+@import url("../modules/search/search.css?n48fl6");
+@import url("../modules/user/user.css?n48fl6");
+@import url("../modules/forum/forum.css?n48fl6");
+@import url("../sites/all/modules/views/css/views.css?n48fl6");</style>
+<style type="text/css" media="all">@import url("../sites/all/modules/ctools/css/ctools.css?n48fl6");
+@import url("../sites/all/modules/rate/rate.css?n48fl6");
+@import url("../sites/all/modules/tagclouds/tagclouds.css?n48fl6");
+@import url("../sites/all/modules/panels/css/panels.css?n48fl6");
+@import url("../sites/all/modules/best_answer/best_answer.css?n48fl6");
+@import url("../sites/all/modules/rate/templates/fivestar/fivestar.css?n48fl6");</style>
+<style type="text/css" media="all">@import url("../files/color/garland-5ac73a91/style.css?n48fl6");</style>
+<style type="text/css" media="print">@import url("../themes/garland/print.css?n48fl6");</style>
+
+<!--[if lt IE 7]>
+<link type="text/css" rel="stylesheet" href="http://registry.gimp.org/themes/garland/fix-ie.css?n48fl6" media="all" />
+<![endif]-->
+  <script type="text/javascript" src="../misc/jquery.js?v=1.4.4"></script>
+<script type="text/javascript" src="../misc/jquery.once.js?v=1.2"></script>
+<script type="text/javascript" src="../misc/drupal.js?n48fl6"></script>
+<script type="text/javascript" src="../sites/all/modules/rate/rate.js?n48fl6"></script>
+<script type="text/javascript" src="../sites/all/modules/rate/templates/fivestar/fivestar.js?n48fl6"></script>
+<script type="text/javascript" src="../misc/tableheader.js?n48fl6"></script>
+<script type="text/javascript">
+<!--//--><![CDATA[//><!--
+jQuery.extend(Drupal.settings, {"basePath":"\/","pathPrefix":"","ajaxPageState":{"theme":"garland","theme_token":"UPpDTMk4eOa_dm1Vz8raAIXLGLlFHhtRoIfIo0gC7ds","js":{"misc\/jquery.js":1,"misc\/jquery.once.js":1,"misc\/drupal.js":1,"sites\/all\/modules\/rate\/rate.js":1,"sites\/all\/modules\/rate\/templates\/fivestar\/fivestar.js":1,"misc\/tableheader.js":1},"css":{"modules\/system\/system.base.css":1,"modules\/system\/system.menus.css":1,"modules\/system\/system.messages.css":1,"modules\/system\/system.theme.css":1,"modules\/aggregator\/aggregator.css":1,"modules\/book\/book.css":1,"modules\/comment\/comment.css":1,"sites\/all\/modules\/date\/date_api\/date.css":1,"sites\/all\/modules\/date\/date_popup\/themes\/datepicker.1.7.css":1,"sites\/all\/modules\/date\/date_repeat_field\/date_repeat_field.css":1,"modules\/field\/theme\/field.css":1,"sites\/all\/modules\/mollom\/mollom.css":1,"modules\/node\/node.css":1,"modules\/poll\/poll.css":1,"modules\/search\/search.css":1,"modules\/user\/user.css":1,"modules\/forum\/forum.css":1,"sites\/all\/modules\/views\/css\/views.css":1,"sites\/all\/modules\/ctools\/css\/ctools.css":1,"sites\/all\/modules\/rate\/rate.css":1,"sites\/all\/modules\/tagclouds\/tagclouds.css":1,"sites\/all\/modules\/panels\/css\/panels.css":1,"sites\/all\/modules\/best_answer\/best_answer.css":1,"sites\/all\/modules\/rate\/templates\/fivestar\/fivestar.css":1,"themes\/garland\/style.css":1,"themes\/garland\/print.css":1,"themes\/garland\/fix-ie.css":1}},"rate":{"basePath":"\/rate\/vote\/js","destination":"node\/24520"}});
+//--><!]]>
+</script>
+</head>
+<body class="html not-front not-logged-in two-sidebars page-node page-node- page-node-24520 node-type-plugin fluid-width" >
+  <div id="skip-link">
+    <a href="24520?page=3#main-content" class="element-invisible element-focusable">Skip to main content</a>
+  </div>
+      
+  <div id="wrapper">
+    <div id="container" class="clearfix">
+
+      <div id="header">
+        <div id="logo-floater">
+                              <div id="branding"><strong><a href="../index.html">
+                          <img src="../files/logo.png" alt="GIMP Plugin Registry " title="GIMP Plugin Registry " id="logo" />
+                        <span>GIMP Plugin Registry</span>            </a></strong></div>
+                          </div>
+
+        <h2 class="element-invisible">Main menu</h2><ul class="links inline main-menu"><li class="menu-100 first"><a href="../about" title="Information about the Registry">About</a></li>
+<li class="menu-136"><a href="23851" title="Documentation and How-Tos">Documentation</a></li>
+<li class="menu-88"><a href="../forum">Forums</a></li>
+<li class="menu-74"><a href="http://gug.criticalhit.dk" title="The GIMP User Group">GIMP User Group</a></li>
+<li class="menu-1142"><a href="25574" title="GIMP Help">Get Help</a></li>
+<li class="menu-1256"><a href="26216" title="Get info on using RSS to stay updated about what&#039;s going on on the site.">Stay Updated!</a></li>
+<li class="menu-73 last"><a href="http://www.gimp.org/" title="The GIMP Homepage">gimp.org</a></li>
+</ul>              </div> <!-- /#header -->
+
+              <div id="sidebar-first" class="sidebar">
+            <div class="region region-sidebar-first">
+    <div id="block-system-navigation" class="block block-system block-menu clearfix">
+
+    <h2 class="title">Navigation</h2>
+  
+  <div class="content">
+    <ul class="menu"><li class="first leaf"><a href="25574" title="FAQ &amp; How To&#039;s">FAQ &amp; How To&#039;s</a></li>
+<li class="leaf"><a href="../glossary.1" title="">Content By Name</a></li>
+<li class="collapsed"><a href="../aggregator">Feed aggregator</a></li>
+<li class="leaf"><a href="../popular">Popular content</a></li>
+<li class="leaf"><a href="25392" title="Report Spam Here">Report Spam Here</a></li>
+<li class="last leaf"><a href="../tagclouds">Tags</a></li>
+</ul>  </div>
+</div>
+<div id="block-block-1" class="block block-block clearfix">
+
+    
+  <div class="content">
+    If you'd like to upload plug-ins, please create an account below. You do <em>not</em> need one for download. Enjoy :-)  </div>
+</div>
+<div id="block-user-login" class="block block-user clearfix">
+
+    <h2 class="title">User login</h2>
+  
+  <div class="content">
+    <form action="http://registry.gimp.org/node/24520?destination=node/24520" method="post" id="user-login-form" accept-charset="UTF-8"><div><div class="form-item form-type-textfield form-item-name">
+  <label for="edit-name">Username <span class="form-required" title="This field is required.">*</span></label>
+ <input type="text" id="edit-name" name="name" value="" size="15" maxlength="60" class="form-text required" />
+</div>
+<div class="form-item form-type-password form-item-pass">
+  <label for="edit-pass">Password <span class="form-required" title="This field is required.">*</span></label>
+ <input type="password" id="edit-pass" name="pass" size="15" maxlength="128" class="form-text required" />
+</div>
+<div class="item-list"><ul><li class="first last"><a href="../user/password" title="Request new password via e-mail.">Request new password</a></li>
+</ul></div><input type="hidden" name="form_build_id" value="form-6ZDUotzv7mrcBm_Ga9ryXA7MXenYqtuuBYMRqM1-qps" />
+<input type="hidden" name="form_id" value="user_login_block" />
+<div class="form-actions form-wrapper" id="edit-actions"><input type="submit" id="edit-submit" name="op" value="Log in" class="form-submit" /></div></div></form>  </div>
+</div>
+<div id="block-node-syndicate" class="block block-node clearfix">
+
+    <h2 class="title">Syndicate</h2>
+  
+  <div class="content">
+    <a href="../rss.xml" class="feed-icon" title="Subscribe to Syndicate"><img src="../misc/feed.png" width="16" height="16" alt="Subscribe to Syndicate" /></a>  </div>
+</div>
+  </div>
+        </div>
+      
+      <div id="center"><div id="squeeze"><div class="right-corner"><div class="left-corner">
+          <h2 class="element-invisible">You are here</h2><div class="breadcrumb"><a href="../index.html">Home</a></div>                    <a id="main-content"></a>
+          <div id="tabs-wrapper" class="clearfix">                                <h1 class="with-tabs">Gimp Plugins installers for Win32</h1>
+                              </div>                                                  <div class="clearfix">
+              <div class="region region-content">
+    <div id="block-system-main" class="block block-system clearfix">
+
+    
+  <div class="content">
+    <div id="node-24520" class="node node-plugin node-promoted">
+
+  
+      
+      <span class="submitted">June 21, 2010 - 13:26 — <span class="username">Francois_C</span></span>
+  
+  <div class="content clearfix">
+    <div class="form-item form-type-item">
+  <label>Rate </label>
+ <div class="rate-widget-2 rate-widget clear-block rate-average rate-widget-fivestar rate-c1c238bf5926a325e617cf5458f9883c rate-node-24520-2-3" id="rate-node-24520-2-3"><div class="item-list"><ul><li class="first"><span class="rate-button rate-fivestar-btn-empty rate-fivestar-1" id="rate-button-1">1</span></li>
+<li><span class="rate-button rate-fivestar-btn-empty rate-fivestar-2" id="rate-button-2">2</span></li>
+<li><span class="rate-button rate-fivestar-btn-empty rate-fivestar-3" id="rate-button-3">3</span></li>
+<li><span class="rate-button rate-fivestar-btn-empty rate-fivestar-4" id="rate-button-4">4</span></li>
+<li class="last"><span class="rate-button rate-fivestar-btn-empty rate-fivestar-5" id="rate-button-5">5</span></li>
+</ul></div><div class="rate-info">Total votes: 0</div><div class="rate-description">Rate this item!</div></div>
+</div>
+<div class="field field-name-body field-type-text-with-summary field-label-hidden"><div class="field-items"><div class="field-item even"><p>Several Windows users think that installing Gimp plugins under Windows is hard.</p>
+<p>As I was playing around with Inno Setup, I randomly chose these plugins, only because I had just a new Windows 32 compilation of them, and I release those first plugin installers <strong>without any warranty.</strong></p>
+<p><strong><em>They should work on any Windows version, but I'm waiting for feedbacks.</em></strong></p>
+<p><strong>These are automated Windows installers. Please, do not copy the setup files into your Gimp plug-ins directory!</strong></p>
+<p><strong>(Otherwise, the setup file would be executed every time Gimp is launched).</strong></p>
+<p>A great benefit of an installer is that it easily installs localization files that several experienced users hardly can locate on Windows.</p>
+<p>Another benefit is that you can uninstall everything, even the language files, or update the plugins easily. Please note that:</p>
+<p>I didn't create any shortcut in the Start Menu, even for uninstallers. The uninstallers are available through Windows Add/Remove Programs feature. <em>(For geeks: the uninstall executable is placed in c:\Documents and Settings\[user name]\.gimp-2.6\plug-ins\uninst\, so that if you install several plugins, you will see unins000.exe, unins0001.exe... but let Windows care about that. You can use CCleaner uninstall feature: it is faster).</em></p>
+<p>Plugins are located in Documents and Settings\[user name]\.gimp-2.6\plug-ins\ of the system dir. If you want to change this path, Setup allows to do it manually. <strong>If you have a previous version of the same plugin in Program Files\GIMP-2.0\lib\gimp\2.0\plug-ins\, you should delete it</strong>.</p>
+<p><strong>About the plugins:</strong></p>
+<p><strong>Wavelet Sharpen and Separate+</strong>: New compilations of the latest versions of these great plugins. Nothing really new.</p>
+<p><strong>Texturize</strong>: New compilation, stripped executable, no longer black frame, fixed French translation (no other language included yet). <em>(For geeks: If you have trouble compiling the sources on Windows, just add: #define HUGE       HUGE_VAL)</em>.</p>
+<p><em>I included my Inno Setup iss sources with the installer, named 'Setup.exe' in each ZIP file. For 'normal' users: keep 'Setup.exe', delete the other file. The first version of wavelet-sharpen I uploaded was a wrong one, sorry. It creates a 'Program FilesGimp-2.0' dir in the root dir. I forgot a backslash. Just uninstall or delete this dir.</em></p>
+<p><em>[2010/6/23] Fixed versions for custom install dirs.</em></p>
+<p>[2010/6/25] Added <strong>Wavelet Denoise</strong> and <strong>Wavelet Decompose</strong>.</p>
+<p>[2010/6/27] Added <strong>Noise Generator</strong>.</p>
+<p>[2010/7/1] Fixed compatibility issues with 'Documents and Settings' on some systems.</p>
+<p>If you experienced some directory problem, just uninstall the previous version, before installing the fixed one.</p>
+<p>[2010/07/25] New compilation of Wavelet-Sharpen, as some users reported dll issues with former versions of Gimp (but I was not able to reproduce the error on my computer).</p>
+<p>Added <strong>fix-ca v3.0.2</strong> by Kriang Lerdsuwanakij. This plugin fixes chromatic aberration caused by imperfect lens.  It works by shifting red and blue components of image pixels in the specified amounts.</p>
+<p>(note that I could not get rid of a small display bug that occurs on Windows: at start, preview saturation is set to more than 100 and should be adjusted).</p>
+<p>Added <strong>Unsharp 2 v0.12</strong> by Peter Heckert: This plugin is no longer developed, but has fine features, and does not override the original Gimp Unsharp mask.</p>
+<p>[2010/08/07] Added <strong>Gimp Image Register</strong>, that allows to align several images like bracketed exposures that may be slightly different in order to make an HDR multi-exposure image. As I have still a Pentium 4, I added a version for my own use, that can be useful to others (compiled with -march=pentium4m -msse2 -mfpmath=sse, should work with other sse2 machines).</p>
+<p>[2010/08/10]Fixed gimp-image-reg localization.  <strong>Added llibintl-8.dll into Wavelet Sharpen installer</strong>, for the plugin seemed to work only with Gimp 2.7.</p>
+<p>libintl-8.dll is installed into Gimp bin directory, <strong>only if file does not exist</strong>. So, if you have already Gimp 2.7, the file will not be overwritten; if you have 2.6, the file is copied into \GIMP-2.0\bin\, along with other Gimp binaries, and will be uninstalled if you remove the plugin. The only predictable, but rather unlikely issue would be if you have Gimp 2.6, then install the plugin, then install Gimp 2.7 into the same directory, the uninstall the plugin: the dll would be removed. I didn't install into the user plug-ins directory, for I feared it would conflict with a newer version of the same dll.</p>
+<p>[2010/08/11] Added <strong>Gimp Dynamic range Transforme</strong>r, by Ivan Bezdomniy (with P4 version too).</p>
+<p>[2010/08/20] Added <strong>Save for Web</strong>, by Aurimas Juška, Michael Natterer and Kevin Turner (with P4 version too). As the plugin would not work with my DSLR files:p, I increased the maximum image size. Tell me if it hangs with large files.</p>
+<p>[2010/08/23] Added <strong>Kaleidoscope</strong>; this good old gimp plugin still works. No locale files, but copies fp-kaleidoscope-anim.scm into the right folder.</p>
+<p>[2010/11/09] Added <strong>Iterative Save.</strong> No locale files, very simple installer but useful plugin.</p>
+<p>[2010/12/12] Added <strong>Resynthesizer</strong>, with smart-remove.scm (Heal Selection version, the good one) and smart-enlarge.scm</p>
+<p>[2011/07/09] Added <strong>Advanced Unsharp Mask (AUMASK) Sharpening v0.8</strong>. You'll find in in &lt;Image&gt;/Filters/Enhance. I was able to compile this version thanks to the wise advices of Samj. No locale files yet.</p>
+<p>[2011/07/16] <strong>Added Elsamuko Temparature plug-in.</strong></p>
+<p>2011/07/16] Updated <strong>Resynthesizer installer</strong> with a conditional install of libintl-8.dll in (programs directory)GIMP-2.0\bin\ if there is none.</p>
+</div></div></div><div class="field field-name-upload field-type-file field-label-hidden"><div class="field-items"><div class="field-item even"><table class="sticky-enabled">
+ <thead><tr><th>Attachment</th><th>Size</th> </tr></thead>
+<tbody>
+ <tr class="odd"><td><span class="file"><img class="file-icon" alt="" title="application/zip" src="../modules/file/icons/package-x-generic.png" /> <a href="../files/separate+_w32_inst_1_0.zip" type="application/zip; length=553533" title="separate+_w32_inst_1.zip">separate+_w32_inst_1.zip</a></span></td><td>540.56 KB</td> </tr>
+ <tr class="even"><td><span class="file"><img class="file-icon" alt="" title="application/zip" src="../modules/file/icons/package-x-generic.png" /> <a href="../files/gimp-texturize_w32_inst_1_0.zip" type="application/zip; length=491301" title="gimp-texturize_w32_inst_1.zip">gimp-texturize_w32_inst_1.zip</a></span></td><td>479.79 KB</td> </tr>
+ <tr class="odd"><td><span class="file"><img class="file-icon" alt="" title="application/zip" src="../modules/file/icons/package-x-generic.png" /> <a href="../files/wavelet-denoise_w32_inst_0.zip" type="application/zip; length=497996" title="wavelet-denoise_w32_inst.zip">wavelet-denoise_w32_inst.zip</a></span></td><td>486.32 KB</td> </tr>
+ <tr class="even"><td><span class="file"><img class="file-icon" alt="" title="application/zip" src="../modules/file/icons/package-x-generic.png" /> <a href="../files/wavelet-decompose_w32_inst_1.zip" type="application/zip; length=488212" title="wavelet-decompose_w32_inst.zip">wavelet-decompose_w32_inst.zip</a></span></td><td>476.77 KB</td> </tr>
+ <tr class="odd"><td><span class="file"><img class="file-icon" alt="" title="application/zip" src="../modules/file/icons/package-x-generic.png" /> <a href="../files/noise-generator_w32_inst_0.zip" type="application/zip; length=490830" title="noise-generator_w32_inst.zip">noise-generator_w32_inst.zip</a></span></td><td>479.33 KB</td> </tr>
+ <tr class="even"><td><span class="file"><img class="file-icon" alt="" title="application/zip" src="../modules/file/icons/package-x-generic.png" /> <a href="../files/fix-ca_w32_inst.zip" type="application/zip; length=480826" title="fix-ca_w32_inst.zip">fix-ca_w32_inst.zip</a></span></td><td>469.56 KB</td> </tr>
+ <tr class="odd"><td><span class="file"><img class="file-icon" alt="" title="application/zip" src="../modules/file/icons/package-x-generic.png" /> <a href="../files/unsharp2_w32_inst.zip" type="application/zip; length=501245" title="unsharp2_w32_inst.zip">unsharp2_w32_inst.zip</a></span></td><td>489.5 KB</td> </tr>
+ <tr class="even"><td><span class="file"><img class="file-icon" alt="" title="application/zip" src="../modules/file/icons/package-x-generic.png" /> <a href="../files/wavelet-sharpen_w32_inst_5.zip" type="application/zip; length=528183" title="wavelet-sharpen_w32_inst.zip">wavelet-sharpen_w32_inst.zip</a></span></td><td>515.8 KB</td> </tr>
+ <tr class="odd"><td><span class="file"><img class="file-icon" alt="" title="application/zip" src="../modules/file/icons/package-x-generic.png" /> <a href="../files/gimp-image-reg_w32_inst_1.zip" type="application/zip; length=581456" title="gimp-image-reg_w32_inst.zip">gimp-image-reg_w32_inst.zip</a></span></td><td>567.83 KB</td> </tr>
+ <tr class="even"><td><span class="file"><img class="file-icon" alt="" title="application/zip" src="../modules/file/icons/package-x-generic.png" /> <a href="../files/gimp-image-reg_w32_inst_P4_1.zip" type="application/zip; length=581871" title="gimp-image-reg_w32_inst_P4.zip">gimp-image-reg_w32_inst_P4.zip</a></span></td><td>568.23 KB</td> </tr>
+ <tr class="odd"><td><span class="file"><img class="file-icon" alt="" title="application/zip" src="../modules/file/icons/package-x-generic.png" /> <a href="../files/gimp-drt_w32_inst.zip" type="application/zip; length=485797" title="gimp-drt_w32_inst.zip">gimp-drt_w32_inst.zip</a></span></td><td>474.41 KB</td> </tr>
+ <tr class="even"><td><span class="file"><img class="file-icon" alt="" title="application/zip" src="../modules/file/icons/package-x-generic.png" /> <a href="../files/gimp-drt_P4m_w32.inst_.zip" type="application/zip; length=485847" title="gimp-drt_P4m_w32.inst_.zip">gimp-drt_P4m_w32.inst_.zip</a></span></td><td>474.46 KB</td> </tr>
+ <tr class="odd"><td><span class="file"><img class="file-icon" alt="" title="application/zip" src="../modules/file/icons/package-x-generic.png" /> <a href="../files/save-for-web_w32_inst.zip" type="application/zip; length=1003681" title="save-for-web_w32_inst.zip">save-for-web_w32_inst.zip</a></span></td><td>980.16 KB</td> </tr>
+ <tr class="even"><td><span class="file"><img class="file-icon" alt="" title="application/zip" src="../modules/file/icons/package-x-generic.png" /> <a href="../files/kaleidoscope_w32_inst.zip" type="application/zip; length=966625" title="kaleidoscope_w32_inst.zip">kaleidoscope_w32_inst.zip</a></span></td><td>943.97 KB</td> </tr>
+ <tr class="odd"><td><span class="file"><img class="file-icon" alt="" title="application/zip" src="../modules/file/icons/package-x-generic.png" /> <a href="../files/iterative-save_w32_inst.zip" type="application/zip; length=953869" title="iterative-save_w32_inst.zip">iterative-save_w32_inst.zip</a></span></td><td>931.51 KB</td> </tr>
+ <tr class="even"><td><span class="file"><img class="file-icon" alt="" title="application/zip" src="../modules/file/icons/package-x-generic.png" /> <a href="../files/aumask-0.8_w32_inst.zip" type="application/zip; length=965263" title="aumask-0.8_w32_inst.zip">aumask-0.8_w32_inst.zip</a></span></td><td>942.64 KB</td> </tr>
+ <tr class="odd"><td><span class="file"><img class="file-icon" alt="" title="application/zip" src="../modules/file/icons/package-x-generic.png" /> <a href="../files/elsamuko-temperature_w32_inst.zip" type="application/zip; length=955575" title="elsamuko-temperature_w32_inst.zip">elsamuko-temperature_w32_inst.zip</a></span></td><td>933.18 KB</td> </tr>
+ <tr class="even"><td><span class="file"><img class="file-icon" alt="" title="application/zip" src="../modules/file/icons/package-x-generic.png" /> <a href="../files/resynthesizer_w32_inst_0.zip" type="application/zip; length=1044486" title="resynthesizer_w32_inst.zip">resynthesizer_w32_inst.zip</a></span></td><td>1020.01 KB</td> </tr>
+</tbody>
+</table>
+</div></div></div><div class="field field-name-taxonomy-vocabulary-5 field-type-taxonomy-term-reference field-label-inline clearfix"><div class="field-label">Tags:&nbsp;</div><div class="field-items"><div class="field-item even"><a href="../taxonomy/term/60">plugin</a></div><div class="field-item odd"><a href="../taxonomy/term/210">photograph</a></div><div class="field-item even"><a href="../taxonomy/term/336">wavelet</a></div><div class="field-item odd"><a href="../taxonomy/term/374">windows</a></div><div class="field-item even"><a href="../taxonomy/term/391">enhance</a></div><div class="field-item odd"><a href="../taxonomy/term/1067">installer</a></div><div class="field-item even"><a href="../taxonomy/term/1068">separate+</a></div><div class="field-item odd"><a href="../taxonomy/term/1069">wavelet-denoise</a></div><div class="field-item even"><a href="../taxonomy/term/1132">gimp-texturize</a></div><div class="field-item odd"><a href="../taxonomy/term/1133">wavelet-decompose</a></div><div class="field-item even"><a href="../taxonomy/term/1134">noise-generator</a></div><div class="field-item odd"><a href="../taxonomy/term/1135">fix-ca</a></div><div class="field-item even"><a href="../taxonomy/term/1136">unsharp2</a></div><div class="field-item odd"><a href="../taxonomy/term/1137">wavelet-sharpen</a></div><div class="field-item even"><a href="../taxonomy/term/1138">gimp-image-reg</a></div><div class="field-item odd"><a href="../taxonomy/term/1139">gimp-drt</a></div><div class="field-item even"><a href="../taxonomy/term/1140">save-for-web</a></div><div class="field-item odd"><a href="../taxonomy/term/1141">kaleidoscope</a></div><div class="field-item even"><a href="../taxonomy/term/1169">iterative_save</a></div><div class="field-item odd"><a href="../taxonomy/term/1191">resynthesizer</a></div><div class="field-item even"><a href="../taxonomy/term/1298">aumask</a></div></div></div><div class="field field-name-taxonomy-vocabulary-1 field-type-taxonomy-term-reference field-label-inline clearfix"><div class="field-label">GIMP Version:&nbsp;</div><div class="field-items"><div class="field-item even"><a href="../taxonomy/term/523">2.6</a></div></div></div><div class="field field-name-taxonomy-vocabulary-7 field-type-taxonomy-term-reference field-label-inline clearfix"><div class="field-label">Code License:&nbsp;</div><div class="field-items"><div class="field-item even"><a href="../taxonomy/term/49">GPL</a></div></div></div>  </div>
+
+  <div class="clearfix">
+          <div class="links"><ul class="links inline"><li class="comment_forbidden first last"><span><a href="../user/login?destination=comment%252Freply%252F24520%2523comment-form">Log in</a> to post comments</span></li>
+</ul></div>
+    
+    <div id="comments" class="comment-wrapper">
+  
+          <h2 class="title">Comments</h2>
+      
+  <a id="comment-15887"></a>
+<div class="comment odd">
+
+  <div class="clearfix">
+
+    <span class="submitted">October 25, 2012 - 21:04 — <span class="username">str8wak</span></span>
+
+  
+  
+        <h3><a href="../comment/15887#comment-15887" class="permalink" rel="bookmark">New/Updated Version?</a></h3>
+    
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>I don't suppose there are these for the new 2.8 version, is there?</p>
+</div></div></div>          </div>
+  </div>
+
+  <ul class="links inline"><li class="comment_forbidden first last"><span><a href="../user/login?destination=comment%252Freply%252F24520%2523comment-form">Log in</a> to post comments</span></li>
+</ul></div>
+
+<div class="indented"><a id="comment-16044"></a>
+<div class="comment even">
+
+  <div class="clearfix">
+
+    <span class="submitted">November 10, 2012 - 18:24 — <span class="username">GIMP Extensions</span></span>
+
+  
+  
+        <h3><a href="../comment/16044#comment-16044" class="permalink" rel="bookmark">Yes, there is!</a></h3>
+    
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>There is a install pack with all of them in sourceforge and google code but I cannot post the link here because will trigger the spam filter.<br />
+Just search for GIMP Extensions.</p>
+</div></div></div>          </div>
+  </div>
+
+  <ul class="links inline"><li class="comment_forbidden first last"><span><a href="../user/login?destination=comment%252Freply%252F24520%2523comment-form">Log in</a> to post comments</span></li>
+</ul></div>
+
+<div class="indented"><a id="comment-16045"></a>
+<div class="comment odd">
+
+  <div class="clearfix">
+
+    <span class="submitted">November 10, 2012 - 23:21 — <span class="username">mahvin</span></span>
+
+  
+  
+        <h3><a href="../comment/16045#comment-16045" class="permalink" rel="bookmark">You are missing the point</a></h3>
+    
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>You can host your install pack by creating a script page along with a link and the file, etc. Not by spamming every entry on the Registry with your links to the Google Code and sourceforge page. Just go to Create content/Script and start from there.</p>
+</div></div></div>          </div>
+  </div>
+
+  <ul class="links inline"><li class="comment_forbidden first last"><span><a href="../user/login?destination=comment%252Freply%252F24520%2523comment-form">Log in</a> to post comments</span></li>
+</ul></div>
+
+<div class="indented"><a id="comment-16047"></a>
+<div class="comment even">
+
+  <div class="clearfix">
+
+    <span class="submitted">November 11, 2012 - 13:46 — <span class="username">GIMP Extensions</span></span>
+
+  
+  
+        <h3><a href="../comment/16047#comment-16047" class="permalink" rel="bookmark">I tried but..</a></h3>
+    
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>I tried to do that but it also triggered the spam filter. I had already sent a email to Ingo reporting the situation, I'm just waiting for his reply, but in the meanwhile if you could check the problem I would appreciate. Thank you.<br />
+P.S.: I will only be able to post information about the install pack and how to get it and not the file it self because is more than 10MB that is the maximum allowed.</p>
+</div></div></div>          </div>
+  </div>
+
+  <ul class="links inline"><li class="comment_forbidden first last"><span><a href="../user/login?destination=comment%252Freply%252F24520%2523comment-form">Log in</a> to post comments</span></li>
+</ul></div>
+
+<div class="indented"><a id="comment-16051"></a>
+<div class="comment odd">
+
+  <div class="clearfix">
+
+    <span class="submitted">November 11, 2012 - 21:51 — <span class="username">mahvin</span></span>
+
+  
+  
+        <h3><a href="../comment/16051#comment-16051" class="permalink" rel="bookmark">Try again</a></h3>
+    
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>Try creating a script page with a link, again.</p>
+</div></div></div>          </div>
+  </div>
+
+  <ul class="links inline"><li class="comment_forbidden first last"><span><a href="../user/login?destination=comment%252Freply%252F24520%2523comment-form">Log in</a> to post comments</span></li>
+</ul></div>
+
+<div class="indented"><a id="comment-16052"></a>
+<div class="comment even">
+
+  <div class="clearfix">
+
+    <span class="submitted">November 12, 2012 - 15:01 — <span class="username">GIMP Extensions</span></span>
+
+  
+  
+        <h3><a href="../comment/16052#comment-16052" class="permalink" rel="bookmark">It&#039;s working</a></h3>
+    
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>Thank you.</p>
+</div></div></div>          </div>
+  </div>
+
+  <ul class="links inline"><li class="comment_forbidden first last"><span><a href="../user/login?destination=comment%252Freply%252F24520%2523comment-form">Log in</a> to post comments</span></li>
+</ul></div>
+</div></div></div></div></div><a id="comment-12351"></a>
+<div class="comment odd">
+
+  <div class="clearfix">
+
+    <span class="submitted">July 18, 2011 - 01:01 — <span class="username">DailyLunatic</span></span>
+
+  
+  
+        <h3><a href="../comment/12351#comment-12351" class="permalink" rel="bookmark">Resynthesizer needs LIBINTL-8DLL</a></h3>
+    
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>After installing Resynthesizer I get an error message asking for LIBINTL-8.DLL.  Any ideas what it is looking for, where to go and get it, where it should go, and why it did not install correctly?</p>
+</div></div></div>          </div>
+  </div>
+
+  <ul class="links inline"><li class="comment_forbidden first last"><span><a href="../user/login?destination=comment%252Freply%252F24520%2523comment-form">Log in</a> to post comments</span></li>
+</ul></div>
+
+<div class="indented"><a id="comment-13085"></a>
+<div class="comment comment-by-node-author even">
+
+  <div class="clearfix">
+
+    <span class="submitted">October 19, 2011 - 15:45 — <span class="username">Francois_C</span></span>
+
+  
+  
+        <h3><a href="../comment/13085#comment-13085" class="permalink" rel="bookmark">libintl-8.dll</a></h3>
+    
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>As libintl-8.dll was in my Gimp bin directory, I did not think including the dll was necessary. But on 2011/07/18 I modified the installer which now includes this dll and installs it into GIMP-2.0\bin\ if not already present.</p>
+</div></div></div>          </div>
+  </div>
+
+  <ul class="links inline"><li class="comment_forbidden first last"><span><a href="../user/login?destination=comment%252Freply%252F24520%2523comment-form">Log in</a> to post comments</span></li>
+</ul></div>
+</div><a id="comment-8993"></a>
+<div class="comment odd">
+
+  <div class="clearfix">
+
+    <span class="submitted">July 28, 2010 - 19:27 — <span class="username">lylejk</span></span>
+
+  
+  
+        <h3><a href="../comment/8993#comment-8993" class="permalink" rel="bookmark">Already had many of these</a></h3>
+    
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>Already had many of these plugins, but decided to remove my texturize plugin and try your compile.  Like it that the stupid DOS Box doesn't pop up anymore when running the filter; thanks for that.  I Just wish the plugin wasn't so buggy when trying to create seamless textures on larger targets (not your issue; bugs been there for a long time; not so buggy in Ubuntu but I even had it crash under certain conditions).   :)</p>
+</div></div></div>          </div>
+  </div>
+
+  <ul class="links inline"><li class="comment_forbidden first last"><span><a href="../user/login?destination=comment%252Freply%252F24520%2523comment-form">Log in</a> to post comments</span></li>
+</ul></div>
+<a id="comment-8613"></a>
+<div class="comment even">
+
+  <div class="clearfix">
+
+    <span class="submitted">June 30, 2010 - 16:54 — <span class="username">PhotoComiX</span></span>
+
+  
+  
+        <h3><a href="../comment/8613#comment-8613" class="permalink" rel="bookmark">good idea Francois , very</a></h3>
+    
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>good idea Francois , very handy expecially for Plugin with a not standard install routine (as gmic the installer you created for Gmic...)<br />
+Maybe instead then many separate installers would be possible a single 1 (a bit as the Registry plugins pack offered by Ubuntu Distro ) offering the options to install all the plugin or just some selected ?</p>
+<p>about other plugin i will suggest Resynthesyzer (not so hard to install manually ,except most fail to find the right version and to match the plugin with the updated related scripts..that obviouvsly being scripts has to be installed not in the plugin but in a script folder ,confusing even more the users)</p>
+<p>In case you would go for Resynthesizer i would remind my old suggestion : slightly change its registration path (from Filter/Map/Resinthesyzer to Filter/Map/Resinthesyzer/Resinthesyzer  so all the Resinthesizer-related scripts could be easily arranged to be listed in the same submenu (as Filter/Map/Resinthesyzer/Heal Selection,Filter/Map/Resinthesyzer/Smart remove etc) instead then scattered as now each in the most different different menu locations</p>
+<p>but i mostly hope for a mathmap installer..last windows alpha seems sufficent stable on windows</p>
+</div></div></div>          </div>
+  </div>
+
+  <ul class="links inline"><li class="comment_forbidden first last"><span><a href="../user/login?destination=comment%252Freply%252F24520%2523comment-form">Log in</a> to post comments</span></li>
+</ul></div>
+<h2 class="element-invisible">Pages</h2><div class="item-list"><ul class="pager"><li class="pager-current first">1</li>
+<li class="pager-item"><a title="Go to page 2" href="24520?page=1">2</a></li>
+<li class="pager-item"><a title="Go to page 3" href="24520?page=2">3</a></li>
+<li class="pager-item"><a title="Go to page 4" href="24520?page=3">4</a></li>
+<li class="pager-next"><a title="Go to next page" href="24520?page=1">next ›</a></li>
+<li class="pager-last last"><a title="Go to last page" href="24520?page=3">last »</a></li>
+</ul></div>
+        </div>
+  </div>
+
+</div>
+  </div>
+</div>
+  </div>
+          </div>
+          <a href="../crss/node/24520" class="feed-icon" title="Subscribe to Comments for &quot;Gimp Plugins installers for Win32&quot;"><img src="../misc/feed.png" width="16" height="16" alt="Subscribe to Comments for &quot;Gimp Plugins installers for Win32&quot;" /></a>            <div class="region region-footer">
+    <div id="block-block-5" class="block block-block clearfix">
+
+    
+  <div class="content">
+    Unless otherwise noted, the rights for the individual plugins are with their respective authors. Logo image by Jakub Steiner.
+<marquee style="width: 0px; position: absolute"> <a href="http://brazzersdeporno.com" title="porno">porno</a> - <a href="http://www.porno724.com/" target="_blank" title="Porno izle">Porno izle</a> <a href="http://www.yokyokpornolar.com/" target="_blank" title="porno abi">porno abi</a> </marquee>  </div>
+</div>
+  </div>
+      </div></div></div></div> <!-- /.left-corner, /.right-corner, /#squeeze, /#center -->
+
+              <div id="sidebar-second" class="sidebar">
+            <div class="region region-sidebar-second">
+    <div id="block-views-relevant-questions-block-1" class="block block-views clearfix">
+
+    <h2 class="title">Questions</h2>
+  
+  <div class="content">
+    <div class="view view-relevant-questions view-id-relevant_questions view-display-id-block_1 view-dom-id-79173210375df07fb45af3f7c4c36abd">
+        
+  
+  
+      <div class="view-content">
+      <div class="item-list">    <ul>          <li class="views-row views-row-1 views-row-odd views-row-first">  
+  <div class="views-field views-field-title">        <span class="field-content"><a href="28355">How do you install the xsane gimp plugin??</a></span>  </div></li>
+          <li class="views-row views-row-2 views-row-even">  
+  <div class="views-field views-field-title">        <span class="field-content"><a href="27733">G&#039;MIC Plugin does not show </a></span>  </div></li>
+          <li class="views-row views-row-3 views-row-odd">  
+  <div class="views-field views-field-title">        <span class="field-content"><a href="27114">Plugins Installer</a></span>  </div></li>
+          <li class="views-row views-row-4 views-row-even views-row-last">  
+  <div class="views-field views-field-title">        <span class="field-content"><a href="27004">I&#039;m new to GIMP  Looks Great</a></span>  </div></li>
+      </ul></div>    </div>
+  
+  
+  
+  
+  
+  
+</div>  </div>
+</div>
+<div id="block-search-form" class="block block-search clearfix">
+
+    
+  <div class="content">
+    <form action="24520" method="post" id="search-block-form" accept-charset="UTF-8"><div><div class="container-inline">
+      <h2 class="element-invisible">Search form</h2>
+    <div class="form-item form-type-textfield form-item-search-block-form">
+  <label class="element-invisible" for="edit-search-block-form--2">Search </label>
+ <input title="Enter the terms you wish to search for." type="text" id="edit-search-block-form--2" name="search_block_form" value="" size="15" maxlength="128" class="form-text" />
+</div>
+<div class="form-actions form-wrapper" id="edit-actions--2"><input type="submit" id="edit-submit--2" name="op" value="Search" class="form-submit" /></div><input type="hidden" name="form_build_id" value="form-_r5Z5vsegnuGT7PaOXh7MMPCRKF4_7FloR8JjH7qf9g" />
+<input type="hidden" name="form_id" value="search_block_form" />
+</div>
+</div></form>  </div>
+</div>
+<div id="block-forum-active" class="block block-forum clearfix">
+
+    <h2 class="title">Active forum topics</h2>
+  
+  <div class="content">
+    <div class="item-list"><ul><li class="first"><a href="32356" title="3 comments">Can&#039;t access &quot;My account&quot;</a></li>
+<li><a href="32371">Delete account</a></li>
+<li class="last"><a href="32363">Outline</a></li>
+</ul></div><div class="more-link"><a href="../forum" title="Read the latest forum topics.">More</a></div>  </div>
+</div>
+<div id="block-views-newest-questions-block-1" class="block block-views clearfix">
+
+    <h2 class="title">Updated Questions</h2>
+  
+  <div class="content">
+    <div class="view view-newest-questions view-id-newest_questions view-display-id-block_1 view-dom-id-b91423f398861597d7b7eb4758f43f71">
+        
+  
+  
+      <div class="view-content">
+      <div class="item-list">    <ul>          <li class="views-row views-row-1 views-row-odd views-row-first">  
+  <span class="views-field views-field-title">        <span class="field-content"><a href="32373">Shadow and Highlights Recovery - Adding group undo</a></span>  </span>  
+  <div class="views-field views-field-last-updated">    <span class="views-label views-label-last-updated">Last change</span>    <span class="field-content">3 hours 22 min</span>  </div>  
+  <div class="views-field views-field-field-answer-count">        <div class="field-content">No answers, yet!</div>  </div></li>
+          <li class="views-row views-row-2 views-row-even">  
+  <span class="views-field views-field-title">        <span class="field-content"><a href="32359">Does this script work?</a></span>  </span>  
+  <div class="views-field views-field-last-updated">    <span class="views-label views-label-last-updated">Last change</span>    <span class="field-content">4 months 2 weeks</span>  </div>  
+  <div class="views-field views-field-field-answer-count">        <div class="field-content">No answers, yet!</div>  </div></li>
+          <li class="views-row views-row-3 views-row-odd views-row-last">  
+  <span class="views-field views-field-title">        <span class="field-content"><a href="32349">File upload problem</a></span>  </span>  
+  <div class="views-field views-field-last-updated">    <span class="views-label views-label-last-updated">Last change</span>    <span class="field-content">6 months 34 min</span>  </div>  
+  <div class="views-field views-field-field-answer-count">        <div class="field-content">1 Answer(s)</div>  </div></li>
+      </ul></div>    </div>
+  
+  
+  
+      
+<div class="more-link">
+  <a href="../newest-questions">
+    more  </a>
+</div>
+  
+  
+  
+</div>  </div>
+</div>
+<div id="block-comment-recent" class="block block-comment clearfix">
+
+    <h2 class="title">Recent comments</h2>
+  
+  <div class="content">
+    <div class="item-list"><ul><li class="first"><a href="../comment/19262#comment-19262">Black triangles</a>&nbsp;<span>2 hours 28 min ago</span></li>
+<li><a href="../comment/19261#comment-19261">I use the Python version of</a>&nbsp;<span>4 days 4 hours ago</span></li>
+<li class="last"><a href="../comment/19260#comment-19260">I have the same problem too</a>&nbsp;<span>1 week 2 days ago</span></li>
+</ul></div>  </div>
+</div>
+<div id="block-node-recent" class="block block-node clearfix">
+
+    <h2 class="title">Recent content</h2>
+  
+  <div class="content">
+    <table>
+<tbody>
+ <tr class="odd"><td class="title-author"><div class="node-title"><a href="32373">Shadow and Highlights Recovery - Adding group undo</a></div><div class="node-author"><span class="username">programmer_ceds</span></div></td><td class="edit"></td><td class="delete"></td> </tr>
+ <tr class="even"><td class="title-author"><div class="node-title"><a href="32360">GIMP Plugin Registry in Lockdown mode</a></div><div class="node-author"><span class="username">schumaml</span></div></td><td class="edit"></td><td class="delete"></td> </tr>
+ <tr class="odd"><td class="title-author"><div class="node-title"><a href="32372">Split to Special PNG&#039;s</a></div><div class="node-author"><span class="username">Efenstor</span></div></td><td class="edit"></td><td class="delete"></td> </tr>
+ <tr class="even"><td class="title-author"><div class="node-title"><a href="32371">Delete account</a></div><div class="node-author"><span class="username">amarz82</span></div></td><td class="edit"></td><td class="delete"></td> </tr>
+ <tr class="odd"><td class="title-author"><div class="node-title"><a href="32370">Export with MozJPEG</a></div><div class="node-author"><span class="username">Efenstor</span></div></td><td class="edit"></td><td class="delete"></td> </tr>
+ <tr class="even"><td class="title-author"><div class="node-title"><a href="32369">Shadow and Highlights Recovery</a></div><div class="node-author"><span class="username">erwinsoo</span></div></td><td class="edit"></td><td class="delete"></td> </tr>
+ <tr class="odd"><td class="title-author"><div class="node-title"><a href="27656">GIMP Extensions Pack for Windows</a></div><div class="node-author"><span class="username">GIMP Extensions</span></div></td><td class="edit"></td><td class="delete"></td> </tr>
+ <tr class="even"><td class="title-author"><div class="node-title"><a href="32341">Removed...</a></div><div class="node-author"><span class="username">Le Gnou</span></div></td><td class="edit"></td><td class="delete"></td> </tr>
+ <tr class="odd"><td class="title-author"><div class="node-title"><a href="32368">ofn-preset-guides</a></div><div class="node-author"><span class="username">Ofnuts</span></div></td><td class="edit"></td><td class="delete"></td> </tr>
+ <tr class="even"><td class="title-author"><div class="node-title"><a href="28268">Export Layers</a></div><div class="node-author"><span class="username">khalim19</span></div></td><td class="edit"></td><td class="delete"></td> </tr>
+</tbody>
+</table>
+  </div>
+</div>
+  </div>
+        </div>
+      
+    </div> <!-- /#container -->
+  </div> <!-- /#wrapper -->
+  </body>
+</html>

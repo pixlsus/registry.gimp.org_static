@@ -1,0 +1,643 @@
+(define (intersection2 l1 l2)
+	(let* (
+		(x1 (vector-ref l1 0))
+		(y1 (vector-ref l1 1))
+		(x2 (vector-ref l1 2))
+		(y2 (vector-ref l1 3))
+		(x3 (vector-ref l2 0))
+		(y3 (vector-ref l2 1))
+		(x4 (vector-ref l2 2))
+		(y4 (vector-ref l2 3))
+		(m1 0)
+		(m2 0)
+		(tmp1 0)
+		(tmp2 0)
+		(x 0)
+		(y 0)
+		(r (make-vector 2 'double))
+		)
+		
+		(cond ((= x1 x2)
+				(set! x x1)
+				(set! m2 (/ (- y4 y3) (- x4 x3)))
+				(set! y (+ (* m2 x) (- y3 (* m2 x3))))
+			)
+			((= x3 x4)
+				(set! x x3)
+				(set! m1 (/ (- y2 y1) (- x2 x1)))
+				(set! y (+ (* m1 x) (- y1 (* m1 x1))))
+			)
+			((= 1 1)
+				(set! m1 (/ (- y2 y1) (- x2 x1)))
+				(set! m2 (/ (- y4 y3) (- x4 x3)))
+				(set! tmp1 (- (- y3 (* m2 x3)) (- y1 (* m1 x1))))
+				(set! tmp2 (- m1 m2))
+				(set! x (/ tmp1 tmp2))
+				(set! y (+ (* m1 x) (- y1 (* m1 x1))))
+			)
+		)
+		;(draw-line image drawable x1 y1 x y)
+		(vector-set! r 0 x)
+        	(vector-set! r 1 y)
+		r
+
+	)
+
+)
+(define (point x y)
+	(let* (
+		(p (make-vector 2 'double))
+		)
+		(vector-set! p 0 x)
+		(vector-set! p 1 y)
+		p
+	)
+)
+(define (draw-line2 drawable from to) 
+  (let* (
+          (points (make-vector 4 'double))
+        )
+
+        (vector-set! points 0 (vector-ref from 0))
+        (vector-set! points 1 (vector-ref from 1))
+        (vector-set! points 2 (vector-ref to 0))
+        (vector-set! points 3 (vector-ref to 1))
+	(gimp-paintbrush-default drawable 4 points)
+        ;(gimp-pencil drawable 4 points)
+	; Flush output
+  	;(gimp-displays-flush)
+  )
+)
+(define (islamic-design-1 image drawable width merg) 
+	; start the undo group
+	(gimp-undo-push-group-start image)
+  (let* (
+          (x1 0)
+	  (y1 0)
+	  (x2 0)
+	  (y2 0)
+	  (x3 0)
+	  (y3 0)
+	  (x4 0)
+	  (y4 0)
+	  (from (make-vector 2 'double))
+	  (to (make-vector 2 'double))
+	;
+	  (l21 (make-vector 4 'double))
+	  (l22 (make-vector 4 'double))
+	  (l23 (make-vector 4 'double))
+	  (l24 (make-vector 4 'double))
+	;
+	  (l31 (make-vector 4 'double))
+	  (l32 (make-vector 4 'double))
+	  (l33 (make-vector 4 'double))
+	  (l34 (make-vector 4 'double))
+	;
+	  (l51 (make-vector 4 'double))
+	  (l52 (make-vector 4 'double))
+	  (l53 (make-vector 4 'double))
+	  (l54 (make-vector 4 'double))
+	  (l55 (make-vector 4 'double))
+	  (l56 (make-vector 4 'double))
+	  (l57 (make-vector 4 'double))
+	  (l58 (make-vector 4 'double))
+	;
+	  (l61 (make-vector 4 'double))
+	  (l62 (make-vector 4 'double))
+	  (l63 (make-vector 4 'double))
+	  (l64 (make-vector 4 'double))
+	;
+	  (l71 (make-vector 4 'double))
+	  (l72 (make-vector 4 'double))
+	  (l73 (make-vector 4 'double))
+	  (l74 (make-vector 4 'double))
+	;
+	  (left (make-vector 4 'double))
+	  (top (make-vector 4 'double))
+	  (right (make-vector 4 'double))
+	  (down (make-vector 4 'double))
+	;
+	  (radical2 1.414213562)
+	  (z1 0.146446609) ;(2-radical(2))/4*width
+	  (z2 0.117316567) ;1-radical(2-radical(2))
+	  (s-value1 0)
+	  (s-value2 0)
+	  (s-value3 0)
+	  (s-value4 0)
+	  (tmp1 0)
+	  (tmp2 0)
+	  (tmp3 0)
+	  (tmp4 0)
+	  (myl2 0)
+        )
+	;--------------------------------
+	(set! s-value1 (* z1  width))	
+	(set! s-value2 (* (/ radical2 2)  s-value1))
+	(set! s-value3 (* z2  width))
+	(set! s-value4 (* (/ radical2 2)  s-value3))
+	;--------------------------------
+	;--------------------------------stage 1
+	;left
+	(vector-set! left 0 0)
+	(vector-set! left 1 0)
+	(vector-set! left 2 0)
+	(vector-set! left 3 width)
+	;top
+	(vector-set! top 0 0)
+	(vector-set! top 1 0)
+	(vector-set! top 2 width)
+	(vector-set! top 3 0)
+	;right
+	(vector-set! right 0 width)
+	(vector-set! right 1 0)
+	(vector-set! right 2 width)
+	(vector-set! right 3 width)
+	;down
+	(vector-set! down 0 0)
+	(vector-set! down 1 width)
+	(vector-set! down 2 width)
+	(vector-set! down 3 width)
+	;---
+	(set! tmp1 (- width s-value1))
+	(set! tmp2 (/ width 2))
+	;l21
+	(vector-set! l21 0 0)
+	(vector-set! l21 1 s-value1)
+	(vector-set! l21 2 tmp1)
+	(vector-set! l21 3 tmp2)
+	;l22
+	(vector-set! l22 0 width)
+	(vector-set! l22 1 s-value1)
+	(vector-set! l22 2 s-value1)
+	(vector-set! l22 3 tmp2)
+	;l23
+	(vector-set! l23 0 0)
+	(vector-set! l23 1 tmp1)
+	(vector-set! l23 2 tmp1)
+	(vector-set! l23 3 tmp2)
+	;l23
+	(vector-set! l24 0 width)
+	(vector-set! l24 1 tmp1)
+	(vector-set! l24 2 s-value1)
+	(vector-set! l24 3 tmp2)
+	;---
+	;l31
+	(vector-set! l31 0 s-value1)
+	(vector-set! l31 1 0)
+	(vector-set! l31 2 tmp2)
+	(vector-set! l31 3 tmp1)
+	;l32
+	(vector-set! l32 0 tmp1)
+	(vector-set! l32 1 0)
+	(vector-set! l32 2 tmp2)
+	(vector-set! l32 3 tmp1)
+	;l33
+	(vector-set! l33 0 s-value1)
+	(vector-set! l33 1 width)
+	(vector-set! l33 2 tmp2)
+	(vector-set! l33 3 s-value1)
+	;l34
+	(vector-set! l34 0 tmp1)
+	(vector-set! l34 1 width)
+	(vector-set! l34 2 tmp2)
+	(vector-set! l34 3 s-value1)
+	;---
+	(set! tmp1 (- (/ width 2) s-value3))
+	(set! tmp2 (+ (/ width 2) s-value3))
+	;l51
+	(vector-set! l51 0 tmp1)
+	(vector-set! l51 1 0)
+	(vector-set! l51 2 width)
+	(vector-set! l51 3 tmp2)
+	;l52
+	(vector-set! l52 0 tmp2)
+	(vector-set! l52 1 0)
+	(vector-set! l52 2 0)
+	(vector-set! l52 3 tmp2)
+	;l53
+	(vector-set! l53 0 0)
+	(vector-set! l53 1 tmp1)
+	(vector-set! l53 2 tmp2)
+	(vector-set! l53 3 width)
+	;l54
+	(vector-set! l54 0 tmp1)
+	(vector-set! l54 1 width)
+	(vector-set! l54 2 width)
+	(vector-set! l54 3 tmp1)
+	;l55
+	(vector-set! l55 0 tmp1)
+	(vector-set! l55 1 0)
+	(vector-set! l55 2 0)
+	(vector-set! l55 3 tmp1)
+	;l56
+	(vector-set! l56 0 0)
+	(vector-set! l56 1 tmp2)
+	(vector-set! l56 2 tmp1)
+	(vector-set! l56 3 width)
+	;l57
+	(vector-set! l57 0 tmp2)
+	(vector-set! l57 1 width)
+	(vector-set! l57 2 width)
+	(vector-set! l57 3 tmp2)
+	;l58
+	(vector-set! l58 0 tmp2)
+	(vector-set! l58 1 0)
+	(vector-set! l58 2 width)
+	(vector-set! l58 3 tmp1)
+	;---
+	(set! tmp1 (- (/ width 2) s-value4))
+	(set! tmp2 (+ (/ width 2) s-value4))
+	;l61
+	(vector-set! l61 0 tmp1)
+	(vector-set! l61 1 0)
+	(vector-set! l61 2 tmp1)
+	(vector-set! l61 3 width)
+	;l62
+	(vector-set! l62 0 tmp2)
+	(vector-set! l62 1 0)
+	(vector-set! l62 2 tmp2)
+	(vector-set! l62 3 width)
+	;l63
+	(vector-set! l63 0 0)
+	(vector-set! l63 1 tmp1)
+	(vector-set! l63 2 width)
+	(vector-set! l63 3 tmp1)
+	;l64
+	(vector-set! l64 0 0)
+	(vector-set! l64 1 tmp2)
+	(vector-set! l64 2 width)
+	(vector-set! l64 3 tmp2)
+	;---
+	;l71
+	(set! tmp1 (- width s-value4))
+	(vector-set! l71 0 s-value4)
+	(vector-set! l71 1 0)
+	(vector-set! l71 2 s-value4)
+	(vector-set! l71 3 width)
+	;l72
+	(vector-set! l72 0 tmp1)
+	(vector-set! l72 1 0)
+	(vector-set! l72 2 tmp1)
+	(vector-set! l72 3 width)
+	;l73
+	(vector-set! l73 0 0)
+	(vector-set! l73 1 s-value4)
+	(vector-set! l73 2 width)
+	(vector-set! l73 3 s-value4)
+	;l74
+	(vector-set! l74 0 0)
+	(vector-set! l74 1 tmp1)
+	(vector-set! l74 2 width)
+	(vector-set! l74 3 tmp1)
+	;--------------------------------stage 2
+	(set! myl2 
+		(car 
+			;(gimp-layer-new-from-drawable drawable image)
+			(gimp-layer-new image width width RGB-IMAGE "stage-2" 100 NORMAL-MODE)
+		)
+	   )
+	(gimp-image-add-layer image myl2 -1)
+	(gimp-layer-add-alpha myl2)
+	(gimp-drawable-fill myl2 3)
+	;---
+	(set! from (intersection2 left l21))
+	(set! to (intersection2 l71 l21))
+	(draw-line2 myl2 from to)
+	(set! from (intersection2 l55 l21))
+	(set! to (intersection2 l52 l21))
+	(draw-line2 myl2 from to)
+	(set! from (intersection2 l61 l21))
+	(set! to (intersection2 l34 l21))
+	(draw-line2 myl2 from to)
+	;ok
+	(set! from (intersection2 left l23))
+	(set! to (intersection2 l71 l23))
+	(draw-line2 myl2 from to)
+	(set! from (intersection2 l56 l23))
+	(set! to (intersection2 l53 l23))
+	(draw-line2 myl2 from to)
+	(set! from (intersection2 l61 l23))
+	(set! to (intersection2 l32 l23))
+	(draw-line2 myl2 from to)
+	;ok
+	(set! from (intersection2 right l22))
+	(set! to (intersection2 l72 l22))
+	(draw-line2 myl2 from to)
+	(set! from (intersection2 l58 l22))
+	(set! to (intersection2 l51 l22))
+	(draw-line2 myl2 from to)
+	(set! from (intersection2 l62 l22))
+	(set! to (intersection2 l33 l22))
+	(draw-line2 myl2 from to)
+	;ok
+	(set! from (intersection2 right l24))
+	(set! to (intersection2 l72 l24))
+	(draw-line2 myl2 from to)
+	(set! from (intersection2 l57 l24))
+	(set! to (intersection2 l54 l24))
+	(draw-line2 myl2 from to)
+	(set! from (intersection2 l62 l24))
+	(set! to (intersection2 l31 l24))
+	(draw-line2 myl2 from to)
+	;ok
+	;--------------------------------stage 3
+	(set! myl2 
+		(car 
+			;(gimp-layer-new-from-drawable drawable image)
+			(gimp-layer-new image width width RGB-IMAGE "stage-3" 100 NORMAL-MODE)
+		)
+	   )
+	(gimp-image-add-layer image myl2 -1)
+	(gimp-layer-add-alpha myl2)
+	(gimp-drawable-fill myl2 3)
+	;---
+	(set! from (intersection2 top l31))
+	(set! to (intersection2 l73 l31))
+	(draw-line2 myl2 from to)
+	(set! from (intersection2 l55 l31))
+	(set! to (intersection2 l52 l31))
+	(draw-line2 myl2 from to)
+	(set! from (intersection2 l63 l31))
+	(set! to (intersection2 l24 l31))
+	(draw-line2 myl2 from to)
+	;ok
+	(set! from (intersection2 top l32))
+	(set! to (intersection2 l73 l32))
+	(draw-line2 myl2 from to)
+	(set! from (intersection2 l58 l32))
+	(set! to (intersection2 l51 l32))
+	(draw-line2 myl2 from to)
+	(set! from (intersection2 l63 l32))
+	(set! to (intersection2 l23 l32))
+	(draw-line2 myl2 from to)
+	;ok
+	(set! from (intersection2 down l33))
+	(set! to (intersection2 l74 l33))
+	(draw-line2 myl2 from to)
+	(set! from (intersection2 l56 l33))
+	(set! to (intersection2 l53 l33))
+	(draw-line2 myl2 from to)
+	(set! from (intersection2 l64 l33))
+	(set! to (intersection2 l22 l33))
+	(draw-line2 myl2 from to)
+	;ok
+	(set! from (intersection2 down l34))
+	(set! to (intersection2 l74 l34))
+	(draw-line2 myl2 from to)
+	(set! from (intersection2 l57 l34))
+	(set! to (intersection2 l54 l34))
+	(draw-line2 myl2 from to)
+	(set! from (intersection2 l64 l34))
+	(set! to (intersection2 l21 l34))
+	(draw-line2 myl2 from to)
+	;ok
+	;--------------------------------stage 4
+	(set! myl2 
+		(car 
+			;(gimp-layer-new-from-drawable drawable image)
+			(gimp-layer-new image width width RGB-IMAGE "stage-4" 100 NORMAL-MODE)
+		)
+	   )
+	(gimp-image-add-layer image myl2 -1)
+	(gimp-layer-add-alpha myl2)
+	(gimp-drawable-fill myl2 3)
+	;---
+	(set! x1 s-value1)
+	(set! y1 0)
+	(set! x2 s-value2)
+	(set! y2 s-value2)
+	(draw-line2 myl2 (point x1 y1) (point x2 y2))
+	;
+	(set! x1 0)
+	(set! y1 s-value1)
+	(draw-line2 myl2 (point x1 y1) (point x2 y2))
+	;--
+	(set! x1 (- width s-value1))
+	(set! y1 0)
+	(set! x2 (- width s-value2))
+	(set! y2 s-value2)
+	(draw-line2 myl2 (point x1 y1) (point x2 y2))
+	;
+	(set! x1 width)
+	(set! y1 s-value1)
+	(draw-line2 myl2 (point x1 y1) (point x2 y2))
+	;--
+	(set! x1 0)
+	(set! y1 (- width s-value1))
+	(set! x2 s-value2)
+	(set! y2 (- width s-value2))
+	(draw-line2 myl2 (point x1 y1) (point x2 y2))
+	;
+	(set! x1 s-value1)
+	(set! y1 width)
+	(draw-line2 myl2 (point x1 y1) (point x2 y2))
+	;--
+	(set! x1 width)
+	(set! y1 (- width s-value1))
+	(set! x2 (- width s-value2))
+	(set! y2 x2)
+	(draw-line2 myl2 (point x1 y1) (point x2 y2))
+	;
+	(set! x1 (- width s-value1))
+	(set! y1 width)
+	(draw-line2 myl2 (point x1 y1) (point x2 y2))
+	;--------------------------------stage 5
+	(set! myl2 
+		(car 
+			;(gimp-layer-new-from-drawable drawable image)
+			(gimp-layer-new image width width RGB-IMAGE "stage-5" 100 NORMAL-MODE)
+		)
+	   )
+	(gimp-image-add-layer image myl2 -1)
+	(gimp-layer-add-alpha myl2)
+	(gimp-drawable-fill myl2 3)
+	;---
+	(set! from (intersection2 top l51))
+	(set! to (intersection2 l61 l51))
+	(draw-line2 myl2 from to)
+	(set! from (intersection2 l73 l51))
+	(set! to (intersection2 l22 l51))
+	(draw-line2 myl2 from to)
+	(set! from (intersection2 l32 l51))
+	(set! to (intersection2 l72 l51))
+	(draw-line2 myl2 from to)
+	(set! from (intersection2 l64 l51))
+	(set! to (intersection2 right l51))
+	(draw-line2 myl2 from to)
+	;ok
+	(set! from (intersection2 top l52))
+	(set! to (intersection2 l62 l52))
+	(draw-line2 myl2 from to)
+	(set! from (intersection2 l73 l52))
+	(set! to (intersection2 l21 l52))
+	(draw-line2 myl2 from to)
+	(set! from (intersection2 l31 l52))
+	(set! to (intersection2 l71 l52))
+	(draw-line2 myl2 from to)
+	(set! from (intersection2 l64 l52))
+	(set! to (intersection2 left l52))
+	(draw-line2 myl2 from to)
+	;ok
+	(set! from (intersection2 left l53))
+	(set! to (intersection2 l63 l53))
+	(draw-line2 myl2 from to)
+	(set! from (intersection2 l71 l53))
+	(set! to (intersection2 l33 l53))
+	(draw-line2 myl2 from to)
+	(set! from (intersection2 l23 l53))
+	(set! to (intersection2 l74 l53))
+	(draw-line2 myl2 from to)
+	(set! from (intersection2 l62 l53))
+	(set! to (intersection2 down l53))
+	(draw-line2 myl2 from to)
+	;ok
+	(set! from (intersection2 right l54))
+	(set! to (intersection2 l63 l54))
+	(draw-line2 myl2 from to)
+	(set! from (intersection2 l72 l54))
+	(set! to (intersection2 l34 l54))
+	(draw-line2 myl2 from to)
+	(set! from (intersection2 l24 l54))
+	(set! to (intersection2 l74 l54))
+	(draw-line2 myl2 from to)
+	(set! from (intersection2 l61 l54))
+	(set! to (intersection2 down l54))
+	(draw-line2 myl2 from to)
+	;ok
+	(set! from (intersection2 top l55))
+	(set! to (intersection2 l31 l55))
+	(draw-line2 myl2 from to)
+	(set! from (intersection2 l21 l55))
+	(set! to (intersection2 left l55))
+	(draw-line2 myl2 from to)
+	;ok
+	(set! from (intersection2 left l56))
+	(set! to (intersection2 l23 l56))
+	(draw-line2 myl2 from to)
+	(set! from (intersection2 l33 l56))
+	(set! to (intersection2 down l56))
+	(draw-line2 myl2 from to)
+	;ok
+	(set! from (intersection2 down l57))
+	(set! to (intersection2 l34 l57))
+	(draw-line2 myl2 from to)
+	(set! from (intersection2 l24 l57))
+	(set! to (intersection2 right l57))
+	(draw-line2 myl2 from to)
+	;
+	(set! from (intersection2 right l58))
+	(set! to (intersection2 l22 l58))
+	(draw-line2 myl2 from to)
+	(set! from (intersection2 l32 l58))
+	(set! to (intersection2 top l58))
+	(draw-line2 myl2 from to)
+	;--------------------------------stage 6
+	(set! myl2 
+		(car 
+			;(gimp-layer-new-from-drawable drawable image)
+			(gimp-layer-new image width width RGB-IMAGE "stage-6" 100 NORMAL-MODE)
+		)
+	   )
+	(gimp-image-add-layer image myl2 -1)
+	(gimp-layer-add-alpha myl2)
+	(gimp-drawable-fill myl2 3)
+	;---
+	(set! from (intersection2 l51 l61))
+	(set! to (intersection2 l21 l61))
+	(draw-line2 myl2 from to)
+	(set! from (intersection2 l23 l61))
+	(set! to (intersection2 l54 l61))
+	(draw-line2 myl2 from to)
+	;ok
+	(set! from (intersection2 l52 l62))
+	(set! to (intersection2 l22 l62))
+	(draw-line2 myl2 from to)
+	(set! from (intersection2 l24 l62))
+	(set! to (intersection2 l53 l62))
+	(draw-line2 myl2 from to)
+	;ok
+	(set! from (intersection2 l53 l63))
+	(set! to (intersection2 l31 l63))
+	(draw-line2 myl2 from to)
+	(set! from (intersection2 l32 l63))
+	(set! to (intersection2 l54 l63))
+	(draw-line2 myl2 from to)
+	;ok
+	(set! from (intersection2 l52 l64))
+	(set! to (intersection2 l33 l64))
+	(draw-line2 myl2 from to)
+	(set! from (intersection2 l34 l64))
+	(set! to (intersection2 l51 l64))
+	(draw-line2 myl2 from to)
+	;ok
+	;--------------------------------stage 7
+	(set! myl2 
+		(car 
+			;(gimp-layer-new-from-drawable drawable image)
+			(gimp-layer-new image width width RGB-IMAGE "stage-7" 100 NORMAL-MODE)
+		)
+	   )
+	(gimp-image-add-layer image myl2 -1)
+	(gimp-layer-add-alpha myl2)
+	(gimp-drawable-fill myl2 3)
+	;---
+	(set! from (intersection2 l53 l71))
+	(set! to (intersection2 l21 l71))
+	(draw-line2 myl2 from to)
+	(set! from (intersection2 l23 l71))
+	(set! to (intersection2 l52 l71))
+	(draw-line2 myl2 from to)
+	;
+	(set! from (intersection2 l54 l72))
+	(set! to (intersection2 l22 l72))
+	(draw-line2 myl2 from to)
+	(set! from (intersection2 l24 l72))
+	(set! to (intersection2 l51 l72))
+	(draw-line2 myl2 from to)
+	;
+	(set! from (intersection2 l51 l73))
+	(set! to (intersection2 l31 l73))
+	(draw-line2 myl2 from to)
+	(set! from (intersection2 l32 l73))
+	(set! to (intersection2 l52 l73))
+	(draw-line2 myl2 from to)
+	;
+	(set! from (intersection2 l54 l74))
+	(set! to (intersection2 l33 l74))
+	(draw-line2 myl2 from to)
+	(set! from (intersection2 l34 l74))
+	(set! to (intersection2 l53 l74))
+	(draw-line2 myl2 from to)
+	;
+	(when (= merg TRUE)
+            (set! tmp1 2)
+            (while (< tmp1 7)
+            	(set! myl2
+                    (car
+                        (gimp-image-merge-down image myl2 0)
+                    )
+                )
+                (set! tmp1 (+ tmp1 1))
+            )
+        )
+	; Complete the undo group
+  	(gimp-undo-push-group-end image)
+	; Flush output
+  	(gimp-displays-flush)
+  )
+)
+(script-fu-register "islamic-design-1"
+                    "design-1"
+                    "This function get a value (WIDTH) from user and drow some regular lines."
+                    "M.Sadegh Davtalab <ms.davtalab@gmail.com> AND Alireza Shahriari <alireza.shahriari@gmail.com>"
+                    "GNU General Public License , Please use it and pass it to another !!!"
+                    "2010-12-12"
+                    "RGB*, GRAY*"
+
+        SF-IMAGE "Input Image" 0
+	SF-DRAWABLE "Input Drawable" 0
+	SF-VALUE "Width" "400"
+	SF-TOGGLE "Merge Layers?" TRUE
+)
+(script-fu-menu-register "islamic-design-1"
+                          "<Image>/Filters/Render/islamic-design")

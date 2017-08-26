@@ -1,0 +1,287 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+# Photolab_addborder python-fu pour Gimp 2.6
+# Copyright Raymond Ostertag 2009
+# Licence GPL
+
+# Version 1.0
+# - initial release
+
+# Installation : put the photolab_addborder.py file in your $HOME/.gimp-2.n/plug-ins.
+# On Linux and Mac OSX the file must be executable.
+# Documentation : http://www.gimp.org/docs/python/index.html
+
+from gimpfu import *
+import os, glob, logging, subprocess
+
+# Log everything, and send it to stderr.
+logging.basicConfig(level=logging.DEBUG)
+
+# i18n
+#
+import gettext
+locale_directory = gimp.locale_directory
+gettext.install( "gimp20-photolab" , locale_directory, unicode=True )
+
+#
+Photolab_addborder_help = _("Create a border around the active layer. Add optionaly a copyright below the picture. The result can be exported.")                                
+Photolab_addborder_description = Photolab_addborder_help
+#
+Photolab_addborder_batch_help = _("A batch process on images in a directory.")+" "+Photolab_addborder_help
+Photolab_addborder_batch_description = Photolab_addborder_batch_help
+
+# user parameters
+#
+titleGap = 0.05
+tagDefault = ("")
+
+# dialog parameters
+#
+Standalone_parameters = [
+  (PF_IMAGE, "inImage", "Input image", None),
+  (PF_DRAWABLE, "inLayer", "Input drawable", None),
+]
+Standalone_tail_parameters = [
+  (PF_TOGGLE, "export", _("Export"), False), 
+  (PF_DIRNAME, "expDirectory", ".."+_("Export directory"), os.getcwd() ),
+]
+BatchMode_parameters = [
+  (PF_DIRNAME, "directory", _("Directory"), "C:\\Documents and Settings\\a0216143\\My Documents\\My Pictures\\Norway 2010\\WBoN_temp\\"), #os.getcwd() ),
+  (PF_STRING, "ext", _("File extension"), "jpg" ),
+  (PF_DIRNAME, "toDirectory", _("Destination directory"),"C:\\Documents and Settings\\a0216143\\My Documents\\My Pictures\\Norway 2010\\WBoN_temp_borders\\"), # os.getcwd() ),
+]
+Photolab_addborder_parameters = [
+  (PF_SPINNER, "outerBorderPct", "Size of the whole border (% of smallest image dimension)", 3.2, (0, 200, 0.05)),
+  (PF_SPINNER, "innerBorderPct", "Size of the inner border (% of outer border)", 10.0, (0, 100, 0.5)),
+  (PF_COLOR, "outerBorderColor", "Outer border color", (0,0,0)),
+  (PF_COLOR, "innerBorderColor", "Inner border color", (255,255,255)),
+  (PF_COLOR, "titleColor", _("Text color"), (255,255,255)),
+  (PF_TOGGLE, "addCopyright", _("Add Copyright"), True), 
+  (PF_STRING, "title",".."+ _("Copyright Info"), "W. Leven, 2010"),
+  (PF_FONT, "font", ".."+_("Font"), "Lucida Handwriting Italic"), 
+]  
+
+# utilities
+#
+def tagfilename( 
+  filename, #string
+  tag, #string
+  head, #boolean
+  ):
+  extfilename = os.path.splitext( filename )[1]
+  basefilename = os.path.splitext( filename )[0]
+  if( extfilename == "" ):
+    extfilename = ".xcf" # add nativ extension is no one is found
+  if( head ): 
+    return tag+'_'+basefilename+extfilename
+  else:
+    return basefilename+'_'+tag+extfilename
+
+# main
+#                                         
+def python_fu_photolab_addborder( 
+  filepathname,
+  fileNum,
+  numFiles,
+  inImage,
+  inDrawable,
+  outerBorderPct,
+  innerBorderPct,
+  outerBorderColor,
+  innerBorderColor,
+  titleColor,
+  addCopyright,
+  title,
+  font,
+  export,
+  expDirectory ): 
+  gimp.context_push()
+  pdb.gimp_image_undo_group_start( inImage )
+  pdb.gimp_selection_none( inImage )
+  
+  overlayBorder = 1
+
+  percentFiles = fileNum/numFiles
+
+  #Calculating Border Sizes
+  gimp.progress_update(0.05*percentFiles)
+
+  #resize canvas
+  # Find out smallest dimension of the image
+  smallest_dimension = inDrawable.height
+  if  inDrawable.height >  inDrawable.width:
+    smallest_dimension =  inDrawable.width
+	
+  # Calculate size of the borders
+  px_border = outerBorderPct / 100.0 * smallest_dimension
+  px_inner = innerBorderPct / 100.0 * px_border
+  px_border = int(round(px_border))
+  px_inner = int(round(px_inner)) 
+ 
+  if overlayBorder:
+    # Calculate size of the new image
+    px_image_width = int(inImage.width) 
+    px_image_height = int(inImage.height) 
+  else:
+    # Calculate size of the new image
+    px_image_width = int(inImage.width + 2*px_border)
+    px_image_height = int(inImage.height + 2*px_border)
+    # Resize image
+    inImage.resize(px_image_width, px_image_height, px_border, px_border)
+	
+  #Creating the Border
+  gimp.progress_update(0.2*percentFiles)
+
+  # Create and add the border layer to the image
+  borderLayer = gimp.Layer(inImage, "border", inImage.width, inImage.height, RGBA_IMAGE, 100, NORMAL_MODE)
+  inImage.add_layer(borderLayer, 1)
+	
+  # Fill layer with outer border color
+  gimp.set_foreground(outerBorderColor)
+  pdb.gimp_edit_fill(borderLayer, FOREGROUND_FILL)
+	
+  # Make a selection the size of inner border and fill it
+  pdb.gimp_rect_select(inImage, (px_border - px_inner), (px_border - px_inner), (px_image_width - 2*(px_border - px_inner)), (px_image_height - 2*(px_border - px_inner)), 2, 0, 0) # this method is 8x faster than select_all and shrink !
+  gimp.set_foreground(innerBorderColor)
+  pdb.gimp_edit_fill(borderLayer, FOREGROUND_FILL)
+	
+  # Delete the center of the layer (where the image must go)
+  pdb.gimp_rect_select(inImage, px_border, px_border, (px_image_width - 2*px_border), (px_image_height - 2*px_border), 2, 0, 0)
+  pdb.gimp_edit_clear(borderLayer)
+  pdb.gimp_selection_none(inImage)
+
+  gimp.progress_update(0.5*percentFiles)
+
+	
+  if( addCopyright ):
+    # resize canvas
+    gimp.set_foreground( titleColor )
+    titleSize = px_border - px_inner - 4
+    fontSize = float( titleSize )
+    textWidth, textHeight, textAscent, textDescent = pdb.gimp_text_get_extents_fontname( title, fontSize, PIXELS, font )
+    ratioWidth = float( textWidth ) / ( px_image_width * ( 1 - titleGap ))
+    ratioHeight = float( textHeight ) / ( titleSize * ( 1 - titleGap ))
+    if( ratioWidth > ratioHeight ):
+      # adjusting width
+      newFontSize = fontSize / ratioWidth
+    else:
+      # adjusting height
+      newFontSize = fontSize / ratioHeight
+    title = "© " + title
+    newTextWidth, newTextHeight, newTextAscent, newTextDescent = pdb.gimp_text_get_extents_fontname(title, newFontSize, PIXELS, font )
+    titleX = (borderLayer.width - newTextWidth ) - (px_border * 2)
+    titleY = (borderLayer.height - titleSize) - 2 # - (px_border * 2) 
+    #DEBUG print newFontSize, titleX, titleY
+    pdb.gimp_text_fontname( inImage, borderLayer, titleX, titleY, title, -1, True, newFontSize, PIXELS, font )
+    pdb.gimp_floating_sel_anchor( pdb.gimp_image_get_floating_sel( inImage )) 
+  
+  # Exporting the new image
+  gimp.progress_update(0.75*percentFiles) 
+  if( export ):
+    # copy layers   
+    #pdb.gimp_edit_copy( borderLayer )
+    #newImage = pdb.gimp_edit_paste_as_new() #create a new image
+    #copyLayer = pdb.gimp_layer_new_from_drawable( inDrawable, newImage )
+    #newImage.add_layer( copyLayer, 0)
+    pdb.gimp_edit_copy(inDrawable)
+    newImage = pdb.gimp_edit_paste_as_new()  #create a new image
+    newImage.resize(px_image_width, px_image_height, px_border, px_border)
+    copyBorderLayer = pdb.gimp_layer_new_from_drawable(borderLayer, newImage)
+    newImage.add_layer(copyBorderLayer,-1)
+    #copyLayer.set_offsets( borderSize, borderSize ) 
+    # save image
+    newImage.flatten()
+    imageName = pdb.gimp_image_get_name( inImage )
+    #taggedImageName = tagfilename( imageName, tagDefault, False )
+    taggedImageName = imageName
+    newfilepathname = expDirectory + os.sep + taggedImageName
+    pdb.gimp_file_save( newImage, newImage.layers[0], newfilepathname , newfilepathname )   
+    # clean everything
+    pdb.gimp_image_delete( newImage )  
+    inImage.remove_layer( borderLayer )
+    #Copy metadata using exiftool.exe
+    retcode = subprocess.call(["exiftool", "-q", "-overwrite_original", "-tagsfromfile", filepathname,  "-all:all", newfilepathname])
+  else:
+    # resize image is needed to see the border
+    pdb.gimp_image_resize_to_layers( inImage )
+  #
+  pdb.gimp_image_undo_group_end( inImage )
+  gimp.context_pop()
+
+  #Done with this image
+  gimp.progress_update(0.99*percentFiles) 
+
+register(
+  "python-fu-photolab-addborder",
+  Photolab_addborder_description,
+  Photolab_addborder_help,
+  "Original by Raymond Ostertag, modified by William Leven",
+  "GPL License",
+  "2010",
+  _("Add border"),
+  "*",
+  Standalone_parameters + Photolab_addborder_parameters + Standalone_tail_parameters,
+  [],
+  python_fu_photolab_addborder,
+  menu="<Image>/Filters"+"/"+_("Photolab"),
+  domain=("gimp20-photolab", locale_directory)   
+  )
+
+# batch of main
+#
+
+def python_fu_photolab_addborder_batch( 
+  dirname, 
+  ext,
+  toDirectory,
+  outerBorderPct,
+  innerBorderPct,
+  outerBorderColor,
+  innerBorderColor,
+  titleColor,
+  addCopyright,
+  title,
+  font ): 
+  if os.path.exists( u''+dirname ):
+    #
+    globpattern = u''+dirname + os.sep + '*.' + ext
+    filepathnames = glob.glob( globpattern ) # return complete path name of files
+    #
+    if filepathnames:
+      #Start of process
+      #DEBUG pdb.gimp_message( _("The selected directory has %s files to handle") %(str( len( filepathnames ))));
+      gimp.progress_init( _("Adding borders and copyright") ) 
+      fileNum = 1
+      numFiles = len(filepathnames)
+      for filepathname in filepathnames:
+        img= pdb.gimp_file_load( filepathname , filepathname )
+        img.flatten() #it's not supposed to work on multi layered files
+        imglayer= img.layers[0]
+        export = True
+        python_fu_photolab_addborder(filepathname, fileNum, numFiles, img, imglayer, outerBorderPct, innerBorderPct, outerBorderColor, innerBorderColor, titleColor, addCopyright, title, font, export, toDirectory);
+        pdb.gimp_image_delete( img )
+        fileNum = fileNum + 1
+      # End of process         
+    else:
+      pdb.gimp_message( _("%s don't have files to handle") %(dirname ))      
+  else:
+    pdb.gimp_message( _("%s don't exist") %(dirname) )
+
+register(
+  "python-fu-photolab-addborder-batch",
+  Photolab_addborder_batch_description,
+  Photolab_addborder_batch_help,
+  "Raymond Ostertag",
+  "GPL License",
+  "2009",
+  _("Add border"),
+  "",
+  BatchMode_parameters + Photolab_addborder_parameters,
+  [],
+  python_fu_photolab_addborder_batch,
+  menu="<Image>/Filters"+"/"+_("Photolab")+"/"+_("Batch works"),
+  domain=("gimp20-photolab", locale_directory)   
+  )
+
+main()

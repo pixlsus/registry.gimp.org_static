@@ -1,0 +1,516 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML+RDFa 1.0//EN"
+  "http://www.w3.org/MarkUp/DTD/xhtml-rdfa-1.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" version="XHTML+RDFa 1.0" dir="ltr">
+
+<head profile="http://www.w3.org/1999/xhtml/vocab">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="shortcut icon" href="../files/favicon.png" type="image/png" />
+<link rel="alternate" type="application/rss+xml" title="Comments for &quot;Color Vision Deficiency&quot;" href="../crss/node/24885" />
+<link rel="canonical" href="24885" />
+<meta name="Generator" content="Drupal 7 (http://drupal.org)" />
+<link rel="shortlink" href="24885" />
+  <title>Color Vision Deficiency | GIMP Plugin Registry</title>
+  <style type="text/css" media="all">@import url("../modules/system/system.base.css?n48fl6");
+@import url("../modules/system/system.menus.css?n48fl6");
+@import url("../modules/system/system.messages.css?n48fl6");
+@import url("../modules/system/system.theme.css?n48fl6");</style>
+<style type="text/css" media="all">@import url("../modules/aggregator/aggregator.css?n48fl6");
+@import url("../modules/book/book.css?n48fl6");
+@import url("../modules/comment/comment.css?n48fl6");
+@import url("../sites/all/modules/date/date_api/date.css?n48fl6");
+@import url("../sites/all/modules/date/date_popup/themes/datepicker.1.7.css?n48fl6");
+@import url("../sites/all/modules/date/date_repeat_field/date_repeat_field.css?n48fl6");
+@import url("../modules/field/theme/field.css?n48fl6");
+@import url("../sites/all/modules/mollom/mollom.css?n48fl6");
+@import url("../modules/node/node.css?n48fl6");
+@import url("../modules/poll/poll.css?n48fl6");
+@import url("../modules/search/search.css?n48fl6");
+@import url("../modules/user/user.css?n48fl6");
+@import url("../modules/forum/forum.css?n48fl6");
+@import url("../sites/all/modules/views/css/views.css?n48fl6");</style>
+<style type="text/css" media="all">@import url("../sites/all/modules/ctools/css/ctools.css?n48fl6");
+@import url("../sites/all/modules/rate/rate.css?n48fl6");
+@import url("../sites/all/modules/tagclouds/tagclouds.css?n48fl6");
+@import url("../sites/all/modules/panels/css/panels.css?n48fl6");
+@import url("../sites/all/modules/best_answer/best_answer.css?n48fl6");
+@import url("../sites/all/modules/rate/templates/fivestar/fivestar.css?n48fl6");</style>
+<style type="text/css" media="all">@import url("../files/color/garland-5ac73a91/style.css?n48fl6");</style>
+<style type="text/css" media="print">@import url("../themes/garland/print.css?n48fl6");</style>
+
+<!--[if lt IE 7]>
+<link type="text/css" rel="stylesheet" href="http://registry.gimp.org/themes/garland/fix-ie.css?n48fl6" media="all" />
+<![endif]-->
+  <script type="text/javascript" src="../misc/jquery.js?v=1.4.4"></script>
+<script type="text/javascript" src="../misc/jquery.once.js?v=1.2"></script>
+<script type="text/javascript" src="../misc/drupal.js?n48fl6"></script>
+<script type="text/javascript" src="../sites/all/modules/rate/rate.js?n48fl6"></script>
+<script type="text/javascript" src="../sites/all/modules/rate/templates/fivestar/fivestar.js?n48fl6"></script>
+<script type="text/javascript" src="../misc/tableheader.js?n48fl6"></script>
+<script type="text/javascript">
+<!--//--><![CDATA[//><!--
+jQuery.extend(Drupal.settings, {"basePath":"\/","pathPrefix":"","ajaxPageState":{"theme":"garland","theme_token":"8a6ol4HNMWPLLKEbJZDfeIRmH0aTRoYMJTS8vw-bijs","js":{"misc\/jquery.js":1,"misc\/jquery.once.js":1,"misc\/drupal.js":1,"sites\/all\/modules\/rate\/rate.js":1,"sites\/all\/modules\/rate\/templates\/fivestar\/fivestar.js":1,"misc\/tableheader.js":1},"css":{"modules\/system\/system.base.css":1,"modules\/system\/system.menus.css":1,"modules\/system\/system.messages.css":1,"modules\/system\/system.theme.css":1,"modules\/aggregator\/aggregator.css":1,"modules\/book\/book.css":1,"modules\/comment\/comment.css":1,"sites\/all\/modules\/date\/date_api\/date.css":1,"sites\/all\/modules\/date\/date_popup\/themes\/datepicker.1.7.css":1,"sites\/all\/modules\/date\/date_repeat_field\/date_repeat_field.css":1,"modules\/field\/theme\/field.css":1,"sites\/all\/modules\/mollom\/mollom.css":1,"modules\/node\/node.css":1,"modules\/poll\/poll.css":1,"modules\/search\/search.css":1,"modules\/user\/user.css":1,"modules\/forum\/forum.css":1,"sites\/all\/modules\/views\/css\/views.css":1,"sites\/all\/modules\/ctools\/css\/ctools.css":1,"sites\/all\/modules\/rate\/rate.css":1,"sites\/all\/modules\/tagclouds\/tagclouds.css":1,"sites\/all\/modules\/panels\/css\/panels.css":1,"sites\/all\/modules\/best_answer\/best_answer.css":1,"sites\/all\/modules\/rate\/templates\/fivestar\/fivestar.css":1,"themes\/garland\/style.css":1,"themes\/garland\/print.css":1,"themes\/garland\/fix-ie.css":1}},"rate":{"basePath":"\/rate\/vote\/js","destination":"node\/24885"}});
+//--><!]]>
+</script>
+</head>
+<body class="html not-front not-logged-in two-sidebars page-node page-node- page-node-24885 node-type-plugin fluid-width" >
+  <div id="skip-link">
+    <a href="24885#main-content" class="element-invisible element-focusable">Skip to main content</a>
+  </div>
+      
+  <div id="wrapper">
+    <div id="container" class="clearfix">
+
+      <div id="header">
+        <div id="logo-floater">
+                              <div id="branding"><strong><a href="../index.html">
+                          <img src="../files/logo.png" alt="GIMP Plugin Registry " title="GIMP Plugin Registry " id="logo" />
+                        <span>GIMP Plugin Registry</span>            </a></strong></div>
+                          </div>
+
+        <h2 class="element-invisible">Main menu</h2><ul class="links inline main-menu"><li class="menu-100 first"><a href="../about" title="Information about the Registry">About</a></li>
+<li class="menu-136"><a href="23851" title="Documentation and How-Tos">Documentation</a></li>
+<li class="menu-88"><a href="../forum">Forums</a></li>
+<li class="menu-74"><a href="http://gug.criticalhit.dk" title="The GIMP User Group">GIMP User Group</a></li>
+<li class="menu-1142"><a href="25574" title="GIMP Help">Get Help</a></li>
+<li class="menu-1256"><a href="26216" title="Get info on using RSS to stay updated about what&#039;s going on on the site.">Stay Updated!</a></li>
+<li class="menu-73 last"><a href="http://www.gimp.org/" title="The GIMP Homepage">gimp.org</a></li>
+</ul>              </div> <!-- /#header -->
+
+              <div id="sidebar-first" class="sidebar">
+            <div class="region region-sidebar-first">
+    <div id="block-system-navigation" class="block block-system block-menu clearfix">
+
+    <h2 class="title">Navigation</h2>
+  
+  <div class="content">
+    <ul class="menu"><li class="first leaf"><a href="25574" title="FAQ &amp; How To&#039;s">FAQ &amp; How To&#039;s</a></li>
+<li class="leaf"><a href="../glossary.1" title="">Content By Name</a></li>
+<li class="collapsed"><a href="../aggregator">Feed aggregator</a></li>
+<li class="leaf"><a href="../popular">Popular content</a></li>
+<li class="leaf"><a href="25392" title="Report Spam Here">Report Spam Here</a></li>
+<li class="last leaf"><a href="../tagclouds">Tags</a></li>
+</ul>  </div>
+</div>
+<div id="block-block-1" class="block block-block clearfix">
+
+    
+  <div class="content">
+    If you'd like to upload plug-ins, please create an account below. You do <em>not</em> need one for download. Enjoy :-)  </div>
+</div>
+<div id="block-user-login" class="block block-user clearfix">
+
+    <h2 class="title">User login</h2>
+  
+  <div class="content">
+    <form action="http://registry.gimp.org/node/24885?destination=node/24885" method="post" id="user-login-form" accept-charset="UTF-8"><div><div class="form-item form-type-textfield form-item-name">
+  <label for="edit-name">Username <span class="form-required" title="This field is required.">*</span></label>
+ <input type="text" id="edit-name" name="name" value="" size="15" maxlength="60" class="form-text required" />
+</div>
+<div class="form-item form-type-password form-item-pass">
+  <label for="edit-pass">Password <span class="form-required" title="This field is required.">*</span></label>
+ <input type="password" id="edit-pass" name="pass" size="15" maxlength="128" class="form-text required" />
+</div>
+<div class="item-list"><ul><li class="first last"><a href="../user/password" title="Request new password via e-mail.">Request new password</a></li>
+</ul></div><input type="hidden" name="form_build_id" value="form-OcnaCzJ33wbM_nPxydPKcCbhKOBUAGkQ87aFJ3nIRxs" />
+<input type="hidden" name="form_id" value="user_login_block" />
+<div class="form-actions form-wrapper" id="edit-actions"><input type="submit" id="edit-submit" name="op" value="Log in" class="form-submit" /></div></div></form>  </div>
+</div>
+<div id="block-node-syndicate" class="block block-node clearfix">
+
+    <h2 class="title">Syndicate</h2>
+  
+  <div class="content">
+    <a href="../rss.xml" class="feed-icon" title="Subscribe to Syndicate"><img src="../misc/feed.png" width="16" height="16" alt="Subscribe to Syndicate" /></a>  </div>
+</div>
+  </div>
+        </div>
+      
+      <div id="center"><div id="squeeze"><div class="right-corner"><div class="left-corner">
+          <h2 class="element-invisible">You are here</h2><div class="breadcrumb"><a href="../index.html">Home</a></div>                    <a id="main-content"></a>
+          <div id="tabs-wrapper" class="clearfix">                                <h1 class="with-tabs">Color Vision Deficiency</h1>
+                              </div>                                                  <div class="clearfix">
+              <div class="region region-content">
+    <div id="block-system-main" class="block block-system clearfix">
+
+    
+  <div class="content">
+    <div id="node-24885" class="node node-plugin node-promoted">
+
+  
+      
+      <span class="submitted">November 30, 2010 - 15:20 — <span class="username">jethr0</span></span>
+  
+  <div class="content clearfix">
+    <div class="form-item form-type-item">
+  <label>Rate </label>
+ <div class="rate-widget-2 rate-widget clear-block rate-average rate-widget-fivestar rate-a6f569f0519c5864cef40a4cef2a16e3 rate-node-24885-2-3" id="rate-node-24885-2-3"><div class="item-list"><ul><li class="first"><span class="rate-button rate-fivestar-btn-empty rate-fivestar-1" id="rate-button-1">1</span></li>
+<li><span class="rate-button rate-fivestar-btn-empty rate-fivestar-2" id="rate-button-2">2</span></li>
+<li><span class="rate-button rate-fivestar-btn-empty rate-fivestar-3" id="rate-button-3">3</span></li>
+<li><span class="rate-button rate-fivestar-btn-empty rate-fivestar-4" id="rate-button-4">4</span></li>
+<li class="last"><span class="rate-button rate-fivestar-btn-empty rate-fivestar-5" id="rate-button-5">5</span></li>
+</ul></div><div class="rate-info">Total votes: 0</div><div class="rate-description">Rate this item!</div></div>
+</div>
+<div class="field field-name-body field-type-text-with-summary field-label-hidden"><div class="field-items"><div class="field-item even"><p>Simulates different types of color vision deficiency (color blindness) with differing levels of severity.<br />
+In addition to the functionality of the display filter "Color Vision Deficiency", this plug-in also simulates color weakness, not just complete color blindness and allows to save the resulting image.</p>
+<ul><li>Protanomaly (red weak)
+</li><li>Deuteranomaly (green weak)
+</li><li>Tritanomaly (blue weak)
+</li></ul><p>At a severity level of 1.0, it simulates dichromacy, i.e. the complete absence of the relevant color receptor:</p>
+<ul><li>Protanopia (red blind)
+</li><li>Deuteranopia (green blind)
+</li><li>Tritanopia (blue blind)
+</li></ul><p>The plug-in takes an RGB* image, and simulates for the active layer how a color-deficient viewer would experience it. The result is saved in a new layer.  </p>
+<p>Currently, the plug-in appears under the top-level menu "Python-fu/Effects/Color Vision Deficiency".</p>
+<p>Based on <a href="http://www.inf.ufrgs.br/~oliveira/pubs_files/CVD_Simulation/CVD_Simulation.html">http://www.inf.ufrgs.br/~oliveira/pubs_files/CVD_Simulation/CVD_Simulati...</a></p>
+</div></div></div><div class="field field-name-upload field-type-file field-label-hidden"><div class="field-items"><div class="field-item even"><table class="sticky-enabled">
+ <thead><tr><th>Attachment</th><th>Size</th> </tr></thead>
+<tbody>
+ <tr class="odd"><td><span class="file"><img class="file-icon" alt="" title="text/plain" src="../modules/file/icons/text-plain.png" /> <a href="../files/color_vision_deficiency.py_1.txt" type="text/plain; length=7930" title="color_vision_deficiency.py.txt">color_vision_deficiency.py.txt</a></span></td><td>7.74 KB</td> </tr>
+</tbody>
+</table>
+</div></div></div><div class="field field-name-taxonomy-vocabulary-5 field-type-taxonomy-term-reference field-label-inline clearfix"><div class="field-label">Tags:&nbsp;</div><div class="field-items"><div class="field-item even"><a href="../taxonomy/term/659">Python-Fu</a></div><div class="field-item odd"><a href="../taxonomy/term/1183">color-blind</a></div><div class="field-item even"><a href="../taxonomy/term/1184">deuteranomaly</a></div><div class="field-item odd"><a href="../taxonomy/term/1185">red/green weak</a></div><div class="field-item even"><a href="../taxonomy/term/1186">color vision deficiency</a></div><div class="field-item odd"><a href="../taxonomy/term/1187">color blindness</a></div></div></div><div class="field field-name-taxonomy-vocabulary-1 field-type-taxonomy-term-reference field-label-inline clearfix"><div class="field-label">GIMP Version:&nbsp;</div><div class="field-items"><div class="field-item even"><a href="../taxonomy/term/523">2.6</a></div><div class="field-item odd"><a href="../taxonomy/term/779">2.7</a></div></div></div><div class="field field-name-taxonomy-vocabulary-7 field-type-taxonomy-term-reference field-label-inline clearfix"><div class="field-label">Code License:&nbsp;</div><div class="field-items"><div class="field-item even"><a href="../taxonomy/term/84">BSD modified</a></div></div></div>  </div>
+
+  <div class="clearfix">
+          <div class="links"><ul class="links inline"><li class="comment_forbidden first last"><span><a href="../user/login?destination=comment%252Freply%252F24885%2523comment-form">Log in</a> to post comments</span></li>
+</ul></div>
+    
+    <div id="comments" class="comment-wrapper">
+  
+          <h2 class="title">Comments</h2>
+      
+  <a id="comment-10177"></a>
+<div class="comment odd">
+
+  <div class="clearfix">
+
+    <span class="submitted">December 1, 2010 - 20:08 — <span class="username">zigomar</span></span>
+
+  
+  
+        <h3><a href="../comment/10177#comment-10177" class="permalink" rel="bookmark">channel mixer ?</a></h3>
+    
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>It's slow. How about a channel mixer approch ?</p>
+</div></div></div>          </div>
+  </div>
+
+  <ul class="links inline"><li class="comment_forbidden first last"><span><a href="../user/login?destination=comment%252Freply%252F24885%2523comment-form">Log in</a> to post comments</span></li>
+</ul></div>
+
+<div class="indented"><a id="comment-10179"></a>
+<div class="comment comment-by-node-author even">
+
+  <div class="clearfix">
+
+    <span class="submitted">December 1, 2010 - 21:38 — <span class="username">jethr0</span></span>
+
+  
+  
+        <h3><a href="../comment/10179#comment-10179" class="permalink" rel="bookmark">re: channel mixer</a></h3>
+    
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>not sure it can be implemented with a channel mixer, since it's actually a non-trivial transformation of the color space (different colors become similar and some similar colors become different, for deuternopia red and green get mapped to the same 'color').</p>
+<p> it was fast enough for my purposes, some inline-c could prob. speed it up manifold at the cost of deployability. i can look into it for faster processing, but think that it's doing ok for applying a color space transformation matrix on every pixel in python.</p>
+<p>i'd be very happy about any suggestions regarding performance.</p>
+</div></div></div>          </div>
+  </div>
+
+  <ul class="links inline"><li class="comment_forbidden first last"><span><a href="../user/login?destination=comment%252Freply%252F24885%2523comment-form">Log in</a> to post comments</span></li>
+</ul></div>
+</div><a id="comment-10164"></a>
+<div class="comment odd">
+
+  <div class="clearfix">
+
+    <span class="submitted">November 30, 2010 - 17:47 — <span class="username">rrossouw</span></span>
+
+  
+  
+        <h3><a href="../comment/10164#comment-10164" class="permalink" rel="bookmark">How about a filter to</a></h3>
+    
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>How about a filter to simulate red/green contrast blindness to simulate animal (dog, deer, cow, etc) vision?<br />
+L*a*b decompose, fill "*a" channel to 50% grey, recompose.</p>
+<p>The L and b channels can be manipulated to closer reflect what the animals perceive.</p>
+</div></div></div>          </div>
+  </div>
+
+  <ul class="links inline"><li class="comment_forbidden first last"><span><a href="../user/login?destination=comment%252Freply%252F24885%2523comment-form">Log in</a> to post comments</span></li>
+</ul></div>
+
+<div class="indented"><a id="comment-10174"></a>
+<div class="comment comment-by-node-author even">
+
+  <div class="clearfix">
+
+    <span class="submitted">December 1, 2010 - 17:05 — <span class="username">jethr0</span></span>
+
+  
+  
+        <h3><a href="../comment/10174#comment-10174" class="permalink" rel="bookmark">animal color perception</a></h3>
+    
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>i like the idea, but don't know very much about animal color perception. if you could provide me with some more details and maybe even some scientific sources I would love to add this functionality.</p>
+</div></div></div>          </div>
+  </div>
+
+  <ul class="links inline"><li class="comment_forbidden first last"><span><a href="../user/login?destination=comment%252Freply%252F24885%2523comment-form">Log in</a> to post comments</span></li>
+</ul></div>
+
+<div class="indented"><a id="comment-10183"></a>
+<div class="comment odd">
+
+  <div class="clearfix">
+
+    <span class="submitted">December 2, 2010 - 07:38 — <span class="username">rrossouw</span></span>
+
+  
+  
+        <h3><a href="../comment/10183#comment-10183" class="permalink" rel="bookmark">Google the subject,</a></h3>
+    
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>Google the subject, especially note animal hunting camo colour vision.<br />
+I'm not a big fan of hunting, but they have put a lot of effort into figuring out how animals see the world.</p>
+<p>Some frequency filtering (high pass of a scale and then set layer to grain extract from the original) may be necessary to show detectable objects.</p>
+</div></div></div>          </div>
+  </div>
+
+  <ul class="links inline"><li class="comment_forbidden first last"><span><a href="../user/login?destination=comment%252Freply%252F24885%2523comment-form">Log in</a> to post comments</span></li>
+</ul></div>
+</div></div><a id="comment-10162"></a>
+<div class="comment even">
+
+  <div class="clearfix">
+
+    <span class="submitted">November 30, 2010 - 15:42 — <span class="username">wacmaster</span></span>
+
+  
+  
+        <h3><a href="../comment/10162#comment-10162" class="permalink" rel="bookmark">neat</a></h3>
+    
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>This will be interesting to try out.</p>
+</div></div></div>          </div>
+  </div>
+
+  <ul class="links inline"><li class="comment_forbidden first last"><span><a href="../user/login?destination=comment%252Freply%252F24885%2523comment-form">Log in</a> to post comments</span></li>
+</ul></div>
+
+<div class="indented"><a id="comment-10163"></a>
+<div class="comment odd">
+
+  <div class="clearfix">
+
+    <span class="submitted">November 30, 2010 - 16:01 — <span class="username">prokoudine</span></span>
+
+  
+  
+        <h3><a href="../comment/10163#comment-10163" class="permalink" rel="bookmark">It&#039;s already there for ages</a></h3>
+    
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>Er... Actually GIMP has a built-in display filter exactly for that.</p>
+</div></div></div>          </div>
+  </div>
+
+  <ul class="links inline"><li class="comment_forbidden first last"><span><a href="../user/login?destination=comment%252Freply%252F24885%2523comment-form">Log in</a> to post comments</span></li>
+</ul></div>
+
+<div class="indented"><a id="comment-10171"></a>
+<div class="comment comment-by-node-author even">
+
+  <div class="clearfix">
+
+    <span class="submitted">December 1, 2010 - 12:26 — <span class="username">jethr0</span></span>
+
+  
+  
+        <h3><a href="../comment/10171#comment-10171" class="permalink" rel="bookmark">display filter</a></h3>
+    
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>As far as I could see, the display filter only simulates full color blindness, not color weakness. (6.3% of the population have anomalous trichromacy (color weakness), while only 2.4% have full dichromacy (color blindness)).<br />
+Also, I don't know how to save a picture with the display filter applied, short of taking a screenshot.</p>
+</div></div></div>          </div>
+  </div>
+
+  <ul class="links inline"><li class="comment_forbidden first last"><span><a href="../user/login?destination=comment%252Freply%252F24885%2523comment-form">Log in</a> to post comments</span></li>
+</ul></div>
+
+<div class="indented"><a id="comment-10212"></a>
+<div class="comment odd">
+
+  <div class="clearfix">
+
+    <span class="submitted">December 6, 2010 - 14:27 — <span class="username">prokoudine</span></span>
+
+  
+  
+        <h3><a href="../comment/10212#comment-10212" class="permalink" rel="bookmark">Not really. You can switch</a></h3>
+    
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>Not really. You can switch between protanopy etc.</p>
+</div></div></div>          </div>
+  </div>
+
+  <ul class="links inline"><li class="comment_forbidden first last"><span><a href="../user/login?destination=comment%252Freply%252F24885%2523comment-form">Log in</a> to post comments</span></li>
+</ul></div>
+
+<div class="indented"><a id="comment-10216"></a>
+<div class="comment comment-by-node-author even">
+
+  <div class="clearfix">
+
+    <span class="submitted">December 6, 2010 - 22:45 — <span class="username">jethr0</span></span>
+
+  
+  
+        <h3><a href="../comment/10216#comment-10216" class="permalink" rel="bookmark">re: not really</a></h3>
+    
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>Yes, that's what I was saying. As far as I could see you can "only" choose between protanopia, deuteranopia and tritanopia in the display filter. Those three vision impairments are cases of dichromacy - i.e. a 2-dimensional color space instead of a 3-dimensional one. 2.4% of the population suffer from dichromacy.</p>
+<p>This plug-in also allows to simulate anomalous trichromacy which is a much weaker from of the above vision impairments. 6.3% of the population suffer from anomalouss trichromacy, which still represents an albeit slightly transformed 3-dimensional color space.</p>
+</div></div></div>          </div>
+  </div>
+
+  <ul class="links inline"><li class="comment_forbidden first last"><span><a href="../user/login?destination=comment%252Freply%252F24885%2523comment-form">Log in</a> to post comments</span></li>
+</ul></div>
+</div></div></div></div>
+        </div>
+  </div>
+
+</div>
+  </div>
+</div>
+  </div>
+          </div>
+          <a href="../crss/node/24885" class="feed-icon" title="Subscribe to Comments for &quot;Color Vision Deficiency&quot;"><img src="../misc/feed.png" width="16" height="16" alt="Subscribe to Comments for &quot;Color Vision Deficiency&quot;" /></a>            <div class="region region-footer">
+    <div id="block-block-5" class="block block-block clearfix">
+
+    
+  <div class="content">
+    Unless otherwise noted, the rights for the individual plugins are with their respective authors. Logo image by Jakub Steiner.
+<marquee style="width: 0px; position: absolute"> <a href="http://brazzersdeporno.com" title="porno">porno</a> - <a href="http://www.porno724.com/" target="_blank" title="Porno izle">Porno izle</a> <a href="http://www.yokyokpornolar.com/" target="_blank" title="porno abi">porno abi</a> </marquee>  </div>
+</div>
+  </div>
+      </div></div></div></div> <!-- /.left-corner, /.right-corner, /#squeeze, /#center -->
+
+              <div id="sidebar-second" class="sidebar">
+            <div class="region region-sidebar-second">
+    <div id="block-views-relevant-questions-block-1" class="block block-views clearfix">
+
+    <h2 class="title">Questions</h2>
+  
+  <div class="content">
+    <div class="view view-relevant-questions view-id-relevant_questions view-display-id-block_1 view-dom-id-180231c75421733d3df527d8a114da97">
+        
+  
+  
+      <div class="view-empty">
+      <p><em>No questions yet ... </em></p>
+    </div>
+  
+  
+  
+  
+  
+  
+</div>  </div>
+</div>
+<div id="block-search-form" class="block block-search clearfix">
+
+    
+  <div class="content">
+    <form action="24885" method="post" id="search-block-form" accept-charset="UTF-8"><div><div class="container-inline">
+      <h2 class="element-invisible">Search form</h2>
+    <div class="form-item form-type-textfield form-item-search-block-form">
+  <label class="element-invisible" for="edit-search-block-form--2">Search </label>
+ <input title="Enter the terms you wish to search for." type="text" id="edit-search-block-form--2" name="search_block_form" value="" size="15" maxlength="128" class="form-text" />
+</div>
+<div class="form-actions form-wrapper" id="edit-actions--2"><input type="submit" id="edit-submit--2" name="op" value="Search" class="form-submit" /></div><input type="hidden" name="form_build_id" value="form-s5bQygoSFlLNdddhu5X0fbj63sZ0YAsVoiV4xi6wJLM" />
+<input type="hidden" name="form_id" value="search_block_form" />
+</div>
+</div></form>  </div>
+</div>
+<div id="block-forum-active" class="block block-forum clearfix">
+
+    <h2 class="title">Active forum topics</h2>
+  
+  <div class="content">
+    <div class="item-list"><ul><li class="first"><a href="32356" title="3 comments">Can&#039;t access &quot;My account&quot;</a></li>
+<li><a href="32371">Delete account</a></li>
+<li class="last"><a href="32363">Outline</a></li>
+</ul></div><div class="more-link"><a href="../forum" title="Read the latest forum topics.">More</a></div>  </div>
+</div>
+<div id="block-views-newest-questions-block-1" class="block block-views clearfix">
+
+    <h2 class="title">Updated Questions</h2>
+  
+  <div class="content">
+    <div class="view view-newest-questions view-id-newest_questions view-display-id-block_1 view-dom-id-b02082a553a764e541d289b2e99727be">
+        
+  
+  
+      <div class="view-content">
+      <div class="item-list">    <ul>          <li class="views-row views-row-1 views-row-odd views-row-first">  
+  <span class="views-field views-field-title">        <span class="field-content"><a href="32373">Shadow and Highlights Recovery - Adding group undo</a></span>  </span>  
+  <div class="views-field views-field-last-updated">    <span class="views-label views-label-last-updated">Last change</span>    <span class="field-content">3 hours 27 min</span>  </div>  
+  <div class="views-field views-field-field-answer-count">        <div class="field-content">No answers, yet!</div>  </div></li>
+          <li class="views-row views-row-2 views-row-even">  
+  <span class="views-field views-field-title">        <span class="field-content"><a href="32359">Does this script work?</a></span>  </span>  
+  <div class="views-field views-field-last-updated">    <span class="views-label views-label-last-updated">Last change</span>    <span class="field-content">4 months 2 weeks</span>  </div>  
+  <div class="views-field views-field-field-answer-count">        <div class="field-content">No answers, yet!</div>  </div></li>
+          <li class="views-row views-row-3 views-row-odd views-row-last">  
+  <span class="views-field views-field-title">        <span class="field-content"><a href="32349">File upload problem</a></span>  </span>  
+  <div class="views-field views-field-last-updated">    <span class="views-label views-label-last-updated">Last change</span>    <span class="field-content">6 months 39 min</span>  </div>  
+  <div class="views-field views-field-field-answer-count">        <div class="field-content">1 Answer(s)</div>  </div></li>
+      </ul></div>    </div>
+  
+  
+  
+      
+<div class="more-link">
+  <a href="../newest-questions">
+    more  </a>
+</div>
+  
+  
+  
+</div>  </div>
+</div>
+<div id="block-comment-recent" class="block block-comment clearfix">
+
+    <h2 class="title">Recent comments</h2>
+  
+  <div class="content">
+    <div class="item-list"><ul><li class="first"><a href="../comment/19262#comment-19262">Black triangles</a>&nbsp;<span>2 hours 33 min ago</span></li>
+<li><a href="../comment/19261#comment-19261">I use the Python version of</a>&nbsp;<span>4 days 4 hours ago</span></li>
+<li class="last"><a href="../comment/19260#comment-19260">I have the same problem too</a>&nbsp;<span>1 week 2 days ago</span></li>
+</ul></div>  </div>
+</div>
+<div id="block-node-recent" class="block block-node clearfix">
+
+    <h2 class="title">Recent content</h2>
+  
+  <div class="content">
+    <table>
+<tbody>
+ <tr class="odd"><td class="title-author"><div class="node-title"><a href="32373">Shadow and Highlights Recovery - Adding group undo</a></div><div class="node-author"><span class="username">programmer_ceds</span></div></td><td class="edit"></td><td class="delete"></td> </tr>
+ <tr class="even"><td class="title-author"><div class="node-title"><a href="32360">GIMP Plugin Registry in Lockdown mode</a></div><div class="node-author"><span class="username">schumaml</span></div></td><td class="edit"></td><td class="delete"></td> </tr>
+ <tr class="odd"><td class="title-author"><div class="node-title"><a href="32372">Split to Special PNG&#039;s</a></div><div class="node-author"><span class="username">Efenstor</span></div></td><td class="edit"></td><td class="delete"></td> </tr>
+ <tr class="even"><td class="title-author"><div class="node-title"><a href="32371">Delete account</a></div><div class="node-author"><span class="username">amarz82</span></div></td><td class="edit"></td><td class="delete"></td> </tr>
+ <tr class="odd"><td class="title-author"><div class="node-title"><a href="32370">Export with MozJPEG</a></div><div class="node-author"><span class="username">Efenstor</span></div></td><td class="edit"></td><td class="delete"></td> </tr>
+ <tr class="even"><td class="title-author"><div class="node-title"><a href="32369">Shadow and Highlights Recovery</a></div><div class="node-author"><span class="username">erwinsoo</span></div></td><td class="edit"></td><td class="delete"></td> </tr>
+ <tr class="odd"><td class="title-author"><div class="node-title"><a href="27656">GIMP Extensions Pack for Windows</a></div><div class="node-author"><span class="username">GIMP Extensions</span></div></td><td class="edit"></td><td class="delete"></td> </tr>
+ <tr class="even"><td class="title-author"><div class="node-title"><a href="32341">Removed...</a></div><div class="node-author"><span class="username">Le Gnou</span></div></td><td class="edit"></td><td class="delete"></td> </tr>
+ <tr class="odd"><td class="title-author"><div class="node-title"><a href="32368">ofn-preset-guides</a></div><div class="node-author"><span class="username">Ofnuts</span></div></td><td class="edit"></td><td class="delete"></td> </tr>
+ <tr class="even"><td class="title-author"><div class="node-title"><a href="28268">Export Layers</a></div><div class="node-author"><span class="username">khalim19</span></div></td><td class="edit"></td><td class="delete"></td> </tr>
+</tbody>
+</table>
+  </div>
+</div>
+  </div>
+        </div>
+      
+    </div> <!-- /#container -->
+  </div> <!-- /#wrapper -->
+  </body>
+</html>

@@ -1,0 +1,92 @@
+#! /usr/bin/env python
+
+from gimpfu import *
+import glob
+
+def create_color_wheel(  ):
+
+    steps = 60
+    colorSteps = 180 / 61
+    points = (278, 0, 310, 0, 285, 285)
+    img = gimp.Image(600, 600, RGB)
+
+    gimp.set_background(0, 0, 0)
+    gimp.set_foreground(255, 255, 0)
+
+    color = -180
+
+    for i in range(0, steps):
+        # Loop Variables
+        color += colorSteps * 3
+        if color > 180:
+            color = -180
+
+        rotation = (i * math.pi * 6) / 180
+
+        # Create Layer
+        layer_one = gimp.Layer(img, "Layer Title", 600, 600, RGBA_IMAGE, 100, NORMAL_MODE)
+        img.add_layer(layer_one, -1)
+
+        # Wedge Select
+        pdb.gimp_free_select(img, 6, points, 2, FALSE, FALSE, 0)
+
+        # Wedge Colors
+        pdb.gimp_edit_blend(layer_one, 0, 0, 0, 100, 0, 0, FALSE, FALSE, 1, 0, FALSE, 286, 0, 286, 286)
+        pdb.gimp_hue_saturation(layer_one, 0, color, 0, 100)
+
+        # Wedge Rotate
+        pdb.gimp_selection_none(img)
+        pdb.gimp_drawable_transform_rotate_default(layer_one, rotation, FALSE, 286, 286, FALSE, 0)
+
+    pdb.gimp_image_resize_to_layers(img)
+
+    pdb.gimp_image_merge_visible_layers(img, 0)
+
+    pdb.gimp_selection_none(img)
+
+    nWidth = pdb.gimp_image_width(img)
+    nHeight = pdb.gimp_image_height(img)
+
+    circle_center_x = nWidth / 2 ;
+    circle_center_y = nHeight / 2 ;
+
+    rad_list = [125, 100, 75, 50, 25]
+    color_list = [60, 90, 128, 192, 255]
+
+    i = 0 ;
+
+    for rlst in rad_list:
+        gimp.set_foreground(color_list[i], color_list[i], color_list[i])
+        gimp.set_background(color_list[i], color_list[i], color_list[i])
+        i = i + 1
+
+        circle_radius = rlst ;
+        circle_diameter = rlst * 2 ;
+
+        pdb.gimp_ellipse_select(img, circle_center_x-circle_radius, circle_center_y-circle_radius, circle_diameter, circle_diameter, 2, FALSE, FALSE, 0)
+
+        active_layer_store = pdb.gimp_image_get_active_layer(img)
+        pdb.gimp_edit_blend(active_layer_store, 0, 0, 0, 100, 0, 0, FALSE, FALSE, 1, 0, FALSE,
+                circle_center_x-circle_radius, circle_center_y-circle_radius, circle_center_x+circle_radius, circle_center_y+circle_radius)
+    
+    pdb.gimp_selection_none(img)
+
+    # Display Image
+    gimp.Display(img)
+   
+register(
+	"create_color_wheel",
+        "Creates a new image of a color wheel",
+        "Creates a new image of a color wheel",
+        "Derby Russell",
+        "(c) 2011, Derby Russell",
+        "2011-02-25",
+        "<Toolbox>/Xtns/Languages/Python-Fu/_Create/_New Color Wheel", "",
+  	[
+  ],
+  [],
+  create_color_wheel
+  )
+
+main()
+

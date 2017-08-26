@@ -1,0 +1,84 @@
+#!/usr/bin/env python
+# Author: Chris Mohler
+# Copyright 2011 Chris Mohler
+# License: GPL v3+
+# Version 0.1.1
+# cross_process.py
+# GIMP plugin to do a cross-process effect
+# based on tutorial by jEsuSdA:
+# http://www.jesusda.com/blog/index.php?id=375
+
+from gimpfu import *
+from random import randint
+
+gettext.install("gimp20-python", gimp.locale_directory, unicode=True)
+
+RED = 1
+GREEN = 2
+BLUE = 3
+OVERLAY = 5
+FOREGROUND = 0
+
+def rint(jitter, int):
+	i = randint(-jitter,jitter) + int
+	if i < 0: i = 0
+	if i > 255: i = 255
+	return i
+
+def cross_process(img, drw, contrast=50.0, 
+					tint=10.0, color=(0,255,186), jitter=0):
+	
+	img.undo_group_start()
+	j = jitter
+	pdb.gimp_curves_spline(drw, RED, 10,  (0, 0, 
+										   rint(j, 88), rint(j, 47), 
+										   rint(j,170), rint(j,188), 
+										   rint(j,221), rint(j,249), 
+										   255, 255))
+	pdb.gimp_curves_spline(drw, GREEN, 8, (0, 0,
+										   rint(j, 65), rint(j, 57), 
+										   rint(j,184), rint(j,208),
+										   255, 255))
+	pdb.gimp_curves_spline(drw, BLUE, 4,  (0, rint(j,29),
+										   255, rint(j,226)))
+
+	contrast_lyr = img.active_layer.copy()
+	contrast_lyr.mode = OVERLAY
+	contrast_lyr.opacity = contrast
+	img.add_layer(contrast_lyr)
+
+	fg = gimp.get_foreground()
+	gimp.set_foreground(color)
+	tint_lyr = img.new_layer()
+	tint_lyr.fill(FOREGROUND)
+	tint_lyr.mode = OVERLAY
+	tint_lyr.opacity = tint
+	gimp.set_foreground(fg)
+
+	img.flatten()
+	img.undo_group_end()
+    
+register(
+    proc_name=("python-fu-cross-process"),
+    blurb=("Cross-Process effect"),
+    help=("Mimics tinting effect of cross-processing."),
+    author=("Chris Mohler"),
+    copyright=("Chris Mohler"),
+    date=("2011"),
+    label=("Cross-Process"),
+    imagetypes=("RGB*"),
+    params=[
+	(PF_IMAGE, "img", "Image", None),
+	(PF_DRAWABLE, "drw", "Drawable", None),
+	(PF_SLIDER, "contrast", "Added contrast", 50.0, (0.0, 100.0, 0.1)),
+	(PF_SLIDER, "tint", "Tint opacity", 10.0, (0.0, 100.0, 0.1)),
+	(PF_COLOR, "color", "Tint Color", (0,255,186)),
+	(PF_SLIDER, "jitter", "Randomness", 0, (0, 20, 1)),
+	   ],
+    results=[],
+    function=(cross_process), 
+    menu=("<Image>/Filters/Artistic"), 
+    domain=("gimp20-python", gimp.locale_directory)
+    )
+
+main()

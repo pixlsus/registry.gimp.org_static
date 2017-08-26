@@ -1,0 +1,79 @@
+#!/usr/bin/env python
+# Author: Chris Mohler
+# Copyright 2010 Chris Mohler
+# License: GPL v3
+# Version 0.1
+# GIMP plugin combine PNG files, simulating a 6-color silkscreen
+
+from gimpfu import *
+gettext.install("gimp20-python", gimp.locale_directory, unicode=True)
+
+
+def unseparate_pngs(scolor, opacity, file_1, color_1, file_2, color_2,
+                    file_3, color_3, file_4, color_4,
+                    file_5, color_5, file_6, color_6):
+    files = [file_1, file_2, file_3, file_4, file_5, file_6]
+    colors = [color_1, color_2, color_3, color_4, color_5, color_6]
+    i = 1
+    for f in files: 
+        if f:
+            try:
+                img = pdb.gimp_file_load(f, '')
+            except:
+                pdb.gimp_message('Could not open file: ' + str(f))
+                exit()
+            if i == 1:
+                base = pdb.gimp_image_new(img.width, img.height, 0)
+		base.undo_freeze()
+		
+                sub = pdb.gimp_channel_new(base, base.width, base.height, 'Substrate', 100, scolor)
+                pdb.gimp_image_add_channel(base, sub, 0)
+            
+            chan = pdb.gimp_channel_new(base, base.width, base.height, 'Color ' + str(i), opacity, colors[i-1])
+            pdb.gimp_image_add_channel(base, chan, 0)
+            sel = pdb.gimp_selection_all(img)
+            pix = pdb.gimp_edit_copy(pdb.gimp_image_get_active_drawable(img))
+            pdb.gimp_edit_paste(chan, 0)
+            i = i + 1
+    sel = pdb.gimp_image_get_floating_sel(base)
+    pdb.gimp_floating_sel_anchor(sel)
+    l = pdb.gimp_layer_new(base, base.width, base.height, 0, "Layer 0", 100, 0)
+    pdb.gimp_drawable_fill(l, 2) 
+    pdb.gimp_image_add_layer(base, l, 0) 
+    pdb.gimp_display_new(base)
+    base.clean_all()
+    base.undo_thaw()
+
+            
+register(
+    proc_name=("python-fu-unseparate-pngs"),
+    blurb=("Unseparate PNG files"),
+    help=("Unseparate PNG files, simulating a 6-color silkscreen."),
+    author=("Chris Mohler"),
+    copyright=("Chris Mohler"),
+    date=("2010"),
+    label=("_Unseparate PNGs"),
+    imagetypes=(""),
+    params=[
+        (PF_COLOR, "scolor", "Substrate Color", (0,0,0)),
+        (PF_SLIDER, "opacity", "Ink Opacity", 80, [0,100,1]),
+	(PF_FILE, "file_1", "File 1", ""),
+	(PF_COLOR, "color_1", "Color 1", (255,255,255)),
+	(PF_FILE, "file_2", "File 2", ""),
+	(PF_COLOR, "color_2", "Color 2", (255,0,0)),
+	(PF_FILE, "file_3", "File 3", ""),
+	(PF_COLOR, "color_3", "Color 3", (22,22,200)),
+	(PF_FILE, "file_4", "File 4", ""),
+	(PF_COLOR, "color_4", "Color 4", (22,200,22)),
+	(PF_FILE, "file_5", "File 5", ""),
+	(PF_COLOR, "color_5", "Color 5", (200,200,22)),
+	(PF_FILE, "file_6", "File 6", ""),
+	(PF_COLOR, "color_6", "Color 6", (22,200,200)),
+	   ],
+    results=[],
+    function=(unseparate_pngs), 
+    menu=("<Image>/Filters/Sil_kscreen Tools"), 
+    domain=("gimp20-python", gimp.locale_directory)
+    )
+
+main()

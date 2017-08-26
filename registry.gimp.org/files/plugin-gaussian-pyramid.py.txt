@@ -1,0 +1,80 @@
+#!/usr/bin/env python
+
+'''
+GIMP plugin that generates a Gaussian pyramid.
+
+A Gaussian pyramid is a sequence of images where each is down-sampled
+(smaller dimensions in pixels, i.e. resolution) from previous image.
+Loosely speaking, each is blurred from the previous,
+but blur depends on the resolution of the display device and size image is displayed.
+
+This is a brute force method.
+There an elegant and much faster (but harder to program) algorithm, using the "gaussian reduce operator."
+'''
+
+from gimpfu import *
+
+
+class GaussianPyramid(list):
+  ''' 
+  List of images which is a Gaussian pyramid.
+  
+  Behaves as a list.  Images generated at init.
+  
+  Image at subscript [0] is original image.
+  Each image contains a scaled selection mask like the original.
+  Hardcoded to scale by half.
+  
+  Boundary conditions: downsample an image to one pixel in the smallest dimension.
+  '''
+  
+  def __init__(self, image, smallestImageDimension):
+    ''' Generate '''
+    assert image.width > 1 and image.height > 1 # Can't downsample smaller image
+    assert smallestImageDimension >= 1 # Top result image larger than zero pixel 
+    
+    super(GaussianPyramid,self).append(image)
+    
+    prevImage = image
+    # Stop when width or height of top of pyramid is smaller than desired
+    while prevImage.width/2 >= smallestImageDimension and prevImage.height/2 >= smallestImageDimension:
+      newImage = pdb.gimp_image_duplicate(prevImage)
+      pdb.gimp_image_scale_full(newImage, prevImage.width/2, prevImage.height/2, 2) # 2=cubic filter
+      super(GaussianPyramid,self).append(newImage)
+      prevImage = newImage
+
+    
+    
+    
+def generateAndDisplayPyramid(img, drawable, smallestImageDimension ):
+  
+  pyramid = GaussianPyramid(img, smallestImageDimension)
+  
+  # open display for each image in pyramid except the original
+  for image in pyramid[1:]:
+    displayID = pdb.gimp_display_new(image)
+  
+  pdb.gimp_displays_flush() # displays become visible
+
+
+
+register(
+        "python_fu_gaussian_pyramid",
+        "Generate a gaussian pyramid of images.",
+        "Creates a sequence of smaller images.",
+        "Lloyd Konneker",
+        "Copyright 2012 Lloyd Konneker",
+        "2012",
+        "<Image>/Filters/Render/Gaussian pyramid...",
+        "RGB*, GRAY*",
+        [
+           (PF_SPINNER, "smallestImageDimension", "Dimension of smallest image (pixels):", 2, (1, 100, 1) )
+        ],
+        [],
+        generateAndDisplayPyramid)
+
+if __name__== '__main__' :
+  main()
+
+
+

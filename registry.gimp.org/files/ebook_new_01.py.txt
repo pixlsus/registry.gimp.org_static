@@ -1,0 +1,80 @@
+#!/usr/bin/env python
+# Author: Chris Mohler
+# Copyright 2011 Chris Mohler
+# License: GPL v3+
+# Version 0.1
+# ebook_new.py
+# GIMP plugin to create an template for an ebook cover
+
+from gimpfu import *
+from gimpenums import *
+
+gettext.install("gimp20-python", gimp.locale_directory, unicode=True)
+
+def new_ebook_template(width, height):
+	img = gimp.Image(width, height, RGB)
+	fg = pdb.gimp_context_get_foreground()
+	bg = pdb.gimp_context_get_background()
+
+	#info layer
+	info = gimp.Layer(img, 'Info', width, height, RGBA_IMAGE)
+	pdb.gimp_context_set_foreground((22,22,22))
+	info.fill(FOREGROUND_FILL)
+	img.add_layer(info)
+	pdb.gimp_context_set_foreground((88,88,88))
+	top_label = pdb.gimp_text_layer_new(img, 'Top', 'Sans', 10, PIXELS)
+	img.add_layer(top_label)
+	top_label.translate(520, 4)
+	front_label = pdb.gimp_text_layer_new(img, 'Front', 'Sans', 10, PIXELS)
+	img.add_layer(front_label)
+	front_label.translate(520, 86)
+	spine_label = pdb.gimp_text_layer_new(img, 'Spine', 'Sans', 10, PIXELS)
+	img.add_layer(spine_label)
+	spine_label.translate(188, 184)
+
+	pdb.gimp_image_flatten(img)
+
+	# top layer
+	top = gimp.Layer(img, 'Top', 250, 50, RGBA_IMAGE)
+	pdb.gimp_context_set_foreground((200,200,200))
+	top.fill(FOREGROUND_FILL)
+	img.add_layer(top)
+	top.translate(400, 20)
+	
+	# spine layer
+	spine = gimp.Layer(img, 'Spine', 375, 50, RGBA_IMAGE)
+	pdb.gimp_context_set_foreground((255, 255, 255))
+	spine.fill(FOREGROUND_FILL)
+	img.add_layer(spine)
+	spine.translate(10, 200)
+	
+	# front layer
+	front = gimp.Layer(img, 'Front', 250, 350, RGBA_IMAGE)
+	front.fill(FOREGROUND_FILL)
+	img.add_layer(front)
+	front.translate(400, 100)
+
+	pdb.gimp_context_set_foreground(fg)
+	gimp.Display(img)
+	img.clean_all()
+    
+register(
+    proc_name=("python-fu-ebook-new"),
+    blurb=("New ebook template"),
+    help=("Create a new template for an ebook cover."),
+    author=("Chris Mohler"),
+    copyright=("Chris Mohler"),
+    date=("2011"),
+    label=("New Ebook Template"),
+    imagetypes=(""),
+    params=[
+	(PF_INT, "width", "Width", 660),
+	(PF_INT, "height", "Height", 470),
+	   ],
+    results=[],
+    function=(new_ebook_template), 
+    menu=("<Image>/Filters/Ebook"), 
+    domain=("gimp20-python", gimp.locale_directory)
+    )
+
+main()

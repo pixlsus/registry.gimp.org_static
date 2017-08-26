@@ -1,0 +1,163 @@
+# -*- coding: utf-8 -*-
+#This script helps you with some basic operations on animations (when for instance one frame consists of several grouped layers) like setting opacity (see "flexible-layers-handling-1.py"), move, copy and erase or mergedown of subgroups...
+#Some typical tasks, which can be easily performed by this script are for instance: delete/copy/mergedown every third and fourth layer, multiple repeated throughout all layers; experimentate on! Be patient with some operations, if you have a layerstack with hundreds of layers, because it will quite take a while until the plugin has finished. Better waiting some seconds, than going crazy when trying to do the same thing by hand, or? Perhaps you will realize, that you can save a lot of time with this script, especially when you work on multilayered images or animations. Don't hesitate, to give a chargeback to the author. You can do that by PayPal on the following website: http://www.balsamedia.de/gimp-scripting/flexible-layers-handling-example.html
+#INSTRUCTIONS for Function 4 (mergedown): There is an extra parameter (Param-4-f-#), which, when you set it to 'Yes', merges down all layers from your startlayer to the first layer (top layer), but in a certain order: descending from your startlayer to the first, the top layer. This is very important, when you have layers with opacity mode settings other than 'Normal' - if you would mergedown without this Parameter, you would get other results after mergedown, than you would expect. So, when you use this parameter, you MUST set parameter 'Group_by' to '2', your startlayer to the penultimate layer of your subgroup, and when Param-4-e-# (Repeat for all remaining layers) is set to 'Yes', Param-4-d-# (Skip) MUST be set to startlayer - 1; for instance your subgroups exist of 10 layers, your 'startlayer' would be '9', 'Group_by' would be '2', 'Skip...' would be '8'. With these settings, you can activate Param-4-f-#. If Param-4-e-# is also active, you can mergedown all subgroups to singleframes, in the right order to obtain all special overlay effects you've worked out, and the mergedown process runs completely automatic, even when you have hundreds of subgroups, consisting of dozens of layers . . .
+
+#Your layers should be organized similar to the following:
+
+# layer1 == frame 1
+# sublayer1 of frame1
+# sublayer2 of frame1
+# sublayer3 of frame1
+# sublayer4 of frame1...
+# layer2 == frame 2
+# sublayer1 of frame2
+# sublayer2 of frame2
+# sublayer3 of frame2
+# sublayer4 of frame2...
+#and so on...
+
+#!/usr/bin/env python
+
+import math
+from gimpfu import *
+
+def gprint( text ): #this function is only for debugging purpose
+   pdb.gimp_message(text)
+   return
+
+def python_flexible_layers(myImage, myDrawable, function1, startlayer1, length1, offset1X, offset1Y, fixedX, fixedY, function2, startlayer2, name2, quantity2, offsetX, offsetY, repeat2, skip_by2, function3, startlayer3, endlayer3, skip_by3, repeat3, function4, unvisible4, startlayer4, group_by4, skip_by4, repeat4, mergeall):
+    if function1 == True:
+        fu1(myImage, function1, startlayer1, length1, offset1X, offset1Y, fixedX, fixedY)
+    elif function2 == True:
+        fu2(myImage, startlayer2, name2, quantity2, offsetX, offsetY, repeat2, skip_by2)
+    elif function3 == True:
+        fu3(myImage, startlayer3, endlayer3, skip_by3, repeat3)
+    elif function4 == True:
+        for i in range(0, startlayer4):
+            fu4(myImage, unvisible4, startlayer4, group_by4, skip_by4, repeat4)
+            if mergeall == False:
+                break
+            startlayer4 -= 1
+            skip_by4 -= 1
+
+def fu1(myImage, function1, startlayer1, length1, offset1X, offset1Y, fixedX, fixedY):
+    offX = offset1X
+    offY = offset1Y
+    if fixedX == False:
+        offset1X = 0
+    if fixedY == False:
+        offset1Y = 0
+    for i in range(startlayer1, startlayer1 + length1):
+        pdb.gimp_layer_set_offsets(myImage.layers[i -1], offset1X, offset1Y)
+        if fixedX == False:
+            offset1X += offX
+        if fixedY == False:
+            offset1Y += offY
+    pdb.gimp_displays_flush()
+
+def fu2(myImage, startlayer2, name2, quantity2, offsetX, offsetY, repeat2, skip_by2):
+    i = 1
+    startlayer2init = layertocopy = startlayer2
+    while i <= quantity2 and repeat2 == 0:
+        layercopy = pdb.gimp_layer_copy(myImage.layers[startlayer2 - 1], 1)
+        pdb.gimp_image_add_layer(myImage, layercopy, startlayer2 + skip_by2 - 1 + i)
+        pdb.gimp_layer_set_offsets(layercopy, offsetX, offsetY)
+        if name2 != "":
+            pdb.gimp_drawable_set_name(myImage.layers[startlayer2 + skip_by2 - 1 + i], name2)
+        i += 1
+    startlayer2 += skip_by2 + quantity2
+    i = 0
+    while startlayer2 - 1 <= len(myImage.layers) and repeat2 > 0:
+        while i < quantity2:
+            layercopy = pdb.gimp_layer_copy(myImage.layers[layertocopy - 1], 1)
+            pdb.gimp_image_add_layer(myImage, layercopy, startlayer2 - 1 + i)
+            pdb.gimp_layer_set_offsets(layercopy, offsetX, offsetY)
+            if name2 != "":
+                pdb.gimp_drawable_set_name(myImage.layers[startlayer2 - 1 + i], name2)
+            i += 1
+            layertocopy += 1
+        startlayer2 += skip_by2 + quantity2
+        layertocopy = startlayer2init
+        i = 0
+        repeat2 -= 1
+    pdb.gimp_displays_flush()
+
+def fu3(myImage, startlayer3, endlayer3, skip_by3, repeat3):
+    amount = endlayer3 - startlayer3 + 1
+    i = 1
+    while startlayer3 - 1 < len(myImage.layers) - 1:
+        for i in range(startlayer3 - 1, startlayer3 - 1 + amount):
+            if len(myImage.layers) > startlayer3 - 1:
+                pdb.gimp_image_remove_layer(myImage, myImage.layers[startlayer3 - 1])
+            i += 1
+        startlayer3 += skip_by3
+        i = 1
+        if repeat3 == False:
+            break
+
+def fu4(myImage, unvisible4, startlayer4, group_by4, skip_by4, repeat4):
+    if unvisible4 == True:
+        i = 0
+        while i < len(myImage.layers):
+            if pdb.gimp_drawable_get_visible(myImage.layers[i]) == 0:
+                pdb.gimp_image_remove_layer(myImage, myImage.layers[i])
+            else:
+                i += 1
+
+    i1 = startlayer4 - 1
+    skip_by4 += 1
+    while i1 < (len(myImage.layers)  - 1):
+        i2 = 1
+		#num_layers, num_ids = pdb.gimp_image_get_layers(gimp.image_list()[0])
+		#gprint("Actual quantity of layers: %d \r LayerIDs: %s" % (num_layers, num_ids))
+        while i2 < group_by4:
+            i2 += 1
+            pdb.gimp_image_merge_down(myImage, myImage.layers[i1], 0)
+
+        i1 = i1 + skip_by4
+        if repeat4 == False:
+            break
+
+register(
+	"python-fu_flexible_layers_handling-2",
+	"Customisible layers",
+	"Customisible layers",
+	"Axel Woehrle",
+	"Copyright 2011 Axel Woehrle",
+	"Juli 2011",
+	"<Image>/Layer/Flexible layers handling/2. Copy, remove, offset or merge layers",
+	"RGB*, GRAY*",
+	[
+		(PF_BOOL, "function1", "SET Func-1 (move layer) AS ACTIVE?--------------------------------------------------------------------------------------------------->", False),
+        (PF_INT, "startlayer1", "   Param-1-a-# From layer (1 == first visible):", 1),
+        (PF_INT, "length1", "   Param-1-b-# Number of layers  to move:", 10),
+        (PF_INT32, "offset1X", "   Param-1-c-# Move layer by offset in x-direction:", 0),
+        (PF_INT32, "offset1Y", "   Param-1-d-# Move layer by offset in y-direction:", 0),
+		(PF_BOOL, "fixedX", "   Param-1-e-# Move layers in x-direction by fixed offset (default) or add up offset by every following layer?", True),
+		(PF_BOOL, "fixedY", "   Param-1-f-# Move layers in y-direction by fixed offset (default) or add up offset by every following layer?", True),
+		(PF_BOOL, "function2", "SET Func-2 (copy layer) AS ACTIVE?---------------------------------------------------------------------------------------------------->", False),
+        (PF_INT, "startlayer2", "   Param-2-a-# Copy layer (1 == first visible):", 1),
+		(PF_STRING, "name2", "   Param-2-b-# Name of layers to insert (default == empty, no change)", ""),
+        (PF_INT, "quantity2", "   Param-2-c-# Number of copies (when Param-2-f is greater than '0', this number means the height of the layerstack to copy)", 10),
+		(PF_INT32, "offsetX", "   Param-2-d-# Move layer to Offset-X-position?", 0),
+		(PF_INT32, "offsetY", "   Param-2-e-# Move layer to Offset-Y-position?", 0),
+		(PF_INT, "repeat2", "   Param-2-f-# How often repeat copy layerstack insertion throughout remaining layers?", 0),
+		(PF_INT, "skip_by2", "   Param-2-g-# How much layers have to be skipped before next insertion?", 0),
+		(PF_BOOL, "function3", "SET Func-3 (delete layers) AS ACTIVE?------------------------------------------------------------------------------------------------->", False),
+        (PF_INT, "startlayer3", "   Param-3-a-# Delete from layer . . .", 1),
+		(PF_INT, "endlayer3", "   Param-3-b-# . . . to layer", 4),
+		(PF_INT, "skip_by3", "   Param-3-c-# How much layers have to be skipped before next deletion group?", 0),
+		(PF_BOOL, "repeat3", "   Param-3-d-# Repeat deletion process for all remaining layers?", True),
+		(PF_BOOL, "function4", "SET Func-4 (mergedown of layers) AS ACTIVE?--------------------------------------------------------------------------------------->", False),
+		(PF_BOOL, "unvisible4", "   Param-4-a-# First delete unvisible layers without merging anything (recommended)?", False),
+        (PF_INT, "startlayer4", "   Param-4-b-# Startlayer:", 1),
+		(PF_INT, "group_by4", "   Param-4-c-# Group by:", 2),
+		(PF_INT, "skip_by4", "   Param-4-d-# How much layers have to be skipped before next repetition?", 0),
+		(PF_BOOL, "repeat4", "   Param-4-e-# Repeat for all remaining layers?", True),
+		(PF_BOOL, "mergeall", "   Param-4-f-# Mergedown all to singleframes (use only, when Parameter 'Group by' == '2'; read instructions in scriptfile)?", False),
+	],
+	[],
+	python_flexible_layers)
+
+main()

@@ -1,0 +1,139 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+#
+# GNU General Public Licence (GPL)
+# 
+# This program is free software; you can redistribute it and/or modify it under
+# the terms of the GNU General Public License as published by the Free Software
+# Foundation; either version 2 of the License.
+# This program is distributed in the hope that it will be useful, but WITHOUT
+# ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+# FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more
+# details.
+# You should have received a copy of the GNU General Public License along with
+# this program; if not, write to the Free Software Foundation, Inc., 59 Temple
+# Place, Suite 330, Boston, MA  02111-1307  USA
+
+# Modified  by LHG to support Windows   08Sept2008
+# Modified by Pat David to parse ISO/f/Speed/Make onto separate text layers
+
+import os
+import commands
+import subprocess
+import platform
+
+from gimpfu import *
+import os.path
+
+gettext.install("gimp20-python", gimp.locale_directory, unicode=True)
+
+def getExifInfo(filename):
+    # authored by LHG to support windows
+    # 05Sept2008
+    #cmd = r'C:\Users\patdavid\Dropbox\GIMP plugins\exiftool.exe'  #edit this line to point to your exiftool location
+    cmd = r'###FULL_PATH_TO_YOUR_EXIFTOOL_INSTALL###'  #edit this line to point to your exiftool location
+                                                       # look at the previous line for a windows example
+    tag1 = r'-ISO'
+    tag2 = r'-FNumber'
+    tag3 = r'-ExposureTime'
+    tag4 = r'-Model'
+    cmdlist = [cmd, '-S', tag1, tag2, tag3, tag4, filename]
+    p = subprocess.Popen(cmdlist, stdout=subprocess.PIPE)
+    out = p.stdout.readlines()
+    return(out)
+
+def insertExifInfo(img, drw, fontname):
+    img.undo_group_start()
+    
+    width = drw.width
+    height = drw.height
+
+    filename=img.filename;
+   
+    if platform.system() == 'Windows':  # LHG
+        exif_list = getExifInfo(filename)   
+        text = ""
+
+        for item in exif_list:
+            text =  "".join([text, item[0:-2], '\n'])
+        num_lines = len(exif_list)
+
+        exif_list = map(lambda s: s.strip(),exif_list) #Stripping newlines from all elements
+        # Putting each EXIF tag on it's own text layer for further modifications
+        ISO=exif_list[0]
+        APERTURE=exif_list[1].replace("FNumber: ", "Aperture: f/" )
+        SHUTTER=exif_list[2] + "s"
+        MODEL=exif_list[3]
+
+        text_size= height * 0.03
+        pdb.gimp_text_fontname(img,None,0,0,ISO,0,True,text_size,PIXELS,fontname)
+        pdb.gimp_text_fontname(img,None,0,0,APERTURE,0,True,text_size,PIXELS,fontname)
+        pdb.gimp_text_fontname(img,None,0,0,SHUTTER,0,True,text_size,PIXELS,fontname)
+        pdb.gimp_text_fontname(img,None,0,0,MODEL,0,True,text_size,PIXELS,fontname)
+
+
+    else:
+        #   the next line caused problems under windows with filenames containing numerical sequences that may be interpreted as code. 
+        #   i'm not sure  what it does. LHG
+        filename=filename.decode("string-escape")
+        exiftool=r"/usr/bin/exiftool"; # Please edit this
+        text=""
+        text=text + "ISO: " + commands.getoutput(exiftool + ' -s -s -s -ISO ' + "\"" + filename + "\"")
+        text=text + ", Aperture: " + commands.getoutput(exiftool + ' -s -s -s -FNUMBER '  + "\"" + filename + "\"")
+        text=text + ", Exposure: " + commands.getoutput(exiftool + ' -s -s -s -ExposureTime '  + "\"" + filename + "\"")
+        text=text + "\n"
+        text=text + "Lens: " + commands.getoutput(exiftool + ' -s -s -s -LensID '  + "\"" + filename + "\"" )
+        num_lines = 2
+
+        # PD - Moved this entire block to the "else" clause for OS checking.
+        #       I'm on a Windows box atm, so testing this against there mostly.
+
+        # Add or delete items in this list of strings to suit your needs. An empty list is acceptable
+        extra_text = ["Copyright 2008 MeetTheGimp-Community ",
+                      "Extra Text Line 1",
+                      "Extra Text Line 2"]
+        for item in extra_text:
+            text = "".join([text, "\n", item])
+        num_lines = num_lines + len(extra_text) + 1         # space for additional text plus 1 for preceding '\n'
+        num_lines = num_lines + 3.5                         # additonal padding
+
+        border=20
+        
+        newWidth=width
+        newHeight=int(height+border*num_lines)  # LHG
+        img.resize(newWidth,newHeight,0,0)
+        drw.resize(newWidth,newHeight,0,0)
+        
+        new_layer = gimp.Layer(img, "Exif", newWidth, newHeight, RGBA_IMAGE, 100, NORMAL_MODE)  # LHG
+        new_layer.fill(TRANSPARENT_FILL)    # LHG
+        img.add_layer(new_layer, -1)    # LHG
+ 
+        layer_text2=pdb.gimp_text_fontname(img,drw,0,0,text,0,True,border,PIXELS,"Arial")
+        layer_text2.resize(newWidth-border,(newHeight-height)-2*border,0,0)
+        layer_text2.set_offsets(border,height+border)
+	    
+        pdb.gimp_floating_sel_anchor(layer_text2)   # LHG
+
+
+    
+    img.undo_group_end()
+    gimp.displays_flush
+        
+
+register(
+    "python-fu-insert-Exif-Info",
+    "'insertExifInfo' for Gimp",
+    "Inserts some metainformation to the image. V0.3",
+    "Meetthegimp-Community http://forum.meetthegimp.org/index.php?topic=60.0",
+    "GPL License",
+    "2008",
+    "<Image>/Image/_InsertExifInfo",
+    "",
+    [
+            (PF_FONT, "font", "Font", "Arial")
+    ],
+    [],
+    insertExifInfo)
+    
+
+main()

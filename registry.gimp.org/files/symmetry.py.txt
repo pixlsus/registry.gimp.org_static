@@ -1,0 +1,115 @@
+#!/usr/bin/env python
+#
+#    Copyright 2010   Andy Shelley <andy@andyshelley.co.uk>
+#
+#    This program is free software; you can redistribute it and/or modify
+#    it under the terms of the GNU General Public License as published by
+#    the Free Software Foundation; either version 2 of the License, or
+#    (at your option) any later version.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU General Public License for more details.
+#
+#    You should have received a copy of the GNU General Public License
+#    along with this program; if not, write to the Free Software
+#    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+
+from gimpfu import *
+
+def python_symmetry(img, drawable, option):
+	selection, x1, y1, x2, y2 = pdb.gimp_selection_bounds (img)  
+	width = pdb.gimp_image_width (img)
+	height = pdb.gimp_image_height (img)
+	if (selection):
+		if (option == 0):
+			# create left hand image
+			left_width = 2 * (x2 - x1)
+			left_height = y2 - y1
+			left_image = gimp.Image (left_width, left_height, RGB)
+			left_layer = gimp.Layer(left_image, "Left Hand", left_width, left_height, RGB_IMAGE, 100, NORMAL_MODE)
+			left_image.add_layer(left_layer, 0)
+			pdb.gimp_edit_clear (left_layer)		
+			pdb.gimp_edit_copy (drawable)
+			left_floating = pdb.gimp_edit_paste (left_layer, True)
+			pdb.gimp_layer_set_offsets (left_floating, 0 ,0)
+			left_floating = pdb.gimp_edit_paste (left_layer, True)
+			pdb.gimp_drawable_transform_flip_simple (left_floating, ORIENTATION_HORIZONTAL, True, 0, False)
+			pdb.gimp_layer_set_offsets (left_floating, x2 - x1 ,0)
+			pdb.gimp_image_merge_visible_layers (left_image, CLIP_TO_IMAGE)
+			gimp.Display(left_image)
+			# create right hand image
+			right_width = 2 * (width - x2)
+			right_height = y2 - y1
+			right_image = gimp.Image (right_width, right_height, RGB)
+			right_layer = gimp.Layer(right_image, "Right Hand", right_width, right_height, RGB_IMAGE, 100, NORMAL_MODE)
+			right_image.add_layer(right_layer, 0)
+			pdb.gimp_edit_clear (right_layer)		
+			pdb.gimp_selection_none (img)
+			pdb.gimp_rect_select (img, x2, y1, width - x2, y2 - y1, CHANNEL_OP_ADD, False, 0)		
+			pdb.gimp_edit_copy (drawable)
+			right_floating = pdb.gimp_edit_paste (right_layer, True)
+			pdb.gimp_layer_set_offsets (right_floating, width - x2, 0)
+			right_floating = pdb.gimp_edit_paste (right_layer, True)
+			pdb.gimp_drawable_transform_flip_simple (right_floating, ORIENTATION_HORIZONTAL, True, 0, False)
+			pdb.gimp_layer_set_offsets (right_floating, 0 ,0)
+			pdb.gimp_image_merge_visible_layers (right_image, CLIP_TO_IMAGE)
+			gimp.Display(right_image)
+		elif (option == 1):
+			# create left hand image
+			left_width = 2 * (x2 - x1)
+			left_height = y2 - y1
+			left_image = gimp.Image (left_width, left_height, RGB)
+			left_layer = gimp.Layer(left_image, "Left Hand", left_width, left_height, RGB_IMAGE, 100, NORMAL_MODE)
+			left_image.add_layer(left_layer, 0)
+			pdb.gimp_edit_clear (left_layer)		
+			pdb.gimp_edit_copy (drawable)
+			left_floating = pdb.gimp_edit_paste (left_layer, True)
+			pdb.gimp_layer_set_offsets (left_floating, 0 ,0)
+			left_floating = pdb.gimp_edit_paste (left_layer, True)
+			pdb.gimp_drawable_transform_flip_simple (left_floating, ORIENTATION_HORIZONTAL, True, 0, False)
+			pdb.gimp_layer_set_offsets (left_floating, x2 - x1 ,0)
+			pdb.gimp_image_merge_visible_layers (left_image, CLIP_TO_IMAGE)
+			gimp.Display(left_image)
+		else:
+			# create right hand image
+			right_width = 2 * (width - x2)
+			right_height = y2 - y1
+			right_image = gimp.Image (right_width, right_height, RGB)
+			right_layer = gimp.Layer(right_image, "Right Hand", right_width, right_height, RGB_IMAGE, 100, NORMAL_MODE)
+			right_image.add_layer(right_layer, 0)
+			pdb.gimp_edit_clear (right_layer)		
+			pdb.gimp_selection_none (img)
+			pdb.gimp_rect_select (img, x2, y1, width - x2, y2 - y1, CHANNEL_OP_ADD, False, 0)		
+			pdb.gimp_edit_copy (drawable)
+			right_floating = pdb.gimp_edit_paste (right_layer, True)
+			pdb.gimp_layer_set_offsets (right_floating, width - x2, 0)
+			right_floating = pdb.gimp_edit_paste (right_layer, True)
+			pdb.gimp_drawable_transform_flip_simple (right_floating, ORIENTATION_HORIZONTAL, True, 0, False)
+			pdb.gimp_layer_set_offsets (right_floating, 0 ,0)
+			pdb.gimp_image_merge_visible_layers (right_image, CLIP_TO_IMAGE)
+			gimp.Display(right_image)
+		# restore original selection
+		pdb.gimp_selection_none (img)
+		pdb.gimp_rect_select (img, x1, y1, x2 - x1, y2 - y1, CHANNEL_OP_ADD, False, 0)		
+	else: 
+		pdb.gimp_message ("Rectangular selection required")
+
+
+register(
+        "python_fu_symmetry",
+        "Creates a vertical mirror image of a selection, \nwhich can be used to show left-hand and \nright-hand facial symmetries",
+        "Creates a vertical mirror image of a selection, which can be used to show left-hand and right-hand facial symmetries",
+        "Andrew Shelley",
+        "Andrew Shelley",
+        "2010",
+        "<Image>/Filters/Utils/Facial Symmetry...",
+        "RGB*, GRAY*",
+        [
+		(PF_RADIO, "option", "Create :", 0, (("Both Symmetries", 0),("Left Hand Only",1),("Right Hand Only",2)))
+        ],
+        [],
+        python_symmetry)
+
+main()

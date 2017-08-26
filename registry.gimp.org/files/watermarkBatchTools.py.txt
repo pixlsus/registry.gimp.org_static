@@ -1,0 +1,177 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+'''
+Copyright: Michele Gatti 2012
+Licence: GPL
+
+Create a grid of watermark in two ways:
+	1:Batch Mode
+	3:Simple layer
+'''
+import os, glob, re
+import gettext
+from gimpfu import *
+from random import randint
+from math import radians
+
+MENU = "<Image>/Tools/PhotoTool/Watermark"
+
+locale_directory = gimp.locale_directory
+gettext.install( "gimp20-batchtools", locale_directory, unicode=True )
+
+Watermark_help = _("")
+Watermark_description = Watermark_help
+
+def watermarkgridlayer(fontname,fontcolor,gridx,gridy,angle,opacity,font_s,copyright):
+
+	messagebox = pdb.gimp_message_get_handler( )
+	pdb.gimp_message_set_handler( 2 ) 	
+	num_images=0
+		
+	if len(gimp.image_list()) > 0 :
+		imglayer= gimp.image_list()[0]
+		imgwidth = pdb.gimp_image_width(imglayer)
+		imgheight = pdb.gimp_image_height(imglayer)
+		
+		texture_layer = gimp.Layer(imglayer, _("Texture"), imgwidth,imgheight,RGBA_IMAGE,opacity,NORMAL_MODE)		
+		pdb.gimp_image_add_layer(imglayer,texture_layer, 0)
+		pdb.gimp_drawable_fill(texture_layer, 3)
+		
+		for w in range(0,int(gridx)):
+			for h in range(0,int(gridy)):
+				if imgwidth > imgheight:
+					font_size = round(imgwidth * font_s / 1000)
+				else:
+					font_size = round(imgheight * font_s / 1000)
+
+				textBoxWidth,textBoxHeight,fontAscent,fontDescent = pdb.gimp_text_get_extents_fontname(copyright, font_size, PIXELS, fontname)
+				
+				x_cord = round((w * imgwidth) / gridx)
+				x_cord_1 =  round(((w + 1) * imgwidth) / gridx) #Next Element 
+				y_cord =  round((h * (imgheight - textBoxHeight)) / gridy)
+				y_cord_1 =  round(((h + 1) * (imgheight - textBoxHeight)) / gridy) #Next Element
+				
+				x =  round(((x_cord + x_cord_1) / 2)) - font_size
+				y =  round((y_cord + y_cord_1) / 2)
+				
+				texture = pdb.gimp_text_fontname( imglayer,texture_layer,x,y,copyright,-1,True,font_size,PIXELS,fontname)
+				pdb.gimp_text_layer_set_color(texture, fontcolor)
+				texture_layer = pdb.gimp_rotate(texture, True, radians(angle*-1))
+	else:
+		pdb.gimp_message( _("There is no layer to start") )
+
+def watermarkgrid(indirectory,outdirectory,fontname,fontcolor,gridx,gridy,angle,opacity,font_s,copyright):
+	
+	if os.path.exists( u''+indirectory ):
+		inglobpattern = u''+indirectory + os.sep + '*.' + "[Jj][Pp][Ee][Gg]"
+		infilepathnames = glob.glob( inglobpattern )
+		inglobpattern = u''+indirectory + os.sep + '*.' + "[Jj][Pp][Gg]"
+		infilepathnames.extend(glob.glob( inglobpattern ))
+	else:
+		pdb.gimp_message( _("%s doesn't exist") %(indirectory) )
+	
+	if os.path.exists( u''+outdirectory ):
+		if infilepathnames:
+			messagebox = pdb.gimp_message_get_handler( )
+			pdb.gimp_message_set_handler( 2 )
+			num_images=0
+			
+			for infilepathname in infilepathnames:
+				img = pdb.gimp_file_load( infilepathname, infilepathname )
+				imglayer= img.layers[0]
+				imgwidth = pdb.gimp_image_width(img)
+				imgheight = pdb.gimp_image_height(img)
+				
+				for w in range(0,int(gridx)):
+					for h in range(0,int(gridy)):
+						texture_layer = gimp.Layer(img, _("Texture"), imgwidth,imgheight,RGBA_IMAGE,opacity,NORMAL_MODE)
+						pdb.gimp_image_undo_disable(img)
+						pdb.gimp_image_add_layer(img,texture_layer, 0)
+						pdb.gimp_drawable_fill(texture_layer, 3)
+						
+						if imgwidth > imgheight:
+							font_size = round(imgwidth * font_s / 1000)
+						else:
+							font_size = round(imgheight * font_s / 1000)
+
+						textBoxWidth,textBoxHeight,fontAscent,fontDescent = pdb.gimp_text_get_extents_fontname(copyright, font_size, PIXELS, fontname)
+						
+						x_cord = round((w * imgwidth) / gridx)
+						x_cord_1 =  round(((w + 1) * imgwidth) / gridx) #Next Element 
+						y_cord =  round((h * (imgheight - textBoxHeight)) / gridy)
+						y_cord_1 =  round(((h + 1) * (imgheight - textBoxHeight)) / gridy) #Next Element
+						
+						x =  round(((x_cord + x_cord_1) / 2)) - font_size
+						y =  round((y_cord + y_cord_1) / 2)
+						
+						texture_layer = pdb.gimp_text_fontname( img,texture_layer,x,y,copyright,0,True,font_size,PIXELS,fontname)
+						pdb.gimp_text_layer_set_color(texture_layer, fontcolor)
+						texture_layer = pdb.gimp_rotate(texture_layer, True, radians(angle*-1))
+						texture_layer = pdb.gimp_image_merge_visible_layers(img,CLIP_TO_IMAGE)	
+						
+				outfilepathname = outdirectory +os.sep + os.path.basename(infilepathname)
+				pdb.gimp_file_save(img,img.layers[0],outfilepathname,outfilepathname)
+				pdb.gimp_image_delete(img)
+		else:
+			pdb.gimp_message( _("There are no files in %s") %(indirectory ) )
+	else:
+		pdb.gimp_message( _("%s doesn't exist") %(outdirectory) )
+				
+# Register plugin
+#Batch
+register(
+   "python-fu-batchtools-watermark-grid",
+   Watermark_description,
+   Watermark_help,
+   "Gatti Michele",
+   "GPL License",
+   "2012",
+   _("WatermarkGridBatch"),
+   "",
+   [
+		(PF_DIRNAME, "indirectory", _("Input Directory"), os.getcwd() ),
+		(PF_DIRNAME, "outdirectory", _("Output Directory"), os.getcwd() ),
+		(PF_FONT, "fontname", _("Watermark Font"), "FreeMono Bold"),
+		(PF_COLOR, "fontcolor",  "Watermark Color ",  (255,255,255) ),
+		(PF_SLIDER,"gridx", "X Grid value", 3,[3, 10, 1]),
+		(PF_SLIDER,"gridy", "Y Grid value", 3,[3, 10, 1]),
+		(PF_SPINNER, "angle", _("Angle"), 0, (0,360,1)),
+		(PF_SPINNER, "opacity", _("Opacity"), 5, (1,100,1)),
+		(PF_SPINNER, "font_s", _("Font Size (0.1% of the longest side)"), 20, (1,200,1)),
+		(PF_STRING, "copyright", _("Watermark Text"), _(u"\xa92009") + " Your Watermark Text Here"),		
+   ],
+   [],
+   watermarkgrid,
+   menu= MENU,
+   domain=( "gimp20-batchtools", locale_directory)
+   )
+
+#Batch
+register(
+   "python-fu-batchtools-watermark-layer",
+   Watermark_description,
+   Watermark_help,
+   "Gatti Michele",
+   "GPL License",
+   "2012",
+   _("WatermarkGridLayer"),
+   "",
+   [		
+		(PF_FONT, "fontname", _("Watermark Font"), "FreeMono Bold"),
+		(PF_COLOR, "fontcolor",  "Watermark Color ",  (255,255,255) ),
+		(PF_SLIDER,"gridx", "X Grid value", 3,[3, 10, 1]),
+		(PF_SLIDER,"gridy", "Y Grid value", 3,[3, 10, 1]),
+		(PF_SPINNER, "angle", _("Angle"), 0, (0,360,1)),
+		(PF_SPINNER, "opacity", _("Opacity"), 5, (1,100,1)),
+		(PF_SPINNER, "font_s", _("Font Size (0.1% of the longest side)"), 20, (1,200,1)),
+		(PF_STRING, "copyright", _("Watermark Text"), _(u"\xa92009") + " Your Watermark Text Here"),		
+   ],
+   [],
+   watermarkgridlayer,
+   menu = MENU,
+   domain=( "gimp20-batchtools", locale_directory)
+)
+   
+   
+main()

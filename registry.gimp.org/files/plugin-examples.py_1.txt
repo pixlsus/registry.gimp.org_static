@@ -1,0 +1,398 @@
+#! /usr/bin/python
+
+'''
+This file contains examples, or templates, of registering plugins using gimpfu.register().
+This is for GIMP Python programmers, not users.
+When installed, this one file puts many demo plugins into GIMP.
+The demo plugins don't do much except make an appearance.
+
+These demonstrate various combinations of:
+- where plugins appear (or not) in the menus (or elsewhere) in GIMP
+- when the plugin's menu items are enabled (sensitive)
+- what parameters a plugin_main() receives
+- whether a plugin opens a GUI dialog for user to choose options (set parameters.)
+
+Using the gimpfu module of GIMP Python is simpler 
+than registering a plugin using GIMP PDB procedures (e.g. gimp.pdb.gimp_install_procedure()).
+But there are bewildering many combinations.
+
+This file makes many plugins for you to test,
+when this file is installed in your local plugins directory.
+The plugins are scattered around the GIMP GUI. 
+They are named plugin_1 through plugin_8.
+To see EXACTLY what parameters are passed to each plugin, use the Help>Plugin Browser
+and search for "1" thru "8".
+(But note that the Plugin Browser will say a plugin takes a run-mode parameter 
+yet GIMP Python hides that parameter i.e. doesn't pass it to your plugin,
+but instead: might display dialogs, might retrieve the last arguments,
+and passes your plugin the proper set of arguments as dictated by the run-mode.)
+
+Search for !!! to see the important differences among these plugins.
+
+Copyright 2010 Lloyd Konneker
+
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or
+# (at your option) any later version.
+'''
+
+from gimpfu import *
+
+
+'''
+Creates a new pulldown menu in the GIMP menu bar labeled "Somewhere".
+Plugin appears in the Somewhere pulldown menu (submenu.)
+Menu item is "plugin_1"
+Menu item only enabled if any image is open.
+No image or drawable are passed to the plugin.
+'''
+def plugin_func1(args): # !!! no image or drawable
+  gimp.pdb.gimp_message("Done")
+  print  args  # to the console if GIMP is run from a terminal
+              
+register(
+  "plugin_1_pdb",
+  "This is plugin_1",
+  "help", 
+  "author",
+  "copyright",
+  "year",
+  "plugin_1...",  # !!! If it opens a dialog, a GUI standard is that it have trailing ellipsis (...)
+  "*",
+  [
+      (PF_STRING, "arg", "The argument", "default-value")
+  ],
+  [],
+  plugin_func1, 
+  menu="<Image>/Somewhere") # !!! Creates new submenu in menubar, since Somewhere is not a Placeholder
+
+
+'''
+Appears in the "Filters" menu (usually at the bottom?)
+Menu item is "plugin_2"
+Menu item is only enabled if any image is open.
+No dialog box opens.
+No parameters are passed to the plugin.
+'''
+def plugin_func2(): # !!! No image or drawable or run-mode
+  gimp.pdb.gimp_message("Done") # !!! This appears in the status bar, not in a separate message dialog ???
+  print "2"
+
+register(
+  "plugin_2_pdb",
+  "This is plugin_2",
+  "help",
+  "author",
+  "copyright",
+  "year",
+  "plugin_2", # no GUI dialog, so no ellipsis
+  "*",    # !!! Only enabled if image is open
+  [], # no arguments
+  [],
+  plugin_func2, 
+  menu="<Image>/Filters/")  # !!! optional keyword arg
+              
+              
+'''
+Appears in the "Filters>Blur" menu (usually at the bottom?)
+Menu item is "plugin_3"
+Menu item is only enabled if any image is open.
+A dialog box opens to get "The argument".
+An image and drawable are passed to the plugin.
+'''
+def plugin_func3(image, drawable, args):  
+  # !!! image and drawable passed to plugin though not declared in register()
+  gimp.pdb.gimp_message("Done")
+  print "3", args
+  
+register(
+  "plugin_3_pdb",
+  "This is plugin_3",
+  "help",
+  "author",
+  "copyright",
+  "year",
+  "<Image>/Filters/Blur/plugin_3...",
+  "*",
+  [
+      (PF_STRING, "arg", "The argument", "default-value")
+  ],
+  [],
+  plugin_func3
+  )
+
+
+'''
+Appears in the "Filters" menu (usually at the bottom?)
+Menu item is "plugin_4"
+Menu item is enabled even if no image is open.
+!!! If no image is open when you invoke the plugin,
+a dialog box opens to get image and drawable and "The argument".
+An image and drawable are passed to the plugin.
+
+!!! You probably don't want this.
+If the plugin needs an image, instead set the imagetype to "*" or similar
+so that the plugin would not be enabled unless an image was open.
+If the plugin does not need an image,
+instead use the keyword parameter menu="<Image>/Filters/"
+(and take the image and drawable parameters out of plugin_func4())
+so that no image and drawable are ever passed.
+'''
+def plugin_func4(image, drawable, args):  
+  # !!! image and drawable passed to plugin though not declared in register()
+  gimp.pdb.gimp_message("Done")
+  print "4", args
+  
+register(
+  "plugin_4_pdb",
+  "This is plugin_4",
+  "help",
+  "author",
+  "copyright",
+  "year",
+  "<Image>/Filters/plugin_4...",
+  "",    # !!! Always enabled, even if no image is open.
+  [
+      (PF_STRING, "arg", "The argument", "default-value")
+  ],
+  [],
+  plugin_func4
+  )
+
+
+'''
+Appears in the "Filters" menu !!! in the same group as, Python-Fu.
+(I guess that: to direct a menu item to a named group,
+look in the GIMP source file menus/image-menu.xml.in for a "Placeholder" name.)
+Menu item is "plugin_5"
+Menu item is enabled even if no image is open.
+A dialog box opens to get "The argument".
+No image and drawable are passed to the plugin.
+'''
+def plugin_func5(args):  
+  # !!! No image or drawable passed
+  gimp.pdb.gimp_message("Done")
+  print "5", args
+  '''
+  !!! Call plugin_4 but use the current options for it
+  and do not open a dialog for plugin_4.
+  
+  !!! Here a string "foo" must be passed but is ignored by plugin_4
+  and plugin_4 uses whatever string the user last entered 
+  or its default (if the user has not run plugin_4 previously in the GIMP session.)
+  
+  !!! Here you use underbar, not dash, since gimpfu mangles names.
+  Use the Procedure Browser to see it registered as "python-fu-plugin-4-pdb".
+  Mangling means: gimpfu prefixes the name with "python-fu" (if not already so) 
+  and while in Python, uses the name with underbars instead of dashes,
+  but actually installs it in the PDB with dashes in the name.
+  
+  (Here, pass None for image and drawable since plugin_4 wants them,
+  but we don't have real ones to pass in this example.)
+  
+  You could use run-mode=RUN_NONINTERACTIVE.
+  Then the plugin_4 would use the parameters you pass.
+  '''
+  gimp.pdb.python_fu_plugin_4_pdb( None, None, "foo", run_mode=RUN_WITH_LAST_VALS)
+  
+register(
+  "plugin_5_pdb",
+  "This is plugin_5",
+  "help",
+  "author",
+  "copyright",
+  "year",
+  "plugin_5...", 
+  "",    # !!! Always enabled, even if no image is open
+  [
+      (PF_STRING, "arg", "The argument", "default-value")
+  ],
+  [],
+  plugin_func5,
+  menu = "<Image>/Filters/Languages/" # !!! Languages puts it in a menu group
+  # not in a submenu Languages
+  )
+
+
+'''
+An "engine" plugin.
+Does not appear in any menu.
+You can create a keyboard shortcut to it, or call it from another plugin.
+A dialog box opens to get "The argument".
+No image and drawable are passed to the plugin.
+
+Note that it DOES appear in Plugin Browser, as the first plugin, but with a blank name.
+It DOES appear in Edit>Keyboard Shortcuts>Plugins> as "python-fu-plugin-6-pdb",
+(which, unlike other plugins that appear in Keyboard Shortcuts,
+is NOT the label of the plugin's menu item, but the name of the PDB procedure.)
+'''
+def plugin_func6(args):
+  # !!! No image and drawable passed to plugin
+  gimp.pdb.gimp_message("Done")
+  print "6", args
+  
+register(
+  "plugin_6_pdb",
+  "This is plugin_6",
+  "help",
+  "author",
+  "copyright",
+  "year",
+  "",   # !!! no menu presence
+  "",    # !!! This is moot, since there is no presence in the GUI, it can't be enabled/disabled
+  [
+      (PF_STRING, "arg", "The argument", "default-value")
+  ],
+  [],
+  plugin_func6,
+  # menu="<Image>"  # !!! Moot, since menu item is blank, but keeps image and drawable from being passed
+  )
+
+
+'''
+A plugin in the menubar.
+No image and drawable are passed to the plugin.
+
+!!! Note that it sometimes takes two clicks to activate.
+It actually is a submenu to itself.
+Sometimes the first click activates the submenu (that only has one item, that becomes highlighted.)
+The second click activates the menu item and calls the plugin.
+At other times, (if you have recently been hunting in the menubar)
+holding the mouse over the item highlights the item and a first click activates it.
+I suppose this is a quirk of gtk: an item in a menubar is a button which activates a pulldown menu,
+two separate widgets but each of them consume a click?
+Because of this, you probably should not use this, since it would confuse most users:
+"I click on it but nothing happens."
+'''
+def plugin_func6b(args):
+  # !!! No image and drawable passed to plugin
+  gimp.pdb.gimp_message("Done")
+  print "6b", args
+  
+register(
+  "plugin_6b_pdb",
+  "This is plugin_6b",
+  "help",
+  "author",
+  "copyright",
+  "year",
+  "Plugin6b...",   # !!! No submenu defined
+  "*",    # !!! Only enabled if an image of any type is open
+  [
+      (PF_STRING, "arg", "The argument", "default-value")
+  ],
+  [],
+  plugin_func6b,
+  menu="<Image>"  # !!! In the main GIMP menubar, beneath the root of the menu hierarchy.
+  )
+
+
+'''
+An image saver, known as a "save handler."
+This was derived from /usr/lib/gimp/2.0/plug-ins/colorxhtml.py
+Appears in the list presented by "Select File Type" widget in the "Save Image" dialog
+after you choose File>Save As.
+Enabled if an image is open.
+
+Most plugin writers will never use this.
+New filetypes don't come along often.
+Also, most saving to files requires dealing with binary data and demands high performance,
+so is written in C.
+'''
+def plugin_func7(image, drawable, filename, rawfilename):  
+  # !!! image, drawable, and two file parameters, though not declared in register()
+  
+  # Here you would save the image to the file.
+  gimp.pdb.gimp_message("Done")
+  print "7"
+
+def register_save():
+    gimp.register_save_handler("file-plugin_7-save", "filetypesuffix7", "")
+    # !!! the suffix is appended to the filename when saved, e.g. "foo.filetypesuffix7"
+    # Also knows as the file extension.
+    # More typically e.g. "filename.html"
+    
+register(
+  "file-plugin_7-save", # !!! Best to follow convention "file-filetype-save"
+  # and should match the name passed register_save_handler()
+  # If you don't follow the convention, gimpfu might mangle this name
+  # and you yourself would have to mangle the name passed to register_save_handler.
+  # See comments above about name mangling.
+  "This is plugin_7",
+  "help",
+  "author",
+  "copyright",
+  "year",
+  "<Save>/plugin7 file type",   # !!! <Save> indicates a "save handler"
+  # "plugin7 file type" is the description of the file type, appears in the list of file types
+  # e.g. "Color XHTML" or "Graphics Interchange Format"
+  "*",    # !!! Enabled regardless of image type RGB, Grayscale, etc.
+  [], # !!! No params declared (or allowed?)
+  # If you need to ask user for more params for saving,
+  # follow the template of colorxhtml.py
+  [],
+  plugin_func7,
+  on_query=register_save # !!! another keyword param to register(), see register_save() above
+  )
+
+
+'''
+An image loader, known as a "load handler.
+See the comments above for an image saver.
+Often, a load_handler and save_handler come in pairs.
+
+See the plugin for "Open Raster" file formats, i.e. file-ora.py, for an alternative template.
+
+(This code does install a plugin, but gives a warning:
+GIMP-Error: save handler "file-plugin8-load" does not take the standard save handler args
+that I don't understand.)
+'''
+
+def plugin_func8(filename, rawfilename):  
+  # !!! Just two file parameters though not declared in register()
+  
+  # In this example, you can't get here from there, since no files with extension
+  # "filetypesuffix8" will probably exist on your computer
+  # (and the Open Image dialog won't proceed until user chooses file.)
+  
+  # Here you would load an image from a file and return the image.
+  gimp.pdb.gimp_message("Done")
+  print "8"
+
+def register_load_handlers():
+    gimp.register_load_handler("file-plugin8-load", "filetypesuffix8", "")
+    # !!! the suffix filters files appearing in the "Open Image" dialog
+    pdb['gimp-register-file-handler-mime']("file-plugin8-load", 'image/filetypesuffix8')
+    # pdb['gimp-register-thumbnail-loader']("file-plugin8-load", "")
+
+    
+register(
+  "file-plugin8-load", # !!! Best to follow convention "file-filetype-load"
+  # and should match the name passed register_load_handler().
+  # If you don't follow the convention, gimpfu might mangle this name
+  # and you yourself would have to mangle the name passed to register_load_handler.
+  "This is plugin_8",
+  "help",
+  "author",
+  "copyright",
+  "year",
+  "<Load>/plugin8 file type",   # !!! <Load> indicates a "load handler"
+  # "plugin8 file type" is the description of the file type, appears in the list of file types
+  "*",    # !!! Moot.  You can load an image of any type anytime.
+  [], # !!! No params declared (or allowed?  Might be a limitation of gimpfu?)
+  [(PF_IMAGE, 'image', 'Output image')], # !!! A loader must return a name for the image it loaded.
+  plugin_func8,
+  on_query=register_load_handlers # !!! another keyword param to register(), see register_load() above
+  )
+  
+
+'''
+This main() is defined in gimpfu.  
+It calls gimp.main(), which calls the proper PDB procedures to install this plugin.
+'''
+main()
+
+
+
+

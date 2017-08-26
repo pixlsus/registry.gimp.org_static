@@ -1,0 +1,144 @@
+#!/usr/bin/env python
+
+from gimpfu import *
+import MySQLdb, random, math
+
+def gprint( text ):
+   pdb.gimp_message(text)
+   return 
+
+def loop_name(col_or_ran, mysql_host, mysql_user, mysql_pass, mysql_db, mysql_query) :
+    
+    db = MySQLdb.connect(mysql_host, mysql_user, mysql_pass, mysql_db )
+    
+    cursor = db.cursor()
+    
+    limit_query = mysql_query + "LIMIT 36"
+    
+    cursor.execute(limit_query)
+    
+    results = cursor.fetchall()
+    
+    cnt = len(results)
+    
+    t = list(results)
+    srt = t.sort(key=lambda tup: len(tup[0]), reverse=True)
+    max_entry = t[0][0]
+    text_info = pdb.gimp_text_get_extents_fontname(max_entry, 34, 0, "Hancock Ultra-Light")
+    gprint(text_info)
+    image_base = set_image()
+
+    if (col_or_ran == "random"):
+        for row in results:
+            name = row[0]
+            print_name_random(name,image_base)
+    elif (col_or_ran == "columns"):      
+        for index in range(len(results)):
+            name = results[index][0]
+            #print_name_random(name, image_base)
+            print_name_columns(name, image_base, index)
+       
+    db.close()
+    
+def set_image() :
+    # pass
+    width = 700
+    height = 700
+    
+    # create an image
+    image = gimp.Image(width, height, RGB)
+    image.undo_group_start()
+    foreground = gimp.get_foreground();
+    
+    textlayer = gimp.Layer(image, "Base Layer", image.width, image.height, RGB_IMAGE, 100, NORMAL_MODE)
+    image.add_layer(textlayer, 0)
+    pdb.gimp_drawable_fill(textlayer, 2) # transparent fill
+    
+    gimp.set_background(255, 255, 255)
+    gimp.set_foreground(foreground)
+    gimp.Display(image)
+    image.undo_group_end()
+    return image
+   
+def print_name_random(text, image):
+    random.seed()
+    list = ()
+    for i in range(0,3):
+        random.seed()
+        list = list + (random.randrange(1,255,1),)
+        
+    color = list
+    
+    fontsize = random.randrange(20, 150, 1)
+    
+    random.seed()
+    y = random.randrange(0,700, 1)
+    random.seed()
+    x = random.randrange(0,700, 1)
+    
+    x += math.ceil( -fontsize * len(text) *  .5)
+    y += math.ceil(-fontsize * .5)
+    
+    gimp.set_foreground(color)
+    
+    floattext = pdb.gimp_text_fontname(
+        image, None, x, y, text, 10, 1, fontsize, PIXELS, "Hancock Ultra-Light")
+
+def print_name_columns(text, image, i):
+        
+    color = (0,0,255)
+    
+    fontsize = 20
+    
+    col_length = 12
+    x = ((i - i%col_length)/col_length)*(fontsize * 10 + 24) + 4;
+    y = (i%col_length)*(fontsize + 38) + 4
+    
+    gimp.set_foreground(color)
+    
+    floattext = pdb.gimp_text_fontname(
+        image, None, x, y, text, 10, 1, fontsize, PIXELS, "Hancock Ultra-Light")
+    
+register(
+        "mysql_exercise",
+        "This is an exercise in applying MySQL to GIMP",
+        "There are two functions available, one that \
+disperses a list from MySQL randomly around an image \
+and another that displays the same list in columns. \
+This is a simple demonstration of what is possible \
+when applying MySQL to GIMP with Python",
+        "Paul Pikowsky", 
+        "Paul Pikowsky",
+        "3/25/2013", 
+        "MySQL Exercise",
+        "", 
+        [
+            (PF_RADIO, "col_or_ran", \
+"Choose random or columns display", "random", (("Columns Display", "columns"), ("Random Display","random"))),
+            (PF_STRING, "mysql_host", 
+"Enter the address of the machine running\r\
+your MySQL database. If your MySQL server\r\
+is running on the same machine as this \r\
+GIMP program, enter 'localhost'", "192.168.0.248"),
+            (PF_STRING, "mysql_user", 
+"Enter the user name that you have given \r\
+access to your database and table", "sakila"),
+            (PF_STRING, "mysql_pass", 
+"Enter the password that you have\r\
+assigned your database user.", "T3$Mh00"),
+            (PF_STRING, "mysql_db",\
+"Enter the name of your database.", "sakila"),
+            (PF_STRING, "mysql_query",\
+"Enter an SQL query to retrieve some list of\r\
+names. Leave the default entry to retrieve a list\r\
+of names from the sakila VIEW 'customer_list'.\r\
+The number of results is coded to be limited to\r\
+36 rows.  See the script.",\
+"SELECT name FROM `sakila`.`customer_list`  WHERE country = 'United States'")
+        ],
+        [],
+        loop_name, 
+        menu="<Image>/MyScripts" 
+        )
+
+main()

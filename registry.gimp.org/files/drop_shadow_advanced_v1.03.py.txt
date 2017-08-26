@@ -1,0 +1,166 @@
+# Drop Shadow Advanced
+# (copyLEFT) 2013 Andrey "Efenstor" Pivovarov. No rights reserved
+# Copy freely, modify freely, spread the word and remeber me in your prayers
+
+#!/usr/bin/env python
+
+import math
+from gimpfu import *
+
+
+def deinit(img):
+    pdb.gimp_undo_push_group_end(img)
+    pdb.gimp_progress_end()
+    pdb.gimp_displays_flush()
+
+
+def smooth_norm_blur(img, layer, width):
+    # Smooth gaussian blur with normailzation
+
+    pdb.plug_in_gauss(img, layer, width-width/5, width-width/5, 0)
+    pdb.plug_in_normalize(img, layer)
+
+    pdb.plug_in_gauss(img, layer, width/5, width/5, 0)
+    pdb.plug_in_normalize(img, layer)
+
+
+def basic_proc(img, drawable, grp, name, color, opac, width, thick):
+    # Copy the drawable
+    layer = drawable.copy()
+    layer.name = name
+    pdb.gimp_image_insert_layer(img, layer, grp, -1)
+
+    # Set opacity
+    layer.opacity = opac
+
+    # Get mask if exists
+    mask = pdb.gimp_layer_get_mask(layer)
+    if mask==None:
+        # Alpha to mask
+        mask = pdb.gimp_layer_create_mask(layer, ADD_ALPHA_MASK)
+        pdb.gimp_layer_add_mask(layer, mask)
+
+    # Color
+    pdb.gimp_layer_resize_to_image_size(layer)
+    fg = pdb.gimp_context_get_foreground()
+    pdb.gimp_context_set_foreground(color)
+    pdb.gimp_drawable_fill(layer, FOREGROUND_FILL)
+    pdb.gimp_context_set_foreground(fg)
+
+    # Blur
+    smooth_norm_blur(img, mask, width)
+
+    # Thickness
+    cpts = [ 0, 0, 127, (thick/100)*255, 255, 255 ]
+    pdb.gimp_curves_spline(mask, 0, 6, cpts)
+
+    # Autocrop
+    pdb.plug_in_autocrop_layer(img, mask)
+
+    return layer
+
+
+def flatten_layer_group(img, group):
+    # Get the children, the parent and the position
+    cnum, cids = pdb.gimp_item_get_children(group)
+    parent = pdb.gimp_item_get_parent(group)
+    pos = pdb.gimp_image_get_item_position(img, group)
+
+    # Get name
+    grpname = group.name
+
+    # Merge down
+    merged = gimp.Item.from_id(cids[0])
+    for i in range(0, cnum-1, 1):
+        merged = pdb.gimp_image_merge_down(img, merged, EXPAND_AS_NECESSARY)
+
+    # Move out the merged layer and remove the group
+    pdb.gimp_image_reorder_item(img, merged, parent, pos+1)
+    img.remove_layer(group)
+
+    # Rename the layer
+    merged.name = grpname
+
+    return merged
+
+
+def drop_shadow_advanced(img, drawable, uwidth, uopac, uthick, pwidth, popac, pthick, upoffx, upoffy, upcolor, vwidth, vopac, vthick, vcolor, intogroup, flatten):
+
+    # Initialization
+    from gimpshelf import shelf
+    gimp.progress_init("Preparing...")
+    pdb.gimp_undo_push_group_start(img)
+
+    # Make the group
+    grp = pdb.gimp_layer_group_new(img)
+    if intogroup: grp.name = drawable.name+" + shadow"
+    else: grp.name = drawable.name+" (shadow)"
+    pos = pdb.gimp_image_get_item_position(img, drawable)
+    par = pdb.gimp_item_get_parent(drawable)
+    pdb.gimp_image_insert_layer(img, grp, par, pos+1)
+
+    # Veil
+    if vopac>0:
+        # Do basic processing
+        veil = basic_proc(img, drawable, grp, "Veil", vcolor, vopac, vwidth, vthick)
+
+    # Penumbra
+    if popac>0:
+        # Do basic processing
+        penumbra = basic_proc(img, drawable, grp, "Penumbra", upcolor, popac, pwidth, pthick)
+        # Move
+        penumbra.translate(upoffx, upoffy)
+
+    # Umbra
+    if uopac>0:
+        # Do basic processing
+        umbra = basic_proc(img, drawable, grp, "Umbra", upcolor, uopac, uwidth, uthick)
+        # Move
+        umbra.translate(upoffx, upoffy)
+
+    # Move the object itself into the group
+    if intogroup: pdb.gimp_image_reorder_item(img, drawable, grp, -1)
+
+    # Flatten the group
+    if flatten:
+        shadow = flatten_layer_group(img, grp)
+        pdb.plug_in_autocrop_layer(img, shadow)
+    else: shadow = grp
+
+    # Select the shadow
+    img.active_layer = shadow
+
+    # Deinitialization
+    deinit(img)
+
+
+register(
+    "drop_shadow_advanced",
+    "Produces a complex three-part drop shadow",
+    "",
+    "Efenstor",
+    "(copyLEFT) Andrey \"Efenstor\" Pivovarov",
+    "2013",
+    "<Image>/Filters/Light and Shadow/Drop Shadow Advanced...",
+    "RGB*",
+    [
+        (PF_INT, "uwidth", "Umbra width", 20),
+        (PF_SLIDER, "uopac", "Umbra opacity", 50, (0, 100, 1)),
+        (PF_SLIDER, "uthick", "Umbra thickness", 75, (0, 100, 1)),
+        (PF_INT, "pwidth", "Penumbra width", 100),
+        (PF_SLIDER, "popac", "Penumbra opacity", 25, (0, 100, 1)),
+        (PF_SLIDER, "pthick", "Penumbra thickness", 50, (0, 100, 1)),
+        (PF_INT, "upoffx", "Umbra/penumbra offset X", 5),
+        (PF_INT, "upoffy", "Umbra/penumbra offset Y", 5),
+        (PF_COLOR, "upcolor", "Umbra/penumbra color", (0,0,0)),
+        (PF_INT, "vwidth", "Veil width", 500),
+        (PF_SLIDER, "vopac", "Veil opacity", 25, (0, 100, 1)),
+        (PF_SLIDER, "vthick", "Veil thickness", 25, (0, 100, 1)),
+        (PF_COLOR, "vcolor", "Veil color", (0,0,0)),
+        (PF_TOGGLE, "intogroup", "Move the source layer into the group", 0),
+        (PF_TOGGLE, "flatten", "Flatten the group", 1)
+    ],
+    [],
+    drop_shadow_advanced)
+
+main()

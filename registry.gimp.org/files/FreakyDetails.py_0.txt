@@ -1,0 +1,98 @@
+#!/usr/bin/env python
+
+# Freaky Details in Gimp
+# Details Enchancing similar to: http://blog.patdavid.net/2013/02/calvin-hollywood-freaky-details-in-gimp.html but works without G'MIC plugin
+# Copyright (c) 2013 Niklas Liebig
+# public.mail@niklasliebig.de
+#
+# ---------------------------------------------------------------------
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+import math
+from gimpfu import *
+
+def freakydetails(timg, tdrawable, g_radius, g_delta):
+	pdb.gimp_image_undo_group_start(timg)
+
+	blury_invert_layer=pdb.gimp_layer_copy (tdrawable, 0)
+	pdb.gimp_image_add_layer (timg, blury_invert_layer, 0) 
+	pdb.gimp_invert (blury_invert_layer)
+	pdb.plug_in_sel_gauss(timg, blury_invert_layer, g_radius, g_delta)
+
+	# vivid light
+	# group setup
+	vivid_light_parent_group = pdb.gimp_layer_group_new(timg)
+	vivid_light_parent_group.name = "FreakyDetailsGroup"
+	timg.add_layer(vivid_light_parent_group, 0)
+	pdb.gimp_layer_set_mode (vivid_light_parent_group, 5)
+
+	pdb.gimp_item_set_visible (blury_invert_layer, 0) # switch off current layer to see beyond it 
+	color_burn_bottom=pdb.gimp_layer_new_from_visible (timg, timg, "ColorBurnBottom")
+	color_dodge_bottom=pdb.gimp_layer_new_from_visible (timg, timg, "ColorDodgeBottom")
+
+	# color burn
+	pdb.gimp_image_insert_layer (timg, color_burn_bottom, vivid_light_parent_group, 0) 
+	pdb.gimp_invert (color_burn_bottom)
+
+	color_burn_top=pdb.gimp_layer_copy (blury_invert_layer, 0)
+	pdb.gimp_image_insert_layer (timg, color_burn_top, vivid_light_parent_group, 0) 
+	pdb.gimp_layer_set_mode (color_burn_top, 15)
+	pdb.gimp_levels (color_burn_top, 0, 0, 128, 1, 0, 255)
+	pdb.gimp_item_set_visible (color_burn_top, 1)
+
+	color_burn_final=pdb.gimp_image_merge_down (timg, color_burn_top, 0)
+	pdb.gimp_invert (color_burn_final)
+	color_burn_final.name="ColorBurnLayer"
+	
+	# color dodge
+	pdb.gimp_image_insert_layer (timg, color_dodge_bottom, vivid_light_parent_group, 0) 
+
+	color_dodge_top=pdb.gimp_layer_copy (blury_invert_layer, 0)
+	pdb.gimp_image_insert_layer (timg, color_dodge_top, vivid_light_parent_group, 0) 
+	pdb.gimp_layer_set_mode (color_dodge_top, 15)
+	pdb.gimp_levels (color_dodge_top, 0, 128, 255, 1, 0, 255)
+	pdb.gimp_invert (color_dodge_top)
+	pdb.gimp_item_set_visible (color_dodge_top, 1)
+
+	color_dodge_final=pdb.gimp_image_merge_down (timg, color_dodge_top, 0)
+	color_dodge_final.name="ColorDodgeLayer"
+
+	# masks
+	color_burn_mask=pdb.gimp_layer_create_mask (blury_invert_layer, 5)
+	color_dodge_mask=pdb.gimp_layer_create_mask (blury_invert_layer, 5)
+	pdb.gimp_layer_add_mask (color_burn_final, color_burn_mask)
+	pdb.gimp_layer_add_mask (color_dodge_final, color_dodge_mask)
+	pdb.gimp_threshold (color_burn_mask, 0, 128)
+	pdb.gimp_threshold (color_dodge_mask, 128, 255)
+
+	pdb.gimp_image_remove_layer (timg, blury_invert_layer)
+	pdb.gimp_image_undo_group_end(timg)
+
+register(
+        "FreakyDetails",
+        "Freaky Details in Gimp",
+	"Details Enchancing similar to: http://blog.patdavid.net/2013/02/calvin-hollywood-freaky-details-in-gimp.html",
+        "Niklas Liebig",
+        "Niklas Liebig",
+        "09.03.2013",
+        "<Image>/Python-Fu/FreakyDetails",
+        "RGB*, GRAY*",
+        [
+	(PF_INT, "g_radius", "Gauss Radius", 50),
+	(PF_INT, "g_delta", "Gauss Delta", 60)
+	],
+        [],
+	freakydetails)
+
+main()

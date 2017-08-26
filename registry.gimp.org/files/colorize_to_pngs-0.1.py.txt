@@ -1,0 +1,45 @@
+#!/usr/bin/env python
+# Author: Chris Mohler
+# Copyright 2010 Chris Mohler
+# License: GPL v3
+# Version 0.1
+# GIMP plugin to export channels as PNGs
+
+from gimpfu import *
+import os
+
+gettext.install("gimp20-python", gimp.locale_directory, unicode=True)
+
+def colorize_to_pngs(img, drw, path):
+        hue = 0
+        while hue < 361:
+	    dupe = img.duplicate()
+            drw = dupe.active_drawable;
+            name = str(hue) + ".png"
+            fullpath = os.path.join(path, name);
+            pdb.gimp_colorize(drw, hue, 50, 0)
+            pdb.file_png_save(dupe, drw, fullpath, name, 0, 9, 1, 1, 1, 1, 1)
+            pdb.gimp_image_delete(dupe)
+            hue += 1
+	    
+register(
+    proc_name=("python-fu-colorize-to-pngs"),
+    blurb=("Save colorized images as PNG"),
+    help=("Export range of colorized images individual PNG files."),
+    author=("Chris Mohler"),
+    copyright=("Chris Mohler"),
+    date=("2010"),
+    label=("_Colorize to PNGs"),
+    imagetypes=("RGB*"),
+    params=[
+	(PF_IMAGE, "img", "Image", None),
+	(PF_DRAWABLE, "drw", "Drawable", None),
+	(PF_DIRNAME, "path", "Save PNGs here", os.getcwd()),
+	   ],
+    results=[],
+    function=(colorize_to_pngs), 
+    menu=("<Image>/Filters"), 
+    domain=("gimp20-python", gimp.locale_directory)
+    )
+
+main()

@@ -1,0 +1,485 @@
+'''
+Brendan's Gimp Interface Improvement
+
+Some things to improve the GIMP interface based on my experience using
+it for digital painting:
+- cycle brush size
+- cycle dynamics
+- cycle draw mode (eraser <->paintbrush equivalent)
+- select drawn (cycles between select all and select non-transparent on current layer)
+- draw perspective guide lines
+
+Brendan Scott
+Version: 1.20130817 (Beta release)
+17 August 2013
+
+Copyright (C) 2013 Brendan Scott
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/
+
+
+'''
+
+
+from gimpshelf import shelf
+from gimpfu import *
+import gimp
+import math # perhaps use taylor series instead of importing?
+
+BASE_BRUSH_SIZES = [2, 5,  10, 20, 40]  # just randomly chosen!
+DEFAULT_BRUSH_INDEX = 0
+
+RELATIVE = False
+TINY_FIXED = True
+TINY_SIZE = 3
+SCALE_FACTOR = 2 # one brush size is this multiple of the previous one
+
+
+def bgii_cycle_brush_size():
+    SHELF_KEY = "BGII_Cycle_Brush_Size"
+    try:
+        brush_selection = shelf[SHELF_KEY]
+    except KeyError:
+        shelf[SHELF_KEY] = DEFAULT_BRUSH_INDEX
+        
+    if RELATIVE:
+        images = gimp.image_list() 
+        if len(images) == 0:
+            # nothing to see here!
+            return
+        active_image = images[0]
+        h = gimp.pdb.gimp_image_height(active_image)
+        w =gimp.pdb.gimp_image_width(active_image) 
+        smallest_side = min(h, w)
+        large = (smallest_side/16)
+        medium = large/SCALE_FACTOR
+        small = medium/SCALE_FACTOR
+        if TINY_FIXED:
+            tiny = TINY_SIZE
+        else:
+            tiny = small/SCALE_FACTOR
+        brush_sizes = [tiny,  small,  medium, large]
+    else:
+        brush_sizes = BASE_BRUSH_SIZES
+            
+#	print "got a brush size toggle and argument = %s brush sizes = %s"%(arg1,brush_sizes)
+    brush_index = (shelf[SHELF_KEY] +1)%len(brush_sizes)        
+    new_value = brush_sizes[brush_index]
+#        print "brush: size: %s, index: %s "%(new_brush_size, brush_index)
+    gimp.pdb.gimp_context_set_brush_size(new_value)
+    shelf[SHELF_KEY]=brush_index
+
+register( "cycle_brush_size",
+              "Cycles through pre set brush sizes",
+            '''Cycles through pre set brush sizes''', 
+            "Brendan Scott",
+            "Brendan Scott",
+            "2013",
+            "<Toolbox>/Tools/BGII/Cycle/Brush Size",
+            "",
+            [],
+            [], 
+            bgii_cycle_brush_size
+            )
+             
+
+def bgii_cycle_select(image="",  layer=""):
+    SHELF_KEY = "BGII_Cycle_Select"
+    SELECT_NOT_ALPHA = 0
+    SELECT_ALL = 1
+    DEFAULT_VALUE = SELECT_NOT_ALPHA
+
+    selection_states=(SELECT_NOT_ALPHA, SELECT_ALL)
+
+    print("*******received arg1 = ->%s<-->%s<-"%( image,  layer))
+    
+    if image =="" or layer == "": 
+        return
+
+    try:
+        current_value= (shelf[SHELF_KEY]+1)%len(selection_states)
+    except KeyError:
+        current_value = DEFAULT_VALUE
+    
+    shelf[SHELF_KEY]= current_value
+    
+    if current_value == SELECT_NOT_ALPHA:
+        sample_transparent = gimp.pdb.gimp_context_get_sample_transparent()
+        gimp.pdb.gimp_context_set_sample_transparent(TRUE)
+        color = (255, 255, 255, 0) 
+        gimp.pdb.gimp_image_select_color(image, CHANNEL_OP_REPLACE,  layer, color )
+        gimp.pdb.gimp_selection_invert(image)
+        gimp.pdb.gimp_context_set_sample_transparent(sample_transparent) # reinstate previous sample state
+    
+    elif current_value== SELECT_ALL:
+        gimp.pdb.gimp_selection_all(image)
+     
+
+#print ("drawable: %s image: %s"%(PF_DRAWABLE,  PF_IMAGE))
+
+register( "bgii_cycle_select",
+              "Cycles selection between all and that part of layer which is not full alpha",
+            '''Cycles selection between all and that part of layer which is not full alpha''', 
+            "Brendan Scott",
+            "Brendan Scott",
+            "2013",
+            "<Toolbox>/Tools/BGII/Select/Drawn Part",
+            "",
+            [
+            (PF_IMAGE, "image", "Input image", ""),
+            (PF_DRAWABLE, "layer", "Input drawable", "")
+            ],
+            [], 
+            bgii_cycle_select)
+
+
+DYNAMICS_OFF =  'Dynamics Off'
+DYNAMICS_ON =  'Pressure Opacity'
+
+        
+def bgii_cycle_dynamics():
+    current_value = gimp.pdb.gimp_context_get_dynamics()
+   
+    if current_value == DYNAMICS_OFF:
+        new_value= DYNAMICS_ON
+    elif current_value == DYNAMICS_ON:
+        new_value=DYNAMICS_OFF
+    else: # do nothing
+        return
+        
+    gimp.pdb.gimp_context_set_dynamics(new_value)
+
+register( "bgii_cycle_dynamics",
+          "Cycles current dynamics between none and pressure-opacity",
+        '''Toggles current dynamics between none and pressure-opacity''', 
+        "Brendan Scott",
+        "Brendan Scott",
+        "2013",
+        "<Toolbox>/Tools/BGII/Cycle/Dynamics",
+        "",
+        [],
+        [], 
+        bgii_cycle_dynamics
+        )
+
+
+def bgii_cycle_eraser():
+    TOGGLE_MODES = [23, 0] # 0 = normal, 23 = erase mode
+    current_mode = gimp.pdb.gimp_context_get_paint_mode()
+   
+    if current_mode == 0:
+        new_mode= 23
+    elif current_mode == 23:
+        new_mode=0
+    else: # do nothing
+        return
+    gimp.pdb.gimp_context_set_paint_mode(new_mode)
+  
+  
+register( "bgii_cycle_eraser",
+      "Toggles current drawing mode between normal and erase",
+    '''Toggles current drawing mode between normal and erase (simulates toggling eraser and paintbrush)''', 
+    "Brendan Scott",
+    "Brendan Scott",
+    "2013",
+    "<Toolbox>/Tools/BGII/Cycle/Eraser",
+    "",
+    [],
+    [], 
+    bgii_cycle_eraser)
+
+
+PERSPECTIVE_BRUSH = {
+    "mode":0, 
+    "opacity": 100.0, 
+    "brush_name":'1. Pixel', 
+    "size":1, 
+    "aspect_ratio":1.0, 
+    "angle":0.0, 
+    "dynamics":"Dynamics Off", 
+   "colour":(0, 0, 0) 
+    
+}
+
+def path_to_p1_p2_viewer(perspective_path):
+    ''' Expects to receive a perspective_path - that is, a path with:
+        a single stroke; and (1st used, rest ignored)
+        that stroke with only 3 control points  (1st three used, rest ignored)
+    - ie a stroke list of length 18, returns location of 3 centre points. 
+    '''
+    
+    num_strokes, stroke_ids = pdb.gimp_vectors_get_strokes(perspective_path)
+    
+    stroke_id=stroke_ids[0]
+    type, num_points, controlpoints, closed = pdb.gimp_vectors_stroke_get_points(perspective_path, stroke_id)
+    
+    vp1 = controlpoints[2:4]
+    vp2 = controlpoints[8:10]
+    if len(controlpoints)>10:
+        vp3=controlpoints[14:16]
+    else:
+        vp3 = None
+    
+    return (vp1,  vp2,  vp3)
+
+
+def get_active_brush_details():
+    mode =  pdb.gimp_context_get_paint_mode()
+    opacity = pdb.gimp_context_get_opacity()
+    brush_name = pdb.gimp_context_get_brush()
+    size = pdb.gimp_context_get_brush_size()
+    aspect_ratio = pdb.gimp_context_get_brush_aspect_ratio()
+    angle = pdb.gimp_context_get_brush_angle()
+    dynamics  = pdb.gimp_context_get_dynamics()
+    colour = pdb.gimp_context_get_foreground()
+
+    brush = {
+        "mode":mode, 
+        "opacity": opacity, 
+        "brush_name":brush_name, 
+        "size":size, 
+        "aspect_ratio":aspect_ratio, 
+        "angle":angle, 
+        "dynamics":dynamics, 
+        'colour':colour
+        }
+    return brush
+
+def set_brush_details(brush):
+    pdb.gimp_context_set_paint_mode(brush['mode'])
+    pdb.gimp_context_set_opacity(brush['opacity'])
+    pdb.gimp_context_set_brush(brush['brush_name'])
+    pdb.gimp_context_set_brush_size(brush['size'])
+    pdb.gimp_context_set_brush_aspect_ratio(brush['aspect_ratio'])
+    pdb.gimp_context_set_brush_angle(brush['angle'])
+    pdb.gimp_context_set_dynamics(brush['dynamics'])
+    pdb.gimp_context_set_foreground(brush['colour'])
+   
+def dist(p1, p2):
+    '''euclidean distance between p1 and p2
+    where p1 and p2 are 2-tuples or arrays of length 2 '''
+    
+    x1= float(p1[0])
+    y1=float(p1[1])
+    x2=float(p2[0])
+    y2 = float(p2[1])
+    
+    a = (x1-x2)**2.0+(y1-y2)**2.0
+    return a**0.5
+
+
+def rotate(p, angle): 
+    ''' rotate a point p around the origin through angle radians'''
+    cosa = math.cos(angle)
+    sina = math.sin(angle)
+    return (p[0]*cosa - p[1]*sina, p[0]*sina+p[1]*cosa)
+    
+    
+def vect_add(p1, p2):
+    return (p1[0]+p2[0], p1[1]+p2[1])
+
+#def calc_control_point(vp,  dist,  angle):
+#    ''' find a control point at dist (pixels)/angle (radians) from vp '''
+#    p = (dist, 0.0)
+#    p = rotate(p, angle)
+#    return vect_add(vp, p)
+    
+def calc_control_points(layer,  points_long_side = 10,  points_short_side=10):    
+    ''' locate control points along the outside border of the layer
+    '''
+    h = pdb.gimp_drawable_height(layer)
+    w = pdb.gimp_drawable_width(layer)
+    controlpoints = []
+    if h>w:  # portrait style
+        increment_x = float(w)/float(points_short_side)
+        increment_y = float(h)/float(points_long_side)
+        first_range = points_short_side
+        second_range = points_long_side
+    else:
+        increment_x = float(w)/float(points_long_side)
+        increment_y = float(h)/float(points_short_side)
+        first_range = points_long_side
+        second_range = points_short_side
+        
+    for i in range(first_range):
+        controlpoints.append([i*increment_x, 0]) 
+        controlpoints.append([i*increment_x, h]) 
+    
+    for i in range(second_range):
+        controlpoints.append([0, i*increment_y]) 
+        controlpoints.append([w, i*increment_y])  
+    
+    controlpoints.append([w, h])
+    return controlpoints
+    
+
+def stroke_perspective_lines(layer,  vp,  colour):
+    # find length of longest possible ray by distance to all corners
+    h = pdb.gimp_drawable_height(layer)
+    w = pdb.gimp_drawable_width(layer)
+    corners = [(0, 0), (0, w), (h, w), (h, 0)  ]
+    distances = []
+    for p in corners:
+        distances.append(dist(vp, p))
+    distances.sort()
+    draw_length = distances[-1]*1.1 #marginally larger to account for rounding etc.
+
+    # backup brush
+    save_brush = get_active_brush_details()
+
+    # calculate the strokes, draw
+    angle_increment = math.pi/36.0
+    
+    set_brush_details(PERSPECTIVE_BRUSH)
+    pdb.gimp_context_set_foreground(colour)
+    
+    controlpoints = calc_control_points(layer)
+    
+    
+    for cp in controlpoints:
+        #cp = calc_control_point(vp, draw_length,  angle_increment*i)
+        strokes = [vp[0], vp[1], cp[0], cp[1]]
+        pdb.gimp_paintbrush_default(layer, len(strokes), strokes)
+
+    # restore previous brush settings
+    set_brush_details(save_brush)
+    
+    
+def bgii_three_point_perspective(*args):
+    image = args[0]
+
+    if image is None:
+        return #no image!
+
+    SHELF_KEY = "BGII_Two_Point_Perspective_Path"
+    PATH_NAME = "BGII Perspective"
+    VP1_LAYER_NAME = "BGII Perspective VP1"
+    VP2_LAYER_NAME = "BGII Perspective VP2"
+    PARENT_VECTORS = 0 # required to be 0 as at GIMP 2.8
+    VECTOR_POSITION = 0 # top of stack
+    PERSPECTIVE_GROUP_NAME = "BGII Perspective"
+    VP1_LAYER_NAME = "BGII Vanishing Point 1"
+    VP2_LAYER_NAME = "BGII Vanishing Point 2"    
+    VP3_LAYER_NAME = "BGII Vanishing Point 3"
+    VP1_COLOUR = (255, 0, 0)
+    VP2_COLOUR = (0, 255, 0)
+    VP3_COLOUR = (0, 0, 255)
+    VP_LAYER_NAMES = [VP1_LAYER_NAME, VP2_LAYER_NAME, VP3_LAYER_NAME]
+    COLOURS = {
+                    VP1_LAYER_NAME:VP1_COLOUR, 
+                    VP2_LAYER_NAME:VP2_COLOUR,
+                    VP3_LAYER_NAME:VP3_COLOUR
+                        }
+                        
+    perspective_path  = pdb.gimp_image_get_vectors_by_name(image, PATH_NAME)
+#    print "path = ", perspective_path
+    
+    height = pdb.gimp_image_height(image)
+    width = pdb.gimp_image_width(image)
+    
+    if perspective_path is None: # path doesn't exist, so need to create it, then exit
+
+        perspective_path = pdb.gimp_vectors_new(image, PATH_NAME)
+        
+        h = height/2
+        w = width
+        
+        controlpoints = [0, h, 0,h, 0, h,  # VP1
+                                    w, h, w, h, w, h,   # VP2
+                                    w/2,0, w/2, 0,w/2, 0  # VP3  
+                                    ]  
+
+        stroke_id = pdb.gimp_vectors_stroke_new_from_points(perspective_path, 0,len(controlpoints), controlpoints, 0)
+        
+        pdb.gimp_image_add_vectors(image, perspective_path, VECTOR_POSITION)
+        # can't use insert vectors because of bug in api
+        
+        pdb.gimp_item_set_visible(perspective_path, 1)
+        # maybe put up a message explaining how to use it?
+        message ="".join(["A path has been added called %s with three control points. Look in the paths dialog to find it."%PATH_NAME, 
+        "\n\nEach of the control points on that path represents a vanishing point. ", 
+        "\n\nMove them (use the path tool) to where you would like your vanishing points then call this script again", 
+        "\n\nVanishing points can be outside the canvas area (zoom out)"
+        ])
+        pdb.gimp_message(message)
+        return
+    
+    else:
+        # create new layers based on the path
+        vp1,  vp2,  vp3 = path_to_p1_p2_viewer(perspective_path)
+        vanishing_points= {
+            VP1_LAYER_NAME:vp1, 
+            VP2_LAYER_NAME:vp2, 
+            VP3_LAYER_NAME:vp3  
+        }
+        
+        #print "Vp1, vp2, vp3 : ", vp1, vp2,  vp3
+        
+        # delete existing layers
+        perspective_layer_group = pdb.gimp_image_get_layer_by_name(image, PERSPECTIVE_GROUP_NAME)
+        layer_visibility = {}
+        layer_opacity = {}
+        if perspective_layer_group is not None:
+            for name in VP_LAYER_NAMES: 
+                # preserve visibility when recreating layers
+                item = pdb.gimp_image_get_layer_by_name(image, name)
+                if item is not None:
+                    layer_visibility[name]=pdb.gimp_item_get_visible(item)
+                    layer_opacity[name]=pdb.gimp_layer_get_opacity(item)
+                else:
+                    layer_visibility[name]= True # on by default
+                    layer_opacity[name]=100.0
+            # now kill them all
+            layer_visibility[PERSPECTIVE_GROUP_NAME]=pdb.gimp_item_get_visible(perspective_layer_group)
+            layer_opacity[PERSPECTIVE_GROUP_NAME]=pdb.gimp_layer_get_opacity(perspective_layer_group)
+            pdb.gimp_image_remove_layer(image, perspective_layer_group)
+
+        perspective_layer_group = pdb.gimp_layer_group_new(image)
+        pdb.gimp_item_set_name(perspective_layer_group, PERSPECTIVE_GROUP_NAME)
+        pdb.gimp_image_insert_layer(image, perspective_layer_group, None, 0)
+
+        vp_layers = {}
+        for vpl in VP_LAYER_NAMES:
+            vp_layers[vpl] = pdb.gimp_layer_new(image, width, height, 1, # 1 = RGBA image
+                                                                        vpl, 100.0, 0)
+                            
+        for vpl in  [VP3_LAYER_NAME, VP2_LAYER_NAME, VP1_LAYER_NAME]:
+            pdb.gimp_image_insert_layer(image, vp_layers[vpl], perspective_layer_group, 0)
+        
+        for vpl in VP_LAYER_NAMES:
+            item = vp_layers[vpl]
+            pdb.gimp_item_set_visible(item, layer_visibility[vpl])
+            pdb.gimp_layer_set_opacity(item, layer_opacity[vpl])
+            if vanishing_points[vpl] is not None:
+                stroke_perspective_lines(item,  vanishing_points[vpl], COLOURS[vpl])
+
+        pdb.gimp_item_set_visible(perspective_layer_group, layer_visibility[PERSPECTIVE_GROUP_NAME])
+        pdb.gimp_layer_set_opacity(perspective_layer_group, layer_opacity[PERSPECTIVE_GROUP_NAME])
+        
+        
+register( "bgii_three_point_perspective",
+      "Creates Perspective Lines in a separate layer (first run is initialisation)",
+    '''Creates a path with three nodes, creates a layer with separate perspective lines for each of these nodes.''', 
+    "Brendan Scott",
+    "Brendan Scott",
+    "2013",
+    "<Toolbox>/Tools/BGII/Perspective Lines/Update",
+    "",
+    [(PF_IMAGE, "image", "Input image", None)],
+    [], 
+    bgii_three_point_perspective)
+    
+
+main()
+

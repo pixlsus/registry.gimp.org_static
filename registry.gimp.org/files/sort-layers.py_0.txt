@@ -1,0 +1,81 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+# GIMP plugin to sort layers in the image or (a) selected group layer(s)
+# (c) ShadowKyogre 2013
+#
+#   History:
+#   2013-07-07 (v0.0): First published version
+#
+#   This program is free software; you can redistribute it and/or modify
+#   it under the terms of the GNU General Public License as published by
+#   the Free Software Foundation; either version 2 of the License, or
+#   (at your option) any later version.
+#
+#   This program is distributed in the hope that it will be useful,
+#   but WITHOUT ANY WARRANTY; without even the implied warranty of
+#   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#   GNU General Public License for more details.
+#
+#   You should have received a copy of the GNU General Public License
+#   along with this program; if not, write to the Free Software
+#   Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+
+from gimpfu import *
+
+def getLinkedLayersRecurse(layer_or_image):
+	candidates=[]
+	for layer in layer_or_image.layers:
+		if layer.linked:
+			candidates.append(layer)
+		if hasattr(layer, 'layers'):
+			candidates.extend(getLinkedLayersRecurse(layer))
+	return candidates
+
+# add more sorting goodies
+
+def sortLayers(image, in_rev):
+	linked_candidates=list(filter(lambda x:hasattr(x, 'layers'), getLinkedLayersRecurse(image)))
+	if len(linked_candidates) > 0:
+		image.undo_group_start()
+		for layer in linked_candidates:
+			sorted_layers=sorted(layer.layers, key=lambda x: x.name, reverse=in_rev)
+			for n,item in enumerate(sorted_layers):
+				pdb.gimp_image_reorder_item(image, item, layer, n)
+		image.undo_group_end()
+		gimp.displays_flush()
+		return
+	elif hasattr(image.active_layer, 'layers'):
+		sorted_layers=sorted(image.active_layer.layers, key=lambda x: x.name, reverse=in_rev)
+		parent=image.active_layer
+	else:
+		sorted_layers=sorted(image.layers, key=lambda x: x.name, reverse=in_rev)
+		parent=None
+	image.undo_group_start()
+	for n,item in enumerate(sorted_layers):
+		pdb.gimp_image_reorder_item(image, item, parent, n)
+	image.undo_group_end()
+	gimp.displays_flush()
+
+### Registrations
+	
+register(
+	'sort-layers',
+	'Sort Layers',
+	'Sort layers in the image or (a) selected group layer(s)',
+	'ShadowKyogre',
+	'ShadowKyogre',
+	'2013',
+	'Sort Layers',
+	'*',
+	[
+		(PF_IMAGE, 'image', 'Input image', None),
+		(PF_TOGGLE, 'in_rev', 'Reverse the sort order?', False),
+	],
+	[],
+	sortLayers,
+	menu='<Image>/Layer',
+)
+
+main()
+

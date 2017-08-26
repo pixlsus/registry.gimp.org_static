@@ -1,0 +1,49 @@
+#!/usr/bin/env python
+# Author: Chris Mohler
+# Copyright 2010 Chris Mohler
+# License: GPL v3
+# Version 0.1
+# GIMP plugin to export channels as PNGs
+
+from gimpfu import *
+import os
+
+gettext.install("gimp20-python", gimp.locale_directory, unicode=True)
+
+
+def separate_to_pngs(img, drw, path):
+	dupe = img.duplicate()
+	for layer in dupe.layers:
+		layer.visible = 0
+        for channel in dupe.channels:
+                channel.visible = 0
+	for channel in dupe.channels:
+		channel.visible = 1
+		name = channel.name + ".png"
+		fullpath = os.path.join(path, name);
+		tmp = dupe.duplicate()
+		pdb.file_png_save(tmp, tmp.channels[0], fullpath, name, 0, 9, 1, 1, 1, 1, 1)
+		dupe.remove_channel(channel)
+
+	    
+register(
+    proc_name=("python-fu-separate-to-pngs"),
+    blurb=("Separate Channels as PNG"),
+    help=("Export all channels as individual PNG files."),
+    author=("Chris Mohler"),
+    copyright=("Chris Mohler"),
+    date=("2010"),
+    label=("_Separate to PNGs"),
+    imagetypes=(""),
+    params=[
+	(PF_IMAGE, "img", "Image", None),
+	(PF_DRAWABLE, "drw", "Drawable", None),
+	(PF_DIRNAME, "path", "Save PNGs here", os.getcwd()),
+	   ],
+    results=[],
+    function=(separate_to_pngs), 
+    menu=("<Image>/Filters/Sil_kscreen Tools"), 
+    domain=("gimp20-python", gimp.locale_directory)
+    )
+
+main()

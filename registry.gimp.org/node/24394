@@ -1,0 +1,543 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML+RDFa 1.0//EN"
+  "http://www.w3.org/MarkUp/DTD/xhtml-rdfa-1.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" version="XHTML+RDFa 1.0" dir="ltr">
+
+<head profile="http://www.w3.org/1999/xhtml/vocab">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="shortcut icon" href="../files/favicon.png" type="image/png" />
+<link rel="alternate" type="application/rss+xml" title="Comments for &quot;APNG Plug-In&quot;" href="../crss/node/24394" />
+<link rel="canonical" href="24394" />
+<meta name="Generator" content="Drupal 7 (http://drupal.org)" />
+<link rel="shortlink" href="24394" />
+  <title>APNG Plug-In | GIMP Plugin Registry</title>
+  <style type="text/css" media="all">@import url("../modules/system/system.base.css?n48fl6");
+@import url("../modules/system/system.menus.css?n48fl6");
+@import url("../modules/system/system.messages.css?n48fl6");
+@import url("../modules/system/system.theme.css?n48fl6");</style>
+<style type="text/css" media="all">@import url("../modules/aggregator/aggregator.css?n48fl6");
+@import url("../modules/book/book.css?n48fl6");
+@import url("../modules/comment/comment.css?n48fl6");
+@import url("../sites/all/modules/date/date_api/date.css?n48fl6");
+@import url("../sites/all/modules/date/date_popup/themes/datepicker.1.7.css?n48fl6");
+@import url("../sites/all/modules/date/date_repeat_field/date_repeat_field.css?n48fl6");
+@import url("../modules/field/theme/field.css?n48fl6");
+@import url("../sites/all/modules/mollom/mollom.css?n48fl6");
+@import url("../modules/node/node.css?n48fl6");
+@import url("../modules/poll/poll.css?n48fl6");
+@import url("../modules/search/search.css?n48fl6");
+@import url("../modules/user/user.css?n48fl6");
+@import url("../modules/forum/forum.css?n48fl6");
+@import url("../sites/all/modules/views/css/views.css?n48fl6");</style>
+<style type="text/css" media="all">@import url("../sites/all/modules/ctools/css/ctools.css?n48fl6");
+@import url("../sites/all/modules/rate/rate.css?n48fl6");
+@import url("../sites/all/modules/tagclouds/tagclouds.css?n48fl6");
+@import url("../sites/all/modules/panels/css/panels.css?n48fl6");
+@import url("../sites/all/modules/best_answer/best_answer.css?n48fl6");
+@import url("../sites/all/modules/rate/templates/fivestar/fivestar.css?n48fl6");</style>
+<style type="text/css" media="all">@import url("../files/color/garland-5ac73a91/style.css?n48fl6");</style>
+<style type="text/css" media="print">@import url("../themes/garland/print.css?n48fl6");</style>
+
+<!--[if lt IE 7]>
+<link type="text/css" rel="stylesheet" href="http://registry.gimp.org/themes/garland/fix-ie.css?n48fl6" media="all" />
+<![endif]-->
+  <script type="text/javascript" src="../misc/jquery.js?v=1.4.4"></script>
+<script type="text/javascript" src="../misc/jquery.once.js?v=1.2"></script>
+<script type="text/javascript" src="../misc/drupal.js?n48fl6"></script>
+<script type="text/javascript" src="../sites/all/modules/rate/rate.js?n48fl6"></script>
+<script type="text/javascript" src="../sites/all/modules/rate/templates/fivestar/fivestar.js?n48fl6"></script>
+<script type="text/javascript">
+<!--//--><![CDATA[//><!--
+jQuery.extend(Drupal.settings, {"basePath":"\/","pathPrefix":"","ajaxPageState":{"theme":"garland","theme_token":"zSzrpZI__pD8JEyWzA74XhUzfsK46WCi0o0zRrlL270","js":{"misc\/jquery.js":1,"misc\/jquery.once.js":1,"misc\/drupal.js":1,"sites\/all\/modules\/rate\/rate.js":1,"sites\/all\/modules\/rate\/templates\/fivestar\/fivestar.js":1},"css":{"modules\/system\/system.base.css":1,"modules\/system\/system.menus.css":1,"modules\/system\/system.messages.css":1,"modules\/system\/system.theme.css":1,"modules\/aggregator\/aggregator.css":1,"modules\/book\/book.css":1,"modules\/comment\/comment.css":1,"sites\/all\/modules\/date\/date_api\/date.css":1,"sites\/all\/modules\/date\/date_popup\/themes\/datepicker.1.7.css":1,"sites\/all\/modules\/date\/date_repeat_field\/date_repeat_field.css":1,"modules\/field\/theme\/field.css":1,"sites\/all\/modules\/mollom\/mollom.css":1,"modules\/node\/node.css":1,"modules\/poll\/poll.css":1,"modules\/search\/search.css":1,"modules\/user\/user.css":1,"modules\/forum\/forum.css":1,"sites\/all\/modules\/views\/css\/views.css":1,"sites\/all\/modules\/ctools\/css\/ctools.css":1,"sites\/all\/modules\/rate\/rate.css":1,"sites\/all\/modules\/tagclouds\/tagclouds.css":1,"sites\/all\/modules\/panels\/css\/panels.css":1,"sites\/all\/modules\/best_answer\/best_answer.css":1,"sites\/all\/modules\/rate\/templates\/fivestar\/fivestar.css":1,"themes\/garland\/style.css":1,"themes\/garland\/print.css":1,"themes\/garland\/fix-ie.css":1}},"rate":{"basePath":"\/rate\/vote\/js","destination":"node\/24394"}});
+//--><!]]>
+</script>
+</head>
+<body class="html not-front not-logged-in two-sidebars page-node page-node- page-node-24394 node-type-plugin fluid-width" >
+  <div id="skip-link">
+    <a href="24394#main-content" class="element-invisible element-focusable">Skip to main content</a>
+  </div>
+      
+  <div id="wrapper">
+    <div id="container" class="clearfix">
+
+      <div id="header">
+        <div id="logo-floater">
+                              <div id="branding"><strong><a href="../index.html">
+                          <img src="../files/logo.png" alt="GIMP Plugin Registry " title="GIMP Plugin Registry " id="logo" />
+                        <span>GIMP Plugin Registry</span>            </a></strong></div>
+                          </div>
+
+        <h2 class="element-invisible">Main menu</h2><ul class="links inline main-menu"><li class="menu-100 first"><a href="../about" title="Information about the Registry">About</a></li>
+<li class="menu-136"><a href="23851" title="Documentation and How-Tos">Documentation</a></li>
+<li class="menu-88"><a href="../forum">Forums</a></li>
+<li class="menu-74"><a href="http://gug.criticalhit.dk" title="The GIMP User Group">GIMP User Group</a></li>
+<li class="menu-1142"><a href="25574" title="GIMP Help">Get Help</a></li>
+<li class="menu-1256"><a href="26216" title="Get info on using RSS to stay updated about what&#039;s going on on the site.">Stay Updated!</a></li>
+<li class="menu-73 last"><a href="http://www.gimp.org/" title="The GIMP Homepage">gimp.org</a></li>
+</ul>              </div> <!-- /#header -->
+
+              <div id="sidebar-first" class="sidebar">
+            <div class="region region-sidebar-first">
+    <div id="block-system-navigation" class="block block-system block-menu clearfix">
+
+    <h2 class="title">Navigation</h2>
+  
+  <div class="content">
+    <ul class="menu"><li class="first leaf"><a href="25574" title="FAQ &amp; How To&#039;s">FAQ &amp; How To&#039;s</a></li>
+<li class="leaf"><a href="../glossary.1" title="">Content By Name</a></li>
+<li class="collapsed"><a href="../aggregator">Feed aggregator</a></li>
+<li class="leaf"><a href="../popular">Popular content</a></li>
+<li class="leaf"><a href="25392" title="Report Spam Here">Report Spam Here</a></li>
+<li class="last leaf"><a href="../tagclouds">Tags</a></li>
+</ul>  </div>
+</div>
+<div id="block-block-1" class="block block-block clearfix">
+
+    
+  <div class="content">
+    If you'd like to upload plug-ins, please create an account below. You do <em>not</em> need one for download. Enjoy :-)  </div>
+</div>
+<div id="block-user-login" class="block block-user clearfix">
+
+    <h2 class="title">User login</h2>
+  
+  <div class="content">
+    <form action="http://registry.gimp.org/node/24394?destination=node/24394" method="post" id="user-login-form" accept-charset="UTF-8"><div><div class="form-item form-type-textfield form-item-name">
+  <label for="edit-name">Username <span class="form-required" title="This field is required.">*</span></label>
+ <input type="text" id="edit-name" name="name" value="" size="15" maxlength="60" class="form-text required" />
+</div>
+<div class="form-item form-type-password form-item-pass">
+  <label for="edit-pass">Password <span class="form-required" title="This field is required.">*</span></label>
+ <input type="password" id="edit-pass" name="pass" size="15" maxlength="128" class="form-text required" />
+</div>
+<div class="item-list"><ul><li class="first last"><a href="../user/password" title="Request new password via e-mail.">Request new password</a></li>
+</ul></div><input type="hidden" name="form_build_id" value="form-jC-FSsYqE2iN5xUsnllyxR5X8RNNVRmAEBorW6pz8qo" />
+<input type="hidden" name="form_id" value="user_login_block" />
+<div class="form-actions form-wrapper" id="edit-actions"><input type="submit" id="edit-submit" name="op" value="Log in" class="form-submit" /></div></div></form>  </div>
+</div>
+<div id="block-node-syndicate" class="block block-node clearfix">
+
+    <h2 class="title">Syndicate</h2>
+  
+  <div class="content">
+    <a href="../rss.xml" class="feed-icon" title="Subscribe to Syndicate"><img src="../misc/feed.png" width="16" height="16" alt="Subscribe to Syndicate" /></a>  </div>
+</div>
+  </div>
+        </div>
+      
+      <div id="center"><div id="squeeze"><div class="right-corner"><div class="left-corner">
+          <h2 class="element-invisible">You are here</h2><div class="breadcrumb"><a href="../index.html">Home</a></div>                    <a id="main-content"></a>
+          <div id="tabs-wrapper" class="clearfix">                                <h1 class="with-tabs">APNG Plug-In</h1>
+                              </div>                                                  <div class="clearfix">
+              <div class="region region-content">
+    <div id="block-system-main" class="block block-system clearfix">
+
+    
+  <div class="content">
+    <div id="node-24394" class="node node-plugin node-promoted">
+
+  
+      
+      <span class="submitted">April 25, 2010 - 16:28 — <span class="username">daisuke</span></span>
+  
+  <div class="content clearfix">
+    <div class="form-item form-type-item">
+  <label>Rate </label>
+ <div class="rate-widget-2 rate-widget clear-block rate-average rate-widget-fivestar rate-42b6fd730f20dcd1f8b4e75e23ca9018 rate-node-24394-2-3" id="rate-node-24394-2-3"><div class="item-list"><ul><li class="first"><span class="rate-button rate-fivestar-btn-empty rate-fivestar-1" id="rate-button-1">1</span></li>
+<li><span class="rate-button rate-fivestar-btn-empty rate-fivestar-2" id="rate-button-2">2</span></li>
+<li><span class="rate-button rate-fivestar-btn-empty rate-fivestar-3" id="rate-button-3">3</span></li>
+<li><span class="rate-button rate-fivestar-btn-empty rate-fivestar-4" id="rate-button-4">4</span></li>
+<li class="last"><span class="rate-button rate-fivestar-btn-empty rate-fivestar-5" id="rate-button-5">5</span></li>
+</ul></div><div class="rate-info">Total votes: 0</div><div class="rate-description">Rate this item!</div></div>
+</div>
+<div class="field field-name-body field-type-text-with-summary field-label-hidden"><div class="field-items"><div class="field-item even"><p>APNG plug-in provides Animated PNG (APNG) image file load and save modules for the GIMP.</p>
+<p>Download source tar ball and more information at<br />
+<a href="http://sourceforge.net/projects/gimp-apng/">http://sourceforge.net/projects/gimp-apng/</a></p>
+<p>If you have any suggestions, questions, or if you would like to contribute  (by translating the plug-in for other languages, or by providing us with a Windows how-to or Mac OS X binary, for example),  please contact daisuken at users.sourceforge.net.</p>
+<p>Updated 19 May 2009:<br />
+APNG plug-in for Windows is available for download. Many thanks to Max Stepin!</p>
+<p>Updated 28 Apr 2009:</p>
+<h3>How to install without replacing the system libpng library</h3>
+<p>If you have installed *patched* libpng at /usr/local/libpng,</p>
+<p>1. You can use pkg-config to search patched libpng.</p>
+<pre>$ env PKG_CONFIG_PATH=/usr/local/libpng/pkgconfig:$PKG_CONFIG_PATH ./configure</pre><p>
+2. Or, you can use --with-libpng-include=DIR and --with-libpng-lib=DIR options.</p>
+<pre>$ ./configure \
+  --with-libpng-include=/usr/local/libpng/include \
+  --with-libpng-lib=/usr/local/libpng/lib</pre><p>
+After install, maybe you need LD_LIBRARY_PATH to search the runtime library path.</p>
+<pre>$ env LD_LIBRARY_PATH=/usr/local/libpng/lib gimp</pre><h3>"Automatically Detected" does not work</h3>
+<p>Because same as PNG is handled by PNG plug-in in the GIMP. Please select file type PNG+APNG image.</p>
+</div></div></div><div class="field field-name-taxonomy-vocabulary-5 field-type-taxonomy-term-reference field-label-inline clearfix"><div class="field-label">Tags:&nbsp;</div><div class="field-items"><div class="field-item even"><a href="../taxonomy/term/1008">plugin Animated PNG APNG</a></div></div></div><div class="field field-name-taxonomy-vocabulary-1 field-type-taxonomy-term-reference field-label-inline clearfix"><div class="field-label">GIMP Version:&nbsp;</div><div class="field-items"><div class="field-item even"><a href="../taxonomy/term/25">2.4</a></div><div class="field-item odd"><a href="../taxonomy/term/523">2.6</a></div><div class="field-item even"><a href="../taxonomy/term/779">2.7</a></div></div></div><div class="field field-name-taxonomy-vocabulary-7 field-type-taxonomy-term-reference field-label-inline clearfix"><div class="field-label">Code License:&nbsp;</div><div class="field-items"><div class="field-item even"><a href="../taxonomy/term/602">GPLv3+</a></div></div></div>  </div>
+
+  <div class="clearfix">
+          <div class="links"><ul class="links inline"><li class="comment_forbidden first last"><span><a href="../user/login?destination=comment%252Freply%252F24394%2523comment-form">Log in</a> to post comments</span></li>
+</ul></div>
+    
+    <div id="comments" class="comment-wrapper">
+  
+          <h2 class="title">Comments</h2>
+      
+  <a id="comment-18089"></a>
+<div class="comment odd">
+
+  <div class="clearfix">
+
+    <span class="submitted">November 4, 2013 - 14:34 — <span class="username">lapor</span></span>
+
+  
+  
+        <h3><a href="../comment/18089#comment-18089" class="permalink" rel="bookmark">Error while installing it</a></h3>
+    
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>I get an error while installing it on Ubuntu 13.10:<br />
+No package 'gimp-2.0' found<br />
+No package 'gimpui-2.0' found<br />
+Do I have to move the apng plug-in files in some specific location?</p>
+</div></div></div>          </div>
+  </div>
+
+  <ul class="links inline"><li class="comment_forbidden first last"><span><a href="../user/login?destination=comment%252Freply%252F24394%2523comment-form">Log in</a> to post comments</span></li>
+</ul></div>
+
+<div class="indented"><a id="comment-18090"></a>
+<div class="comment even">
+
+  <div class="clearfix">
+
+    <span class="submitted">November 4, 2013 - 18:16 — <span class="username">schumaml</span></span>
+
+  
+  
+        <h3><a href="../comment/18090#comment-18090" class="permalink" rel="bookmark">Seems like you have no</a></h3>
+    
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>Seems like you have no development packages installed.</p>
+</div></div></div>          </div>
+  </div>
+
+  <ul class="links inline"><li class="comment_forbidden first last"><span><a href="../user/login?destination=comment%252Freply%252F24394%2523comment-form">Log in</a> to post comments</span></li>
+</ul></div>
+
+<div class="indented"><a id="comment-18092"></a>
+<div class="comment odd">
+
+  <div class="clearfix">
+
+    <span class="submitted">November 4, 2013 - 21:46 — <span class="username">lapor</span></span>
+
+  
+  
+        <h3><a href="../comment/18092#comment-18092" class="permalink" rel="bookmark">Howto do that?</a></h3>
+    
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>How and which do I have to install?</p>
+</div></div></div>          </div>
+  </div>
+
+  <ul class="links inline"><li class="comment_forbidden first last"><span><a href="../user/login?destination=comment%252Freply%252F24394%2523comment-form">Log in</a> to post comments</span></li>
+</ul></div>
+
+<div class="indented"><a id="comment-18093"></a>
+<div class="comment even">
+
+  <div class="clearfix">
+
+    <span class="submitted">November 5, 2013 - 02:10 — <span class="username">schumaml</span></span>
+
+  
+  
+        <h3><a href="../comment/18093#comment-18093" class="permalink" rel="bookmark">Use your default package</a></h3>
+    
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>Use your default package manager (for example Synaptic), search for the package libgimp2.0-dev and install it.</p>
+</div></div></div>          </div>
+  </div>
+
+  <ul class="links inline"><li class="comment_forbidden first last"><span><a href="../user/login?destination=comment%252Freply%252F24394%2523comment-form">Log in</a> to post comments</span></li>
+</ul></div>
+</div></div></div><a id="comment-17094"></a>
+<div class="comment odd">
+
+  <div class="clearfix">
+
+    <span class="submitted">April 10, 2013 - 01:18 — <span class="username">justinrpg</span></span>
+
+  
+  
+        <h3><a href="../comment/17094#comment-17094" class="permalink" rel="bookmark">DOES NOT WORK</a></h3>
+    
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>I OPEN A APNG PNG IMAGE IN GIMP AND IT LOADS AS A SINGLE LAYER REGULAR PNG IMAGE!!!!! THERE IS NO OTHER LAYER BUT THE FIRST ONE!!!! THIS IS NOT A WORKING PLUG-IN!!!!!!</p>
+</div></div></div>          </div>
+  </div>
+
+  <ul class="links inline"><li class="comment_forbidden first last"><span><a href="../user/login?destination=comment%252Freply%252F24394%2523comment-form">Log in</a> to post comments</span></li>
+</ul></div>
+<a id="comment-14894"></a>
+<div class="comment even">
+
+  <div class="clearfix">
+
+    <span class="submitted">July 15, 2012 - 20:41 — <span class="username">FireLilly</span></span>
+
+  
+  
+        <h3><a href="../comment/14894#comment-14894" class="permalink" rel="bookmark">animation option</a></h3>
+    
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>Is it possible to make this work?<br />
+I have GIMP 2.8 with GAP 2.6 and I installed the plugin like it says for the Windows 64 bit on my Windows 7 64 bit PC...<br />
+When I save now it gives me the PNG+APNG option, but the pop up box that comes up doesn't have an animation option?</p>
+<p>Also, what is this "Modifications file-apng.c :"</p>
+</div></div></div>          </div>
+  </div>
+
+  <ul class="links inline"><li class="comment_forbidden first last"><span><a href="../user/login?destination=comment%252Freply%252F24394%2523comment-form">Log in</a> to post comments</span></li>
+</ul></div>
+
+<div class="indented"><a id="comment-14895"></a>
+<div class="comment odd">
+
+  <div class="clearfix">
+
+    <span class="submitted">July 15, 2012 - 22:12 — <span class="username">proximaTori</span></span>
+
+  
+  
+        <h3><a href="../comment/14895#comment-14895" class="permalink" rel="bookmark">file-apng.c - it&#039;s a source</a></h3>
+    
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>file-apng.c - it's a source code in C, you don't have to worry about it.<br />
+To make APNG plugin work , first off, download 64-bit version for Windows from the link provided below by samj (posted in this thread on August 26, 2011 at 16:48) and follow installation instructions in Read Me file (lisez-moi).<br />
+If it still didn't work for you, come back to this thread, I will provide you with step-by-step.<br />
+It worked for me just fine, don't hesitate to ask.</p>
+<p>P.S. apng animation has some serious limitations which might actually make you give up this idea.<br />
+P.P.S any luck with getting GAP to work in GIMP 2.8?</p>
+</div></div></div>          </div>
+  </div>
+
+  <ul class="links inline"><li class="comment_forbidden first last"><span><a href="../user/login?destination=comment%252Freply%252F24394%2523comment-form">Log in</a> to post comments</span></li>
+</ul></div>
+
+<div class="indented"><a id="comment-18604"></a>
+<div class="comment even">
+
+  <div class="clearfix">
+
+    <span class="submitted">March 29, 2014 - 00:21 — <span class="username">jabberwock xeno</span></span>
+
+  
+  
+        <h3><a href="../comment/18604#comment-18604" class="permalink" rel="bookmark">The link provided by samj no</a></h3>
+    
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>The link provided by samj no longer works.</p>
+</div></div></div>          </div>
+  </div>
+
+  <ul class="links inline"><li class="comment_forbidden first last"><span><a href="../user/login?destination=comment%252Freply%252F24394%2523comment-form">Log in</a> to post comments</span></li>
+</ul></div>
+<a id="comment-14896"></a>
+<div class="comment odd">
+
+  <div class="clearfix">
+
+    <span class="submitted">July 16, 2012 - 00:47 — <span class="username">FireLilly</span></span>
+
+  
+  
+        <h3><a href="../comment/14896#comment-14896" class="permalink" rel="bookmark">Any chance you have the read</a></h3>
+    
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>Any chance you have the read me  file in english?<br />
+I did download from samj's link and followed the instructions provided in that post ( placed file-apng.exe, file-apng.ui , libpng15-15.dll in the plug-ins folder)<br />
+I'm wondering if it might be a compat issue with Gimp 2.8. There is an extra ui file in a folder labeled gimp 2.8, which i tried adding in to the plugins with the file-apng.ui and then replacing the file-apng.ui file , still no luck</p>
+<p>GAP seems to be working just fine with Gimp 2.8, well except for my current problem ;)<br />
+Originally I was trying to save as avi but couldn't figure that out and someone suggested this to me. Honestly I just need a way to save animations without loosing the quality from xcf to gif.</p>
+<p>edit: after looking closely (still can't read french) I think this file, libpng15-15.dll, is in the wrong place. I put it in the plugins folder. Where is it really supposed to be?<br />
+edit2: I tried moving libpng15-15.dll from plugins to bin, still no luck<br />
+here are some screen caps to show what I mean:<br />
+<a href="http://i290.photobucket.com/albums/ll253/FireLilly_LNL/Random/exportapng.png">http://i290.photobucket.com/albums/ll253/FireLilly_LNL/Random/exportapng...</a><br />
+<a href="http://i290.photobucket.com/albums/ll253/FireLilly_LNL/Random/exportapngpopup.png">http://i290.photobucket.com/albums/ll253/FireLilly_LNL/Random/exportapng...</a></p>
+</div></div></div>          </div>
+  </div>
+
+  <ul class="links inline"><li class="comment_forbidden first last"><span><a href="../user/login?destination=comment%252Freply%252F24394%2523comment-form">Log in</a> to post comments</span></li>
+</ul></div>
+
+<div class="indented"><a id="comment-14898"></a>
+<div class="comment even">
+
+  <div class="clearfix">
+
+    <span class="submitted">July 16, 2012 - 03:06 — <span class="username">proximaTori</span></span>
+
+  
+  
+        <h3><a href="../comment/14898#comment-14898" class="permalink" rel="bookmark">OK now</a></h3>
+    
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>Compatibility isn't an issue. GIMP won't let you export animated PNG because of the preinstalled <strong>file-png</strong> plugin in C:\Program Files\GIMP 2\lib\gimp\2.0\plug-ins.</p>
+<p>APNG is an unofficial extension of PNG and if you have them both in your plugin folder, the latter takes over in 'chain of command'. PNG specification allows it to "see" only one image (+ transparency).  So it naturally decodes and displays just the 1st frame of your PNG animation, hence, it won't let you save it as such. While  APNG gets the job done. </p>
+<p>This is what I've done following the instruction. Your need to replace <strong>file-png and libpng15-15.dll</strong> that come with standard installation. Create a folder somewhere outside plugin folder and put them there.<strong> Do not delete them</strong>. Now copy<strong> file-apng, file-apng.ui and libpng15-15.dll</strong> from download to GIMP 2 plugin folder. Your newer libpng15-15.dll file is slightly bigger in size (311KB) than the original. </p>
+<p>APNG plugin, on the other hand,  is back compatible with PNG files, so it can handle simple (not animated) PNGs as if file-png would).</p>
+<p> </p>
+<p>here's what it looks like<br />
+<a href="http://s1060.photobucket.com/albums/t448/proximaTori/ref_apng/?action=view&amp;current=Capture1.jpg">http://s1060.photobucket.com/albums/t448/proximaTori/ref_apng/?action=vi...</a><br />
+<a href="http://s1060.photobucket.com/albums/t448/proximaTori/ref_apng/?action=view&amp;current=Capture2.jpg">http://s1060.photobucket.com/albums/t448/proximaTori/ref_apng/?action=vi...</a></p>
+<p>Happy gimping!</p>
+<p>P.S. save your animations with .png extension, not apng or anything else.<br />
+Cheers!</p>
+</div></div></div>          </div>
+  </div>
+
+  <ul class="links inline"><li class="comment_forbidden first last"><span><a href="../user/login?destination=comment%252Freply%252F24394%2523comment-form">Log in</a> to post comments</span></li>
+</ul></div>
+</div></div></div><h2 class="element-invisible">Pages</h2><div class="item-list"><ul class="pager"><li class="pager-current first">1</li>
+<li class="pager-item"><a title="Go to page 2" href="24394?page=1">2</a></li>
+<li class="pager-item"><a title="Go to page 3" href="24394?page=2">3</a></li>
+<li class="pager-item"><a title="Go to page 4" href="24394?page=3">4</a></li>
+<li class="pager-next"><a title="Go to next page" href="24394?page=1">next ›</a></li>
+<li class="pager-last last"><a title="Go to last page" href="24394?page=3">last »</a></li>
+</ul></div>
+        </div>
+  </div>
+
+</div>
+  </div>
+</div>
+  </div>
+          </div>
+          <a href="../crss/node/24394" class="feed-icon" title="Subscribe to Comments for &quot;APNG Plug-In&quot;"><img src="../misc/feed.png" width="16" height="16" alt="Subscribe to Comments for &quot;APNG Plug-In&quot;" /></a>            <div class="region region-footer">
+    <div id="block-block-5" class="block block-block clearfix">
+
+    
+  <div class="content">
+    Unless otherwise noted, the rights for the individual plugins are with their respective authors. Logo image by Jakub Steiner.
+<marquee style="width: 0px; position: absolute"> <a href="http://brazzersdeporno.com" title="porno">porno</a> - <a href="http://www.porno724.com/" target="_blank" title="Porno izle">Porno izle</a> <a href="http://www.yokyokpornolar.com/" target="_blank" title="porno abi">porno abi</a> </marquee>  </div>
+</div>
+  </div>
+      </div></div></div></div> <!-- /.left-corner, /.right-corner, /#squeeze, /#center -->
+
+              <div id="sidebar-second" class="sidebar">
+            <div class="region region-sidebar-second">
+    <div id="block-views-relevant-questions-block-1" class="block block-views clearfix">
+
+    <h2 class="title">Questions</h2>
+  
+  <div class="content">
+    <div class="view view-relevant-questions view-id-relevant_questions view-display-id-block_1 view-dom-id-4c230d8476979b02508ef4ca121b1077">
+        
+  
+  
+      <div class="view-content">
+      <div class="item-list">    <ul>          <li class="views-row views-row-1 views-row-odd views-row-first views-row-last">  
+  <div class="views-field views-field-title">        <span class="field-content"><a href="27654">Are all the plug-ins on this web-site already programmed on GIMP 2.8?</a></span>  </div></li>
+      </ul></div>    </div>
+  
+  
+  
+  
+  
+  
+</div>  </div>
+</div>
+<div id="block-search-form" class="block block-search clearfix">
+
+    
+  <div class="content">
+    <form action="24394" method="post" id="search-block-form" accept-charset="UTF-8"><div><div class="container-inline">
+      <h2 class="element-invisible">Search form</h2>
+    <div class="form-item form-type-textfield form-item-search-block-form">
+  <label class="element-invisible" for="edit-search-block-form--2">Search </label>
+ <input title="Enter the terms you wish to search for." type="text" id="edit-search-block-form--2" name="search_block_form" value="" size="15" maxlength="128" class="form-text" />
+</div>
+<div class="form-actions form-wrapper" id="edit-actions--2"><input type="submit" id="edit-submit--2" name="op" value="Search" class="form-submit" /></div><input type="hidden" name="form_build_id" value="form-nvsRVrgEfCAJUvBUCrqQYa9twbKjWj77Yy4tY4edi6o" />
+<input type="hidden" name="form_id" value="search_block_form" />
+</div>
+</div></form>  </div>
+</div>
+<div id="block-forum-active" class="block block-forum clearfix">
+
+    <h2 class="title">Active forum topics</h2>
+  
+  <div class="content">
+    <div class="item-list"><ul><li class="first"><a href="32356" title="3 comments">Can&#039;t access &quot;My account&quot;</a></li>
+<li><a href="32371">Delete account</a></li>
+<li class="last"><a href="32363">Outline</a></li>
+</ul></div><div class="more-link"><a href="../forum" title="Read the latest forum topics.">More</a></div>  </div>
+</div>
+<div id="block-views-newest-questions-block-1" class="block block-views clearfix">
+
+    <h2 class="title">Updated Questions</h2>
+  
+  <div class="content">
+    <div class="view view-newest-questions view-id-newest_questions view-display-id-block_1 view-dom-id-48d6c77c8421701a4623fedc969fc35d">
+        
+  
+  
+      <div class="view-content">
+      <div class="item-list">    <ul>          <li class="views-row views-row-1 views-row-odd views-row-first">  
+  <span class="views-field views-field-title">        <span class="field-content"><a href="32373">Shadow and Highlights Recovery - Adding group undo</a></span>  </span>  
+  <div class="views-field views-field-last-updated">    <span class="views-label views-label-last-updated">Last change</span>    <span class="field-content">3 hours 19 min</span>  </div>  
+  <div class="views-field views-field-field-answer-count">        <div class="field-content">No answers, yet!</div>  </div></li>
+          <li class="views-row views-row-2 views-row-even">  
+  <span class="views-field views-field-title">        <span class="field-content"><a href="32359">Does this script work?</a></span>  </span>  
+  <div class="views-field views-field-last-updated">    <span class="views-label views-label-last-updated">Last change</span>    <span class="field-content">4 months 2 weeks</span>  </div>  
+  <div class="views-field views-field-field-answer-count">        <div class="field-content">No answers, yet!</div>  </div></li>
+          <li class="views-row views-row-3 views-row-odd views-row-last">  
+  <span class="views-field views-field-title">        <span class="field-content"><a href="32349">File upload problem</a></span>  </span>  
+  <div class="views-field views-field-last-updated">    <span class="views-label views-label-last-updated">Last change</span>    <span class="field-content">6 months 32 min</span>  </div>  
+  <div class="views-field views-field-field-answer-count">        <div class="field-content">1 Answer(s)</div>  </div></li>
+      </ul></div>    </div>
+  
+  
+  
+      
+<div class="more-link">
+  <a href="../newest-questions">
+    more  </a>
+</div>
+  
+  
+  
+</div>  </div>
+</div>
+<div id="block-comment-recent" class="block block-comment clearfix">
+
+    <h2 class="title">Recent comments</h2>
+  
+  <div class="content">
+    <div class="item-list"><ul><li class="first"><a href="../comment/19262#comment-19262">Black triangles</a>&nbsp;<span>2 hours 26 min ago</span></li>
+<li><a href="../comment/19261#comment-19261">I use the Python version of</a>&nbsp;<span>4 days 4 hours ago</span></li>
+<li class="last"><a href="../comment/19260#comment-19260">I have the same problem too</a>&nbsp;<span>1 week 2 days ago</span></li>
+</ul></div>  </div>
+</div>
+<div id="block-node-recent" class="block block-node clearfix">
+
+    <h2 class="title">Recent content</h2>
+  
+  <div class="content">
+    <table>
+<tbody>
+ <tr class="odd"><td class="title-author"><div class="node-title"><a href="32373">Shadow and Highlights Recovery - Adding group undo</a></div><div class="node-author"><span class="username">programmer_ceds</span></div></td><td class="edit"></td><td class="delete"></td> </tr>
+ <tr class="even"><td class="title-author"><div class="node-title"><a href="32360">GIMP Plugin Registry in Lockdown mode</a></div><div class="node-author"><span class="username">schumaml</span></div></td><td class="edit"></td><td class="delete"></td> </tr>
+ <tr class="odd"><td class="title-author"><div class="node-title"><a href="32372">Split to Special PNG&#039;s</a></div><div class="node-author"><span class="username">Efenstor</span></div></td><td class="edit"></td><td class="delete"></td> </tr>
+ <tr class="even"><td class="title-author"><div class="node-title"><a href="32371">Delete account</a></div><div class="node-author"><span class="username">amarz82</span></div></td><td class="edit"></td><td class="delete"></td> </tr>
+ <tr class="odd"><td class="title-author"><div class="node-title"><a href="32370">Export with MozJPEG</a></div><div class="node-author"><span class="username">Efenstor</span></div></td><td class="edit"></td><td class="delete"></td> </tr>
+ <tr class="even"><td class="title-author"><div class="node-title"><a href="32369">Shadow and Highlights Recovery</a></div><div class="node-author"><span class="username">erwinsoo</span></div></td><td class="edit"></td><td class="delete"></td> </tr>
+ <tr class="odd"><td class="title-author"><div class="node-title"><a href="27656">GIMP Extensions Pack for Windows</a></div><div class="node-author"><span class="username">GIMP Extensions</span></div></td><td class="edit"></td><td class="delete"></td> </tr>
+ <tr class="even"><td class="title-author"><div class="node-title"><a href="32341">Removed...</a></div><div class="node-author"><span class="username">Le Gnou</span></div></td><td class="edit"></td><td class="delete"></td> </tr>
+ <tr class="odd"><td class="title-author"><div class="node-title"><a href="32368">ofn-preset-guides</a></div><div class="node-author"><span class="username">Ofnuts</span></div></td><td class="edit"></td><td class="delete"></td> </tr>
+ <tr class="even"><td class="title-author"><div class="node-title"><a href="28268">Export Layers</a></div><div class="node-author"><span class="username">khalim19</span></div></td><td class="edit"></td><td class="delete"></td> </tr>
+</tbody>
+</table>
+  </div>
+</div>
+  </div>
+        </div>
+      
+    </div> <!-- /#container -->
+  </div> <!-- /#wrapper -->
+  </body>
+</html>

@@ -1,0 +1,76 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+#
+# by Andreas Schönfelder
+#
+# Version 1.1 (20101120)
+#
+# License:
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation# either version 2 of the License, or
+# (at your option) any later version. 
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# The GNU Public License is available at
+# http://www.gnu.org/copyleft/gpl.html
+
+
+import glob
+from gimpfu import *
+
+for filename in glob.glob("/home/andreas/Downloads/*.jpg"):
+	# print name for debugging
+	print filename
+	# load image
+	img = pdb.gimp_file_load(
+		filename,		# filename
+		filename		# filename
+	)
+	# get layer
+	drawable = pdb.gimp_image_get_active_layer(
+		img				# image
+	)
+	# select timestamp area
+	pdb.gimp_rect_select(
+		img,			# image
+		img.width * 0.95 - 1000,	# x
+		img.height - 300,			# y
+		1000,			# width
+		300,			# height
+		2,				# operation (0=add, 1=substract, 2=replace, 3=intersect)
+		False,			# feather
+		0				# feather-radius
+	)
+	# remove timestamp
+	#pdb.script_fu_remove_timestamp(
+	pdb.python_fu_remove_timestamp(
+		img,			# image
+		drawable,		# drawable
+		(255, 255, 0),	# color (yellow)
+		60,				# threshold
+		3,				# grow1
+		10,				# grow2
+		3,				# spread_count
+		10,				# spread
+		3,				# offset_count
+		3				# offset
+	)
+	# get layer
+	drawable = pdb.gimp_image_get_active_layer(
+		img				# image
+	)
+	# save file
+	pdb.gimp_file_save(
+		img,			# image
+		drawable,		# drawable
+		filename,		# filename
+		filename		# filename
+	)
+# quit gimp
+pdb.gimp_quit(0)

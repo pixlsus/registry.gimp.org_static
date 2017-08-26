@@ -1,0 +1,109 @@
+#!/usr/bin/env python
+# Author: Chris Mohler
+# Copyright 2011 Chris Mohler
+# License: GPL v3+
+# Version 0.1
+# ebook_combine.py
+# GIMP plugin to create ebook cover from template
+
+from gimpfu import *
+from gimpenums import *
+
+gettext.install("gimp20-python", gimp.locale_directory, unicode=True)
+
+def combine_ebook_template(img, drw):
+	layer_names = []
+	for layer in img.layers:
+		layer_names.append(layer.name)
+		if layer.name == 'Front':
+			front = layer
+		if layer.name == 'Spine':
+			spine = layer
+		if layer.name == 'Top':
+			top = layer
+	for name in ('Top', 'Spine', 'Front'):
+		if name not in layer_names:
+			gimp.message('Error: "%s" layer not found, exiting.' % name)
+			return
+	img.undo_group_start()
+
+	na = gimp._id2drawable(-1) # need this for -1 drawables
+
+	pdb.plug_in_rotate(img, spine, 1, False)
+
+	pdb.plug_in_map_object(
+		img, 					# Input image
+		front,				 	# Input drawable
+		2,		 				# Map Type - 2=box
+		0.5,					# viewpoint-x
+		0.5,					# viewpoint-y
+		2.0,					# viewpoint-z
+		0.5,					# position-x
+		0.5,					# position-y
+		0.0,					# position-z
+		1.0,					# firstaxis-x
+		0.0,					# firstaxis-y
+		0.0,					# firstaxis-z
+		0.0,					# secondaxis-x
+		1.0,					# secondaxis-y
+		0.0,					# secondaxis-z
+		15.0,					# rotationangle-x
+		-20.0,					# rotationangle-y
+		0.0,					# rotationangle-z
+		0,						# lightsource type - 0=point
+		(255,255,255),			# lightsource color
+		-0.5,					# lightposition-x
+		-0.5,					# lightposition-y
+		2.0,					# lightposition-z
+		0,						# lightdirection-x
+		0,						# lightdirection-y
+		0,						# lightdirection-z
+		0.3,					# ambient-intensity
+		1.0,					# diffuse-intensity
+		0.5,					# diffuse-reflectivity
+		0.5,					# specular-reflectivity
+		27.0,					# highlight
+		1,						# antialiasing - true/false
+		0,						# tiled - true/false
+		1,						# new image - true/false
+		1,						# transparent bg - true/false
+		0.0,					# radius
+		0.5,					# box x-scale
+		0.5,					# box y-scale
+		0.08,					# box z-scale
+		0.0,					# cylinder length
+		front,					# box front
+		na,						# box back
+		top,					# box top
+		na,						# box bottom
+		na, 					# box left
+		spine,					# box right
+		na,						# cylinder top
+		na, 					# cylinder bottom
+		)
+	
+	pdb.plug_in_rotate(img, spine, 3, False)
+
+	img.undo_group_end()
+
+    
+register(
+    proc_name=("python-fu-ebook-combine"),
+    blurb=("Combine ebook template"),
+    help=("Combine ebook template to create 3D ebook cover."),
+    author=("Chris Mohler"),
+    copyright=("Chris Mohler"),
+    date=("2011"),
+    label=("Combine Ebook Template"),
+    imagetypes=("*"),
+    params=[
+	(PF_IMAGE, "img", "Image", None),
+	(PF_DRAWABLE, "drw", "Drawable", None), 
+	   ],
+    results=[],
+    function=(combine_ebook_template), 
+    menu=("<Image>/Filters/Ebook"), 
+    domain=("gimp20-python", gimp.locale_directory)
+    )
+
+main()

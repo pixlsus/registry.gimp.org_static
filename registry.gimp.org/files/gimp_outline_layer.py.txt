@@ -1,0 +1,113 @@
+#!/usr/bin/env python
+# -*- coding: utf8 -*-
+
+# *************************************************************************** #
+#                                                                             #
+#      Version 0.1 - 2011-11-08                                               #
+#      Copyright (C) 2011 Marco Crippa                                        #
+#                                                                             #
+#      This program is free software; you can redistribute it and/or          #
+#      modify it under the terms of the GNU General Public License            #
+#      as published by the Free Software Foundation; either version 2         #
+#      of the License, or (at your option) any later version.                 #
+#                                                                             #
+#      This program is distributed in the hope that it will be useful,        #
+#      but WITHOUT ANY WARRANTY; without even the implied warranty of         #
+#      MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the          #
+#      GNU General Public License for more details.                           #
+#                                                                             #
+#      You should have received a copy of the GNU General Public License      #
+#      along with this program; if not, write to the                          #
+#      Free Software Foundation, Inc.,                                        #
+#      51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA           #
+#                                                                             #
+# *************************************************************************** #
+
+from gimpfu import *
+
+def photos( img, draw, out_size, out_col, out_type, out_feather):
+	
+    current_f=pdb.gimp_context_get_foreground()
+
+    img.disable_undo()
+
+    #selection to grow
+    pdb.gimp_selection_layer_alpha(draw)
+    sel_size=pdb.gimp_selection_bounds(img)
+    grow_w=(sel_size[3]-sel_size[1])+(out_size*2)
+    grow_h=(sel_size[4]-sel_size[2])+(out_size*2)
+
+    #new layer size
+    print(int(out_size))
+    if (  grow_w > pdb.gimp_image_width(img) or grow_h > pdb.gimp_image_height(img)):
+        w=grow_w
+        h=grow_h
+        off_x=0-(grow_w-pdb.gimp_image_width(img))/2
+        off_y=0-(grow_h-pdb.gimp_image_height(img))/2
+        l_out=pdb.gimp_layer_new(img,w,h,1,"outline",100.0,0)
+        pdb.gimp_image_add_layer(img,l_out,-1)
+        pdb.gimp_image_lower_layer(img,l_out)
+        pdb.gimp_layer_translate(l_out,off_x,off_y)
+        pdb.gimp_image_resize_to_layers(img)
+        pdb.gimp_layer_resize_to_image_size(l_out)
+#        if out_type == "grown" :
+#            pdb.gimp_selection_grow(img,out_size)
+#        else:
+#            pdb.gimp_selection_border(img,int(out_size))
+#            pdb.gimp_selection_sharpen(img)
+    else:
+        w=pdb.gimp_image_width(img)
+        h=pdb.gimp_image_height(img)
+        off_x=0
+        off_y=0
+        l_out=pdb.gimp_layer_new(img,w,h,1,"outline",100.0,0)
+        pdb.gimp_image_add_layer(img,l_out,-1)
+        pdb.gimp_image_lower_layer(img,l_out)
+#        if out_type == "grown" :
+#            pdb.gimp_selection_grow(img,out_size)
+#        else:
+#            pdb.gimp_selection_border(img,int(out_size))
+#            pdb.gimp_selection_sharpen(img)
+
+    if out_type == "grown" :
+        pdb.gimp_selection_grow(img,out_size)
+    else:
+        pdb.gimp_selection_border(img,int(out_size))
+        pdb.gimp_selection_sharpen(img)
+
+    pdb.gimp_selection_feather(img,out_feather)
+        
+    pdb.gimp_image_set_active_layer(img,l_out)
+
+    #outline color
+    pdb.gimp_context_set_foreground(out_col)
+
+    pdb.gimp_edit_fill(l_out,0)
+
+    pdb.gimp_selection_clear(img)
+    
+    pdb.plug_in_autocrop_layer(img,l_out)
+
+    img.enable_undo()
+
+    pdb.gimp_context_set_foreground(current_f)
+
+register( "add_outline_to_layer",
+  "Add Outline to layer",
+  "Add Outline to layer",
+  "Marco Crippa",
+  "(©) 2011 Marco Crippa",
+  "2011-11-08",
+  "<Image>/Filters/Decor/Add Outline to layer",
+  'RGB*',
+  [ 
+		(PF_SPINNER, "out_size", "Outline size (px):", 10, (0, 9999999999, 1)),
+		(PF_COLOR, "out_col", "Outline color:", (255,255,255)),
+        (PF_RADIO, "out_type", "Outline type:", "grown", (("grown", "grown"), ("border", "border"))),
+		(PF_SPINNER, "out_feather", "Outline feather (px):", 0, (0, 9999999999, 1))
+  ],
+  '',
+  photos)
+
+main()
+

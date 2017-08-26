@@ -1,0 +1,791 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML+RDFa 1.0//EN"
+  "http://www.w3.org/MarkUp/DTD/xhtml-rdfa-1.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" version="XHTML+RDFa 1.0" dir="ltr">
+
+<head profile="http://www.w3.org/1999/xhtml/vocab">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="shortcut icon" href="../files/favicon.png" type="image/png" />
+<link rel="alternate" type="application/rss+xml" title="Comments for &quot;Cut, Copy, and Paste Multiple Layers&quot;" href="../crss/node/24270" />
+<link rel="canonical" href="24270" />
+<meta name="Generator" content="Drupal 7 (http://drupal.org)" />
+<link rel="shortlink" href="24270" />
+  <title>Cut, Copy, and Paste Multiple Layers | GIMP Plugin Registry</title>
+  <style type="text/css" media="all">@import url("../modules/system/system.base.css?n48fl6");
+@import url("../modules/system/system.menus.css?n48fl6");
+@import url("../modules/system/system.messages.css?n48fl6");
+@import url("../modules/system/system.theme.css?n48fl6");</style>
+<style type="text/css" media="all">@import url("../modules/aggregator/aggregator.css?n48fl6");
+@import url("../modules/book/book.css?n48fl6");
+@import url("../modules/comment/comment.css?n48fl6");
+@import url("../sites/all/modules/date/date_api/date.css?n48fl6");
+@import url("../sites/all/modules/date/date_popup/themes/datepicker.1.7.css?n48fl6");
+@import url("../sites/all/modules/date/date_repeat_field/date_repeat_field.css?n48fl6");
+@import url("../modules/field/theme/field.css?n48fl6");
+@import url("../sites/all/modules/mollom/mollom.css?n48fl6");
+@import url("../modules/node/node.css?n48fl6");
+@import url("../modules/poll/poll.css?n48fl6");
+@import url("../modules/search/search.css?n48fl6");
+@import url("../modules/user/user.css?n48fl6");
+@import url("../modules/forum/forum.css?n48fl6");
+@import url("../sites/all/modules/views/css/views.css?n48fl6");</style>
+<style type="text/css" media="all">@import url("../sites/all/modules/ctools/css/ctools.css?n48fl6");
+@import url("../sites/all/modules/rate/rate.css?n48fl6");
+@import url("../sites/all/modules/tagclouds/tagclouds.css?n48fl6");
+@import url("../sites/all/modules/panels/css/panels.css?n48fl6");
+@import url("../sites/all/modules/best_answer/best_answer.css?n48fl6");
+@import url("../sites/all/modules/rate/templates/fivestar/fivestar.css?n48fl6");</style>
+<style type="text/css" media="all">@import url("../files/color/garland-5ac73a91/style.css?n48fl6");</style>
+<style type="text/css" media="print">@import url("../themes/garland/print.css?n48fl6");</style>
+
+<!--[if lt IE 7]>
+<link type="text/css" rel="stylesheet" href="http://registry.gimp.org/themes/garland/fix-ie.css?n48fl6" media="all" />
+<![endif]-->
+  <script type="text/javascript" src="../misc/jquery.js?v=1.4.4"></script>
+<script type="text/javascript" src="../misc/jquery.once.js?v=1.2"></script>
+<script type="text/javascript" src="../misc/drupal.js?n48fl6"></script>
+<script type="text/javascript" src="../sites/all/modules/rate/rate.js?n48fl6"></script>
+<script type="text/javascript" src="../sites/all/modules/rate/templates/fivestar/fivestar.js?n48fl6"></script>
+<script type="text/javascript" src="../misc/tableheader.js?n48fl6"></script>
+<script type="text/javascript">
+<!--//--><![CDATA[//><!--
+jQuery.extend(Drupal.settings, {"basePath":"\/","pathPrefix":"","ajaxPageState":{"theme":"garland","theme_token":"B6tkcdOb_WwFYfca5lS7yegtcoC5DgNnxBevNVJQd-Y","js":{"misc\/jquery.js":1,"misc\/jquery.once.js":1,"misc\/drupal.js":1,"sites\/all\/modules\/rate\/rate.js":1,"sites\/all\/modules\/rate\/templates\/fivestar\/fivestar.js":1,"misc\/tableheader.js":1},"css":{"modules\/system\/system.base.css":1,"modules\/system\/system.menus.css":1,"modules\/system\/system.messages.css":1,"modules\/system\/system.theme.css":1,"modules\/aggregator\/aggregator.css":1,"modules\/book\/book.css":1,"modules\/comment\/comment.css":1,"sites\/all\/modules\/date\/date_api\/date.css":1,"sites\/all\/modules\/date\/date_popup\/themes\/datepicker.1.7.css":1,"sites\/all\/modules\/date\/date_repeat_field\/date_repeat_field.css":1,"modules\/field\/theme\/field.css":1,"sites\/all\/modules\/mollom\/mollom.css":1,"modules\/node\/node.css":1,"modules\/poll\/poll.css":1,"modules\/search\/search.css":1,"modules\/user\/user.css":1,"modules\/forum\/forum.css":1,"sites\/all\/modules\/views\/css\/views.css":1,"sites\/all\/modules\/ctools\/css\/ctools.css":1,"sites\/all\/modules\/rate\/rate.css":1,"sites\/all\/modules\/tagclouds\/tagclouds.css":1,"sites\/all\/modules\/panels\/css\/panels.css":1,"sites\/all\/modules\/best_answer\/best_answer.css":1,"sites\/all\/modules\/rate\/templates\/fivestar\/fivestar.css":1,"themes\/garland\/style.css":1,"themes\/garland\/print.css":1,"themes\/garland\/fix-ie.css":1}},"rate":{"basePath":"\/rate\/vote\/js","destination":"node\/24270"}});
+//--><!]]>
+</script>
+</head>
+<body class="html not-front not-logged-in two-sidebars page-node page-node- page-node-24270 node-type-scriptfu fluid-width" >
+  <div id="skip-link">
+    <a href="24270#main-content" class="element-invisible element-focusable">Skip to main content</a>
+  </div>
+      
+  <div id="wrapper">
+    <div id="container" class="clearfix">
+
+      <div id="header">
+        <div id="logo-floater">
+                              <div id="branding"><strong><a href="../index.html">
+                          <img src="../files/logo.png" alt="GIMP Plugin Registry " title="GIMP Plugin Registry " id="logo" />
+                        <span>GIMP Plugin Registry</span>            </a></strong></div>
+                          </div>
+
+        <h2 class="element-invisible">Main menu</h2><ul class="links inline main-menu"><li class="menu-100 first"><a href="../about" title="Information about the Registry">About</a></li>
+<li class="menu-136"><a href="23851" title="Documentation and How-Tos">Documentation</a></li>
+<li class="menu-88"><a href="../forum">Forums</a></li>
+<li class="menu-74"><a href="http://gug.criticalhit.dk" title="The GIMP User Group">GIMP User Group</a></li>
+<li class="menu-1142"><a href="25574" title="GIMP Help">Get Help</a></li>
+<li class="menu-1256"><a href="26216" title="Get info on using RSS to stay updated about what&#039;s going on on the site.">Stay Updated!</a></li>
+<li class="menu-73 last"><a href="http://www.gimp.org/" title="The GIMP Homepage">gimp.org</a></li>
+</ul>              </div> <!-- /#header -->
+
+              <div id="sidebar-first" class="sidebar">
+            <div class="region region-sidebar-first">
+    <div id="block-system-navigation" class="block block-system block-menu clearfix">
+
+    <h2 class="title">Navigation</h2>
+  
+  <div class="content">
+    <ul class="menu"><li class="first leaf"><a href="25574" title="FAQ &amp; How To&#039;s">FAQ &amp; How To&#039;s</a></li>
+<li class="leaf"><a href="../glossary.1" title="">Content By Name</a></li>
+<li class="collapsed"><a href="../aggregator">Feed aggregator</a></li>
+<li class="leaf"><a href="../popular">Popular content</a></li>
+<li class="leaf"><a href="25392" title="Report Spam Here">Report Spam Here</a></li>
+<li class="last leaf"><a href="../tagclouds">Tags</a></li>
+</ul>  </div>
+</div>
+<div id="block-block-1" class="block block-block clearfix">
+
+    
+  <div class="content">
+    If you'd like to upload plug-ins, please create an account below. You do <em>not</em> need one for download. Enjoy :-)  </div>
+</div>
+<div id="block-user-login" class="block block-user clearfix">
+
+    <h2 class="title">User login</h2>
+  
+  <div class="content">
+    <form action="http://registry.gimp.org/node/24270?destination=node/24270" method="post" id="user-login-form" accept-charset="UTF-8"><div><div class="form-item form-type-textfield form-item-name">
+  <label for="edit-name">Username <span class="form-required" title="This field is required.">*</span></label>
+ <input type="text" id="edit-name" name="name" value="" size="15" maxlength="60" class="form-text required" />
+</div>
+<div class="form-item form-type-password form-item-pass">
+  <label for="edit-pass">Password <span class="form-required" title="This field is required.">*</span></label>
+ <input type="password" id="edit-pass" name="pass" size="15" maxlength="128" class="form-text required" />
+</div>
+<div class="item-list"><ul><li class="first last"><a href="../user/password" title="Request new password via e-mail.">Request new password</a></li>
+</ul></div><input type="hidden" name="form_build_id" value="form-s2izeo5mqTBtPDcCvAaRcChM2hh9bm_ZwL5mutgcLXk" />
+<input type="hidden" name="form_id" value="user_login_block" />
+<div class="form-actions form-wrapper" id="edit-actions"><input type="submit" id="edit-submit" name="op" value="Log in" class="form-submit" /></div></div></form>  </div>
+</div>
+<div id="block-node-syndicate" class="block block-node clearfix">
+
+    <h2 class="title">Syndicate</h2>
+  
+  <div class="content">
+    <a href="../rss.xml" class="feed-icon" title="Subscribe to Syndicate"><img src="../misc/feed.png" width="16" height="16" alt="Subscribe to Syndicate" /></a>  </div>
+</div>
+  </div>
+        </div>
+      
+      <div id="center"><div id="squeeze"><div class="right-corner"><div class="left-corner">
+          <h2 class="element-invisible">You are here</h2><div class="breadcrumb"><a href="../index.html">Home</a></div>                    <a id="main-content"></a>
+          <div id="tabs-wrapper" class="clearfix">                                <h1 class="with-tabs">Cut, Copy, and Paste Multiple Layers</h1>
+                              </div>                                                  <div class="clearfix">
+              <div class="region region-content">
+    <div id="block-system-main" class="block block-system clearfix">
+
+    
+  <div class="content">
+    <div id="node-24270" class="node node-scriptfu node-promoted">
+
+  
+      
+      <span class="submitted">April 3, 2010 - 19:47 — <span class="username">MikeBMcl</span></span>
+  
+  <div class="content clearfix">
+    <div class="form-item form-type-item">
+  <label>Rate </label>
+ <div class="rate-widget-2 rate-widget clear-block rate-average rate-widget-fivestar rate-746b940aef0983ad23346a161925feac rate-node-24270-2-3" id="rate-node-24270-2-3"><div class="item-list"><ul><li class="first"><span class="rate-button rate-fivestar-btn-empty rate-fivestar-1" id="rate-button-1">1</span></li>
+<li><span class="rate-button rate-fivestar-btn-empty rate-fivestar-2" id="rate-button-2">2</span></li>
+<li><span class="rate-button rate-fivestar-btn-empty rate-fivestar-3" id="rate-button-3">3</span></li>
+<li><span class="rate-button rate-fivestar-btn-empty rate-fivestar-4" id="rate-button-4">4</span></li>
+<li class="last"><span class="rate-button rate-fivestar-btn-empty rate-fivestar-5" id="rate-button-5">5</span></li>
+</ul></div><div class="rate-info">Total votes: 0</div><div class="rate-description">Rate this item!</div></div>
+</div>
+<div class="field field-name-upload field-type-file field-label-hidden"><div class="field-items"><div class="field-item even"><table class="sticky-enabled">
+ <thead><tr><th>Attachment</th><th>Size</th> </tr></thead>
+<tbody>
+ <tr class="odd"><td><span class="file"><img class="file-icon" alt="" title="application/octet-stream" src="../modules/file/icons/application-octet-stream.png" /> <a href="../files/deep-float-copy.scm" type="application/octet-stream; length=6548" title="deep-float-copy.scm">deep-float-copy.scm</a></span></td><td>6.39 KB</td> </tr>
+</tbody>
+</table>
+</div></div></div><div class="field field-name-body field-type-text-with-summary field-label-hidden"><div class="field-items"><div class="field-item even"><p>(Updated May 1, 2010)</p>
+<p>Description:</p>
+<p>This plugin contains three Script-Fu scripts: "Float Linked Layers (Cut)", "Float Linked Layers (Copy)", and "Merge Linked Layers (Paste)".  The scripts will appear under "Script-Fu-&gt;Multi-Layer-Cut-Copy-Paste" menu.  These scripts allow you to cut or copy a selection from multiple layers, manipulate the resulting multi-layer selection, and then paste the data from each layer back down into its original layer.  I use it in creating sprites.  I create one multiple layer image, perhaps 64x128 pixels in size, in which one layer might be the head, then the torso in another layer, a layer for each arm, a layer for each leg, etc.  I then link the layers together and select the whole image.  I then change the canvas size to be, e.g., 8 times as wide as it originally was.  I then us "Copy" to create a copy of all layers at once, use the move tool to move it over 64 pixels, and use "Paste" to paste all of the data from the temporary copies into their original layers.  I then repeat the process six more times (making sure to only have the original 64x128 space selected.  I end up with 8 perfect, multi-layer replicas.  At this point I unlink all of the layers.  I can then manipulate individual parts of each of the "frames" without altering other parts of the image (since the other parts remain in other layers.  If I wish to work on two parts at once (say rotate both an upper and lower arm around a common origin), I can link those two layers, create a selection that encompases only the area I wish to manipulate, "Cut" that section, and then operate on both layers independent of any other parts of those layers, and "Paste" them back to their proper layers when I am done.  You, of course, can use it however you like.</p>
+<p>Usage:</p>
+<p>To use this plugin, link together the layers you wish to manipulate, create a selection that encompasses all or part of the linked layers (whichever part you want to operate on), and then choose either "Float Linked Layers (Cut)" or "Float Linked Layers (Copy)" from the "Script-Fu-&gt;Multi-Layer-Cut-Copy-Paste" menu.</p>
+<p>Assuming that you linked together the desired layers and made a selection, you will now have new, floating layers above each of the linked layers.  The original layers will be unlinked as a result.  Instead, these new floating layers will be linked together and can be manipulated jointly as though they were one layer using various transformation tools such as the move tool, the rotation tool, and the scaling tool.  Other operations that work on linked layers should also work on these temporary layers.</p>
+<p>When you have finished the desired operations, select "Merge Down Linked Layers (Paste)" from the "Script-Fu-&gt;Multi-Layer-Cut-Copy-Paste" menu.  Provided that you have not unlinked any of the temporary layers that were created, created any new layers in the interim, or deleted any layers in the interim, the image data contained in each of the temporary layers which were created will be moved back into the layer from which it originally came, the temporary layers will be automatically deleted, and the layers which were originally linked will be re-linked.  The results may vary if you create new layers or delete existing layers between the time that you originally cut/copy the selection from the linked layers and the time that you paste the selected material back down.</p>
+<p>The "Cut" and "Paste" scripts were created by Saul Goode, dated 12/16/2006, and released under the terms of the GPLv2.  I have made minor cosmetic changes to those scripts (essentially limited to renaming them and moving them into a sub-menu under Script-Fu).  The "Copy" script is a derivative work of the "Cut" script which I originally created on April 3, 2010.  It is, of course, released under the terms of the GPLv2.</p>
+<p>The scripts have been tested in Gimp v2.6.8.  There is nothing peculiar to them that should proclude their use in the 2.4 series but I haven't tested them in it so I cannot provide assurances that they will work as expected.  They may also work in earlier versions of Gimp but there are no guarantees at all.</p>
+<p>Installation Instructions:</p>
+<p>Download the "deep-float-copy.scm" file and place it in the "scripts" directory of your Gimp installation.  If you are unsure as to where the "scripts" directory resides, open Gimp, select "Edit-&gt;Preferences" choose "Folders" in the scroll down menu on the left and click to expand it (there should be a small '+' or similar such marking which you can click), and then select the "Scripts" item.  On the right you should be presented with a list of one or more places in which Gimp will look for Script-Fu scripts.  You may choose to add an additional folder here if, for instance, the system you are using restricts your account from copying items into the folder(s) in which Gimp already looks for scripts.</p>
+<p>About the Update:</p>
+<p>This update restores the original "Cut" script, renames all three scripts, and moves them into a submenu off of the main "Script-Fu" menu.  Upon working further with the script I realized that there were instances in which the original "cut" script is extremely useful.</p>
+<p>Common Problems:</p>
+<p>"Error: reverse: argument 1 must be: pair".  If you see this message it means that you have neglected to link any layers.  You must link layers together - to do so, in the Layers dialog, next to the "eye" that tells you whether or not a layer is visible is a blank space.  Clicking this blank space will show "chain links".  The script will technically work with only one layer "linked" though in that case it operates in essentially the same way that an ordinary cut or copy would.</p>
+<p>Scaling. Moving. Etc.  If you experience any problems with scaling, moving, rotating, etc., undo the attempted action and ensure that you have one of the new temporary layers selected.  If you are trying to scale to a larger size, note that the temporary layers are only created to the size of the selection.  So while the scaling operation will appear normal, the results will be clipped to the size of the layer.  To fix this, simply select each of the temporary layers (identifiable by the fact that they are the linked layers), and for each one, go to the menu and select "Layer-&gt;Layer to Image Size".  Note also that while any transformations which show you a preview of their results (e.g. scale and rotate) will operate on all linked layers, only the layer that is selected will appear to be being transformed in the preview of the results.  So you will need to choose which layer you want to see a preview for.</p>
+<p>Adding/Deleting Layers.  Selecting "Merge Down Linked Layers (Paste)" without having done a corresponding "Cut" or "Copy".  If you add a layer between a layer which was floated and the temporary layer that is created by "Cut" or "Copy", the subsequent "Paste" operating will paste the data into that newly added layer and not the original layer from which it came.  If you have two layers linked and, without choosing "Cut" or "Copy", simply choose "Paste", the two layers will be combined into whichever layer exists below them.  The bottom layer will remain unaffected.  If more than two layers are linked, an error will occur if you try to paste in most cases.  If there is at least one unlinked layer between each linked layer, no error will result and the contents of each of the linked layers will be merged down into the layer below it.</p>
+</div></div></div><div class="field field-name-taxonomy-vocabulary-7 field-type-taxonomy-term-reference field-label-inline clearfix"><div class="field-label">Code License:&nbsp;</div><div class="field-items"><div class="field-item even"><a href="../taxonomy/term/35">GPLv2</a></div></div></div><div class="field field-name-taxonomy-vocabulary-5 field-type-taxonomy-term-reference field-label-inline clearfix"><div class="field-label">Tags:&nbsp;</div><div class="field-items"><div class="field-item even"><a href="../taxonomy/term/299">script-fu</a></div><div class="field-item odd"><a href="../taxonomy/term/306">layers</a></div><div class="field-item even"><a href="../taxonomy/term/995">copy layers</a></div><div class="field-item odd"><a href="../taxonomy/term/1012">cut layers</a></div><div class="field-item even"><a href="../taxonomy/term/1013">paste layers</a></div></div></div><div class="field field-name-taxonomy-vocabulary-1 field-type-taxonomy-term-reference field-label-inline clearfix"><div class="field-label">GIMP Version:&nbsp;</div><div class="field-items"><div class="field-item even"><a href="../taxonomy/term/523">2.6</a></div></div></div><div class="field field-name-taxonomy-vocabulary-3 field-type-taxonomy-term-reference field-label-inline clearfix"><div class="field-label">Scripting Engine:&nbsp;</div><div class="field-items"><div class="field-item even"><a href="../taxonomy/term/20">Script-Fu</a></div></div></div>  </div>
+
+  <div class="clearfix">
+          <div class="links"><ul class="links inline"><li class="comment_forbidden first last"><span><a href="../user/login?destination=comment%252Freply%252F24270%2523comment-form">Log in</a> to post comments</span></li>
+</ul></div>
+    
+    <div id="comments" class="comment-wrapper">
+  
+          <h2 class="title">Comments</h2>
+      
+  <a id="comment-18103"></a>
+<div class="comment odd">
+
+  <div class="clearfix">
+
+    <span class="submitted">November 10, 2013 - 12:43 — <span class="username">nikop</span></span>
+
+  
+  
+        <h3><a href="../comment/18103#comment-18103" class="permalink" rel="bookmark">Working with some modifications</a></h3>
+    
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>Than you for this useful script! </p>
+<p>It needed some corrections to work with Gimp 2.8.4 (Ubuntu 13.04)</p>
+<p>First i got "non-list argument to append" -errors (like Hymer did)<br />
+They got fixed by changing all<br />
+(linked 0), (select 0),  (layer 0), (floated 0) and (mode 0) -lines<br />
+to<br />
+(linked '()), (select '()), (layer '()), (floated '()) and (mode '()) -lines. (with tip from saulgoode) [also restarted GIMP after altering the script]<br />
+Not tested this widely, but at least I used the script to copy-paste a multilayer picture once.</p>
+<p>- nikop</p>
+</div></div></div>          </div>
+  </div>
+
+  <ul class="links inline"><li class="comment_forbidden first last"><span><a href="../user/login?destination=comment%252Freply%252F24270%2523comment-form">Log in</a> to post comments</span></li>
+</ul></div>
+<a id="comment-15601"></a>
+<div class="comment even">
+
+  <div class="clearfix">
+
+    <span class="submitted">September 28, 2012 - 21:34 — <span class="username">Hymer</span></span>
+
+  
+  
+        <h3><a href="../comment/15601#comment-15601" class="permalink" rel="bookmark">I cannot select multiple layers</a></h3>
+    
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>I use Gimp 2.8.2 in Win7. I cannot select multiple layers and I get this message when I try to use "Execution error for 'Float Linked Layers (Copy)':<br />
+Error: ( : 25988250) non-list argument to append "</p>
+</div></div></div>          </div>
+  </div>
+
+  <ul class="links inline"><li class="comment_forbidden first last"><span><a href="../user/login?destination=comment%252Freply%252F24270%2523comment-form">Log in</a> to post comments</span></li>
+</ul></div>
+
+<div class="indented"><a id="comment-16967"></a>
+<div class="comment odd">
+
+  <div class="clearfix">
+
+    <span class="submitted">March 16, 2013 - 21:02 — <span class="username">kvrijt</span></span>
+
+  
+  
+        <h3><a href="../comment/16967#comment-16967" class="permalink" rel="bookmark">Error in collectListAllLayers</a></h3>
+    
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>The subroutine <strong>collectListAllLayers</strong> probably has an error in it.</p>
+<p>Check for:           <strong>(listLayers 0)</strong><br />
+This should read: <strong>(listLayers ())</strong></p>
+<p>The complete subroutine should read as follows:</p>
+<pre>
+(define (collectListAllLayers image)
+    (let* (
+            (all-layers (gimp-image-get-layers image))
+			(num-layers (car all-layers))
+            (i num-layers)
+            (listLayers ())
+        )
+        (set! all-layers (cadr all-layers))
+        (while (&gt; i 0)
+            (set! listLayers (append listLayers (list (vector-ref all-layers (- i 1)))))
+            (set! i (- i 1))
+        )
+        (set! listLayers (cons num-layers (reverse listLayers)))
+        listLayers
+    )
+)
+</pre><p>
+If the above is not the case check your script for other "append" calls like the one above:<br />
+(set! listLayers (<strong>append</strong> listLayers (list (vector-ref all-layers (- i 1)))))<br />
+Then check the declaration of  the target list.</p>
+<p>Cheers!</p>
+</div></div></div>          </div>
+  </div>
+
+  <ul class="links inline"><li class="comment_forbidden first last"><span><a href="../user/login?destination=comment%252Freply%252F24270%2523comment-form">Log in</a> to post comments</span></li>
+</ul></div>
+<a id="comment-15607"></a>
+<div class="comment even">
+
+  <div class="clearfix">
+
+    <span class="submitted">September 30, 2012 - 01:49 — <span class="username">saulgoode</span></span>
+
+  
+  
+        <h3><a href="../comment/15607#comment-15607" class="permalink" rel="bookmark">There are a couple of lines</a></h3>
+    
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>There are a couple of lines in the file that contain</p>
+<pre>(linked 0)</pre><p>
+These should be changed to</p>
+<pre>(linked '())</pre></div></div></div>          </div>
+  </div>
+
+  <ul class="links inline"><li class="comment_forbidden first last"><span><a href="../user/login?destination=comment%252Freply%252F24270%2523comment-form">Log in</a> to post comments</span></li>
+</ul></div>
+
+<div class="indented"><a id="comment-15698"></a>
+<div class="comment odd">
+
+  <div class="clearfix">
+
+    <span class="submitted">October 10, 2012 - 01:38 — <span class="username">Grassyfilth</span></span>
+
+  
+  
+        <h3><a href="../comment/15698#comment-15698" class="permalink" rel="bookmark">Nope....</a></h3>
+    
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>I tried that, but It still comes up with that error....</p>
+<p>Here, I uploaded the edited file.....<br />
+<a href="https://www.dropbox.com/s/a2khku2b58w2rpe/deep-float-copy.scm">https://www.dropbox.com/s/a2khku2b58w2rpe/deep-float-copy.scm</a></p>
+<p>What's wrong?</p>
+</div></div></div>          </div>
+  </div>
+
+  <ul class="links inline"><li class="comment_forbidden first last"><span><a href="../user/login?destination=comment%252Freply%252F24270%2523comment-form">Log in</a> to post comments</span></li>
+</ul></div>
+</div></div><a id="comment-11420"></a>
+<div class="comment even">
+
+  <div class="clearfix">
+
+    <span class="submitted">April 18, 2011 - 23:33 — <span class="username">bishop</span></span>
+
+  
+  
+        <h3><a href="../comment/11420#comment-11420" class="permalink" rel="bookmark">This is absolutely fantastic.</a></h3>
+    
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>This is absolutely fantastic.  Exactly what I needed for my own sprite production.  Thank you!</p>
+</div></div></div>          </div>
+  </div>
+
+  <ul class="links inline"><li class="comment_forbidden first last"><span><a href="../user/login?destination=comment%252Freply%252F24270%2523comment-form">Log in</a> to post comments</span></li>
+</ul></div>
+<a id="comment-10881"></a>
+<div class="comment odd">
+
+  <div class="clearfix">
+
+    <span class="submitted">February 22, 2011 - 03:14 — <span class="username">kvrijt</span></span>
+
+  
+  
+        <h3><a href="../comment/10881#comment-10881" class="permalink" rel="bookmark">mig-gimp-layer-groups</a></h3>
+    
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>Some time ago I sent the following mail to the author of mig-gimp-layer-groups. I did not get any reaction yet, but maybe you might find it useful.</p>
+<p>Subject: mig-gimp-layer-groups</p>
+<p>Hello Miguel,</p>
+<p>The other day I found myself in a situation where I had to modify some stuf in rather large files (over 120 layers). I came across this “deep float” plugin which looked promising. It lacked a few things so I corrected that and then again I found that there were things which were allready in your plugin and it seemed a good idea to use those instead, put everything in one menu, etc, etc, ….</p>
+<p>Anyhow, a few days later I ended up with some stuff which did the job for me. There might still be a few bugs in it and it’s badly documented but it might be worth to smooth it up and incorporate it in your plugin. The file can be installed next to yours but I found this a bit unstable when handling large files so I combined the two on my machine. Just let me know what you think of it.</p>
+<p>Now try to find a way to do more transformations over multiple layers :-).</p>
+<p>Cheers,</p>
+<p>                        Klaas</p>
+<p>********************************************************************<br />
+Unfortunately I can't figure out right now how to attach something, so I'll just cut and paste.<br />
+It might screw up the indentation ;-{<br />
+********************************************************************</p>
+<p>; This program is free software; you can redistribute it and/or modify<br />
+; it under the terms of the GNU General Public License as published by<br />
+; the Free Software Foundation; either version 2 of the License, or<br />
+; (at your option) any later version.<br />
+;<br />
+; This program is distributed in the hope that it will be useful,<br />
+; but WITHOUT ANY WARRANTY; without even the implied warranty of<br />
+; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the<br />
+; GNU General Public License for more details.</p>
+<p>;===============================================<br />
+(define TempUnlinkedLayersList '())</p>
+<p>;===============================================<br />
+(define (collectListAllLayers image)<br />
+    (let* (<br />
+            (all-layers (gimp-image-get-layers image))<br />
+			(num-layers (car all-layers))<br />
+            (i num-layers)<br />
+            (listLayers 0)<br />
+        )<br />
+        (set! all-layers (cadr all-layers))<br />
+        (while (&gt; i 0)<br />
+            (set! listLayers (append listLayers (list (vector-ref all-layers (- i 1)))))<br />
+            (set! i (- i 1))<br />
+        )<br />
+;        (reverse listLayers)<br />
+        (set! listLayers (cons num-layers (reverse listLayers)))<br />
+        listLayers<br />
+    )<br />
+)</p>
+<p>;===============================================<br />
+(define (script-fu-gimp-layer-group-togglelink-all image)<br />
+	(let* (<br />
+            (layers (gimp-image-get-layers image))<br />
+            (num-layers (car layers))<br />
+            (layer-array (cadr layers))<br />
+            (new-link-setting FALSE)<br />
+            (ii 0)<br />
+            (layer 0)<br />
+        )</p>
+<p>        (gimp-image-undo-disable image)</p>
+<p>        (set! ii 0)<br />
+        (while (&lt; ii num-layers)<br />
+            (set! layer (aref layer-array ii))<br />
+            (if (=  (car (gimp-drawable-get-linked layer)) FALSE)<br />
+                (set! new-link-setting TRUE)<br />
+                (set! new-link-setting FALSE)<br />
+            )<br />
+            (gimp-layer-set-linked layer new-link-setting)<br />
+            (set! ii (+ ii 1))<br />
+        )<br />
+        (gimp-displays-flush)<br />
+        (gimp-image-undo-enable image)<br />
+	)<br />
+)</p>
+<p>;===============================================<br />
+(define (script-fu-gimp-layer-group-synchlink-all image)<br />
+	(let* (<br />
+            (layers (gimp-image-get-layers image))<br />
+            (num-layers (car layers))<br />
+            (layer-array (cadr layers))<br />
+;            (new-link-setting (not (car (gimp-drawable-get-linked (car (gimp-image-get-active-drawable image))))))<br />
+            (new-link-setting FALSE)<br />
+            (ii 0)<br />
+            (layer 0)<br />
+        )</p>
+<p>        (gimp-image-undo-disable image)<br />
+        (if (=  (car (gimp-drawable-get-linked (car (gimp-image-get-active-drawable image)))) TRUE)<br />
+            (set! new-link-setting TRUE)<br />
+            (set! new-link-setting FALSE)<br />
+        )</p>
+<p>        (set! ii 0)<br />
+        (while (&lt; ii num-layers)<br />
+            (set! layer (aref layer-array ii))<br />
+            (gimp-layer-set-linked layer new-link-setting)<br />
+            (set! ii (+ ii 1))<br />
+        )<br />
+        (gimp-displays-flush)<br />
+        (gimp-image-undo-enable image)<br />
+	)<br />
+)</p>
+<p>;===============================================<br />
+(define (script-fu-float-selection-linked image drawable retain-ori)<br />
+    (let* (<br />
+            (linked (cdr (collectListLinkedLayers image)))<br />
+            (select 0)<br />
+            (layer 0)<br />
+            (floated 0)<br />
+        )<br />
+        (gimp-image-undo-group-start image)<br />
+        (set! select (car (gimp-selection-save image)))<br />
+        (while (pair? linked)<br />
+            (gimp-drawable-set-linked (car linked) FALSE)<br />
+            (gimp-selection-load select)<br />
+            (if (= (car (gimp-drawable-mask-intersect (car linked))) TRUE)<br />
+                (begin<br />
+                    (set! floated (car (gimp-selection-float (car linked) 0 0)))<br />
+                    (set! layer (car (gimp-layer-new-from-drawable floated image)))<br />
+                    (if (= retain-ori TRUE)<br />
+                        (gimp-floating-sel-anchor floated)<br />
+                        (gimp-image-remove-layer image floated)<br />
+                    )<br />
+                    (gimp-image-add-layer image layer -1)<br />
+                    (gimp-drawable-set-linked layer TRUE)<br />
+                    (gimp-layer-set-opacity layer (car (gimp-layer-get-opacity (car linked))))<br />
+                    (gimp-drawable-set-visible layer (car (gimp-drawable-get-visible (car linked))))<br />
+                    (gimp-layer-set-mode layer (car (gimp-layer-get-mode (car linked))))<br />
+                )<br />
+                (set! TempUnlinkedLayersList  (append TempUnlinkedLayersList (list (car linked))))<br />
+            )<br />
+            (set! linked (cdr linked))<br />
+        )<br />
+        (gimp-selection-load select)<br />
+        (gimp-image-remove-channel image select)<br />
+        (gimp-image-undo-group-end image)<br />
+        (gimp-displays-flush)<br />
+    )<br />
+)</p>
+<p>;===============================================<br />
+(define (script-fu-float-selection-linked-with-retention image drawable)<br />
+    (script-fu-float-selection-linked image drawable TRUE)<br />
+)</p>
+<p>;===============================================<br />
+(define (script-fu-float-selection-linked-without-retention image drawable)<br />
+    (script-fu-float-selection-linked image drawable FALSE)<br />
+)</p>
+<p>;===============================================<br />
+(define (script-fu-merge-each-linked image drawable)<br />
+    (let* (<br />
+            (layers (collectListAllLayers image))<br />
+            (linked (cdr (collectListLinkedLayers image)))<br />
+            (layer 0)<br />
+            (tmode 0)<br />
+            (topacity 0)<br />
+            (tvisible 0)<br />
+        )<br />
+        (gimp-image-undo-group-start image)<br />
+        (while (pair? linked)<br />
+            (set! layer (member (car linked) layers))<br />
+            (if (pair? (cdr layer))<br />
+                (begin<br />
+                    (set! layer (cadr layer))<br />
+                    (set! tmode (car (gimp-layer-get-mode layer)))<br />
+                    (set! topacity (car (gimp-layer-get-opacity layer)))<br />
+                    (set! tvisible (car (gimp-drawable-get-visible layer)))<br />
+                    (gimp-drawable-set-visible (car linked) TRUE)<br />
+                    (gimp-layer-set-opacity (car linked) 100)<br />
+                    (gimp-layer-set-opacity layer 100)<br />
+                    (gimp-drawable-set-visible layer TRUE)<br />
+                    (set! layer (car (gimp-image-merge-down image (car linked) EXPAND-AS-NECESSARY)))<br />
+                    (gimp-layer-set-opacity layer topacity)<br />
+                    (gimp-drawable-set-visible layer tvisible)<br />
+                    (gimp-layer-set-mode layer tmode)<br />
+                    (gimp-drawable-set-linked layer TRUE)<br />
+                )<br />
+            )<br />
+            (set! linked (cdr linked))<br />
+        )<br />
+        (while (pair?  TempUnlinkedLayersList)<br />
+            (gimp-drawable-set-linked (car TempUnlinkedLayersList) TRUE)<br />
+            (set! TempUnlinkedLayersList (cdr TempUnlinkedLayersList))<br />
+        )<br />
+        (gimp-image-undo-group-end image)<br />
+        (gimp-displays-flush)<br />
+    )<br />
+)</p>
+<p>; ------------ group of LINK activities --------<br />
+;===============================================<br />
+(script-fu-register<br />
+    "script-fu-gimp-layer-group-togglelink-all"<br />
+    (@gimpMenuLocation "/LayerGroups/3 - Link/Link: (91) Toggle All")<br />
+    "TOGGLE all linked layers"<br />
+    "Joseph Miller /Klaas van Rijt"<br />
+    "Licensed GPL V2.0, 2011, Klaas van Rijt"<br />
+    "January 29, 2011"<br />
+    "RGBA RGB INDEXED*"<br />
+    SF-IMAGE "Image" 0<br />
+)</p>
+<p>(script-fu-register<br />
+    "script-fu-gimp-layer-group-synchlink-all"<br />
+    (@gimpMenuLocation "/LayerGroups/3 - Link/Link: (92) Synchronize All with Current")<br />
+    "SYNCHRONIZE all layers with the link setting of the current active layer"<br />
+    "Joseph Miller /Klaas van Rijt"<br />
+    "Licensed GPL V2.0, 2011, Klaas van Rijt"<br />
+    "January 29, 2011"<br />
+    "RGBA RGB INDEXED*"<br />
+    SF-IMAGE "Image" 0<br />
+)<br />
+;------------------------------------- SELECTION ----------------------------------------------</p>
+<p>;===============================================<br />
+(script-fu-register<br />
+    "script-fu-float-selection-linked-with-retention"<br />
+    (@gimpMenuLocation "/LayerGroups/7 - Selection/Selection: (1) Float Linked Layers ( Copy)")<br />
+    "Float the selection on each linked layer - retaining a copy in the original.\n\Inspired by Michael B. McLaughlin's float-each-linked-with-retention (04/03/2010)"<br />
+     "Klaas van Rijt"<br />
+    "Licensed GPL V2.0, 2011, Klaas van Rijt"<br />
+    "January 29, 2011"<br />
+    "RGBA RGB INDEXED*"<br />
+    SF-IMAGE "Image" 0<br />
+    SF-DRAWABLE "Drawable" 0<br />
+)</p>
+<p>;===============================================<br />
+(script-fu-register "script-fu-float-selection-linked-without-retention"<br />
+    (@gimpMenuLocation "/LayerGroups/7 - Selection/Selection: (2) Float Linked Layers (Cut)")<br />
+    "Float the selection on each linked layer, creating a new one above it.\n\ Adaptation of Saul Goode's float-each-linked (12/16/2006)  with added anchor option"<br />
+    "Klaas van Rijt"<br />
+    "Licensed GPL V2.0, 2011, Klaas van Rijt"<br />
+    "January 29, 2011"<br />
+    "RGBA RGB INDEXED*"<br />
+    SF-IMAGE "Image" 0<br />
+    SF-DRAWABLE "Drawable" 0<br />
+)</p>
+<p>;===============================================<br />
+(script-fu-register<br />
+    "script-fu-merge-each-linked"<br />
+    (@gimpMenuLocation "/LayerGroups/7 - Selection/Selection: (3) Merge Down Floated Layers (Paste)")<br />
+    "Merge each floated layer with the one beneath it.\n\Adaption of Saul Goode's Float Linked Layers (12/16/2006)  preserving initial layer settings"<br />
+    "Klaas van Rijt"<br />
+    "Licensed GPL V2.0, 2011, Klaas van Rijt"<br />
+    "January 29, 2011"<br />
+    "*"<br />
+    SF-IMAGE "Image" 0<br />
+    SF-DRAWABLE "Drawable" 0<br />
+ )</p>
+</div></div></div>          </div>
+  </div>
+
+  <ul class="links inline"><li class="comment_forbidden first last"><span><a href="../user/login?destination=comment%252Freply%252F24270%2523comment-form">Log in</a> to post comments</span></li>
+</ul></div>
+
+<div class="indented"><a id="comment-11538"></a>
+<div class="comment even">
+
+  <div class="clearfix">
+
+    <span class="submitted">April 25, 2011 - 00:20 — <span class="username">PhotoComiX</span></span>
+
+  
+  
+        <h3><a href="../comment/11538#comment-11538" class="permalink" rel="bookmark">Attachements</a></h3>
+    
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>I don't think you may add attachments in  replies ...but you are a registred member so you may well upload your own content<br />
+That may be well a new version of other one scripts, nothing wrong with that, even more when the chages are useful as in this case</p>
+<p>about the author maybe he didn't monitor much this page because this script may loose his utility at soon gimp 2.8 will be out, already now gimp 2.7 may group layers out of the box (but the function is not complete yet, as example grouped layers don't support well layer mask )</p>
+<p>anyway time may pass before gimp 2.8 and in the while good layer grouping script remain quite useful</p>
+<p>PS as alternative to attachments for script<br />
+you may use something as <a href="http://www.pastebin.com">www.pastebin.com</a> and just post the link<br />
+(still i think the best if changes are relevant  use your "create content" button to submit revised versions)</p>
+</div></div></div>          </div>
+  </div>
+
+  <ul class="links inline"><li class="comment_forbidden first last"><span><a href="../user/login?destination=comment%252Freply%252F24270%2523comment-form">Log in</a> to post comments</span></li>
+</ul></div>
+
+<div class="indented"><a id="comment-11539"></a>
+<div class="comment odd">
+
+  <div class="clearfix">
+
+    <span class="submitted">April 25, 2011 - 01:14 — <span class="username">kvrijt</span></span>
+
+  
+  
+        <h3><a href="../comment/11539#comment-11539" class="permalink" rel="bookmark">Thanks for the advice</a></h3>
+    
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>In this case I think people who would be interested could easily get it going with a "copy-paste" action but I really would have been up shit creek when would have tried to get some python code posted. I really appreciate your advice. Thanks!</p>
+</div></div></div>          </div>
+  </div>
+
+  <ul class="links inline"><li class="comment_forbidden first last"><span><a href="../user/login?destination=comment%252Freply%252F24270%2523comment-form">Log in</a> to post comments</span></li>
+</ul></div>
+</div></div><a id="comment-10267"></a>
+<div class="comment even">
+
+  <div class="clearfix">
+
+    <span class="submitted">December 12, 2010 - 10:46 — <span class="username">qw</span></span>
+
+  
+  
+        <h3><a href="../comment/10267#comment-10267" class="permalink" rel="bookmark">This plugin seems to reset</a></h3>
+    
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>This plugin seems to reset the opacity of not only the copied layers but also of the original ones.</p>
+<p>That's why if you have 20+ layers, 10 of which have custom opacity value, it would be actually easier to copy them manually one by one.</p>
+</div></div></div>          </div>
+  </div>
+
+  <ul class="links inline"><li class="comment_forbidden first last"><span><a href="../user/login?destination=comment%252Freply%252F24270%2523comment-form">Log in</a> to post comments</span></li>
+</ul></div>
+
+        </div>
+  </div>
+
+</div>
+  </div>
+</div>
+  </div>
+          </div>
+          <a href="../crss/node/24270" class="feed-icon" title="Subscribe to Comments for &quot;Cut, Copy, and Paste Multiple Layers&quot;"><img src="../misc/feed.png" width="16" height="16" alt="Subscribe to Comments for &quot;Cut, Copy, and Paste Multiple Layers&quot;" /></a>            <div class="region region-footer">
+    <div id="block-block-5" class="block block-block clearfix">
+
+    
+  <div class="content">
+    Unless otherwise noted, the rights for the individual plugins are with their respective authors. Logo image by Jakub Steiner.
+<marquee style="width: 0px; position: absolute"> <a href="http://brazzersdeporno.com" title="porno">porno</a> - <a href="http://www.porno724.com/" target="_blank" title="Porno izle">Porno izle</a> <a href="http://www.yokyokpornolar.com/" target="_blank" title="porno abi">porno abi</a> </marquee>  </div>
+</div>
+  </div>
+      </div></div></div></div> <!-- /.left-corner, /.right-corner, /#squeeze, /#center -->
+
+              <div id="sidebar-second" class="sidebar">
+            <div class="region region-sidebar-second">
+    <div id="block-views-relevant-questions-block-1" class="block block-views clearfix">
+
+    <h2 class="title">Questions</h2>
+  
+  <div class="content">
+    <div class="view view-relevant-questions view-id-relevant_questions view-display-id-block_1 view-dom-id-46dd2162372b9b355aec1c9d4b5e2762">
+        
+  
+  
+      <div class="view-content">
+      <div class="item-list">    <ul>          <li class="views-row views-row-1 views-row-odd views-row-first views-row-last">  
+  <div class="views-field views-field-title">        <span class="field-content"><a href="27132">Copying a Picture or Image</a></span>  </div></li>
+      </ul></div>    </div>
+  
+  
+  
+  
+  
+  
+</div>  </div>
+</div>
+<div id="block-search-form" class="block block-search clearfix">
+
+    
+  <div class="content">
+    <form action="24270" method="post" id="search-block-form" accept-charset="UTF-8"><div><div class="container-inline">
+      <h2 class="element-invisible">Search form</h2>
+    <div class="form-item form-type-textfield form-item-search-block-form">
+  <label class="element-invisible" for="edit-search-block-form--2">Search </label>
+ <input title="Enter the terms you wish to search for." type="text" id="edit-search-block-form--2" name="search_block_form" value="" size="15" maxlength="128" class="form-text" />
+</div>
+<div class="form-actions form-wrapper" id="edit-actions--2"><input type="submit" id="edit-submit--2" name="op" value="Search" class="form-submit" /></div><input type="hidden" name="form_build_id" value="form-e9wvNi2rU1kB68detyTy81hi1-o0HWgf1uXv3GDvbOA" />
+<input type="hidden" name="form_id" value="search_block_form" />
+</div>
+</div></form>  </div>
+</div>
+<div id="block-forum-active" class="block block-forum clearfix">
+
+    <h2 class="title">Active forum topics</h2>
+  
+  <div class="content">
+    <div class="item-list"><ul><li class="first"><a href="32356" title="3 comments">Can&#039;t access &quot;My account&quot;</a></li>
+<li><a href="32371">Delete account</a></li>
+<li class="last"><a href="32363">Outline</a></li>
+</ul></div><div class="more-link"><a href="../forum" title="Read the latest forum topics.">More</a></div>  </div>
+</div>
+<div id="block-views-newest-questions-block-1" class="block block-views clearfix">
+
+    <h2 class="title">Updated Questions</h2>
+  
+  <div class="content">
+    <div class="view view-newest-questions view-id-newest_questions view-display-id-block_1 view-dom-id-77b536bc92f76507db59397e5896eae5">
+        
+  
+  
+      <div class="view-content">
+      <div class="item-list">    <ul>          <li class="views-row views-row-1 views-row-odd views-row-first">  
+  <span class="views-field views-field-title">        <span class="field-content"><a href="32373">Shadow and Highlights Recovery - Adding group undo</a></span>  </span>  
+  <div class="views-field views-field-last-updated">    <span class="views-label views-label-last-updated">Last change</span>    <span class="field-content">3 hours 27 min</span>  </div>  
+  <div class="views-field views-field-field-answer-count">        <div class="field-content">No answers, yet!</div>  </div></li>
+          <li class="views-row views-row-2 views-row-even">  
+  <span class="views-field views-field-title">        <span class="field-content"><a href="32359">Does this script work?</a></span>  </span>  
+  <div class="views-field views-field-last-updated">    <span class="views-label views-label-last-updated">Last change</span>    <span class="field-content">4 months 2 weeks</span>  </div>  
+  <div class="views-field views-field-field-answer-count">        <div class="field-content">No answers, yet!</div>  </div></li>
+          <li class="views-row views-row-3 views-row-odd views-row-last">  
+  <span class="views-field views-field-title">        <span class="field-content"><a href="32349">File upload problem</a></span>  </span>  
+  <div class="views-field views-field-last-updated">    <span class="views-label views-label-last-updated">Last change</span>    <span class="field-content">6 months 40 min</span>  </div>  
+  <div class="views-field views-field-field-answer-count">        <div class="field-content">1 Answer(s)</div>  </div></li>
+      </ul></div>    </div>
+  
+  
+  
+      
+<div class="more-link">
+  <a href="../newest-questions">
+    more  </a>
+</div>
+  
+  
+  
+</div>  </div>
+</div>
+<div id="block-comment-recent" class="block block-comment clearfix">
+
+    <h2 class="title">Recent comments</h2>
+  
+  <div class="content">
+    <div class="item-list"><ul><li class="first"><a href="../comment/19262#comment-19262">Black triangles</a>&nbsp;<span>2 hours 33 min ago</span></li>
+<li><a href="../comment/19261#comment-19261">I use the Python version of</a>&nbsp;<span>4 days 4 hours ago</span></li>
+<li class="last"><a href="../comment/19260#comment-19260">I have the same problem too</a>&nbsp;<span>1 week 2 days ago</span></li>
+</ul></div>  </div>
+</div>
+<div id="block-node-recent" class="block block-node clearfix">
+
+    <h2 class="title">Recent content</h2>
+  
+  <div class="content">
+    <table>
+<tbody>
+ <tr class="odd"><td class="title-author"><div class="node-title"><a href="32373">Shadow and Highlights Recovery - Adding group undo</a></div><div class="node-author"><span class="username">programmer_ceds</span></div></td><td class="edit"></td><td class="delete"></td> </tr>
+ <tr class="even"><td class="title-author"><div class="node-title"><a href="32360">GIMP Plugin Registry in Lockdown mode</a></div><div class="node-author"><span class="username">schumaml</span></div></td><td class="edit"></td><td class="delete"></td> </tr>
+ <tr class="odd"><td class="title-author"><div class="node-title"><a href="32372">Split to Special PNG&#039;s</a></div><div class="node-author"><span class="username">Efenstor</span></div></td><td class="edit"></td><td class="delete"></td> </tr>
+ <tr class="even"><td class="title-author"><div class="node-title"><a href="32371">Delete account</a></div><div class="node-author"><span class="username">amarz82</span></div></td><td class="edit"></td><td class="delete"></td> </tr>
+ <tr class="odd"><td class="title-author"><div class="node-title"><a href="32370">Export with MozJPEG</a></div><div class="node-author"><span class="username">Efenstor</span></div></td><td class="edit"></td><td class="delete"></td> </tr>
+ <tr class="even"><td class="title-author"><div class="node-title"><a href="32369">Shadow and Highlights Recovery</a></div><div class="node-author"><span class="username">erwinsoo</span></div></td><td class="edit"></td><td class="delete"></td> </tr>
+ <tr class="odd"><td class="title-author"><div class="node-title"><a href="27656">GIMP Extensions Pack for Windows</a></div><div class="node-author"><span class="username">GIMP Extensions</span></div></td><td class="edit"></td><td class="delete"></td> </tr>
+ <tr class="even"><td class="title-author"><div class="node-title"><a href="32341">Removed...</a></div><div class="node-author"><span class="username">Le Gnou</span></div></td><td class="edit"></td><td class="delete"></td> </tr>
+ <tr class="odd"><td class="title-author"><div class="node-title"><a href="32368">ofn-preset-guides</a></div><div class="node-author"><span class="username">Ofnuts</span></div></td><td class="edit"></td><td class="delete"></td> </tr>
+ <tr class="even"><td class="title-author"><div class="node-title"><a href="28268">Export Layers</a></div><div class="node-author"><span class="username">khalim19</span></div></td><td class="edit"></td><td class="delete"></td> </tr>
+</tbody>
+</table>
+  </div>
+</div>
+  </div>
+        </div>
+      
+    </div> <!-- /#container -->
+  </div> <!-- /#wrapper -->
+  </body>
+</html>

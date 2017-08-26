@@ -1,0 +1,43 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+# vi:ts=4 sw=4 et
+
+# Tested on Gimp 2.6.12
+
+# See also: http://www.gimp.org/docs/python/index.html
+
+from gimpfu import *
+
+def new_distributed_guides(img, layer, guide_width, guide_height):
+    pdb.gimp_image_undo_group_start(img)
+
+    pos = guide_width
+    while pos < layer.width:
+        pdb.gimp_image_add_vguide(img, pos)
+        pos = pos + guide_width
+
+    pos = guide_height
+    while pos < layer.height:
+        pdb.gimp_image_add_hguide(img, pos)
+        pos = pos + guide_height
+
+    pdb.gimp_image_undo_group_end(img)
+
+register(
+    'new_distributed_guides',
+    'New evenly distributed guides',
+    'Add new evenly distrubted guides to the image.  This is useful for splitting the image into tiles for games and applications.  Just run Filters->Web->Split after using this to lay down the guides.',
+    'W Morgan Stair',
+    'Licensed under WTFPL',
+    '2012-02-29',
+    '<Image>/Image/Guides/New Distributed Guides...',
+    '*',
+    [
+        (PF_SPINNER, 'guide-width',  'Guide _Width',  64, (4,65536,4)),
+        (PF_SPINNER, 'guide-height', 'Guide _Height', 64, (4,65536,4)),
+    ],
+    [],
+    new_distributed_guides
+)
+
+main()

@@ -1,0 +1,105 @@
+#!/usr/bin/env python
+#
+# Line Width, v. 1.5 Python-fu GIMP plugin.
+# June, 2013.  Under Gnu Public License current at that date.
+# This version July, 2013.
+# Python-fu Gimp script by Michael B. Stevens
+
+# CHANGES in v. 1.4:
+# New user-setting for Temporary-Enlargement size.
+# That is the size the image gets enlarged-to while being blurred.
+# A "elg" sized thresholding is uded to make the line heavier
+# or lighter.
+# Size of upper threshold for speed-of-line-change is tweaked.
+
+# CHANGES in v. 1.5:
+# Now operates on a new layer that is a copy of the visible image.
+# So now you can compare old and new line widths by clicking
+# on-and-off visibility of the new layer, and you can simply
+# dump the new layer if you don't like what you got.
+# Also, the undo is now grouped and there is better error checking.
+#
+#
+# TIPS:
+# 
+# Try starting with low settings of speed of change and repeats.
+# The image in use will have its own requirements.
+# Running plug-in multiple times is OK.  Experiment.
+#
+# A LOW temporary-enlargement multiplier
+# ("Temp. enlargement multiplier") allows a run with
+# large images in available memory
+# and  in a reasonable amount of time.
+# HIGHER enlargement settings give somewhat better line quality
+# at the expense of program speed.
+# High enlargement settings with large image use a _lot_ of memory.
+# I suggest you crank down the enlargement multiplier setting.
+# But you can also go to GIMP's settings menus at
+# <Image>/Edit/Preferences/Environment, and increase the
+# cache and undo level memory.
+#
+# INSTALL:
+# Python must be on your system.
+# Put this plugin file into ".gimp-2.8" folder's "plug-ins" folder.
+# Make sure the file has executable permissions.
+# Restart GIMP.  The plugin will appear under the
+# "<Image>/Filters" menu as "Line Width".
+#
+# Tested in GIMP 2.8.  May not run on earlier versions.
+#
+# Use RGB  or RGBA images.
+
+# WARNING BOILERPLATE:
+# This software is provided free under GNU public license without
+# any guarantee:  Use at your own risk.
+
+
+
+
+from gimpfu import *
+
+def linewidth(  img, drw, elg, speed, repeats, start ):
+    """ Adjust line thickness in b&w RGB or RGBA line art."""
+    pdb.gimp_image_undo_group_start(img)
+    try:
+        w = pdb.gimp_image_width(img)
+        h = pdb.gimp_image_height(img)
+        lr = pdb.gimp_layer_new_from_visible(img, img, "TweakedLines")
+        pdb.gimp_image_insert_layer(img, lr, None, -1)
+        pdb.gimp_layer_scale(lr, w*elg, h*elg, FALSE)
+        for i in range(int(repeats)):
+            pdb.plug_in_blur( img, lr)
+            if start == 0:
+                pdb.gimp_threshold( lr, 195 + int(speed) , 255 )
+            elif start == 1:
+                pdb.gimp_threshold( lr, 61 - int(speed) , 255 )
+            else:
+                pdb.gimp_message("Direction value not specified!")
+            pdb.plug_in_antialias(img, lr)
+        pdb.gimp_layer_scale(lr, w, h, FALSE)
+        pdb.plug_in_antialias( img, lr)
+    except StandardError:
+        pdb.gimp_message("Python StandardError.  Try other settings.")
+    pdb.gimp_image_undo_group_end(img)
+
+
+register(
+    "line-width", # no spaces in procedure database string!
+    "Adjust width of lines in black & white line art",
+    "RGB or RGBA images",
+    "Michael B. Stevens",
+    "copyright (C) Michael B. Stevens under Gnu Public License",
+    "May 2013, v. 1.5 August 2013",
+    "<Image>/Filters/Line Width",
+    "RGB, RGBA",
+    [
+      (PF_SLIDER, "elg", "Temp. enlargement multiplier", 3, (1, 8, 1)),
+      (PF_SLIDER, "speed",   "Speed of Change",   10,  (1, 60, 1)),
+      (PF_SLIDER, "repeats", "Repeats",           1,  (1, 10, 1)),
+      (PF_RADIO, "start","Direction:",0, (("Narrow", 1),("Widen",0)))
+    ],
+    [],
+    linewidth
+    )
+
+main()

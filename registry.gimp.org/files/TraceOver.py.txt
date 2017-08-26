@@ -1,0 +1,50 @@
+#!/usr/bin/env python
+
+# TraceOver 2.0, a Python-fu Gimp plugin.
+# March 2013, under Gnu Public License
+# Script by Michael B. Stevens
+# Place in your .gimp folder's plug-ins folder and make executable.
+# Tested in Gimp 2.8.
+# Will appear at <Images>/Layers/TraceOver.
+# This is free and open source G.P.L. software.  Use at your own risk.
+
+
+from gimpfu import *
+
+def create_work_layers(timg, tdrawable):
+    # First simi-opaque layer...
+    blr = pdb.gimp_layer_new(timg, tdrawable.width,
+        tdrawable.height, RGB_IMAGE, "Simi-opaque", 60,
+        NORMAL_MODE)
+    pdb.gimp_context_set_foreground((42, 188, 183))
+    # Modify the '42, 188, 183' in previous line to change color.
+    pdb.gimp_drawable_fill(blr, FOREGROUND_FILL)
+    pdb.gimp_image_insert_layer(timg, blr, None, -1)
+    #
+    # Now add the layer you draw on...
+    pdb.gimp_context_set_foreground((0, 0, 0))
+    pdb.gimp_context_set_background((255, 255, 255))
+    blr2 = pdb.gimp_layer_new(timg, tdrawable.width,
+        tdrawable.height, RGB_IMAGE, "Trace-over", 100,
+        MULTIPLY_MODE)
+    pdb.gimp_drawable_fill(blr2, BACKGROUND_FILL)
+    pdb.gimp_image_insert_layer(timg, blr2, None, -1)
+    # pdb docs say to use 0 for 3rd param., but only None works.
+    return
+
+register(
+    "TraceOver",
+    "Add simi-transparent layers for tracing over rougher drawings",
+    "Use for tracing over rougher drawings.",
+    "Michael B. Stevens",
+    "Programmed by Michael B. Stevens",
+    "Released under Gnu Public License, March, 2013",
+    "<Image>/Layer/TraceOver",
+    "*",
+    [],
+    [],
+    create_work_layers
+    )
+
+main()
+

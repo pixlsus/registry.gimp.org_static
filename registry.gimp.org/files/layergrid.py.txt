@@ -1,0 +1,77 @@
+#!/usr/bin/env python
+
+from gimpfu import *
+
+def layergrid(image, drawable, rows):
+    w, h = image.width, image.height
+    num_layers = len(image.layers)
+
+    pdb.gimp_image_undo_group_start(image)
+
+    if num_layers > 1: # layers -> grid
+
+        if rows == 0: rows = num_layers
+        cols = (num_layers + rows - 1) // rows
+
+        x = 0
+        y = 0
+        col = 0
+        for layer in image.layers:
+            pdb.gimp_layer_set_offsets(layer, x, y)
+            x += w
+            col += 1
+            if col == cols:
+                x = 0
+                y += h
+                col = 0
+        
+        background = pdb.gimp_image_merge_visible_layers(image, EXPAND_AS_NECESSARY)
+        pdb.gimp_layer_set_name(background, "background")
+        pdb.gimp_image_resize_to_layers(image)
+        pdb.gimp_image_grid_set_spacing(image, w, h)
+        pdb.gimp_image_grid_set_offset(image, 0, 0)
+
+    else: # grid -> layers
+        
+        gw, gh = pdb.gimp_image_grid_get_spacing(image)
+        gx, gy = pdb.gimp_image_grid_get_offset(image)
+        gw, gh = int(gw), int(gh)
+        gx, gy = int(gx), int(gy)
+
+        background = pdb.gimp_image_get_active_layer(image)
+
+        for y in range(gy, h, gh):
+            for x in range(gx, w, gw):
+                pdb.gimp_rect_select(image, x, y, gw, gh, CHANNEL_OP_REPLACE, False, 0)
+                fsel = pdb.gimp_selection_float(drawable, -x, -y)
+                pdb.gimp_floating_sel_to_layer(fsel)
+                layer = pdb.gimp_image_get_active_layer(image)
+                pdb.gimp_layer_set_name(layer, "cell " + str(x) + " " + str(y))
+                pdb.gimp_image_lower_layer_to_bottom(image, layer)
+                pdb.gimp_image_set_active_layer(image, background)
+                
+        pdb.gimp_image_remove_layer(image, background)
+        pdb.gimp_image_resize_to_layers(image)
+
+    pdb.gimp_image_undo_group_end(image)
+    return
+
+register(
+    "layergrid",
+	"Collapse layers into a grid or splits a grid into layers.",
+	"""If your image has multiple layers, this will create a grid out of
+them and adjust the grid settings accordingly. Otherwise the single
+layer of the image is transformed into layers according to the current
+grid settings with one layer per grid cell.""".replace("\n", " "),
+	"Al Lefant",
+	"Al Lefant",
+	"2011",
+	"<Image>/Layer/Layergrid...",
+	"*",
+	[
+    (PF_INT,        "rows", "Rows, for Layers->Grid only", 1),
+	],
+	[],
+	layergrid)
+
+main()

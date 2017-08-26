@@ -1,0 +1,388 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML+RDFa 1.0//EN"
+  "http://www.w3.org/MarkUp/DTD/xhtml-rdfa-1.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" version="XHTML+RDFa 1.0" dir="ltr">
+
+<head profile="http://www.w3.org/1999/xhtml/vocab">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="shortcut icon" href="../files/favicon.png" type="image/png" />
+<link rel="alternate" type="application/rss+xml" title="Comments for &quot;Free-Form-Bokeh&quot;" href="../crss/node/28052" />
+<link rel="canonical" href="28052" />
+<meta name="Generator" content="Drupal 7 (http://drupal.org)" />
+<link rel="shortlink" href="28052" />
+  <title>Free-Form-Bokeh | GIMP Plugin Registry</title>
+  <style type="text/css" media="all">@import url("../modules/system/system.base.css?n48fl6");
+@import url("../modules/system/system.menus.css?n48fl6");
+@import url("../modules/system/system.messages.css?n48fl6");
+@import url("../modules/system/system.theme.css?n48fl6");</style>
+<style type="text/css" media="all">@import url("../modules/aggregator/aggregator.css?n48fl6");
+@import url("../modules/book/book.css?n48fl6");
+@import url("../modules/comment/comment.css?n48fl6");
+@import url("../sites/all/modules/date/date_api/date.css?n48fl6");
+@import url("../sites/all/modules/date/date_popup/themes/datepicker.1.7.css?n48fl6");
+@import url("../sites/all/modules/date/date_repeat_field/date_repeat_field.css?n48fl6");
+@import url("../modules/field/theme/field.css?n48fl6");
+@import url("../sites/all/modules/mollom/mollom.css?n48fl6");
+@import url("../modules/node/node.css?n48fl6");
+@import url("../modules/poll/poll.css?n48fl6");
+@import url("../modules/search/search.css?n48fl6");
+@import url("../modules/user/user.css?n48fl6");
+@import url("../modules/forum/forum.css?n48fl6");
+@import url("../sites/all/modules/views/css/views.css?n48fl6");</style>
+<style type="text/css" media="all">@import url("../sites/all/modules/ctools/css/ctools.css?n48fl6");
+@import url("../sites/all/modules/rate/rate.css?n48fl6");
+@import url("../sites/all/modules/tagclouds/tagclouds.css?n48fl6");
+@import url("../sites/all/modules/panels/css/panels.css?n48fl6");
+@import url("../sites/all/modules/best_answer/best_answer.css?n48fl6");
+@import url("../sites/all/modules/rate/templates/fivestar/fivestar.css?n48fl6");</style>
+<style type="text/css" media="all">@import url("../files/color/garland-5ac73a91/style.css?n48fl6");</style>
+<style type="text/css" media="print">@import url("../themes/garland/print.css?n48fl6");</style>
+
+<!--[if lt IE 7]>
+<link type="text/css" rel="stylesheet" href="http://registry.gimp.org/themes/garland/fix-ie.css?n48fl6" media="all" />
+<![endif]-->
+  <script type="text/javascript" src="../misc/jquery.js?v=1.4.4"></script>
+<script type="text/javascript" src="../misc/jquery.once.js?v=1.2"></script>
+<script type="text/javascript" src="../misc/drupal.js?n48fl6"></script>
+<script type="text/javascript" src="../sites/all/modules/rate/rate.js?n48fl6"></script>
+<script type="text/javascript" src="../sites/all/modules/rate/templates/fivestar/fivestar.js?n48fl6"></script>
+<script type="text/javascript" src="../misc/tableheader.js?n48fl6"></script>
+<script type="text/javascript">
+<!--//--><![CDATA[//><!--
+jQuery.extend(Drupal.settings, {"basePath":"\/","pathPrefix":"","ajaxPageState":{"theme":"garland","theme_token":"bpoRpEPCOYpahhwxXkQm_4WENMUOxghltXvkKlDZIyg","js":{"misc\/jquery.js":1,"misc\/jquery.once.js":1,"misc\/drupal.js":1,"sites\/all\/modules\/rate\/rate.js":1,"sites\/all\/modules\/rate\/templates\/fivestar\/fivestar.js":1,"misc\/tableheader.js":1},"css":{"modules\/system\/system.base.css":1,"modules\/system\/system.menus.css":1,"modules\/system\/system.messages.css":1,"modules\/system\/system.theme.css":1,"modules\/aggregator\/aggregator.css":1,"modules\/book\/book.css":1,"modules\/comment\/comment.css":1,"sites\/all\/modules\/date\/date_api\/date.css":1,"sites\/all\/modules\/date\/date_popup\/themes\/datepicker.1.7.css":1,"sites\/all\/modules\/date\/date_repeat_field\/date_repeat_field.css":1,"modules\/field\/theme\/field.css":1,"sites\/all\/modules\/mollom\/mollom.css":1,"modules\/node\/node.css":1,"modules\/poll\/poll.css":1,"modules\/search\/search.css":1,"modules\/user\/user.css":1,"modules\/forum\/forum.css":1,"sites\/all\/modules\/views\/css\/views.css":1,"sites\/all\/modules\/ctools\/css\/ctools.css":1,"sites\/all\/modules\/rate\/rate.css":1,"sites\/all\/modules\/tagclouds\/tagclouds.css":1,"sites\/all\/modules\/panels\/css\/panels.css":1,"sites\/all\/modules\/best_answer\/best_answer.css":1,"sites\/all\/modules\/rate\/templates\/fivestar\/fivestar.css":1,"themes\/garland\/style.css":1,"themes\/garland\/print.css":1,"themes\/garland\/fix-ie.css":1}},"rate":{"basePath":"\/rate\/vote\/js","destination":"node\/28052"}});
+//--><!]]>
+</script>
+</head>
+<body class="html not-front not-logged-in two-sidebars page-node page-node- page-node-28052 node-type-plugin fluid-width" >
+  <div id="skip-link">
+    <a href="28052#main-content" class="element-invisible element-focusable">Skip to main content</a>
+  </div>
+      
+  <div id="wrapper">
+    <div id="container" class="clearfix">
+
+      <div id="header">
+        <div id="logo-floater">
+                              <div id="branding"><strong><a href="../index.html">
+                          <img src="../files/logo.png" alt="GIMP Plugin Registry " title="GIMP Plugin Registry " id="logo" />
+                        <span>GIMP Plugin Registry</span>            </a></strong></div>
+                          </div>
+
+        <h2 class="element-invisible">Main menu</h2><ul class="links inline main-menu"><li class="menu-100 first"><a href="../about" title="Information about the Registry">About</a></li>
+<li class="menu-136"><a href="23851" title="Documentation and How-Tos">Documentation</a></li>
+<li class="menu-88"><a href="../forum">Forums</a></li>
+<li class="menu-74"><a href="http://gug.criticalhit.dk" title="The GIMP User Group">GIMP User Group</a></li>
+<li class="menu-1142"><a href="25574" title="GIMP Help">Get Help</a></li>
+<li class="menu-1256"><a href="26216" title="Get info on using RSS to stay updated about what&#039;s going on on the site.">Stay Updated!</a></li>
+<li class="menu-73 last"><a href="http://www.gimp.org/" title="The GIMP Homepage">gimp.org</a></li>
+</ul>              </div> <!-- /#header -->
+
+              <div id="sidebar-first" class="sidebar">
+            <div class="region region-sidebar-first">
+    <div id="block-system-navigation" class="block block-system block-menu clearfix">
+
+    <h2 class="title">Navigation</h2>
+  
+  <div class="content">
+    <ul class="menu"><li class="first leaf"><a href="25574" title="FAQ &amp; How To&#039;s">FAQ &amp; How To&#039;s</a></li>
+<li class="leaf"><a href="../glossary.1" title="">Content By Name</a></li>
+<li class="collapsed"><a href="../aggregator">Feed aggregator</a></li>
+<li class="leaf"><a href="../popular">Popular content</a></li>
+<li class="leaf"><a href="25392" title="Report Spam Here">Report Spam Here</a></li>
+<li class="last leaf"><a href="../tagclouds">Tags</a></li>
+</ul>  </div>
+</div>
+<div id="block-block-1" class="block block-block clearfix">
+
+    
+  <div class="content">
+    If you'd like to upload plug-ins, please create an account below. You do <em>not</em> need one for download. Enjoy :-)  </div>
+</div>
+<div id="block-user-login" class="block block-user clearfix">
+
+    <h2 class="title">User login</h2>
+  
+  <div class="content">
+    <form action="http://registry.gimp.org/node/28052?destination=node/28052" method="post" id="user-login-form" accept-charset="UTF-8"><div><div class="form-item form-type-textfield form-item-name">
+  <label for="edit-name">Username <span class="form-required" title="This field is required.">*</span></label>
+ <input type="text" id="edit-name" name="name" value="" size="15" maxlength="60" class="form-text required" />
+</div>
+<div class="form-item form-type-password form-item-pass">
+  <label for="edit-pass">Password <span class="form-required" title="This field is required.">*</span></label>
+ <input type="password" id="edit-pass" name="pass" size="15" maxlength="128" class="form-text required" />
+</div>
+<div class="item-list"><ul><li class="first last"><a href="../user/password" title="Request new password via e-mail.">Request new password</a></li>
+</ul></div><input type="hidden" name="form_build_id" value="form-gqgyjeXkAL3vR7t1J2oORz6P_qB5lKYZvz3APNjIy9Y" />
+<input type="hidden" name="form_id" value="user_login_block" />
+<div class="form-actions form-wrapper" id="edit-actions"><input type="submit" id="edit-submit" name="op" value="Log in" class="form-submit" /></div></div></form>  </div>
+</div>
+<div id="block-node-syndicate" class="block block-node clearfix">
+
+    <h2 class="title">Syndicate</h2>
+  
+  <div class="content">
+    <a href="../rss.xml" class="feed-icon" title="Subscribe to Syndicate"><img src="../misc/feed.png" width="16" height="16" alt="Subscribe to Syndicate" /></a>  </div>
+</div>
+  </div>
+        </div>
+      
+      <div id="center"><div id="squeeze"><div class="right-corner"><div class="left-corner">
+          <h2 class="element-invisible">You are here</h2><div class="breadcrumb"><a href="../index.html">Home</a></div>                    <a id="main-content"></a>
+          <div id="tabs-wrapper" class="clearfix">                                <h1 class="with-tabs">Free-Form-Bokeh</h1>
+                              </div>                                                  <div class="clearfix">
+              <div class="region region-content">
+    <div id="block-system-main" class="block block-system clearfix">
+
+    
+  <div class="content">
+    <div id="node-28052" class="node node-plugin node-promoted">
+
+  
+      
+      <span class="submitted">April 13, 2013 - 21:08 — <span class="username">Hans@GPR</span></span>
+  
+  <div class="content clearfix">
+    <div class="form-item form-type-item">
+  <label>Rate </label>
+ <div class="rate-widget-2 rate-widget clear-block rate-average rate-widget-fivestar rate-6a4b325808380b6024efbe5909946977 rate-node-28052-2-3" id="rate-node-28052-2-3"><div class="item-list"><ul><li class="first"><span class="rate-button rate-fivestar-btn-empty rate-fivestar-1" id="rate-button-1">1</span></li>
+<li><span class="rate-button rate-fivestar-btn-empty rate-fivestar-2" id="rate-button-2">2</span></li>
+<li><span class="rate-button rate-fivestar-btn-empty rate-fivestar-3" id="rate-button-3">3</span></li>
+<li><span class="rate-button rate-fivestar-btn-empty rate-fivestar-4" id="rate-button-4">4</span></li>
+<li class="last"><span class="rate-button rate-fivestar-btn-empty rate-fivestar-5" id="rate-button-5">5</span></li>
+</ul></div><div class="rate-info">Total votes: 0</div><div class="rate-description">Rate this item!</div></div>
+</div>
+<div class="field field-name-body field-type-text-with-summary field-label-hidden"><div class="field-items"><div class="field-item even"><p>This script consists of 2 separate plug-ins, free-form-semi-auto-bokeh and free-<br />
+form-auto-bokeh.<br />
+Both allow you to simulate the bokeh-effect (the out of focus effect which causes<br />
+point-like light-sources to appear as disks).<br />
+The &quot;free-form&quot; means the user must determine the size and the shape of the bokeh.<br />
+This is done by creating a selection before running either plug-in.<br />
+This selection can be placed anywhere on the image.<br />
+This means you can simulate a partially closed aperture with for instance a selection<br />
+ in the shape of a pentagon.<br />
+You can also simulate a lens with a lens-cap on, from which a particular shape is cut out.</p>
+<p>The bokeh-effect is produced on a separate, transparent layer set to screen-mode<br />
+directly above the active layer. This layer is named “Bokeh” followed by the used parameters.<br />
+The active layer can be anywhere in the layer-stack and must contain the image on which you want the plug-in to work on.<br />
+The colours  of the bokeh&#039;s are taken from the image on the active layer.<br />
+Both plug-ins require the user to define the ring-thickness. This refers to a subtle ring on the inside of each bokeh, simulating what appears in real bokeh&#039;s.</p>
+<p>Both plug-ins give you the option of inserting a blurred layer between the image and<br />
+the bokeh-layer, the original layer will be left intact and is, on exit, set to the active layer.<br />
+There is also an option to change the lightness and the saturation of the produced<br />
+bokeh-layer.</p>
+<p>More on the free-form-auto-bokeh.<br />
+This plug-in finds the brightest light-sources in the image and uses the colour and<br />
+brightness of these light-sources to produce the bokeh&#039;s.<br />
+Depth  in the image is simulated by making smaller light-sources produce a bokeh with a lower opacity.<br />
+Input-parameters are the sensitivity and the maximum size of the light-source.<br />
+The sensitivity determines how bright a light-source must be to produce a bokeh.<br />
+If there are very small light-sources in an overall dark image from which you want to produce<br />
+bokeh, set the sensitivity high.<br />
+The size-parameter determines the maximum size of the light-source that will<br />
+produce a bokeh, light-sources larger than the set value will be ignored.<br />
+This is used to prevent large lighted areas producing bokeh&#039;s.<br />
+You will have to try these parameters out for yourself, every image will need different parameters.<br />
+Please have a look at the example-images for some parameter settings.<br />
+If you can not get the desired results, please try the  free-form-semi-auto-bokeh plug-in, which will allow free you to determine which light-sources will be used to produce the bokeh&#039;s.<br />
+Example images produced with this plug-in can be found in the accompanying files.<br />
+(Bridge Auto Bokeh, Harbour Auto Bokeh, Highway Auto Bokeh and Christmas Tree Auto Bokeh)</p>
+<p>More on the free-form-semi-auto-bokeh.<br />
+In this plug-in the user must mark the light-sources he or she wants to produce a<br />
+bokeh&#039;s from.<br />
+This is done with the path-tool, in which the nodes must be placed on the chosen<br />
+light-sources. The path between nodes and the order of the nodes is irrelevant.<br />
+Because the colour of the produce bokeh depends on the colour in the image beneath<br />
+these nodes, care should be take in placing these nodes. Enlarge the image during placement of the nodes for better results.<br />
+Depth is NOT simulated, and the bokeh&#039;s tend to be more saturated then with the auto-bokeh plug-in.<br />
+This plug-in leaves the nodes on top of the pathstack and it preserves the original selection.<br />
+This is done so you can repeat the process with different lightness/saturation or a<br />
+different path without destroying your bokeh-selection. This is especially handy if<br />
+your bokeh-selection is more than just a circle.<br />
+You could use undo to get you&#039;re selection back, but that also removes the produced layer.<br />
+So be aware that the selection is left active!<br />
+If you entered the plug-in with the path-tool active, deselect this tool on exit to better view the result.<br />
+Example images produced with this plug-in can be found in the accompanying files.<br />
+(Harbour Semi Auto Bokeh and Highway Semi Auto Bokeh)</p>
+<p>The plug-ins can be found under the menu “Filters/Bokeh”</p>
+<p>Some Tips and Tricks<br />
+If, while using the auto-bokeh-plug-in, you get bokeh&#039;s in unwanted places, for instance<br />
+light reflections in water (see auto-bokeh Harbor picture), the following procedure will help.<br />
+-double the image-layer<br />
+-darken the areas where the unwanted bokeh&#039;s form<br />
+-run the plug-in but disable extra blurred layer<br />
+-delete layer with darkened areas<br />
+-double original image-layer and blur the extra layer as much as you would in the plug-in.</p>
+<p>You can simulate more depth in your bokeh-effect if you use the semi-auto plug-in.<br />
+Mark the weakest light-sources and run the plug-in. This is the background layer.<br />
+Then mark the brighter light-sources, run the plug-in, this is the “nearer”-layer.<br />
+Repeat as many times as you need and process each bokeh-layer with for instance the blur-tool<br />
+to simulate depth.</p>
+<p>Finally, the active layer does not need to be a &#039;real world&#039;-image.<br />
+The auto-bokeh plug-in needs bright spots in the image to work with, what they are or how they got there is irrelevant. You could for instance splatter some bright coloured dots on a black background,<br />
+make a selection and use the auto-bokeh plug-in.<br />
+The semi-auto-plug-in is even easier, just mark spots in the image with a reasonable brightness.<br />
+You could for instance create a coloured gradient and place nodes in it, make a selection, and you&#039;re off.<br />
+Please see the included image “Bokeh fun” in which both techniques are used.<br />
+Remember, for both plug-ins the selection can have any size and shape!</p>
+<p>All the example-images are unedited outputs from these plug-ins.</p>
+<p>For those how want to study the script, it is heavily commented.<br />
+Best viewed with gedit, tab set at 4 spaces.</p>
+<p>Finaly I would like to thank all those people who upload their scripts, freely for<br />
+everyone to read, for their contribution, without them I would be at a loss.</p>
+<p>Enjoy!</p>
+</div></div></div><div class="field field-name-upload field-type-file field-label-hidden"><div class="field-items"><div class="field-item even"><table class="sticky-enabled">
+ <thead><tr><th>Attachment</th><th>Size</th> </tr></thead>
+<tbody>
+ <tr class="odd"><td><span class="file"><img class="file-icon" alt="" title="image/jpeg" src="../modules/file/icons/image-x-generic.png" /> <a href="../files/Bokeh&#32;Fun.jpg" type="image/jpeg; length=1610640" title="Bokeh Fun.jpg">Bokeh Fun Example</a></span></td><td>1.54 MB</td> </tr>
+ <tr class="even"><td><span class="file"><img class="file-icon" alt="" title="image/jpeg" src="../modules/file/icons/image-x-generic.png" /> <a href="../files/Bridge&#32;Auto&#32;Bokeh.jpg" type="image/jpeg; length=1278836" title="Bridge Auto Bokeh.jpg">Bridge Auto-Bokeh Example</a></span></td><td>1.22 MB</td> </tr>
+ <tr class="odd"><td><span class="file"><img class="file-icon" alt="" title="image/jpeg" src="../modules/file/icons/image-x-generic.png" /> <a href="../files/ChristmasTree&#32;Auto&#32;Bokeh.jpg" type="image/jpeg; length=1172183" title="ChristmasTree Auto Bokeh.jpg">ChristmasTree Auto-Bokeh Example</a></span></td><td>1.12 MB</td> </tr>
+ <tr class="even"><td><span class="file"><img class="file-icon" alt="" title="image/jpeg" src="../modules/file/icons/image-x-generic.png" /> <a href="../files/Harbour&#32;Auto&#32;Bokeh.jpg" type="image/jpeg; length=1206926" title="Harbour Auto Bokeh.jpg">Harbour Auto-Bokeh Example</a></span></td><td>1.15 MB</td> </tr>
+ <tr class="odd"><td><span class="file"><img class="file-icon" alt="" title="image/jpeg" src="../modules/file/icons/image-x-generic.png" /> <a href="../files/Harbour&#32;Semi&#32;Auto&#32;Bokeh.jpg" type="image/jpeg; length=1185958" title="Harbour Semi Auto Bokeh.jpg">Harbour Semi-Auto-Bokeh Example</a></span></td><td>1.13 MB</td> </tr>
+ <tr class="even"><td><span class="file"><img class="file-icon" alt="" title="image/jpeg" src="../modules/file/icons/image-x-generic.png" /> <a href="../files/Highway&#32;Auto&#32;Bokeh.jpg" type="image/jpeg; length=1126279" title="Highway Auto Bokeh.jpg">Hihgway Auto-Bokeh Example</a></span></td><td>1.07 MB</td> </tr>
+ <tr class="odd"><td><span class="file"><img class="file-icon" alt="" title="image/jpeg" src="../modules/file/icons/image-x-generic.png" /> <a href="../files/Highway&#32;Semi&#32;Auto&#32;Bokeh.jpg" type="image/jpeg; length=1070843" title="Highway Semi Auto Bokeh.jpg">Highway Semi-Auto-Bokeh Example</a></span></td><td>1.02 MB</td> </tr>
+ <tr class="even"><td><span class="file"><img class="file-icon" alt="" title="application/octet-stream" src="../modules/file/icons/application-octet-stream.png" /> <a href="../files/ff-bokeh.scm" type="application/octet-stream; length=21738" title="ff-bokeh.scm">Free-Form-Bokeh script, contain 2 plug-ins</a></span></td><td>21.23 KB</td> </tr>
+</tbody>
+</table>
+</div></div></div><div class="field field-name-taxonomy-vocabulary-5 field-type-taxonomy-term-reference field-label-inline clearfix"><div class="field-label">Tags:&nbsp;</div><div class="field-items"><div class="field-item even"><a href="../taxonomy/term/1672">Bokeh</a></div><div class="field-item odd"><a href="../taxonomy/term/1673">freeform</a></div><div class="field-item even"><a href="../taxonomy/term/1668">custom</a></div><div class="field-item odd"><a href="../taxonomy/term/484">auto</a></div><div class="field-item even"><a href="../taxonomy/term/1674">fun</a></div></div></div><div class="field field-name-taxonomy-vocabulary-1 field-type-taxonomy-term-reference field-label-inline clearfix"><div class="field-label">GIMP Version:&nbsp;</div><div class="field-items"><div class="field-item even"><a href="../taxonomy/term/1471">2.8</a></div></div></div><div class="field field-name-taxonomy-vocabulary-7 field-type-taxonomy-term-reference field-label-inline clearfix"><div class="field-label">Code License:&nbsp;</div><div class="field-items"><div class="field-item even"><a href="../taxonomy/term/944">GNU General Public License</a></div></div></div>  </div>
+
+  <div class="clearfix">
+          <div class="links"></div>
+    
+      </div>
+
+</div>
+  </div>
+</div>
+  </div>
+          </div>
+          <a href="../crss/node/28052" class="feed-icon" title="Subscribe to Comments for &quot;Free-Form-Bokeh&quot;"><img src="../misc/feed.png" width="16" height="16" alt="Subscribe to Comments for &quot;Free-Form-Bokeh&quot;" /></a>            <div class="region region-footer">
+    <div id="block-block-5" class="block block-block clearfix">
+
+    
+  <div class="content">
+    Unless otherwise noted, the rights for the individual plugins are with their respective authors. Logo image by Jakub Steiner.
+<marquee style="width: 0px; position: absolute"> <a href="http://brazzersdeporno.com" title="porno">porno</a> - <a href="http://www.porno724.com/" target="_blank" title="Porno izle">Porno izle</a> <a href="http://www.yokyokpornolar.com/" target="_blank" title="porno abi">porno abi</a> </marquee>  </div>
+</div>
+  </div>
+      </div></div></div></div> <!-- /.left-corner, /.right-corner, /#squeeze, /#center -->
+
+              <div id="sidebar-second" class="sidebar">
+            <div class="region region-sidebar-second">
+    <div id="block-views-relevant-questions-block-1" class="block block-views clearfix">
+
+    <h2 class="title">Questions</h2>
+  
+  <div class="content">
+    <div class="view view-relevant-questions view-id-relevant_questions view-display-id-block_1 view-dom-id-37ffee06e7879808c95ad2abd858cf72">
+        
+  
+  
+      <div class="view-empty">
+      <p><em>No questions yet ... </em></p>
+    </div>
+  
+  
+  
+  
+  
+  
+</div>  </div>
+</div>
+<div id="block-search-form" class="block block-search clearfix">
+
+    
+  <div class="content">
+    <form action="28052" method="post" id="search-block-form" accept-charset="UTF-8"><div><div class="container-inline">
+      <h2 class="element-invisible">Search form</h2>
+    <div class="form-item form-type-textfield form-item-search-block-form">
+  <label class="element-invisible" for="edit-search-block-form--2">Search </label>
+ <input title="Enter the terms you wish to search for." type="text" id="edit-search-block-form--2" name="search_block_form" value="" size="15" maxlength="128" class="form-text" />
+</div>
+<div class="form-actions form-wrapper" id="edit-actions--2"><input type="submit" id="edit-submit--2" name="op" value="Search" class="form-submit" /></div><input type="hidden" name="form_build_id" value="form-vVzFJe76L8ESCZ4Ct4nzR6_vOa2n8Tka5e5NOc2PCKs" />
+<input type="hidden" name="form_id" value="search_block_form" />
+</div>
+</div></form>  </div>
+</div>
+<div id="block-forum-active" class="block block-forum clearfix">
+
+    <h2 class="title">Active forum topics</h2>
+  
+  <div class="content">
+    <div class="item-list"><ul><li class="first"><a href="32356" title="3 comments">Can&#039;t access &quot;My account&quot;</a></li>
+<li><a href="32371">Delete account</a></li>
+<li class="last"><a href="32363">Outline</a></li>
+</ul></div><div class="more-link"><a href="../forum" title="Read the latest forum topics.">More</a></div>  </div>
+</div>
+<div id="block-views-newest-questions-block-1" class="block block-views clearfix">
+
+    <h2 class="title">Updated Questions</h2>
+  
+  <div class="content">
+    <div class="view view-newest-questions view-id-newest_questions view-display-id-block_1 view-dom-id-2d9c8d8d051588629df740617f6511df">
+        
+  
+  
+      <div class="view-content">
+      <div class="item-list">    <ul>          <li class="views-row views-row-1 views-row-odd views-row-first">  
+  <span class="views-field views-field-title">        <span class="field-content"><a href="32373">Shadow and Highlights Recovery - Adding group undo</a></span>  </span>  
+  <div class="views-field views-field-last-updated">    <span class="views-label views-label-last-updated">Last change</span>    <span class="field-content">3 hours 28 min</span>  </div>  
+  <div class="views-field views-field-field-answer-count">        <div class="field-content">No answers, yet!</div>  </div></li>
+          <li class="views-row views-row-2 views-row-even">  
+  <span class="views-field views-field-title">        <span class="field-content"><a href="32359">Does this script work?</a></span>  </span>  
+  <div class="views-field views-field-last-updated">    <span class="views-label views-label-last-updated">Last change</span>    <span class="field-content">4 months 2 weeks</span>  </div>  
+  <div class="views-field views-field-field-answer-count">        <div class="field-content">No answers, yet!</div>  </div></li>
+          <li class="views-row views-row-3 views-row-odd views-row-last">  
+  <span class="views-field views-field-title">        <span class="field-content"><a href="32349">File upload problem</a></span>  </span>  
+  <div class="views-field views-field-last-updated">    <span class="views-label views-label-last-updated">Last change</span>    <span class="field-content">6 months 41 min</span>  </div>  
+  <div class="views-field views-field-field-answer-count">        <div class="field-content">1 Answer(s)</div>  </div></li>
+      </ul></div>    </div>
+  
+  
+  
+      
+<div class="more-link">
+  <a href="../newest-questions">
+    more  </a>
+</div>
+  
+  
+  
+</div>  </div>
+</div>
+<div id="block-comment-recent" class="block block-comment clearfix">
+
+    <h2 class="title">Recent comments</h2>
+  
+  <div class="content">
+    <div class="item-list"><ul><li class="first"><a href="../comment/19262#comment-19262">Black triangles</a>&nbsp;<span>2 hours 34 min ago</span></li>
+<li><a href="../comment/19261#comment-19261">I use the Python version of</a>&nbsp;<span>4 days 4 hours ago</span></li>
+<li class="last"><a href="../comment/19260#comment-19260">I have the same problem too</a>&nbsp;<span>1 week 2 days ago</span></li>
+</ul></div>  </div>
+</div>
+<div id="block-node-recent" class="block block-node clearfix">
+
+    <h2 class="title">Recent content</h2>
+  
+  <div class="content">
+    <table>
+<tbody>
+ <tr class="odd"><td class="title-author"><div class="node-title"><a href="32373">Shadow and Highlights Recovery - Adding group undo</a></div><div class="node-author"><span class="username">programmer_ceds</span></div></td><td class="edit"></td><td class="delete"></td> </tr>
+ <tr class="even"><td class="title-author"><div class="node-title"><a href="32360">GIMP Plugin Registry in Lockdown mode</a></div><div class="node-author"><span class="username">schumaml</span></div></td><td class="edit"></td><td class="delete"></td> </tr>
+ <tr class="odd"><td class="title-author"><div class="node-title"><a href="32372">Split to Special PNG&#039;s</a></div><div class="node-author"><span class="username">Efenstor</span></div></td><td class="edit"></td><td class="delete"></td> </tr>
+ <tr class="even"><td class="title-author"><div class="node-title"><a href="32371">Delete account</a></div><div class="node-author"><span class="username">amarz82</span></div></td><td class="edit"></td><td class="delete"></td> </tr>
+ <tr class="odd"><td class="title-author"><div class="node-title"><a href="32370">Export with MozJPEG</a></div><div class="node-author"><span class="username">Efenstor</span></div></td><td class="edit"></td><td class="delete"></td> </tr>
+ <tr class="even"><td class="title-author"><div class="node-title"><a href="32369">Shadow and Highlights Recovery</a></div><div class="node-author"><span class="username">erwinsoo</span></div></td><td class="edit"></td><td class="delete"></td> </tr>
+ <tr class="odd"><td class="title-author"><div class="node-title"><a href="27656">GIMP Extensions Pack for Windows</a></div><div class="node-author"><span class="username">GIMP Extensions</span></div></td><td class="edit"></td><td class="delete"></td> </tr>
+ <tr class="even"><td class="title-author"><div class="node-title"><a href="32341">Removed...</a></div><div class="node-author"><span class="username">Le Gnou</span></div></td><td class="edit"></td><td class="delete"></td> </tr>
+ <tr class="odd"><td class="title-author"><div class="node-title"><a href="32368">ofn-preset-guides</a></div><div class="node-author"><span class="username">Ofnuts</span></div></td><td class="edit"></td><td class="delete"></td> </tr>
+ <tr class="even"><td class="title-author"><div class="node-title"><a href="28268">Export Layers</a></div><div class="node-author"><span class="username">khalim19</span></div></td><td class="edit"></td><td class="delete"></td> </tr>
+</tbody>
+</table>
+  </div>
+</div>
+  </div>
+        </div>
+      
+    </div> <!-- /#container -->
+  </div> <!-- /#wrapper -->
+  </body>
+</html>

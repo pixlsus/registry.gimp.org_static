@@ -1,0 +1,887 @@
+# Define SciTE settings for lisp and Scheme files.
+
+file.patterns.lisp=*.lsp;*.lisp
+
+filter.lisp=LISP (lsp lisp)|$(file.patterns.lisp)|
+
+file.patterns.scheme=*.scm;*.smd;*.ss
+filter.scheme=Scheme (scm smd)|$(file.patterns.scheme)|
+
+lexer.$(file.patterns.lisp)=lisp
+lexer.$(file.patterns.scheme)=lisp
+
+# lisp build in functions, xlisp dialect
+keywords.$(file.patterns.lisp)= not defun + - * / = < > <= >= princ \
+eval apply funcall quote identity function complement backquote lambda set setq setf \
+defun defmacro gensym make symbol intern symbol name symbol value symbol plist get \
+getf putprop remprop hash make array aref car cdr caar cadr cdar cddr caaar caadr cadar \
+caddr cdaar cdadr cddar cdddr caaaar caaadr caadar caaddr cadaar cadadr caddar cadddr \
+cdaaar cdaadr cdadar cdaddr cddaar cddadr cdddar cddddr cons list append reverse last nth \
+nthcdr member assoc subst sublis nsubst  nsublis remove length list length \
+mapc mapcar mapl maplist mapcan mapcon rplaca rplacd nconc delete atom symbolp numberp \
+boundp null listp consp minusp zerop plusp evenp oddp eq eql equal cond case and or let l if prog \
+prog1 prog2 progn go return do dolist dotimes catch throw error cerror break \
+continue errset baktrace evalhook truncate float rem min max abs sin cos tan expt exp sqrt \
+random logand logior logxor lognot bignums logeqv lognand lognor \
+logorc2 logtest logbitp logcount integer length nil
+
+word.chars.lisp=$(chars.alpha)$(chars.numeric)_-/< \>.#+@$%^&=*!~`'()?
+word.characters.$(file.patterns.lisp)=$(word.chars.lisp)
+
+# Scheme functions, R5RS
+keywords.$(file.patterns.scheme)=asin + - * / = < > <= >= => \
+abs acos and angle append apply assoc assoc assq assv atan \
+begin boolean? \
+caar cadr call-with-current-continuation call/cc \
+call-with-input-file call-with-output-file call-with-values \
+car cdr \
+caar cadr cdar cddr \
+caaar caadr cadar caddr cdaar cdadr cddar cdddr \
+caaaar caaadr caadar caaddr cadaar cadadr caddar cadddr \
+cdaaar cdaadr cdadar cdaddr cddaar cddadr cdddar cddddr \
+case ceiling char->integer \
+char-alphabetic? char-ci<=? char-ci<? char-ci=? char-ci>=? char-ci>? \
+char-downcase char-lower-case? char-numeric? char-ready? \
+char-upcase char-upper-case? char-whitespace? \
+char<=? char<? char=? char>=? char>? char? \
+close-input-port close-output-port complex? cond cons cos \
+current-input-port current-output-port \
+define define-syntax delay denominator display do dynamic-wind \
+else eof-object? eq? equal? eqv? eval even? exact->inexact exact? \
+exp expt \
+floor for-each force \
+gcd \
+if imag-part inexact->exact inexact? input-port? integer->char integer? interaction-environment \
+lambda lcm length let let* let-syntax letrec letrec-syntax \
+list list->string list->vector list-ref list-tail list? load log \
+magnitude make-polar make-rectangular make-string make-vector \
+map max member memq memv min modulo \
+negative? newline not null-environment null? number->string number? numerator \
+odd? open-input-file open-output-file or output-port? \
+pair? peek-char input-port? output-port? positive? procedure? \
+quasiquote quote quotient \
+rational? rationalize read read-char real-part real? remainder reverse round \
+scheme-report-environment set! set-car! set-cdr! sin sqrt string \
+string->list string->number string->symbol string-append \
+string-ci<=? string-ci<? string-ci=? string-ci>=? string-ci>? \
+string-copy string-fill! string-length string-ref string-set! \
+string<=? string<? string=? string>=? string>? string? \
+substring symbol->string symbol? syntax-rules \
+transcript-off transcript-on truncate \
+unquote unquote-splicing \
+values vector vector->list vector-fill! vector-length vector-ref vector-set! vector? \
+with-input-from-file with-output-to-file write write-char \
+generic-assoc generic-member gimp-drawable-image move-text-to
+
+keywords2.$(file.patterns.scheme)=generic-member \
+gimp-undo-push-group-start \
+gettimeofday gimp-palette-set-background \
+gimp-airbrush \
+gimp-airbrush-default \
+gimp-brightness-contrast \
+gimp-brush-delete \
+gimp-brush-duplicate \
+gimp-brushes-close-popup \
+gimp-brushes-get-brush \
+gimp-brushes-get-brush-data \
+gimp-brushes-get-list \
+gimp-brushes-get-spacing \
+gimp-brushes-popup \
+gimp-brushes-refresh \
+gimp-brushes-set-popup \
+gimp-brushes-set-spacing \
+gimp-brush-get-angle \
+gimp-brush-get-aspect-ratio \
+gimp-brush-get-hardness \
+gimp-brush-get-info \
+gimp-brush-get-pixels \
+gimp-brush-get-radius \
+gimp-brush-get-shape \
+gimp-brush-get-spacing \
+gimp-brush-get-spikes \
+gimp-brush-is-editable \
+gimp-brush-is-generated \
+gimp-brush-new \
+gimp-brush-rename \
+gimp-brush-set-angle \
+gimp-brush-set-aspect-ratio \
+gimp-brush-set-hardness \
+gimp-brush-set-radius \
+gimp-brush-set-shape \
+gimp-brush-set-spacing \
+gimp-brush-set-spikes \
+gimp-buffer-delete \
+gimp-buffer-get-bytes \
+gimp-buffer-get-height \
+gimp-buffer-get-image-type \
+gimp-buffer-get-width \
+gimp-buffer-rename \
+gimp-buffers-get-list \
+gimp-by-color-select \
+gimp-by-color-select-full \
+gimp-channel-combine-masks \
+gimp-channel-copy \
+gimp-channel-get-color \
+gimp-channel-get-opacity \
+gimp-channel-get-show-masked \
+gimp-channel-new \
+gimp-channel-new-from-component \
+gimp-channel-set-color \
+gimp-channel-set-opacity \
+gimp-channel-set-show-masked \
+gimp-clone \
+gimp-clone-default \
+gimp-color-balance \
+gimp-colorize \
+gimp-context-get-background \
+gimp-context-get-brush \
+gimp-context-get-font \
+gimp-context-get-foreground \
+gimp-context-get-gradient \
+gimp-context-get-opacity \
+gimp-context-get-paint-method \
+gimp-context-get-paint-mode \
+gimp-context-get-palette \
+gimp-context-get-pattern \
+gimp-context-list-paint-methods \
+gimp-context-pop \
+gimp-context-push \
+gimp-context-set-background \
+gimp-context-set-brush \
+gimp-context-set-default-colors \
+gimp-context-set-font \
+gimp-context-set-foreground \
+gimp-context-set-gradient \
+gimp-context-set-opacity \
+gimp-context-set-paint-method \
+gimp-context-set-paint-mode \
+gimp-context-set-palette \
+gimp-context-set-pattern \
+gimp-context-swap-colors \
+gimp-convolve \
+gimp-convolve-default \
+gimp-curves-explicit \
+gimp-curves-spline \
+gimp-data-directory \
+gimp-desaturate \
+gimp-desaturate-full \
+gimp-directory \
+gimp-display-delete \
+gimp-display-get-window-handle \
+gimp-display-is-valid \
+gimp-display-new \
+gimp-displays-flush \
+gimp-displays-reconnect \
+gimp-dodgeburn \
+gimp-dodgeburn-default \
+gimp-drawable-bpp \
+gimp-drawable-delete \
+gimp-drawable-fill \
+gimp-drawable-foreground-extract \
+gimp-drawable-free-shadow \
+gimp-drawable-get-image \
+gimp-drawable-get-linked \
+gimp-drawable-get-name \
+gimp-drawable-get-pixel \
+gimp-drawable-get-tattoo \
+gimp-drawable-get-visible \
+gimp-drawable-has-alpha \
+gimp-drawable-height \
+gimp-drawable-is-channel \
+gimp-drawable-is-gray \
+gimp-drawable-is-indexed \
+gimp-drawable-is-layer \
+gimp-drawable-is-layer-mask \
+gimp-drawable-is-rgb \
+gimp-drawable-is-text-layer \
+gimp-drawable-is-valid \
+gimp-drawable-mask-bounds \
+gimp-drawable-mask-intersect \
+gimp-drawable-merge-shadow \
+gimp-drawable-offset \
+gimp-drawable-offsets \
+gimp-drawable-parasite-attach \
+gimp-drawable-parasite-detach \
+gimp-drawable-parasite-find \
+gimp-drawable-parasite-list \
+gimp-drawable-set-image \
+gimp-drawable-set-linked \
+gimp-drawable-set-name \
+gimp-drawable-set-pixel \
+gimp-drawable-set-tattoo \
+gimp-drawable-set-visible \
+gimp-drawable-sub-thumbnail \
+gimp-drawable-thumbnail \
+gimp-drawable-transform-2d \
+gimp-drawable-transform-2d-default \
+gimp-drawable-transform-flip \
+gimp-drawable-transform-flip-default \
+gimp-drawable-transform-flip-simple \
+gimp-drawable-transform-matrix \
+gimp-drawable-transform-matrix-default \
+gimp-drawable-transform-perspective \
+gimp-drawable-transform-perspective-default \
+gimp-drawable-transform-rotate \
+gimp-drawable-transform-rotate-default \
+gimp-drawable-transform-rotate-simple \
+gimp-drawable-transform-scale \
+gimp-drawable-transform-scale-default \
+gimp-drawable-transform-shear \
+gimp-drawable-transform-shear-default \
+gimp-drawable-type \
+gimp-drawable-type-with-alpha \
+gimp-drawable-update \
+gimp-drawable-width \
+gimp-edit-blend \
+gimp-edit-bucket-fill \
+gimp-edit-bucket-fill-full \
+gimp-edit-clear \
+gimp-edit-copy \
+gimp-edit-copy-visible \
+gimp-edit-cut \
+gimp-edit-fill \
+gimp-edit-named-copy \
+gimp-edit-named-copy-visible \
+gimp-edit-named-cut \
+gimp-edit-named-paste \
+gimp-edit-named-paste-as-new \
+gimp-edit-paste \
+gimp-edit-paste-as-new \
+gimp-edit-stroke \
+gimp-edit-stroke-vectors \
+gimp-ellipse-select \
+gimp-equalize \
+gimp-eraser \
+gimp-eraser-default \
+gimp-file-load \
+gimp-file-load-layer \
+gimp-file-load-layers \
+gimp-file-save \
+gimp-file-save-thumbnail \
+gimp-flip \
+gimp-floating-sel-anchor \
+gimp-floating-sel-attach \
+gimp-floating-sel-relax \
+gimp-floating-sel-remove \
+gimp-floating-sel-rigor \
+gimp-floating-sel-to-layer \
+gimp-fonts-close-popup \
+gimp-fonts-get-list \
+gimp-fonts-popup \
+gimp-fonts-refresh \
+gimp-fonts-set-popup \
+gimp-free-select \
+gimp-fuzzy-select \
+gimp-fuzzy-select-full \
+gimp-get-color-configuration \
+gimp-get-default-comment \
+gimp-get-default-unit \
+gimp-get-module-load-inhibit \
+gimp-get-monitor-resolution \
+gimp-get-path-by-tattoo \
+gimp-getpid \
+gimp-get-theme-dir \
+gimp-gimprc-query \
+gimp-gimprc-set \
+gimp-gradient-delete \
+gimp-gradient-duplicate \
+gimp-gradient-get-custom-samples \
+gimp-gradient-get-number-of-segments \
+gimp-gradient-get-uniform-samples \
+gimp-gradient-is-editable \
+gimp-gradient-new \
+gimp-gradient-rename \
+gimp-gradients-close-popup \
+gimp-gradient-segment-get-blending-function \
+gimp-gradient-segment-get-coloring-type \
+gimp-gradient-segment-get-left-color \
+gimp-gradient-segment-get-left-pos \
+gimp-gradient-segment-get-middle-pos \
+gimp-gradient-segment-get-right-color \
+gimp-gradient-segment-get-right-pos \
+gimp-gradient-segment-range-blend-colors \
+gimp-gradient-segment-range-blend-opacity \
+gimp-gradient-segment-range-delete \
+gimp-gradient-segment-range-flip \
+gimp-gradient-segment-range-move \
+gimp-gradient-segment-range-redistribute-handles \
+gimp-gradient-segment-range-replicate \
+gimp-gradient-segment-range-set-blending-function \
+gimp-gradient-segment-range-set-coloring-type \
+gimp-gradient-segment-range-split-midpoint \
+gimp-gradient-segment-range-split-uniform \
+gimp-gradient-segment-set-left-color \
+gimp-gradient-segment-set-left-pos \
+gimp-gradient-segment-set-middle-pos \
+gimp-gradient-segment-set-right-color \
+gimp-gradient-segment-set-right-pos \
+gimp-gradients-get-gradient-data \
+gimp-gradients-get-list \
+gimp-gradients-popup \
+gimp-gradients-refresh \
+gimp-gradients-sample-custom \
+gimp-gradients-sample-uniform \
+gimp-gradients-set-popup \
+gimp-heal \
+gimp-heal-default \
+gimp-help \
+gimp-histogram \
+gimp-hue-saturation \
+gimp-image-add-channel \
+gimp-image-add-hguide \
+gimp-image-add-layer \
+gimp-image-add-vectors \
+gimp-image-add-vguide \
+gimp-image-base-type \
+gimp-image-clean-all \
+gimp-image-convert-grayscale \
+gimp-image-convert-indexed \
+gimp-image-convert-rgb \
+gimp-image-convert-set-dither-matrix \
+gimp-image-crop \
+gimp-image-delete \
+gimp-image-delete-guide \
+gimp-image-duplicate \
+gimp-image-find-next-guide \
+gimp-image-flatten \
+gimp-image-flip \
+gimp-image-floating-sel-attached-to \
+gimp-image-free-shadow \
+gimp-image-get-active-channel \
+gimp-image-get-active-drawable \
+gimp-image-get-active-layer \
+gimp-image-get-active-vectors \
+gimp-image-get-channel-by-tattoo \
+gimp-image-get-channel-position \
+gimp-image-get-channels \
+gimp-image-get-colormap \
+gimp-image-get-component-active \
+gimp-image-get-component-visible \
+gimp-image-get-filename \
+gimp-image-get-floating-sel \
+gimp-image-get-guide-orientation \
+gimp-image-get-guide-position \
+gimp-image-get-layer-by-tattoo \
+gimp-image-get-layer-position \
+gimp-image-get-layers \
+gimp-image-get-name \
+gimp-image-get-resolution \
+gimp-image-get-selection \
+gimp-image-get-tattoo-state \
+gimp-image-get-unit \
+gimp-image-get-vectors \
+gimp-image-get-vectors-by-tattoo \
+gimp-image-get-vectors-position \
+gimp-image-grid-get-background-color \
+gimp-image-grid-get-foreground-color \
+gimp-image-grid-get-offset \
+gimp-image-grid-get-spacing \
+gimp-image-grid-get-style \
+gimp-image-grid-set-background-color \
+gimp-image-grid-set-foreground-color \
+gimp-image-grid-set-offset \
+gimp-image-grid-set-spacing \
+gimp-image-grid-set-style \
+gimp-image-height \
+gimp-image-is-dirty \
+gimp-image-is-valid \
+gimp-image-list \
+gimp-image-lower-channel \
+gimp-image-lower-layer \
+gimp-image-lower-layer-to-bottom \
+gimp-image-lower-vectors \
+gimp-image-lower-vectors-to-bottom \
+gimp-image-merge-down \
+gimp-image-merge-visible-layers \
+gimp-image-new \
+gimp-image-parasite-attach \
+gimp-image-parasite-detach \
+gimp-image-parasite-find \
+gimp-image-parasite-list \
+gimp-image-pick-color \
+gimp-image-pick-correlate-layer \
+gimp-image-raise-channel \
+gimp-image-raise-layer \
+gimp-image-raise-layer-to-top \
+gimp-image-raise-vectors \
+gimp-image-raise-vectors-to-top \
+gimp-image-remove-channel \
+gimp-image-remove-layer \
+gimp-image-remove-vectors \
+gimp-image-resize \
+gimp-image-resize-to-layers \
+gimp-image-rotate \
+gimp-image-scale \
+gimp-image-scale-full \
+gimp-image-set-active-channel \
+gimp-image-set-active-layer \
+gimp-image-set-active-vectors \
+gimp-image-set-colormap \
+gimp-image-set-component-active \
+gimp-image-set-component-visible \
+gimp-image-set-filename \
+gimp-image-set-resolution \
+gimp-image-set-tattoo-state \
+gimp-image-set-unit \
+gimp-image-thumbnail \
+gimp-image-undo-disable \
+gimp-image-undo-enable \
+gimp-image-undo-freeze \
+gimp-image-undo-group-end \
+gimp-image-undo-group-start \
+gimp-image-undo-is-enabled \
+gimp-image-undo-thaw \
+gimp-image-unset-active-channel \
+gimp-image-width \
+gimp-invert \
+gimp-layer-add-alpha \
+gimp-layer-add-mask \
+gimp-layer-copy \
+gimp-layer-create-mask \
+gimp-layer-flatten \
+gimp-layer-from-mask \
+gimp-layer-get-apply-mask \
+gimp-layer-get-edit-mask \
+gimp-layer-get-lock-alpha \
+gimp-layer-get-mask \
+gimp-layer-get-mode \
+gimp-layer-get-opacity \
+gimp-layer-get-show-mask \
+gimp-layer-is-floating-sel \
+gimp-layer-new \
+gimp-layer-new-from-drawable \
+gimp-layer-new-from-visible \
+gimp-layer-remove-mask \
+gimp-layer-resize \
+gimp-layer-resize-to-image-size \
+gimp-layer-scale \
+gimp-layer-scale-full \
+gimp-layer-set-apply-mask \
+gimp-layer-set-edit-mask \
+gimp-layer-set-lock-alpha \
+gimp-layer-set-mode \
+gimp-layer-set-offsets \
+gimp-layer-set-opacity \
+gimp-layer-set-show-mask \
+gimp-layer-translate \
+gimp-levels \
+gimp-levels-auto \
+gimp-levels-stretch \
+gimp-locale-directory \
+gimp-message \
+gimp-message-get-handler \
+gimp-message-set-handler \
+gimp-paintbrush \
+gimp-paintbrush-default \
+gimp-palette-add-entry \
+gimp-palette-delete \
+gimp-palette-delete-entry \
+gimp-palette-duplicate \
+gimp-palette-entry-get-color \
+gimp-palette-entry-get-name \
+gimp-palette-entry-set-color \
+gimp-palette-entry-set-name \
+gimp-palette-get-colors \
+gimp-palette-get-columns \
+gimp-palette-get-info \
+gimp-palette-is-editable \
+gimp-palette-new \
+gimp-palette-rename \
+gimp-palettes-close-popup \
+gimp-palette-set-columns \
+gimp-palettes-get-list \
+gimp-palettes-get-palette \
+gimp-palettes-get-palette-entry \
+gimp-palettes-popup \
+gimp-palettes-refresh \
+gimp-palettes-set-popup \
+gimp-parasite-attach \
+gimp-parasite-detach \
+gimp-parasite-find \
+gimp-parasite-list \
+gimp-path-delete \
+gimp-path-get-current \
+gimp-path-get-locked \
+gimp-path-get-point-at-dist \
+gimp-path-get-points \
+gimp-path-get-tattoo \
+gimp-path-import \
+gimp-path-list \
+gimp-path-set-current \
+gimp-path-set-locked \
+gimp-path-set-points \
+gimp-path-set-tattoo \
+gimp-path-stroke-current \
+gimp-path-to-selection \
+gimp-pattern-get-info \
+gimp-pattern-get-pixels \
+gimp-patterns-close-popup \
+gimp-patterns-get-list \
+gimp-patterns-get-pattern \
+gimp-patterns-get-pattern-data \
+gimp-patterns-popup \
+gimp-patterns-refresh \
+gimp-patterns-set-popup \
+gimp-pencil \
+gimp-perspective \
+gimp-plug-in-directory \
+gimp-plugin-domain-register \
+gimp-plugin-get-pdb-error-handler \
+gimp-plugin-help-register \
+gimp-plugin-icon-register \
+gimp-plugin-menu-branch-register \
+gimp-plugin-menu-register \
+gimp-plugin-set-pdb-error-handler \
+gimp-posterize \
+gimp-proc-db-call \
+gimp-procedural-db-dump \
+gimp-procedural-db-get-data \
+gimp-procedural-db-get-data-size \
+gimp-procedural-db-proc-arg \
+gimp-procedural-db-proc-exists \
+gimp-procedural-db-proc-info \
+gimp-procedural-db-proc-val \
+gimp-procedural-db-query \
+gimp-procedural-db-set-data \
+gimp-procedural-db-temp-name \
+gimp-progress-cancel \
+gimp-progress-end \
+gimp-progress-get-window-handle \
+gimp-progress-init \
+gimp-progress-install \
+gimp-progress-pulse \
+gimp-progress-set-text \
+gimp-progress-uninstall \
+gimp-progress-update \
+gimp-rect-select \
+gimp-register-file-handler-mime \
+gimp-register-load-handler \
+gimp-register-magic-load-handler \
+gimp-register-save-handler \
+gimp-register-thumbnail-loader \
+gimp-rotate \
+gimp-round-rect-select \
+gimp-scale \
+gimp-selection-all \
+gimp-selection-border \
+gimp-selection-bounds \
+gimp-selection-combine \
+gimp-selection-feather \
+gimp-selection-float \
+gimp-selection-grow \
+gimp-selection-invert \
+gimp-selection-is-empty \
+gimp-selection-layer-alpha \
+gimp-selection-load \
+gimp-selection-none \
+gimp-selection-save \
+gimp-selection-sharpen \
+gimp-selection-shrink \
+gimp-selection-translate \
+gimp-selection-value \
+gimp-shear \
+gimp-smudge \
+gimp-smudge-default \
+gimp-sysconf-directory \
+gimp-temp-name \
+gimp-text \
+gimp-text-fontname \
+gimp-text-get-extents \
+gimp-text-get-extents-fontname \
+gimp-text-layer-get-antialias \
+gimp-text-layer-get-base-direction \
+gimp-text-layer-get-color \
+gimp-text-layer-get-font \
+gimp-text-layer-get-font-size \
+gimp-text-layer-get-hinting \
+gimp-text-layer-get-indent \
+gimp-text-layer-get-justification \
+gimp-text-layer-get-kerning \
+gimp-text-layer-get-language \
+gimp-text-layer-get-letter-spacing \
+gimp-text-layer-get-line-spacing \
+gimp-text-layer-get-text \
+gimp-text-layer-new \
+gimp-text-layer-set-antialias \
+gimp-text-layer-set-base-direction \
+gimp-text-layer-set-color \
+gimp-text-layer-set-font \
+gimp-text-layer-set-font-size \
+gimp-text-layer-set-hinting \
+gimp-text-layer-set-indent \
+gimp-text-layer-set-justification \
+gimp-text-layer-set-kerning \
+gimp-text-layer-set-language \
+gimp-text-layer-set-letter-spacing \
+gimp-text-layer-set-line-spacing \
+gimp-text-layer-set-text \
+gimp-threshold \
+gimp-transform-2d \
+gimp-unit-get-abbreviation \
+gimp-unit-get-deletion-flag \
+gimp-unit-get-digits \
+gimp-unit-get-factor \
+gimp-unit-get-identifier \
+gimp-unit-get-number-of-built-in-units \
+gimp-unit-get-number-of-units \
+gimp-unit-get-plural \
+gimp-unit-get-singular \
+gimp-unit-get-symbol \
+gimp-unit-new \
+gimp-unit-set-deletion-flag \
+gimp-vectors-bezier-stroke-conicto \
+gimp-vectors-bezier-stroke-cubicto \
+gimp-vectors-bezier-stroke-lineto \
+gimp-vectors-bezier-stroke-new-ellipse \
+gimp-vectors-bezier-stroke-new-moveto \
+gimp-vectors-copy \
+gimp-vectors-export-to-file \
+gimp-vectors-export-to-string \
+gimp-vectors-get-image \
+gimp-vectors-get-linked \
+gimp-vectors-get-name \
+gimp-vectors-get-strokes \
+gimp-vectors-get-tattoo \
+gimp-vectors-get-visible \
+gimp-vectors-import-from-file \
+gimp-vectors-import-from-string \
+gimp-vectors-is-valid \
+gimp-vectors-new \
+gimp-vectors-new-from-text-layer \
+gimp-vectors-parasite-attach \
+gimp-vectors-parasite-detach \
+gimp-vectors-parasite-find \
+gimp-vectors-parasite-list \
+gimp-vectors-remove-stroke \
+gimp-vectors-set-linked \
+gimp-vectors-set-name \
+gimp-vectors-set-tattoo \
+gimp-vectors-set-visible \
+gimp-vectors-stroke-close \
+gimp-vectors-stroke-flip \
+gimp-vectors-stroke-flip-free \
+gimp-vectors-stroke-get-length \
+gimp-vectors-stroke-get-point-at-dist \
+gimp-vectors-stroke-get-points \
+gimp-vectors-stroke-interpolate \
+gimp-vectors-stroke-new-from-points \
+gimp-vectors-stroke-rotate \
+gimp-vectors-stroke-scale \
+gimp-vectors-stroke-translate \
+gimp-vectors-to-selection \
+gimp-version \
+head \
+input-output-port? \
+last \
+last-pair \
+macro-expand \
+make-environment \
+make-list \
+mapcar \
+MAX-IMAGE-SIZE \
+MAX-RESOLUTION \
+MIN-IMAGE-SIZE \
+MIN-RESOLUTION \
+more-handlers? \
+msrg-rand \
+nil \
+nreverse \
+nth \
+plug-in-color-map \
+pop-handler \
+pow \
+pred \
+prin1 \
+print \
+prog1 \
+push-handler \
+rand \
+random \
+random-next \
+realtime \
+re-match \
+script-fu-menu-register \
+script-fu-quit \
+script-fu-register \
+SF_BRUSH \
+SF_COLOR \
+SF_DIRNAME \
+SF_ENUM \
+SF_FILENAME \
+SF_FONT \
+SF_GRADIENT \
+SF_OPTION \
+SF_PALETTE \
+SF_PATTERN \
+SF-ADJUSTMENT \
+SF-CHANNEL \
+SF-DISPLAY \
+SF-DRAWABLE \
+SF-IMAGE \
+SF-LAYER \
+SF-RUN-MODE \
+SF-SLIDER \
+SF-SPINNER \
+SF-STRING \
+SF-TEXT \
+SF-TOGGLE \
+SF-VALUE \
+SF-VECTORS \
+srand \
+strbreakup \
+strcat \
+strcmp \
+string<  \
+string  \
+string>  \
+string->anyatom \
+string-ci<  \
+string-ci  \
+string-ci>  \
+string-cmp? \
+string-lessp \
+string-trim \
+string-trim-left \
+string-trim-right \
+substring-equal? \
+succ \
+symbol-bound? \
+tail \
+the-environment \
+throw \
+time \
+TRUE \
+trunc \
+unbreakupstr \
+UNIT-INCH \
+UNIT-MM \
+UNIT-PICA \
+UNIT-PIXEL \
+UNIT-POINT \
+unless \
+unzip1-with-cdr \
+unzip1-with-cdr-iterative \
+usleep \
+vector-equal? \
+verbose \
+when \
+while \
+with-input-output-from-to-files
+
+
+
+word.chars.scheme=$(chars.alpha)$(chars.numeric)!$%&*/:<=>?^_~+-.@`'
+word.characters.$(file.patterns.scheme)=$(word.chars.scheme)
+
+# Override keywordclass.php with another file if present
+#import scmfunctions
+
+#keywords4.$(file.patterns.scheme)=$(keywordclass.charas)
+# JavaScript keywords are possible inside embedded Javascript
+#keywords3.$(file.patterns.scheme)=$(keywordclass.reserved)
+# JavaScript keywords are possible inside embedded Javascript
+#keywords.$(file.patterns.scheme)=$(keywordclass.key2)
+# VBScript keywords are possible inside embedded VBScript
+#keywords3.$(file.patterns.scheme)=$(keywordclass.key3)
+# Python keywords are possible inside embedded Python
+
+
+
+comment.block.lisp=;
+comment.box.start.lisp=;;
+comment.box.middle.lisp=;;
+comment.box.end.lisp=;;
+
+# LISP styles
+
+
+# Text
+style.lisp.0=fore:#000000,$(font.text)
+# ; lisp comments
+style.lisp.1=fore:#208ed8,font:Arial,size:9
+# lisp Numbers
+style.lisp.2=fore:#FF0080
+# Attributes or lisp __keywords__
+style.lisp.3=fore:#120DAC,bold,italic,font:Verdana,size:9
+# Lisp __keyword2__
+style.lisp.4=fore:#A50900
+# ?
+style.lisp.5=fore:888553,bold,size:16
+
+
+# Default
+style.lisp.32=$(font.base)
+# " xxx " lisp double quote String
+style.lisp.6=$(colour.string),bold
+# ' xxx ' lisp single quote String
+style.lisp.7=fore:#9999CC,back:000000,bold
+# Operator
+style.lisp.8=back:#FF0000,fore:#0000FF,font:Verdana,size:9
+# Identifiers - normal lisp text
+style.lisp.9=fore:#000011,font:Tehoma,size:9
+# Lisp __Operators__
+style.lisp.10=$(colour.operator) # End of line where string is not closed
+# Pre-Processor
+style.scheme.11=fore:#F000FF,italics
+# Special
+style.scheme.12=fore:#A00FF0,italics
+# Expand abbreviations
+style.scheme.13=fore:#FF0000,bold
+# (__Lisp__) Matched Operators
+style.lisp.34=fore:#0000FF,back:#FF,bold,size:12
+
+style.lisp.35=fore:#FF0000,bold,size:12
+# Braces are only matched in operator style
+braces.lisp.style=10
+
+# Keywords2
+style.lisp.16=fore:#B00040,bold
+colour.keyword2=fore:#8FD820,back:000000,bold,font:Deja Vu
+
+# HTML and lisp share lexing code so use the same style numbers
+# scheme Markup Language
+
+# Default
+style.scheme.32=$(font.base)
+# White space
+style.scheme.0=fore:#808080
+# White space
+#style.scheme.0=fore:#000000
+# Comment line
+style.scheme.1=fore:#009933,italics
+# Comment block
+style.scheme.2=fore:#669900,italics
+# Number
+style.scheme.3=fore:#AC00A9,bold,italics
+# Function
+style.scheme.4=fore:#000090,bold,italics
+# Keyword
+style.scheme.5=fore:#FF00FF,bold
+# Macro
+style.scheme.6=fore:#FF33FF,bold
+# String
+style.scheme.7=fore:#9999CC,bold
+# Operator
+style.scheme.8=fore:#FF0000,bold
+# Variable
+style.scheme.9=fore:#AA0000,bold
+# Sent keys in string
+style.scheme.10=fore:#FF8800,bold
+# Pre-Processor
+style.scheme.11=fore:#F000FF,italics
+# Special
+style.scheme.12=fore:#A00FF0,italics
+# Expand abbreviations
+style.scheme.13=fore:#FF0000,bold
+# ComObjects
+style.scheme.14=fore:#0000FF,bold,italics
+
+style.scheme.16=fore:#B00040,bold
+
+
+#command.go.$(file.patterns.scheme)=c:\tools\pscheme\pscheme.exe /r $(FilePath)
+command.compile.$(file.patterns.scheme)=C:\tools\gambit\v4.5.3\bin\gsc.exe -f $(FilePath)
+#command.go.$(file.patterns.scheme)=c:\tools\plt\mzscheme.exe -r $(FilePath)
+command.compile.subsystem.$(file.patterns.scheme)=0
+command.go.$(file.patterns.scheme)=C:\tools\gambit\v4.5.3\bin\gsi.exe  -f  -:d0 $(FilePath)
+command.go.subsystem.$(file.patterns.scheme)=0

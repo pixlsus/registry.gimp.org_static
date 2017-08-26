@@ -1,0 +1,97 @@
+#! /usr/bin/python
+'''
+Author: Lars (lars.stonerocket.co.uk)
+Alias: Another_Lars
+Copyright 2011 Lars 
+License: Free Beer
+Version 0.1
+GIMP plugin with simple animation scripts.
+
+Code used from: Cross Process and PNG export of Chris Mohler (2011/2009)
+'''
+
+from gimpfu import *
+import os, re
+
+def alpha_all_layers(img):
+	for layer in img.layers:
+		pdb.gimp_layer_add_alpha(layer)
+		
+def export_all_layers(img,path):
+	number = 0
+	for layer in img.layers:
+		if (number < 10):
+			filename = "00" + str(number) + ".png"
+		else:
+			filename = "0" + str(number) + ".png"
+		fullpath = os.path.join(path, filename);
+		pdb.file_png_save(img, img.layers[number], fullpath, filename, 0, 9, 1, 1, 1, 1, 1)
+		number += 1
+
+def rename_all_layers(img, args): 
+	if args:
+		for layer in img.layers:
+			layer.name += args
+	else:
+		number = 0
+		for layer in img.layers:
+			layer.name = str(number)
+			number += 1
+		
+register(
+    proc_name=("python-fu-add-text-all-layers"),
+    blurb=("Add custom text behind all layer names or enter nothing for clearing all names."),
+    help=("Help?"),
+    author=("Lars"),
+    copyright=("Free Beer"),
+    date=("2011"),
+    label=("Rename all layers"),
+    imagetypes=("*"),
+    params=[
+	(PF_IMAGE, "img", "Image", None),
+	(PF_STRING, "args", "Text to add:", ""),
+	],
+    results=[],
+    function=(rename_all_layers), 
+    menu=("<Image>/Anitools")
+ )
+
+register(
+	proc_name=("python-fu-export-all-layers"),
+	blurb=("Export all layers as PNG file in the desired location."),
+	help=("Help?"),
+	author=("Lars"),
+	copyright=("Free Beer"),
+	date=("2011"),
+	label=("Export all layers as PNG"),
+	imagetypes=("*"),
+	params=[
+	(PF_IMAGE, "img", "Image", None),
+	(PF_DIRNAME, "path", "Save PNG's here:", os.getcwd()),
+	],
+	results=[],
+	function=(export_all_layers), 
+	menu=("<Image>/Anitools")
+)
+
+register(
+	proc_name=("python-fu-add-alpha-all-layers"),
+	blurb=("Add alpha to all layers."),
+	help=("Help?"),
+	author=("Lars"),
+	copyright=("Free Beer"),
+	date=("2011"),
+	label=("Add alpha to all layers"),
+	imagetypes=("*"),
+	params=[
+	(PF_IMAGE, "img", "Image", None),
+	],
+	results=[],
+	function=(alpha_all_layers), 
+	menu=("<Image>/Anitools")
+)
+
+'''
+main() is required to register the stuff above
+'''
+main()

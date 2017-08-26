@@ -1,0 +1,204 @@
+# Glass or Bevel v1.03
+# (copyLEFT) 2013 Andrey "Efenstor" Pivovarov. No rights reserved
+# Copy freely, modify freely, spread the word and remeber me in your prayers
+
+#!/usr/bin/env python
+
+import math
+from gimpfu import *
+
+
+def deinit(img):
+    pdb.gimp_undo_push_group_end(img)
+    pdb.gimp_progress_end()
+    pdb.gimp_displays_flush()
+
+
+def make_layer(mode, img, layer, name, before):
+    if mode==1:
+        # Copy layer
+        nl = layer.copy()
+        nl.name = name
+    else:
+        # Make a new layer
+        nl = gimp.Layer(img, name, img.width, img.height, RGB, 100, NORMAL_MODE)
+
+    if before: img.active_layer = before
+    img.add_layer(nl, -1)
+    return nl
+
+
+def glass_or_bevel(img, active, effect, ldir, ldiradd, soff, sblur, goff, gthick, gblur, gcontr, strans, gtrans, flatten):
+
+    # Initialization
+    from gimpshelf import shelf
+    gimp.progress_init("Preparing...")
+    pdb.gimp_undo_push_group_start(img)
+
+    # Calculate the offsets
+    if ldir==0: bang = 135
+    elif ldir==1: bang = 225
+    elif ldir==2: bang = 315
+    else: bang = 45
+    rang = ((bang+ldiradd)/360)*math.pi*2
+    sxoff = int(math.cos(rang)*soff)
+    syoff = int(-math.sin(rang)*soff)
+    gxoff = int(math.cos(rang)*goff)
+    gyoff = int(-math.sin(rang)*goff)
+
+    # Selection stuff
+    nosel = pdb.gimp_selection_is_empty(img)
+    if not nosel:
+        selsaved = pdb.gimp_selection_save(img)
+        pdb.gimp_selection_clear(img)
+
+    # Remember the colors
+    fgcolor = pdb.gimp_context_get_foreground()
+    bkcolor = pdb.gimp_context_get_background()
+
+    # Prepare
+    pdb.gimp_context_set_foreground((0,0,0))
+    pdb.gimp_context_set_background((255,255,255))
+    amask = pdb.gimp_layer_get_mask(active)
+
+    if strans>0:
+        # ---
+        # Make the shadow layer and translate it
+        sh = make_layer(1, img, active, "Shadow", active)
+        if amask: pdb.gimp_layer_remove_mask(sh, 0)
+        sh.opacity = strans
+        if nosel: shmask = pdb.gimp_layer_create_mask(sh, 2)
+        else:
+            pdb.gimp_image_select_item(img, CHANNEL_OP_REPLACE, selsaved)
+            shmask = pdb.gimp_layer_create_mask(sh, 4)
+        pdb.gimp_layer_add_mask(sh, shmask)
+        if effect==0: sh.translate(-sxoff, -syoff)
+        else: sh.translate(sxoff, syoff)
+        pdb.gimp_layer_resize_to_image_size(sh)
+        pdb.gimp_selection_clear(img)
+
+        # Make it black
+        pdb.gimp_drawable_fill(sh, FOREGROUND_FILL)
+        pdb.gimp_invert(shmask)
+
+        # Smoothen it
+        if sblur>0: pdb.plug_in_gauss(img, shmask, sblur, sblur, 0)
+
+        # Make the outline
+        if nosel:
+            if not amask: si = active
+            else: si = amask
+        else: si = selsaved
+        pdb.gimp_image_select_item(img, CHANNEL_OP_REPLACE, si)
+        pdb.gimp_selection_shrink(img, sblur/2)
+        pdb.gimp_selection_feather(img, sblur)
+        pdb.gimp_selection_invert(img)
+        pdb.gimp_edit_bucket_fill(shmask, BG_BUCKET_FILL, NORMAL_MODE, 50, 0,0,0,0)
+        pdb.gimp_selection_clear(img)
+
+        # Cut the outside
+        if nosel:
+            if not amask: si = active
+            else: si = amask
+        else: si = selsaved
+        pdb.gimp_image_select_item(img, CHANNEL_OP_REPLACE, si)
+        pdb.gimp_selection_invert(img)
+        pdb.gimp_edit_bucket_fill(shmask, FG_BUCKET_FILL, NORMAL_MODE, 100, 0,0,0,0)
+        pdb.gimp_selection_clear(img)
+
+        # Autocrop
+        pdb.plug_in_autocrop_layer(img, sh)
+
+    if gtrans>0:
+        # ---
+        # Make the gloss layer and translate it
+        gl = make_layer(1, img, active, "Gloss", sh)
+        if amask: pdb.gimp_layer_remove_mask(gl, 0)
+        gl.opacity = gtrans
+        if nosel: glmask = pdb.gimp_layer_create_mask(gl, 2)
+        else:
+            pdb.gimp_image_select_item(img, CHANNEL_OP_REPLACE, selsaved)
+            glmask = pdb.gimp_layer_create_mask(gl, 4)
+        pdb.gimp_layer_add_mask(gl, glmask)
+        gl.translate(-gxoff, -gyoff)
+        pdb.gimp_layer_resize_to_image_size(gl)
+        pdb.gimp_selection_clear(img)
+
+        # Make it white
+        pdb.gimp_drawable_fill(gl, WHITE_FILL)
+
+        # Cut the inside to create the highlights
+        if nosel:
+            if not amask: si = active
+            else: si = amask
+        else: si = selsaved
+        pdb.gimp_image_select_item(img, CHANNEL_OP_REPLACE, si)
+        pdb.gimp_selection_translate(img, -gxoff+gthick, -gyoff+gthick)
+        pdb.gimp_edit_bucket_fill(glmask, FG_BUCKET_FILL, NORMAL_MODE, 100, 0,0,0,0)
+        pdb.gimp_selection_clear(img)
+
+        # Cut the borders
+        if nosel:
+            if not amask: si = active
+            else: si = amask
+        else: si = selsaved
+        pdb.gimp_image_select_item(img, CHANNEL_OP_REPLACE, si)
+        pdb.gimp_selection_shrink(img, goff)
+        pdb.gimp_selection_invert(img)
+        pdb.gimp_edit_bucket_fill(glmask, FG_BUCKET_FILL, NORMAL_MODE, 100, 0,0,0,0)
+        pdb.gimp_selection_clear(img)
+
+        # Smoothen it
+        if gblur>0: pdb.plug_in_gauss(img, glmask, gblur, gblur, 0)
+        pdb.plug_in_normalize(img, glmask)
+        sub = 127-(gcontr/100.0)*127.0
+        pdb.gimp_levels(glmask, HISTOGRAM_VALUE, 127-sub, 127+sub, 1, 0, 255)
+
+        # Autocrop
+        pdb.plug_in_autocrop_layer(img, gl)
+
+    # Merge the layers
+    if flatten:
+        if gtrans>0: sh = pdb.gimp_image_merge_down(img, gl, 0)
+        if strans>0: sh = pdb.gimp_image_merge_down(img, sh, 0)
+
+    # Restore the colors
+    pdb.gimp_context_set_foreground(fgcolor)
+    pdb.gimp_context_set_background(bkcolor)
+
+    # Restore the selection
+    if not nosel:
+        pdb.gimp_image_select_item(img, CHANNEL_OP_REPLACE, selsaved)
+        pdb.gimp_image_remove_channel(img, selsaved)
+
+    # Deinitialization
+    deinit(img)
+
+
+register(
+    "glass_or_bevel",
+    "Produces a pretty simple glass or bevel effect",
+    "ZZZ",
+    "Efenstor",
+    "(copyLEFT) Andrey \"Efenstor\" Pivovarov",
+    "2013",
+    "<Image>/Filters/Decor/Glass or Bevel...",
+    "RGB*",
+    [
+        (PF_OPTION, "effect", "Effect type", 0, ("Glass", "Bevel")),
+        (PF_OPTION, "ldir", "Lighting direction", 0, ("Top-Left", "Bottom-Left", "Bottom-Right", "Top-Right")),
+        (PF_SLIDER, "ldiradd", "Lighting angle fine-tune", 0, (-45, 45, 1)),
+        (PF_INT, "soff", "Shadow offset", 5),
+        (PF_INT, "sblur", "Shadow smoothness", 5),
+        (PF_INT, "goff", "Gloss offset", 5),
+        (PF_INT, "gthick", "Gloss thickness", 5),
+        (PF_INT, "gblur", "Gloss smoothness", 5),
+        (PF_SLIDER, "gcontr", "Gloss contrast", 80, (0, 100, 1)),
+        (PF_SLIDER, "strans", "Shadow transparency", 80, (0, 100, 1)),
+        (PF_SLIDER, "gtrans", "Gloss transparency", 80, (0, 100, 1)),
+        (PF_TOGGLE, "flatten", "Merge the layers", 1)
+    ],
+    [],
+    glass_or_bevel)
+
+main()

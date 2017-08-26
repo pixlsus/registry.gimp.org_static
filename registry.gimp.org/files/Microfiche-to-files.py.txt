@@ -1,0 +1,116 @@
+#!/usr/bin/env python
+#
+#   This program is free software: you can redistribute it and/or modify
+#   it under the terms of the GNU General Public License as published by
+#   the Free Software Foundation, either version 3 of the License, or
+#   (at your option) any later version.
+#
+#   This program is distributed in the hope that it will be useful,
+#   but WITHOUT ANY WARRANTY; without even the implied warranty of
+#   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#   GNU General Public License for more details.
+#
+#   You should have received a copy of the GNU General Public License
+#   along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+# The starting point for this script was Tiles to Files, V1.0 script by theilr,(c) theilr November 2009 - <http://registry.gimp.org/node/20868>
+# also used elements of www.exp-media.com/content/extending-gimp-python-python-fu-plugins-part-2 by Frederic Jaume
+#
+# written by Phil White, June 2013 - bigphilwhite at gmail dot com
+#
+#
+# This tells Python to load the Gimp-Python object module 
+from gimpfu import *
+
+# create an output function that redirects to gimp's Error Console
+def gprint(text):
+   pdb.gimp_message(text)
+   return 
+
+# This is the function that will perform actual actions
+def microfiche_function(inImage, inDrawable, NumRows, NumColumns, Gap, Output_Prefix, Del_Aux_Image, Invert_Image_Col, file_type, project_directory) :
+	#gprint("The script is running")
+	#gprint("file type selected: " + file_type)
+	#gprint("directory to save to: "+project_directory)
+	fullWidth = pdb.gimp_image_width(inImage)
+	fullHeight = pdb.gimp_image_height(inImage)
+	tileWidth = int(fullWidth/NumColumns)
+	tileHeight = int(fullHeight/NumRows)
+	#gprint("image size = "+str(tileHeight+(2*Gap))+" x "+str(tileWidth+(2*Gap)))
+	base_type = pdb.gimp_image_base_type(inImage) #RGB (0), GRAY (1), INDEXED (2)
+	if base_type != RGB:
+		pdb.gimp_image_convert_rgb(inImage)
+	if Invert_Image_Col == TRUE:
+		pdb.gimp_invert(inDrawable)
+	pdb.gimp_displays_flush
+	newImage = gimp.Image(tileWidth, tileHeight, RGB)
+	pdb.gimp_image_set_resolution(newImage, 300,300) #sets the image resolution to 300dpi
+	rcnt = 0
+	while (rcnt < NumRows):
+		ccnt = 0
+		while (ccnt < NumColumns):
+			if (rcnt+1)<10:
+				fRow = "0" + (str(rcnt+1))
+			else:
+				fRow = str(rcnt+1)
+			if (ccnt+1)<10:
+				fColumn = "0" + (str(ccnt+1))
+			else:
+				fColumn = str(ccnt+1)
+			outfname = project_directory + chr(92) + Output_Prefix + chr(45) + fRow + chr(45) + fColumn
+			#gprint("file name: " + outfname)
+			x = (tileWidth * ccnt) - Gap
+			y = (tileHeight * rcnt) - Gap
+			pdb.gimp_image_select_rectangle(inImage, CHANNEL_OP_ADD, x, y, (tileWidth+(2*Gap)), (tileHeight+(2*Gap))) # CHANNEL-OP-ADD (0), CHANNEL-OP-SUBTRACT (1), CHANNEL-OP-REPLACE (2), CHANNEL-OP-INTERSECT (3)
+			pdb.gimp_edit_copy(inDrawable)
+			pdb.gimp_selection_none(inImage)
+			tmpLayer = gimp.Layer(newImage, outfname, int(tileWidth+(2*Gap)), int(tileHeight+(2*Gap)), GRAY, 100, NORMAL_MODE)
+			pdb.gimp_image_insert_layer(newImage, tmpLayer, None, 0)
+			selLayer = pdb.gimp_edit_paste(tmpLayer, FALSE) 
+			pdb.gimp_floating_sel_anchor(selLayer)
+			if Output_Prefix != "":
+				if file_type == ".jpg":
+					pdb.file_jpeg_save(newImage, tmpLayer, outfname+'.jpg', outfname+'.jpg', 1, 0, 1, 1, "microfiche scan", 0, 1, 0, 0)
+				elif file_type == ".tif":
+					pdb.file_tiff_save(newImage, tmpLayer, outfname+'.tif', outfname+'.tif', 1) # final variable is compression: NONE (0), LZW (1), PACKBITS (2), DEFLATE (3), JPEG (4), CCITT G3 Fax (5), CCITT G4 Fax (6)
+				else:
+					pdb.file_png_save(newImage, tmpLayer, outfname+'.png', outfname+'.png', 0,9,0,0,0,0,1)
+			ccnt = ccnt + 1
+		rcnt = rcnt + 1
+	
+	#either delete the new image, or display it
+	if Del_Aux_Image == TRUE:
+		pdb.gimp_image_delete(newImage)
+	else:
+		pdb.gimp_display_new(newImage)
+	pdb.gimp_displays_flush
+	return
+
+
+# This is the plugin registration function
+register(
+    "Microfiche-to-files",    				        #function name
+    "Microfiche to files",   				        #"documentation" name
+    "cuts up Microfiche and saves the frames", 	    #Plugin's help description
+    "Phil White", 					       			#author
+    "Phil White, copyright 2013",			        #copyright information
+    "May 2013",						       			#date of this version
+    "<Image>/MyScripts/Microfiche-to-files", 	    #menu path
+    "*", 						       				#image types supported
+    [
+	#    (PF_IMAGE,"Image","image to be manipulated",0), 								# Variables in the format (Type, Name, Description, default, (extra))
+    #    (PF_DRAWABLE,"Drawable", "layer to be used", 0),								# variable listed here must be listed in arguments for the 
+		(PF_ADJUSTMENT, "NumRows", "Number of rows of files", 5, (1, 100, 1)),			# local function, named below, in the SAME order
+		(PF_ADJUSTMENT, "NumColumns", "Number of columns of files", 12, (1, 100, 1)),	# run_type, image and drawable parameters are defined from import gimpfu *
+		(PF_SLIDER,"Gap", "Gap(neg)/Overlap(pos) pixels", 0, (-200, 200,1)),
+		(PF_STRING, "Output_Prefix", "Output filename prefix", "Microfiche"),
+		(PF_TOGGLE,"Del_Aux_Image","Delete auxiliary image",FALSE),
+		(PF_TOGGLE,"Invert_Image_Col","Invert image colours",TRUE),
+		(PF_RADIO, "file_type", "File type:", ".jpg", (("jpg", ".jpg"), ("png", ".png"), ("tif", ".tif"))),
+		(PF_FILE, "project_directory", ("Choose Directory:"), "/"),
+	], 																					#list of the parameters needed
+    [],																					#results sent back by your plugin
+    microfiche_function,																#name of the local function to run
+    )
+
+main()

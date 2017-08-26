@@ -1,0 +1,551 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+# Screenshot Tearoff Effect
+# Copyright (c) 2008-2010 Edgar D'Souza
+# Contact: edgar.b.dsouza@gmail.com
+# ---------------------------------------------------------------------
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#======================================================================
+#Version: 0.2 2010-07-05 -- Tracy S. Fitch (thespian at bigfoot.com) -- Windows Compatible
+#   Known Issues:
+#   - still no real testing -- just one more platform:
+#     - Windows 7  (Version 6.1.7600)
+#     - GIMP 2.6.9
+#     - Python 2.6.4
+#     - pygtk-2.16
+#     - pycairo-1.8.6
+#     - pygobject-2.20
+#
+#   Changes:
+#   - switched to current directory log file (should be Linux/Win safe)
+#   - divided logging into progress, debug, error, & none 
+#	- added progress bar updates & pulses
+#   - moved menu path to a separate value in register statement
+#	- moved to filters->distorts since it seems similar to page curl
+#   - added optional border function (default on)
+#	- modified resizing after drop shadow to only add in the shadow direction
+#	- rearranged layers to put shadow on the bottom
+#	- linked shadow and border layers to the original image
+#	- optional merging of border and shadow layers (default on)
+#	- formatted dialog (to the extent I can figure out how to format gimpfu's dialog) 
+#
+#	Thoughts for the future:
+#	- probably time to move past gimpfu and create a gimp dialog directly
+#		- look at storing settings past gimp restart (but add a "reset to defaults" button
+#	- move tearaway into a separate image and allow acceptance/rejection for a redo  
+#	- either make add_alpha mandatory or:
+#		- find a way to fix drop shadow behaviour when resizing larger than base image
+#		- fix feathered edge borders
+#	- investigate ways to diminish rounding off corners on adjacent "torn" edges
+ 
+#----------------------------------------------------------------------
+#Version: 0.1 -- Edgar D'Souza -- initial release.
+#	Known issues:
+#	- hasn't been tested on anything except the development platform - my laptop :)
+#
+# GIMP Python info taken from: http://www.gimp.org/docs/python/index.html
+#
+# This script was developed and tested under the following environment:
+# - Ubuntu Linux 7.10
+# - Python 2.5.1
+# - GIMP 2.4.2
+# - gimp-python 2.4.2-0ubuntu0.7.10.1
+# - libgimp2.0 2.4.2-0ubuntu0.7.10.1
+# 
+# Before invoking the plugin:
+# 1. Capture a new screenshot, or open an existing image file.
+# 2. Select the part to keep, making the selection a little larger than what
+# 	 you want to keep. GIMP does appear to distress the selection "outward",
+# 	 but verify that you're not losing image data that you want to keep. Since
+# 	 a few more pixels than needed are probably not going to be fatal :) I'm
+# 	 suggesting selecting a little more than you need to keep.
+
+from gimpfu import *
+
+gettext.install("gimp20-python", gimp.locale_directory, unicode=True)
+global tearoff_loglevel
+#Uncomment one of the following loglevels
+#tearoff_loglevel = 'Debug' 	# Error and Debug messages logged; Logfile wiped/created on plugin start
+tearoff_loglevel = 'Error' 		# Error messages logged; Debug messages suppressed; Logfile wiped/created on first error
+#tearoff_loglevel = 'None'		# All messages suppressed; Logfile unchanged
+
+#Helper function - write messages to a log file. 
+def tear_log(msg, init_file=False):
+    """Opens a log file, writes the string in the msg argument, closes the file.
+        The optional init_file argument, if True, (re)initializes the file.
+    """
+    global log_opened
+    global tearoff_loglevel
+    if not tearoff_loglevel == 'None':
+        filename = ('gimp_plugin_tearoff.log')
+        dumpstr = "tearoff: " + msg + '\n'
+        if log_opened:
+            tmpfile = open(filename, 'a')
+        else:
+            tmpfile = open(filename, 'w')
+            if tearoff_loglevel == 'Debug':
+                tmpfile.write('tearoff: Logging initiated: Errors & Debug included\n')
+            elif tearoff_loglevel == 'Error':
+                tmpfile.write('tearoff: Logging initiated: Errors included; Debug suppressed\n')
+            log_opened = True
+        tmpfile.write(dumpstr)
+        tmpfile.close()
+        #Observation: the log file contains only one startup and invocation block, no matter
+        #how many times I invoke the plugin on a single image window. This implies that it's
+        #being torn down and re-initialized after every invocation. A bit expensive, perhaps,
+        #but I suppose it enables better garbage collection...just a guess.
+
+#Helper function - writes debug messages to a log file. 
+def debug_log(msg):
+    global tearoff_loglevel
+    #filter out debug messages if we're in 'Error' or 'None' log mode
+    if tearoff_loglevel == 'Debug':
+        tear_log('debug: ' + msg)
+    else:
+        return
+
+#Helper function - writes error messages to a log file. 
+def error_log(msg):
+    #Fires the real log function for error messages
+    tear_log('error: ' + msg)
+
+#Helper function - used for debug messages that should also update progress. 
+def progress_log(msg):
+    debug_log(msg)
+    pdb.gimp_progress_set_text('Tearoff: ' + msg)
+    pdb.gimp_progress_pulse()
+        
+#The main plugin function that manipulates the image.
+def tearoff(the_img, the_drawable,
+            distort_threshold, distort_spread, distort_granularity, distort_smooth_level, 
+            add_alpha, allow_resize, add_dropshadow,
+            ds_offset_x, ds_offset_y, ds_blur_radius, ds_color, ds_opacity, 
+            add_border, bdr_offset, bdr_color, bdr_edge, 
+            crop, crp_tightness, merge_layers
+            ):
+    #Applies the tearoff effect to the image.
+    #Parameters expected are those defined in the plugin_params_list below:
+    gimp.progress_init("Creating tearoff")
+    debug_log('Function main() started...')
+    # 1a. Check that there is a valid selection.
+    try:
+        sel_empty = pdb.gimp_selection_is_empty(the_img)		#See "name weirdness" note below.
+        progress_log('Confirmed selection is non-empty')
+    except BaseException, error:
+        error_log('Calling pdb.gimp_selection_is_empty: error: ' + str(error))
+        
+    if sel_empty:
+        error_log("Error: called without a selection for the image!")
+        gimp.message('This plugin needs a selection in the image; please select an area of the image and re-run the plugin.\n\nPlugin will now exit.')
+        return False
+    
+    # 1b. Start an undo group on the image, so that all steps done in the plugin can be undone in
+    # one user undo step (Ctrl-Z)
+    progress_log('Opening undo group...')
+    try:
+        pdb.gimp_image_undo_group_start(the_img)
+    except BaseException, error:
+        error_log('Calling pdb.gimp_image_undo_group_start: error: ' + str(error))
+    # 1c. Save active layer for later
+    progress_log('Tagging active layer...')
+    try:
+        user_layer = the_img.active_layer
+    except BaseException, error:
+        error_log('Storing user_layer from img.active_layer: error: ' + str(error))
+    
+    # 2. Distress the selection, passing parameters obtained from UI. GIMP is smart
+    #    - it only distresses the edge of the selection that has image area beyond it
+    #    (i.e. the selection edge is NOT up against the edge of the image).
+    progress_log('Distressing selection...')
+    try:
+        pdb.script_fu_distress_selection(the_img, the_drawable,distort_threshold,
+            distort_spread, distort_granularity, distort_smooth_level,
+            True, True)	# The True values are to force smoothing horiz and vert; looks awful otherwise.
+    except BaseException, error:
+        error_log('Calling script_fu_distress_selection: error: ' + str(error))
+    
+    # 3a. Found that re-inverting the selection in code after cutting out
+    # 	  image content doesn't work (whole layer is selected) so am saving
+    # 	  the active selection here and will load it later.
+    progress_log('Saving selection...')
+    try:
+        saved_selection_channel = pdb.gimp_selection_save(the_img)
+    except BaseException, error:
+        error_log('Calling gimp_selection_save for original image: error: ' + str(error))
+    
+    # 3b. Invert the selection, so what is selected can be deleted.
+    progress_log('Inverting selection...')
+    try:
+        pdb.gimp_selection_invert(the_img)
+    except BaseException, error:
+        error_log('Calling gimp_selection_invert: error: ' + str(error))
+        
+    # 4. Check if image has alpha channel (transparency) or add it (GUI: Layer >
+    #    Transparency > Add Alpha Channel)
+    progress_log('Checking/adding alpha...')
+    if not add_alpha:
+        debug_log('Parameter passed from UI said not to add alpha channel')
+    else:
+        try:
+            if the_drawable.has_alpha > 0:
+                pass
+            else:
+                pdb.gimp_layer_add_alpha(the_drawable)
+        except BaseException, error:
+            error_log('Checking/adding alpha channel: error: ' + str(error))
+    
+    # 5. Delete selection (leaving behind transparent/background-filled area).
+    progress_log('Deleting unselected...')
+    try:
+        del_buf_name = pdb.gimp_edit_named_cut(the_drawable, "del_buf")
+        pdb.gimp_buffer_delete(del_buf_name)
+        #Couldn't find a 'delete selection' method... but this works?
+        #Cutting to a named buffer, and then deleting it, avoids leaving the cut
+        #image data on the clipboard, which ugly outcome you face when using just
+        #plain gimp-edit-cut().
+    except BaseException, error:
+        error_log('Trying to delete (inverted) selected area: error: ' + str(error))
+
+    # 6. Invert the selection again, selecting the part we want to keep.
+    #     Found that re-inverting the selection in code after cutting out
+    # 	  image content doesn't work (whole layer is selected) so I load
+    # 	  a selection that I saved earlier in step 3a.
+    try:
+        pdb.gimp_selection_none(the_img)
+        pdb.gimp_selection_load(saved_selection_channel)
+    except BaseException, error:
+        error_log('Loading saved selection after deleting unselected: error: ' + str(error))
+
+    # 7. Add Border
+    if not add_border:
+        debug_log('Parameter passed from UI said not to add border')
+    else:
+        progress_log('Adding border...')
+        # check whether to resize image to allow for borders
+        if not allow_resize:
+            debug_log('Parameter passed from UI said not to resize for border')
+        else:
+            # resize image to allow for borders
+            new_width = int(the_img.width + 2 * bdr_offset)
+            new_height = int(the_img.height + 2 * bdr_offset)
+            debug_log(	'Resizing for border: (' + 
+                            str(the_img.width) + ', ' +
+                            str(the_img.height) + ')==>(' +
+                            str(new_width) + ', ' +
+                            str(new_height) + ')...' )
+            try:
+                pdb.gimp_image_resize(	the_img,
+                                        new_width, new_height,
+                                        bdr_offset, bdr_offset)
+            except BaseException, error:
+                error_log('Resizing image for border size: error: ' + str(error))
+        if bdr_edge == 1:
+            # increase selection size by border offset
+            progress_log('Growing selection for hard bordered size...')
+            try:
+                pdb.gimp_selection_grow(the_img, bdr_offset)
+            except BaseException, error:
+                error_log('Calling gimp_selection_grow for hard bordered size: error: ' + str(error))
+        elif bdr_edge == 0:
+            # make feathered border (internal overlap doesn't matter)
+            progress_log('Bordering selection for feathered bordered size...')
+            try:
+                pdb.gimp_selection_border(the_img, bdr_offset * 2)
+            except BaseException, error:
+                error_log('Calling gimp_selection_border for feathered bordered size: error: ' + str(error))
+        else:
+            error_log('Unsupported bdr_edge value: error: ' + str(bdr_edge))
+        # save new selection to a channel to manipulate for border
+        progress_log('Saving bordered selection...')
+        try:
+            border_selection_channel = pdb.gimp_selection_save(the_img)
+        except BaseException, error:
+            error_log('Calling gimp_selection_save for border: error: ' + str(error))
+        # also save selection to a channel to keep for border
+        try:
+            saved_border_selection_channel = pdb.gimp_selection_save(the_img)
+        except BaseException, error:
+            error_log('Calling gimp_selection_save for saved border: error: ' + str(error))
+        # subtract smaller original selection from new larger selection to make a border sized channel
+        progress_log('Defining border area...')
+        try:
+            pdb.gimp_channel_combine_masks(border_selection_channel, saved_selection_channel, 1, 0, 0)
+        except BaseException, error:
+            error_log('Calling gimp_channel_combine_masks for border area : error: ' + str(error))
+        # set selection to the border channel
+        try:
+            pdb.gimp_selection_none(the_img)
+            pdb.gimp_selection_load(border_selection_channel)
+        except BaseException, error:
+            error_log('Loading border area selection: error: ' + str(error))
+        # create a layer for the border
+        progress_log('Creating border layer...')
+        try:
+            bdr_layer = pdb.gimp_layer_new(	the_img, 
+                                            new_width, new_height, 1,
+                                            "Border", 100, 0)
+        except BaseException, error:
+            error_log('Creating border layer: error: ' + str(error))
+        # set bdr_layer and user_layer linked
+        try:
+            pdb.gimp_drawable_set_linked(bdr_layer, True)
+        except BaseException, error:
+            error_log('Linking border layer: error: ' + str(error))
+        try:
+            pdb.gimp_drawable_set_linked(user_layer, True)
+        except BaseException, error:
+            error_log('Linking user layer: error: ' + str(error))
+        # add the border layer to the image
+        try:
+            pdb.gimp_image_add_layer(the_img, bdr_layer, -1)
+        except BaseException, error:
+            error_log('Adding border layer to image: error: ' + str(error))
+        # make entire border layer's fill transparent
+        progress_log('Filling border area...')
+        try:
+            pdb.gimp_drawable_fill(bdr_layer,3)
+        except BaseException, error:
+            error_log('Setting border layer to transparent fill: error: ' + str(error))
+        # save existing foreground color
+        try:
+            user_color = pdb.gimp_context_get_foreground()
+        except BaseException, error:
+            error_log('Retrieving/saving existing foreground color: error: ' + str(error))
+        # set foreground color to border color
+        try:
+            pdb.gimp_context_set_foreground(bdr_color)
+        except BaseException, error:
+            error_log('Applying border color as foreground color: error: ' + str(error))
+        # fill border selection with foreground color
+        try:
+            pdb.gimp_edit_fill(bdr_layer,0)
+        except BaseException, error:
+            error_log('Setting border selection to foreground fill: error: ' + str(error))
+        # restore original foreground color
+        try:
+            pdb.gimp_context_set_foreground(user_color)
+        except BaseException, error:
+            error_log('Restoring existing foreground color: error: ' + str(error))
+        # add smaller original selection to new larger selection for bordered sized channel
+        progress_log('Selecting bordered area...')
+        try:
+            pdb.gimp_channel_combine_masks(saved_selection_channel, saved_border_selection_channel, 0, 0, 0)
+        except BaseException, error:
+            error_log('Calling gimp_channel_combine_masks for bordered area : error: ' + str(error))
+        # set selection to the border channel
+        try:
+            pdb.gimp_selection_none(the_img)
+            pdb.gimp_selection_load(saved_selection_channel)
+        except BaseException, error:
+            error_log('Loading bordered area selection: error: ' + str(error))
+        # resize user_layer to match possibly modified image size					
+        progress_log('Resizing user layer to match bordered image...')
+        try:
+            pdb.gimp_layer_resize_to_image_size(user_layer)
+        except BaseException, error:
+            error_log('Calling gimp_layer_resize_to_image_size on stored user layer: error: ' + str(error))
+        # reselecting user layer (in case we're not using drop shadow)					
+        progress_log('Restoring user layer selection...')
+        try:
+            pdb.gimp_image_set_active_layer(the_img,user_layer)
+        except BaseException, error:
+            error_log('Calling gimp_image_set_active_layer to stored user layer: error: ' + str(error))
+            
+    # 8. Call Filters > Light and Shadow > Drop Shadow
+    if not add_dropshadow:
+        debug_log('Parameter passed from UI said not to add drop shadow')
+    else:
+        progress_log('Adding drop shadow...')
+        try:
+            pdb.script_fu_drop_shadow(the_img, the_drawable, ds_offset_x, ds_offset_y,
+                                      ds_blur_radius, ds_color, ds_opacity, allow_resize)
+        except BaseException, error:
+            error_log('Calling script_fu_drop_shadow: error: ' + str(error))
+        # 8b. Find and store 'Drop Shadow' layer
+        progress_log('Tagging drop shadow layer...')
+        ds_layer_found = False
+        for ds_layer in the_img.layers:
+            if ds_layer.name == "Drop Shadow":
+                ds_layer_found = True
+                break
+        if not ds_layer_found:
+            error_log("No layer named 'Drop Shadow' found") 
+        # 8c. set ds_layer and user_layer linked
+        try:
+            pdb.gimp_drawable_set_linked(ds_layer, True)
+        except BaseException, error:
+            error_log('Linking drop shadow layer: error: ' + str(error))
+        try:
+            pdb.gimp_drawable_set_linked(user_layer, True)
+        except BaseException, error:
+            error_log('Linking user layer: error: ' + str(error))
+        # 8d. Move selection to drop shadow
+        progress_log('Translating selection to drop shadow location...')
+        try:
+            pdb.gimp_selection_translate(the_img, ds_offset_x, ds_offset_y)
+        except BaseException, error:
+            error_log('Calling gimp_selection_translate to drop shadow: error: ' + str(error))
+        # 8e. Extend selection by extra area added by gaussian blur
+        if ds_blur_radius > 0 and crop and crp_tightness < 10:
+            progress_log('Growing selection to include drop shadow blur...')
+            grow_radius = int(ds_blur_radius * (10 - crp_tightness) * (10 - crp_tightness) * (10 - crp_tightness) / 1000)
+            try:
+                pdb.gimp_selection_grow(the_img, grow_radius)
+            except BaseException, error:
+                error_log('Calling gimp_selection_grow to include drop shadow blur: error: ' + str(error))
+        # 8f. Combine original (or bordered) selection with translated selection
+        progress_log('Combining drop shadow & main selection...')
+        try:
+            pdb.gimp_selection_combine(saved_selection_channel, 0)
+        except BaseException, error:
+            error_log('Calling gimp_selection_combine adding drop shadow: error: ' + str(error))
+        # 8g. Resizing border_layer to match possibly modified image size
+        if add_border:
+            progress_log('Resizing border layer to match shadowed image...')
+            try:
+                pdb.gimp_layer_resize_to_image_size(bdr_layer)
+            except BaseException, error:
+                error_log('Calling gimp_layer_resize_to_image_size on border layer: error: ' + str(error))
+            # 8h. Bumping border layer up above shadow 
+            progress_log('Raising border layer above drop shadow...')
+            try:
+                pdb.gimp_image_raise_layer(the_img,bdr_layer)
+            except BaseException, error:
+                error_log('Calling gimp_image_raise_layer on border layer: error: ' + str(error))
+        # 8i. Bumping user_layer up above shadow (unless we're merging later)
+        if merge_layers:
+            debug_log('Not raising user layer in deference to later merge')
+        else:
+            progress_log('Raising user layer above drop shadow...')
+            try:
+                pdb.gimp_image_raise_layer(the_img,user_layer)
+            except BaseException, error:
+                error_log('Calling gimp_image_raise_layer on user layer')
+        # 8j. Resizing user_layer to match possibly modified image size					
+        progress_log('Resizing user layer to match shadowed image...')
+        try:
+            pdb.gimp_layer_resize_to_image_size(user_layer)
+        except BaseException, error:
+            error_log('Calling gimp_layer_resize_to_image_size on stored user layer: error: ' + str(error))
+            
+    # 9. Manually crop image if user has chosen to do so.
+    # 	 (Doing an auto-crop seems to eat up too much into the shadow...)
+    if not crop:
+        debug_log('User-supplied UI param said not to crop image.')
+    else:
+        progress_log('Cropping image...')
+        try:
+            #Due to previous operations, we're sure we have a selection...
+            has_sel, x1, y1, x2, y2 = pdb.gimp_selection_bounds(the_img)
+            pdb.gimp_image_crop(the_img, x2-x1, y2-y1, x1, y1)
+        except BaseException, error:
+            error_log('Cropping image: error: ' + str(error))
+    # 9b. Done with these saved selections
+    progress_log('Removing stored selection channels...')
+    try:
+        pdb.gimp_image_remove_channel(the_img, saved_selection_channel)
+    except:
+        error_log('Removing saved_selection_channel: error: ' + str(error))
+    if add_border:
+        try:
+            pdb.gimp_image_remove_channel(the_img, border_selection_channel)
+        except:
+            error_log('Removing border_selection_channel: error: ' + str(error))
+        try:
+            pdb.gimp_image_remove_channel(the_img, saved_border_selection_channel)
+        except:
+            error_log('Removing saved_border_selection_channel: error: ' + str(error))
+    # 9c. Merge visible layers
+    if not merge_layers:
+        debug_log('User-supplied UI param said not to merge layers.')
+    else:
+        progress_log('Merging layers...')
+        if add_dropshadow:
+            progress_log('Merging drop shadow layer down...')
+            try:
+                pdb.gimp_image_merge_down(the_img, ds_layer, 0)
+            except BaseException, error:
+                error_log('Merging drop shadow layer down...: error: ' + str(error))
+        if add_border:
+            progress_log('Merging border layer to background...')
+            try:
+                pdb.gimp_image_merge_down(the_img, bdr_layer, 0)
+            except BaseException, error:
+                error_log('Merging border layer to background...: error: ' + str(error))
+    # 9d. End the undo group we started in step 1b.
+    progress_log('Closing undo group...')
+    try:
+        pdb.gimp_image_undo_group_end(the_img)
+    except BaseException, error:
+        error_log('Calling pdb.gimp_image_undo_group_end: error: ' + str(error))
+    
+#Register the plugin with GIMP.
+#For help/more info on params, read http://www.gimp.org/docs/python/index.html
+#Construct our list of params for register() in a verbose manner...
+params_list = []
+params_list.append( (PF_IMAGE, "image", "Input image", None) )
+params_list.append( (PF_DRAWABLE, "drawable", "Input drawable", None) )
+#Params that we will pass to the selection-distort procedure:
+params_list.append( (PF_SPINNER, "distort_threshold", "(Selection) Distort\n\t- Threshold", 111, (1,255,1)) )
+params_list.append( (PF_SPINNER, "distort_spread", "\t- Spread", 10, (0,1000,1)) )
+params_list.append( (PF_SPINNER, "distort_granularity", "\t- Granularity (1 is low)", 4, (1,25,1)) )
+params_list.append( (PF_SPINNER, "distort_smooth_level", "\t- Smoothing Level", 5, (1,150,1)) )
+#Parameters specific to this plugin:
+params_list.append( (PF_BOOL, "add_alpha", "Delete to transparency?\n (add an alpha channel to image)", True) )
+params_list.append( (PF_TOGGLE, "allow_resize", "Allow resizing?", True) )
+params_list.append( (PF_BOOL, "add_dropshadow", "Add drop shadow?", True) )
+#Parameters for the drop shadow (if user chooses to apply it):
+params_list.append( (PF_SPINNER, "ds_offset_x", "\t- X axis offset (pixels)", 8, (-25,25,1)) )
+params_list.append( (PF_SPINNER, "ds_offset_y", "\t- Y axis offset (pixels)", 8, (-25,25,1)) )
+params_list.append( (PF_SPINNER, "ds_blur_radius", "\t- Blur Radius", 15, (0,1024,1)) )
+params_list.append( (PF_COLOR, "ds_color", "\t- Shadow Color", (12,12,12)) )
+params_list.append( (PF_SLIDER, "ds_opacity", "\t- Shadow Opacity", 80, (0,100,1)) )
+#Another parameter specific to this plugin:
+params_list.append( (PF_BOOL, "add_border", "Add border?", True) )
+#Parameters for the border (if user chooses to apply it):
+params_list.append( (PF_SPINNER, "bdr_offset", "\t- Size (pixels)", 2, (0,25,1)) )
+params_list.append( (PF_COLOR, "bdr_color", "\t- Color", (0,0,0)) )
+params_list.append( (PF_OPTION, "bdr_edge", "\t- Edge", 0, ["Feathered","Hard"]) )
+#More parameter specific to this plugin:
+params_list.append( (PF_TOGGLE, "crop", "Crop image down to selection?\n (plus any drop shadow/border)", True) )
+params_list.append( (PF_SLIDER, "crp_tightness", "\t- How close?\n\t   (10 is tightest)", 4, (0,10,1)) )
+params_list.append( (PF_TOGGLE, "merge_layers", "Merge layers upon completion?", True) )
+
+#First invocation to log() in this script's run; empty out the log file.
+global log_opened 
+log_opened = False
+debug_log("Initiating plugin")	
+debug_log("About to register")	
+
+register(
+    "python-screenshot-tearoff",
+    "Applies an irregular 'tear-off' effect to the image at any selection edge that is NOT at the boundary of the image; deletes the remainder of the image, optionally applies a drop shadow to the 'to-keep' area, and optionally crops the image.",
+    "Select the part of the image that you want to keep, before invoking this plugin. You can adjust the selection distort/distress parameters, and choose whether to apply a drop shadow and whether to crop the image after that.",
+    "Edgar D'Souza (edgar.b.dsouza@gmail.com)",
+    "(c) 2008 Edgar D'Souza, licensed under GPL v3 or later",
+    "2008-10-26",
+    N_("_Tear-off..."),
+    "RGB*, GRAY*",
+    params_list,
+    [],
+    tearoff,
+    menu="<Image>/Filters/Distorts",
+    domain=("gimp20-python", gimp.locale_directory)
+    )
+
+debug_log("Registration finished")
+debug_log("Calling main() to start the plugin running")
+
+main()

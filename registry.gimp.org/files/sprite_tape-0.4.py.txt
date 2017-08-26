@@ -1,0 +1,58 @@
+#!/usr/bin/env python
+# Version 0.3
+# GIMP plugin to export layers as Sprite for 2D games
+# 0.2: added automatic reverse of image layers
+# 0.3: added spacing between frames of the spritesheet
+
+from gimpfu import *
+import os
+
+gettext.install("gimp20-python", gimp.locale_directory, unicode=True)
+
+def python_sprite_tape(timg, tdrawable, invert_order, spacing, cnt_hor=8, cnt_vert=8):
+     width = timg.width
+     height = timg.height
+
+     newwidth = cnt_hor * width + spacing * (cnt_hor + 1)
+     newheight = cnt_vert * height + spacing * (cnt_vert + 1)
+
+     timg.resize(newwidth, newheight,0,0)
+
+     if invert_order:
+         pdb.script_fu_reverse_layers(timg, tdrawable)
+
+     for y in range(cnt_vert):
+       for x in range(cnt_hor):
+	 layer_numb=x+(y*cnt_hor)
+	 if layer_numb>=len(timg.layers):
+	   break
+	 newx = x * width + spacing * (x + 1)
+	 newy = y * height + spacing * (y + 1)
+	 timg.layers[layer_numb].translate(newx, newy)
+     timg.merge_visible_layers(0)
+     timg.layers[0].resize_to_image_size()
+
+register(
+    proc_name=("python_fu_sprite_tape"),
+    blurb=("Make the tape of sprites from separate sprites in layers"),
+    help=("Make the tape of sprites from separate sprites in layers"),
+    author=("FedeX"),
+    copyright=("Pheodor Tsapanas a.k.a. FedeX"),
+    date=("2010"),
+    label=("tape"),
+    imagetypes=("*"),
+    params=[
+	(PF_IMAGE, "timg", "Image", None),
+	(PF_DRAWABLE, "tdrawable", "Drawable", None),
+        (PF_BOOL, "invert_order", "Invert order", False ),
+        (PF_INT, "spacing", "Spacing", 0 ),
+        (PF_INT, "cnt_hor", "Sprites hor.",8 ),
+        (PF_INT, "cnt_vert", "Sprites vert.", 8)
+	   ],
+    results=[],
+    function=(python_sprite_tape),
+    menu=("<Image>/Image/Sprite"),
+    domain=("gimp20-python", gimp.locale_directory)
+    )
+
+main()

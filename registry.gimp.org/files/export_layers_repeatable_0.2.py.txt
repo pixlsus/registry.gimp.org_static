@@ -1,0 +1,619 @@
+#!/usr/bin/env python
+# -*- coding: <utf-8> -*-
+#
+#
+# export_layers_repeatable_0.2.py - 2012 by elyumbo <schoener@m-otion.at>
+# export_layers_repeatable_0.1.py - 2012 by Pako <lubos.ruckl@gmail.com>
+#
+# Written based on the original plugin 
+# "python-fu-export-layers" by Chris Mohler <cr33dog@gmail.com>
+#
+# This script allows you to export selected (or all) layers as individual image files.
+# You can execute the task again, because the dialogue does not close after export.
+# Just copy it under your home directory in .gimp-2.x/plugins (works with >=2.4)
+# and (only if os==linux) chmod it for execution.
+# You do not need to worry about the file name, because the script can automatically
+# add a number to the filename.
+#
+# This script is licensed under the CC-BY-SA Creative Commons License Version 3.0 !
+# You can read about the license terms under: 
+#	(English) http://creativecommons.org/licenses/by-sa/3.0/
+# 	(German)  http://creativecommons.org/licenses/by-sa/3.0/deed.de
+#   (Polski)  http://creativecommons.org/licenses/by-sa/3.0/deed.pl
+#
+# In case of modifications you have to leave the original author name and email
+# address in this header information !
+#
+#
+# Changelog (in reverse chronological order):
+# -------------------------------------------
+# 0.2 by elyumbo 2012-05-22 14:01 UTC+1
+#     - added sublayer export
+# 0.1 by Pako 2012-05-13 14:01 UTC+1
+#     - initial release
+#
+#===============================================================================
+
+import os
+import re
+import gimp
+import gimpplugin
+import gimpui
+from gimpenums import *
+import pygtk
+pygtk.require("2.0")
+import gtk
+from gimpshelf import shelf
+pdb = gimp.pdb
+
+# ##############################################################################
+# internationalization support i18n                                            #
+# http://www.gimp-atelier.org/forum/viewtopic.php?p=8875#p8875                 #
+import gettext                                                                 #
+import sys                                                                     #
+import locale                                                                  #
+                                                                               #
+GAT_DIR = os.path.dirname(os.path.abspath(__file__))                           #
+GAT_LOC = ''                                                                   #
+GAT_LANG = 'en'                                                                #
+s = locale.getdefaultlocale()                                                  #
+s = s[0]                                                                       #
+if s.lower <> 'none':                                                          #
+    s = s.split('_')                                                           #
+    GAT_LANG = s[0]                                                            #
+if sys.platform.startswith('linux'):                                           #
+    GAT_LOC = GAT_DIR + '/locale'                                              #
+elif sys.platform.startswith('win'):                                           #
+    GAT_LOC = GAT_DIR + r'\locale'                                             #
+else:                                                                          #
+    sys.exit('Platform not supported')                                         #
+                                                                               #
+trans = gettext.translation(                                                   #
+    "export_layers_repeatable_0.1",                                            #
+    GAT_LOC,                                                                   #
+    [GAT_LANG],                                                                #
+    fallback = True                                                            #
+ )                                                                             #
+trans.install()                                                                #
+# ##############################################################################
+
+PICTURES = gimp.user_directory(USER_DIRECTORY_PICTURES)
+
+IMG_TYPES = (
+    (_("JPEG image"), _("PNG image")),
+    (".jpg", ".png"),
+    ((1.0, 0.0, 1, 0, "", 1, 0, 0, 0), (0, 9, 1, 1, 1, 1, 1)),
+)
+
+MERGE_MODES = [
+    (
+        _("Size Of Exported Layers:"),
+        (_("Maintain their own"), _("Clipped to image")),
+    ),
+    [
+        _("Final, Merged Layer Should Be:"),
+        [_("Expanded as necessary"), _("Clipped to image"), ""],
+        (EXPAND_AS_NECESSARY, CLIP_TO_IMAGE, CLIP_TO_BOTTOM_LAYER),
+    ],
+]
+
+ONLY_VISIBLE_LABELS = (
+(_("Merge All Visible Layers ?"), _("Merge All Layers ?")),
+(_("Clipped to most bottom visible layer"), _("Clipped to bottom layer"))
+)
+
+WIDGETS = (
+    ("DIRNAME", "path", _("Save Images Here:"), PICTURES),
+    ("COMBO","file_type",_("Select File Type (By Extension):"),1,IMG_TYPES[0]),
+    ("BOOL", "autoincrement", _("Autoincrement Filename ?"), 1),
+    ("INT", 'start', _('Start Of Number Sequence:'), 1),
+    ("SPINNER", 'digits', _('Number Of Digits:'), 3, (1, 5, 1)),
+    ("BOOL", "only_visible", _("Only Visible Layers ?"), 1),
+    ("BOOL", "merge", "", 1),
+    ("COMBO", "merge_mode", "dummy", 1, MERGE_MODES[1][1]),
+    ("BOOL", "keep_alpha", _("Maintain The Transparency ?"), 1),
+)
+
+DEFAULTS =  dict([(i[1],i[3]) for i in WIDGETS])
+
+PROCNAME = "python_fu_repeatable_export_layers"
+DESCRIPTION = _("Export all (or only visible) layers as individual image files")
+MENU_LABEL = _("Export layers (repeatable)")
+#===============================================================================
+
+def MessageBox(message, title = None): # most for debugging
+    dialog = gtk.MessageDialog(
+        None,
+        gtk.DIALOG_MODAL,
+        gtk.MESSAGE_INFO,
+        gtk.BUTTONS_OK,
+        message
+    )
+    if not title:
+        title = "Message"
+    dialog.set_title(title)
+    dialog.run()
+    dialog.destroy()
+#===============================================================================
+
+class ToggleEntry(gtk.ToggleButton):
+    def __init__(self, default=0):
+        gtk.ToggleButton.__init__(self)
+        self.label = gtk.Label(_("No"))
+        self.add(self.label)
+        self.label.show()
+        self.connect("toggled", self.changed)
+        self.set_active(default)
+
+    def changed(self, tog):
+        if tog.get_active():
+            self.label.set_text(_("Yes"))
+        else:
+            self.label.set_text(_("No"))
+
+    def set_value(self, value):
+        self.set_active(value)
+
+    def get_value(self):
+        return self.get_active()
+#===============================================================================
+
+class DirnameEntry(gtk.FileChooserButton):
+    def __init__(self, value = PICTURES):
+        gtk.FileChooserButton.__init__(self, _('Select a folder'))
+        self.set_action(gtk.FILE_CHOOSER_ACTION_SELECT_FOLDER)
+        self.set_filename(value)
+        
+    def get_value(self):
+        return self.get_filename()
+
+    def set_value(self, value):
+        self.set_filename(value)
+#===============================================================================
+
+class IntEntry(gtk.Entry):
+    old_val = ""
+    def __init__(self, default=''):
+        gtk.Entry.__init__(self)
+        self.connect("changed", self.changed)
+        self.set_text(str(default))
+
+    def get_value(self):
+        try:
+            return int(self.get_text())
+        except:
+            return 0
+
+    def set_value(self, value):
+        self.set_text(str(value))
+
+    def changed(self, *args):
+        val = self.get_text()
+        if len(val) > 0:
+            try:
+                test = int(val)
+                self.old_val = val
+            except:
+                self.set_text(self.old_val)
+        else:
+            self.old_val = ""
+#===============================================================================
+
+class SpinnerEntry(gtk.SpinButton):
+    def __init__(self, default = 3, bounds = (1, 5, 3)):
+        self.bounds = bounds
+        gtk.SpinButton.__init__(self)
+        self.adj = gtk.Adjustment(
+            default,
+            bounds[0],
+            bounds[1],
+            bounds[2],
+            10*bounds[2],
+            0
+        )
+        self.set_numeric(True)
+        self.set_snap_to_ticks(True)
+        self.set_update_policy(gtk.UPDATE_IF_VALID)
+        self.old_val = bounds[2]
+        self.connect("changed", self.changed)
+        self.set_adjustment(self.adj)
+
+    def get_value(self):
+        return self.get_value_as_int()
+
+    def changed(self, *args):
+        val = self.get_text()
+        if len(val) > len(str(self.bounds[1])):
+            self.set_text(val[:-1])
+#===============================================================================
+
+class ComboEntry(gtk.ComboBox):
+    def __init__(self, default=0, items=[]):
+        self.store = gtk.ListStore(str)
+        gtk.ComboBox.__init__(self, model = self.store)
+        for item in items:
+            self.store.append([item])
+        cell = gtk.CellRendererText()
+        self.pack_start(cell)
+        self.set_attributes(cell, text=0)
+        self.set_items(items)
+        self.set_active(default)
+
+    def set_items(self, items):
+        ix = self.get_active()
+        self.store.clear()
+        for item in items:
+            self.store.append([item])        
+        self.set_active(ix)
+
+    def get_value(self):
+        return self.get_active()
+
+    def set_value(self, index):
+        self.set_active(index)
+#===============================================================================
+
+class export_layers_plugin(gimpplugin.plugin):
+    params = [
+        (PDB_INT32, "run_mode",     _("Interactive, Non-Interactive")),
+        (PDB_IMAGE, "image",        _("Image")),
+        #(PDB_DRAWABLE,"drawable", "Drawable"),   
+        (PDB_STRING, "path",        _("Folder to save layers")),   
+        (PDB_INT8, "file_type",     _("File type (0,1 = JPG, PNG)")),
+        (PDB_INT8, "autoincrement", _("Autoincrement filename (0/1)")),
+        (PDB_INT32, 'start',        _('Start of number sequence (0-99999)')),
+        (PDB_INT8, 'digits',        _('Number of digits (1-5)')),
+        (PDB_INT8, "only_visible",  _("Only visible (0/1)")),
+        (PDB_INT8, "merge",         _("Merge (0/1)")),
+        (PDB_INT8, "merge_mode",    _("Merge modes (0-2)")),
+        (PDB_INT8, "keep_alpha",    _("Maintain transparency (0/1)")),
+    ]
+    opened = False
+
+
+    def set_values(self, data):
+        for key in DEFAULTS.iterkeys():
+            self.wdgts[key].set_value(data[key])
+
+
+    def get_values(self):
+        data = shelf[self.shelfkey]
+        for key in DEFAULTS.iterkeys():
+            data[key] = self.wdgts[key].get_value()
+        return data
+
+
+    def store_values(self, *args):
+        if self.opened:
+            data = self.get_values()
+            shelf[self.shelfkey] = data
+
+
+    def show_dialog(self, data):
+        self.dialog = gimpui.Dialog(
+            _("Export layers repeatable (GIMP plugin)"),
+            "Export_layers_repeatable_plugin"
+        )
+        self.dialog.set_resizable(False)
+        self.dialog.set_border_width(12)
+        self.dialog.set_transient()
+        self.table = gtk.Table(len(WIDGETS), 2, False)
+        self.table.set_row_spacings(6)
+        self.table.set_col_spacings(6)
+        self.table.show()
+        vbox = gtk.VBox(False, 12)
+        self.dialog.vbox.pack_start(vbox)
+        vbox.show()
+
+        box = gimpui.HintBox(("%s\n\n%s  %s\n%s  %i x %i") % (
+            DESCRIPTION,
+            _("Image file:"),
+            self.img.filename,
+            _("Image size:"),
+            self.img.width,
+            self.img.height,
+        ))
+        box.show()                
+        vbox.add(box)
+        vbox.add(self.table)
+
+        self.labels = {}
+        self.wdgts = {}
+
+        for i in range(len(WIDGETS)):
+            item = WIDGETS[i]
+            label = gtk.Label(item[2])
+            label.set_alignment(0.0, 0.5)
+            label.show()
+            self.table.attach(label, 0, 1, i, i+1, xoptions = gtk.FILL)
+            self.labels[item[1]] = label
+            if item[0] == "DIRNAME":
+                button = DirnameEntry(data[item[1]])
+            if item[0] == "COMBO":
+                button = ComboEntry(data[item[1]], item[4])
+            elif item[0] == "BOOL":
+                button = ToggleEntry(data[item[1]])
+            elif item[0] == "INT":
+                button = IntEntry(data[item[1]])
+            elif item[0] == "SPINNER":
+                button = SpinnerEntry(data[item[1]], item[4])
+            button.show()
+            self.table.attach(button, 1, 2, i, i+1)
+            self.wdgts[item[1]] = button
+
+        self.wdgts["only_visible"].connect("toggled",self.OnVisibleAndMerge)
+        self.wdgts["merge"].connect("toggled", self.OnVisibleAndMerge)
+        self.wdgts["autoincrement"].connect("toggled", self.OnAutoincrement)
+        self.wdgts["file_type"].connect("changed", self.OnFileType)
+        self.wdgts["merge_mode"].connect("changed", self.store_values)
+        self.wdgts["start"].connect("changed", self.store_values)
+        self.wdgts["digits"].connect("value-changed", self.store_values)
+        self.wdgts["keep_alpha"].connect("toggled", self.store_values)
+        self.wdgts["path"].connect("selection-changed", self.store_values)
+
+        self.export_button = gtk.Button(_("Export"))
+        self.export_button.connect("clicked", self.export)
+        self.export_button.show()
+        self.dialog.action_area.add(self.export_button)        
+
+        self.reset_button = gtk.Button(_("Set defaults"))
+        self.reset_button.connect("clicked", self.resetbutton)
+        self.reset_button.show()
+        self.dialog.action_area.add(self.reset_button)
+
+        self.close_button = self.dialog.add_button(
+            gtk.STOCK_CLOSE,
+            gtk.RESPONSE_CLOSE
+        )
+
+        progress_vbox = gtk.VBox(False, 6)
+        vbox.pack_end(progress_vbox, expand=False)
+        progress_vbox.show()
+        self.progress = gimpui.ProgressBar()
+        progress_vbox.pack_start(self.progress)
+        self.progress.show()
+
+        self.OnFileType()
+        self.OnVisibleAndMerge()
+        self.OnAutoincrement()
+        self.dialog.show()
+        self.opened = True
+
+        responseId = self.dialog.run()
+        data = shelf[self.shelfkey]
+        data['filenames'].remove(self.img.filename)
+        shelf[self.shelfkey] = data
+        self.opened = False
+        self.dialog.destroy()
+        gtk.main_quit()
+
+
+    def resetbutton(self, widget):
+        self.opened = False
+        self.set_values(DEFAULTS)
+        self.opened = True
+        self.store_values()
+
+
+    def export(self, widget):
+        self.enableButtons(False)
+        data = self.get_values()
+        self.execute(data)
+        self.progress.set_text(_("Export done !"))
+        self.enableButtons(True)
+
+
+    def format_filename(self, layer, ext):
+        imgname = self.img.name.decode('utf-8')
+        layername = layer.name.decode('utf-8')
+        regex = re.compile("[^-\w]", re.UNICODE) 
+        filename = regex.sub('_',imgname) + '-' + regex.sub('_',layername) + ext
+        return filename
+
+
+    def auto_increment(self, filename, start, digits):
+        front, tail = os.path.splitext(filename)
+        for i in range(10 ** digits - 1, start - 2, -1):
+            if os.path.exists("%s_%03d%s" % (front, i, tail)):
+                break
+        i += 1
+        return "%s_%03d%s" % (front, i, tail)
+
+
+    def execute(self, data):
+        ft = data["file_type"]
+        ext = IMG_TYPES[1][ft]
+        args = IMG_TYPES[2][ft]
+        dpl = self.img.duplicate()
+        for layer in dpl.layers:
+            if not data["only_visible"]:
+                layer.visible = 1
+            elif not layer.visible:
+                dpl.remove_layer(layer)
+        if data["merge"]:
+            mode = MERGE_MODES[1][2][data["merge_mode"]]
+            dpl.merge_visible_layers(mode)
+            if  mode == CLIP_TO_IMAGE:
+                dpl.active_layer.resize_to_image_size()
+            dpl.resize_to_layers()
+            if not data["keep_alpha"]:
+                dpl.flatten()
+            
+            filename = self.format_filename(dpl.layers[0], ext)
+            fullpath = os.path.join(data["path"], filename)
+            if data["autoincrement"]:
+                fullpath = self.auto_increment(
+                    fullpath,
+                    data["start"],
+                    data["digits"]
+                )
+                filename = os.path.split(filename)[1]
+            if ft == 1:
+                pdb.file_png_save(
+                    dpl,
+                    dpl.layers[0],
+                    fullpath,
+                    filename,
+                    *args
+                )
+            elif ft == 0:
+                pdb.file_jpeg_save(
+                    dpl,
+                    dpl.layers[0],
+                    fullpath,
+                    filename,
+                    *args
+                )
+        else: # not merge
+            tmp = None
+            for layer in dpl.layers:
+                if pdb.gimp_item_is_group(layer):
+                    gr = layer
+                    gr_items = pdb.gimp_item_get_children(layer)
+                    self.goRecursiveThruSubLayers(gr_items, dpl, ext, args, data, ft)                    
+                else:
+                  self.doNonMerged(dpl, layer, ext, args, data, ft)
+            if tmp:
+                gimp.delete(tmp)
+        gimp.delete(dpl)
+        
+    def goRecursiveThruSubLayers(self, gr_items, dpl, ext, args, data, ft):
+        for index in gr_items[1]:
+            item = gimp.Item.from_id(index)
+            if pdb.gimp_item_is_group(item):
+                gr_items2 = pdb.gimp_item_get_children(item)
+                self.goRecursiveThruSubLayers(gr_items2, dpl, ext, args, data, ft)
+            else:
+              self.doNonMerged(dpl, item, ext, args, data, ft)
+        
+    def doNonMerged(self, dpl, layer, ext, args, data, ft):
+        tmp = None
+        tmp = pdb.gimp_image_new(dpl.width, dpl.height, dpl.base_type)                    
+        lr = pdb.gimp_layer_new_from_drawable(layer, tmp) 
+        lr.name = layer.name
+        tmp.add_layer(lr, 0)
+        filename = self.format_filename(lr, ext)
+        fullpath = os.path.join(data["path"], filename)
+        if data["autoincrement"]:
+            fullpath = self.auto_increment(
+                fullpath,
+                data["start"],
+                data["digits"]
+            )
+            filename = os.path.split(filename)[1]
+        if  data["merge_mode"] == 1:
+            tmp.layers[0].resize_to_image_size()
+        tmp.resize_to_layers()
+        if not data["keep_alpha"]:
+            tmp.flatten()
+        if ft == 1:
+            pdb.file_png_save(
+                tmp,
+                tmp.layers[0],
+                fullpath,
+                filename,
+                *args
+            )
+        elif ft == 0:
+            pdb.file_jpeg_save(
+                tmp,
+                tmp.layers[0],
+                fullpath,
+                filename,
+                *args
+            )
+        if tmp:
+                gimp.delete(tmp)
+
+    def enableButtons(self, enable):
+        self.close_button.set_sensitive(enable)
+        self.reset_button.set_sensitive(enable)
+        self.export_button.set_sensitive(enable)
+
+
+    def OnFileType(self, ix = None): 
+        ix = self.wdgts["file_type"].get_value()
+        if ix == 0:
+            self.wdgts["keep_alpha"].set_value(0)
+        self.labels["keep_alpha"].set_sensitive(ix == 1)
+        self.wdgts["keep_alpha"].set_sensitive(ix == 1)
+        self.store_values()
+
+
+    def OnVisibleAndMerge(self, arg = None): 
+        modeCombo = self.wdgts["merge_mode"]
+        ix = modeCombo.get_active()
+        vis = not self.wdgts["only_visible"].get_value()
+        merge = self.wdgts["merge"].get_value()
+        self.labels["merge_mode"].set_label(MERGE_MODES[merge][0])
+        self.labels["merge"].set_label(ONLY_VISIBLE_LABELS[0][vis])
+        MERGE_MODES[1][1][2] = ONLY_VISIBLE_LABELS[1][vis]
+        modeCombo.set_items(MERGE_MODES[merge][1])
+        if not merge and ix == 2:
+            modeCombo.set_active(1)
+        self.store_values()
+
+
+    def OnAutoincrement(self, tog = None):
+        enable = self.wdgts["autoincrement"].get_value()
+        self.labels["start"].set_sensitive(enable)
+        self.wdgts["start"].set_sensitive(enable)
+        self.labels["digits"].set_sensitive(enable)
+        self.wdgts["digits"].set_sensitive(enable)
+        self.store_values()
+
+
+    def query(self):
+        gimp.install_procedure(
+            PROCNAME,
+            DESCRIPTION,
+            "", 
+            "Pako",
+            "Pako",
+            "2012",
+            "<Image>/File/" + MENU_LABEL,
+            "*",
+            PLUGIN,
+            self.params,
+            [])
+
+
+    def python_fu_repeatable_export_layers(
+        self,
+        run_mode,
+        image,
+        #drawable,
+        path = PICTURES,   
+        file_type = 1,
+        autoincrement = 1,
+        start = 1,
+        digits = 3,
+        only_visible = 1,
+        merge = 1,
+        merge_mode = 1,
+        keep_alpha = 1,
+    ):
+        self.img = image
+        self.shelfkey = 'python-fu-save--' + PROCNAME.replace("python_fu_","")
+
+        import inspect
+        frame = inspect.currentframe()
+        args, dumm1, dumm2, values = inspect.getargvalues(frame)            
+        data = dict([(i, values[i]) for i in args][3:])
+        if run_mode == RUN_NONINTERACTIVE:
+            self.execute(data)
+
+        else: # RUN_INTERACTIVE or RUN_WITH_LAST_VALS
+            if shelf.has_key(self.shelfkey):
+                data = shelf[self.shelfkey]
+                if data.has_key("filenames") and self.img.filename in data['filenames']:
+                    return # Only one instance / one image allowed !!!
+            if not data.has_key("filenames"):
+                data["filenames"] = []
+            data['filenames'].append(self.img.filename)
+            shelf[self.shelfkey] = data
+            self.show_dialog(data)
+#===============================================================================
+
+if __name__ == "__main__":
+    export_layers_plugin().start()

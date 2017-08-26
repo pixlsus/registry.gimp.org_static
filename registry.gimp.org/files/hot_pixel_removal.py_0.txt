@@ -1,0 +1,93 @@
+# Hot Pixel Removal
+# (copyLEFT) 2012 Andrey "Efenstor" Pivovarov. No rights reserved
+# Copy freely, modify freely, spread the word and remeber me in your prayers
+
+#!/usr/bin/env python
+
+import math
+from gimpfu import *
+
+def hot_pixel_removal(img, layer, size, thr, brsm, edgethr, edge, noise, flatten):
+
+    # Initialization
+    gimp.progress_init("Preparing...")
+    pdb.gimp_undo_push_group_start(img)
+
+    # Prepare the layers
+    clean = layer.copy()
+    clean.name = "Clean"
+    img.add_layer(clean, -1)
+    clean_mask = clean.create_mask(5)
+    clean.add_mask(clean_mask)
+
+    # The clean layer
+    desp_size = size-1
+    if desp_size<1: desp_size = 1
+    pdb.plug_in_despeckle(img, clean, desp_size, 0, -1, 256)
+    if noise>0:
+        nval = noise/100
+        pdb.plug_in_rgb_noise(img, clean, 0, 1, nval, nval, nval, 0)
+        pdb.plug_in_blur(img, clean)
+    pdb.plug_in_edge(img, clean_mask, 1, 2, 0)
+    propag_iter = desp_size/2
+    if propag_iter<1: propag_iter = 1
+    for i in range(1, int(propag_iter)):
+        pdb.plug_in_vpropagate(img, clean_mask, 0, 1, 1, 15, 0, 255)
+    for i in range(1, int(propag_iter)):
+        pdb.plug_in_vpropagate(img, clean_mask, 1, 1, 1, 15, 0, 255)
+    pdb.gimp_threshold(clean_mask, thr, 255)
+    pdb.plug_in_blur(img, clean_mask)
+    
+    # The bright areas recovery
+    reco = layer.copy()
+    reco.name = "Bright"
+    img.add_layer(reco, -1)
+    reco_mask = reco.create_mask(5)
+    reco.add_mask(reco_mask)
+    pdb.plug_in_despeckle(img, reco_mask, desp_size, 0, -1, 256)
+    if edge>0:
+        lines = reco.copy()
+        lines.name = "Edge"
+        img.add_layer(lines, -1)
+        lines_mask = lines.mask
+    high = thr+brsm
+    if high>255: high = 255
+    pdb.gimp_levels(reco_mask, 0, thr, high, 1, 0, 255)
+    
+    # ...and the edge lines recovery
+    if edge>0:
+        pdb.plug_in_edge(img, lines_mask, 1, 2, 0)
+        pdb.gimp_threshold(lines_mask, edgethr, 255)
+        for i in range(0, int(edge)):
+            pdb.plug_in_vpropagate(img, lines_mask, 0, 1, 1, 15, 0, 255)
+        pdb.plug_in_gauss(img, lines_mask, edge, edge, 1)
+
+    # Deinitialization
+    if flatten: img.flatten()
+    pdb.gimp_undo_push_group_end(img)
+    pdb.gimp_progress_end()
+    pdb.gimp_displays_flush()
+
+register(
+    "hot_pixel_removal",
+    "Carefully and effectively cleans out bright dots of any size and shape from the dark areas of the image",
+    "",
+    "Efenstor",
+    "(copyLEFT) Andrey \"Efenstor\" Pivovarov",
+    "2012",
+    "<Image>/Filters/Enhance/Hot Pixel Removal...",
+    "RGB*, GRAY*",
+    [
+        (PF_SLIDER, "size", "Hot dot size", 7, (1, 30, 1)),
+        (PF_SLIDER, "thr", "Hot dot brightness\nthreshold", 63, (0, 255, 1)),
+        (PF_SLIDER, "brsm", "Bright area edge\nsmoothness", 31, (0, 255, 1)),
+        (PF_SLIDER, "edgethr", "Edge protection\nthreshold", 15, (0, 255, 1)),
+        (PF_SLIDER, "edge", "Edge protection width\n(iterations)", 5, (0, 20, 1)),
+        (PF_SLIDER, "noise", "Noise makeup amount", 30, (0, 100, 1)),
+        (PF_TOGGLE, "flatten", "Flatten", 1)
+    ],
+    [],
+    hot_pixel_removal)
+
+main()
+

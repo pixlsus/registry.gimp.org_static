@@ -1,0 +1,52 @@
+#!/usr/bin/env python
+
+from gimpfu import *
+import gtk
+from gobject import timeout_add
+
+# (c) 2012 by David Maquez de la Cruz
+# TODO: Check if it's possible to show info because sometimes
+# there is an error into the error console, i.e when there is no layer
+
+class LayerInfo(gtk.Window):
+    def __init__ (self, img, drw, *args):
+        self.img = img
+        self.drw = drw
+        self.w, self.h = 0, 0
+        self.label = gtk.Label()
+        r =  gtk.Window.__init__(self, *args)
+        self.add(self.label)
+        self.label.show()
+        self.show()
+        self.set_keep_above(True)
+        timeout_add(200, self.update, self)
+        return r
+
+    def update(self, *args):
+        drw = self.img.active_layer
+        x, y = pdb.gimp_drawable_offsets(drw)
+        h = pdb.gimp_drawable_height(drw)
+        w = pdb.gimp_drawable_width(drw)
+        name = pdb.gimp_layer_get_name(drw)
+        text = "-Layer Name: %s\n-Layer Offset: (%d,%d)\n-Layer Dims: (%d-%d)" % (name, x, y ,w , h)
+        self.label.set_text(text)
+        timeout_add(200, self.update, self)
+
+def layer_info (img, drw):
+    r = LayerInfo(img, drw)
+    gtk.main()
+
+register(
+        'layer_info',
+        'Shows layer information',
+        'Pops up a window with current layer information',
+        'David Marquez de la Cruz',
+        '(cc)',
+        '2012',
+        '<Image>/View/Layer Info',
+        '*',  # imagetypes
+        [], # Parameters
+        [], # Results
+        layer_info)
+
+main()

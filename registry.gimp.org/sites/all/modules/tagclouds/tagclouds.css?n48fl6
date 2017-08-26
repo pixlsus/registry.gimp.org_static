@@ -1,0 +1,38 @@
+/* tagclouds default example stylesheet **/
+
+.wrapper.tagclouds {
+  text-align : justify;
+  margin-right: 1em;
+}
+
+.tagclouds.level1 {
+  font-size : 1em;
+}
+.tagclouds.level2 {
+  font-size : 1.2em;
+}
+.tagclouds.level3 {
+  font-size : 1.4em;
+}
+.tagclouds.level4 {
+  font-size : 1.6em;
+}
+.tagclouds.level5 {
+  font-size : 1.8em;
+}
+.tagclouds.level6 {
+  font-size : 2em;
+}
+.tagclouds.level7 {
+  font-size : 2.2em;
+}
+.tagclouds.level8 {
+  font-size : 2.4em;
+}
+.tagclouds.level9 {
+  font-size : 2.6em;
+}
+.tagclouds.level10 {
+  font-size : 2.8em;
+}
+

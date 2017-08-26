@@ -1,0 +1,79 @@
+#!/usr/bin/env python
+
+"""
+The GIMP -- an image manipulation program
+Copyright (C) 1995 Spencer Kimball and Peter Mattis
+
+step scale script  for GIMP 2.6
+Copyright (C) 2010 Carlo Caponi <carlo.caponi72@gmail.com>
+
+Author statement:
+
+Correction of the Harry Phillips's script FU_stair-resize.scm, who misses 
+the final size of the images. For example 680x480 becomes 507x380 
+in three steps, instead of the correct size 511x383.
+
+This program is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation; either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program; if not, you can view the GNU General Public
+License version 3 at the web site http://www.gnu.org/licenses/gpl-3.0.html
+Alternatively you can write to the Free Software Foundation, Inc., 675 Mass
+Ave, Cambridge, MA 02139, USA.
+"""
+
+from gimpfu import *
+def plugin_main(timg, tdrawable, targetSide="Width", targetValue=1024, steps=3):
+
+    pdb.gimp_image_undo_group_start(timg)
+
+    intSteps=int(steps+0.0)
+    
+    targetValueX=targetValue
+    targetValueY=int(round(((tdrawable.height+0.0)/tdrawable.width)*targetValueX))
+
+    if (targetSide==1):
+        targetValueY=targetValue
+        targetValueX=int(round(((tdrawable.width+0.0)/tdrawable.height)*targetValueY))
+
+    stepX=(targetValueX - tdrawable.width)/intSteps
+    firstStepX=stepX + ((targetValueX - tdrawable.width) % intSteps)
+
+    stepY=(targetValueY - tdrawable.height)/intSteps
+    firstStepY=stepY + ((targetValueY - tdrawable.height) % intSteps)
+
+    pdb.gimp_image_scale(timg, tdrawable.width+firstStepX, tdrawable.height+firstStepY)
+
+    for k in range(1, intSteps):
+        pdb.gimp_image_scale(timg, tdrawable.width+stepX, tdrawable.height+stepY)
+
+        
+    pdb.gimp_image_undo_group_end(timg)
+    #pdb.gimp_image_set_resolution(timg, float(96), float(96))
+
+register(
+        "python_fu_step_scale",
+        "Resizes the image to desired size using small steps.",
+        "Resizes the image to desired size using small steps.",
+        "Carlo Caponi",
+        "Carlo Caponi",
+        "2012",
+        "<Image>/Image/Step Scale...",
+        "RGB*, GRAY*",
+        [
+	        (PF_OPTION, "targetSide", "Target side", 0, ["Width", "Height"]),
+	        (PF_INT, "targetValue", "Target value", 1024),
+	        (PF_SLIDER, "steps", "Numbers of steps", 3, [1, 10, 1])
+        ],
+        [],
+        plugin_main)
+
+main()

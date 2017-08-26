@@ -1,0 +1,120 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+# GIMP Golden Circles
+
+# Creates a new image with rotated and scaled versions of an original one to
+# create circle fractal forms. For instance, creating a flower from a single petal.
+#
+# Copyright (c) 2012 Mariano Cecowski
+# rotoshi@yahoo.com
+
+# ---------------------------------------------------------------------
+
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+from gimpfu import *
+
+#  Actually, we don't need the drawable. Or we don't need the img; not sure which is best
+def python_golden_circle(img, drawable, cycles, scale, angle, transparent, single) :
+#    recommended parameters
+#    cycles=14
+#    angle=2.399963257
+#    scale=0.99
+
+    cycles = int(cycles)
+    width = drawable.width 
+    height = drawable.height 
+    type = img.base_type
+    
+    # we are creating a squared image of the biggest dimension
+    if height>width:
+        length=height
+    else:
+        length=width
+    
+    # calculating the offset for the original (needed for scaling)
+    offset_x = (length-width)/2
+    offset_y = (length-height)/2
+
+    image = gimp.Image(length, length, type)
+    gimp.Display(image) 
+    gimp.displays_flush()
+    
+    for i in range(cycles):
+        delta_x = width * (1-scale**i)
+        delta_y = height * (1-scale**i)
+
+        # the scale is so small, that shrinking would throw an exception
+        if delta_x*2 >= width or delta_y*2 >= height:
+            break;
+            
+        layer = gimp.Layer(image, "Petal " + str(i), width, height, type, 100, NORMAL_MODE)
+        
+        if transparent:
+            layer.add_alpha()
+            layer.fill(TRANSPARENT_FILL)
+        else:
+            layer.fill(BACKGROUND_FILL)
+        
+        image.add_layer(layer)
+        
+        # copy the original image to the new laxyer
+        pdb.gimp_edit_copy (img.active_layer)
+        floating = pdb.gimp_edit_paste (layer, True)
+        pdb.gimp_floating_sel_anchor(floating)
+        
+        pdb.gimp_scale (layer, True,
+                        delta_x+offset_x, delta_y+offset_y,
+                        width-delta_x+offset_x, 
+                        height-delta_y+offset_y)
+
+        # There can be some numerical problems here, but with i~=50 not a big issue                        
+        pdb.gimp_rotate(layer, True, angle*float(i))
+
+        #  you must make sure that your background color is correct!
+        if not transparent:
+            layer.resize_to_image_size()
+            pdb.gimp_layer_flatten(layer)
+
+        if single:
+            image.merge_visible_layers(CLIP_TO_IMAGE)
+
+#       How do you refresh the output, so you can see what's going on?? this doesn't work
+#        gimp.displays_flush()
+    return
+
+register(
+       	"python_fu_golden_circle",
+	"Create a circle from a fiven image by placing copies of it rotated and scaled in a new one. If ~2.4 radiants are used, the result ins a Golden-ratio Circle, specially good for flowers (starting from a petal) and other nature things.",
+	"Puts an image N times around a circle in golden-ratio angles creating a flower-like image",
+	"Mariano Cecowski (rotoshi@yahoo.com)",
+	"GPLv3, Mariano Cecowski",
+	"2012",
+	"Golden-ratio circle...",
+	"*",
+	[
+     (PF_IMAGE, "image", "Input image", None),
+     (PF_DRAWABLE, "drawable", "Input drawable", None),
+     (PF_SLIDER, "cycles", "_Cycles", 5, (0, 50, 1)),
+     (PF_SPINNER, "scale", "_Scale", 0.985, (0, 2, 0.005)),
+     (PF_SPINNER, "angle", "_Angle (radians)", 2.399963257, (0, 6.283185307, 0.1)),
+     (PF_TOGGLE, "transparent", "_Keep transparency", True),
+     (PF_TOGGLE, "single", "Single _layer", True),
+	],
+	[],
+	python_golden_circle,
+        menu="<Image>/Filters/Distorts")
+
+main()

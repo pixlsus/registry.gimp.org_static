@@ -1,0 +1,141 @@
+Notes for the Trace plugin
+
+Nov. 2009
+L. Konneker
+version 0.1
+
+
+This is a mix of notes for users and programmers.
+
+
+About the Trace plugin:
+
+It has these main uses:
+Simplifying an image to reduced colors and smooth outlines, like a cartoon or a collage.
+Creating paths in an image, on outlines or centerlines.
+
+It requires the separate program called autotrace.  Autotrace is a command line program, available free on the web, with package name "autotrace".
+
+It simplifies the user interface to autotrace.  You have more control over autotrace if you invoke it directly from the command line (but it has bewildering parameters.)
+
+It works by converting the image to vectors (curves), then back to pixels (a bitmap) and possibly paths (the Gimp name for vectors.)
+
+
+FAQ's
+
+Q. Why are there checkerboards or gaps between colors?  A. What you see as checkerboard is an uncolored background seen through a transparent foreground.  (You can see it as snow by choosing "Layer>Alpha to Selection".)  In other words, it is gaps between foreground regions.   The gaps are a limitation of the plugin and the tracing algorithms it uses.  Outlines are closed paths around pixel regions of the same color.  As vectors, the paths around two adjacent colors may not overlap in a strict mathematical sense.  When paths are rendered to pixels and filled, some pixels between paths might not be colored.
+
+Q. Why would I want paths?  A. You can paint (stroke) them or make selections using them.  (But it might be easier to select by color.)  You may very well not need the paths, just the simplifications that go with converting to and fro.
+
+Q. Why does it trace text fonts and line art so poorly?  A. The Trace plugin uses an engine (autotrace) that does poorly on fonts and line art.  Inkscape uses a different engine (potrace) that does better on fonts (but only in B&W.) 
+
+
+
+How the Trace plugin works:
+
+Saves the current image in a temporary png file.
+Invokes autotrace on that file to create a temporary SVG file.
+Imports the temporary svg file into a new image.
+Deletes the temporary png file.
+
+
+
+About Autotrace
+
+Quoting the authors: AutoTrace is a program for converting bitmaps to vector graphics. The aim of the AutoTrace project is the development of a freely-available application similar to CorelTrace or Adobe Streamline. In some aspects it is already better. Originally created as a plugin for the GIMP, AutoTrace is now a standalone program.  Home Page: http://autotrace.sourceforge.net/
+
+Autotrace, in order:
+1) despeckles, removing small features.
+2) quantizes to a reduced color range.
+3) vectorizes, using a "watershed" algorithm, tracing either outlines divides between colors (watersheds) or centerlines (rivers in watersheds).
+
+The vectorizing step:
+1) detects corners or cusps
+2) fits curves (splines or Bezier curves) between the corners
+
+The parameters of Autotrace affect one or more of these steps.  Autotrace documents aren't clear which steps the parameters affect.
+
+
+
+Bitmaps, vectors, Gimp, and Inkscape
+
+Gimp mainly uses bitmaps and Inkscape mainly uses vectors, but both have limited support for the other format.  Gimp will import vectors and Inkscape will import bitmaps.  Inkscape will trace bitmaps to create vectors (but it does it in black and white.)
+
+The Trace plugin for Gimp can be similar to: 
+1) saving a bitmap image from Gimp
+2) opening the bitmap image in Inkscape, tracing, and saving B&W SVG, 
+3) reopening the B&W SVG image in Gimp,
+4) restoring colors to the image
+
+(But Inkscape uses a different tracing engine, called potrace.)
+
+
+About SVG and bitmap images for the Web
+
+For Web images, you might want SVG files because they scale with no loss of clarity or resolution.  But not all web browsers now support scaling SVG images.  Many web browsers support limited scaling of bitmap images.  You can find the SVG files created by the Trace plugin in the Gimp temporary directory.  The SVG images created by the Trace plugin might not be smaller than comparable bitmap images.  In the future, some browsers might support smarter scaling of bitmap images, for example, using Liquid Rescale.
+
+
+
+About competing tracing programs:
+
+Potrace and autotrace are free software competitors. Autotrace does colors, potrace only black and white.  Autotrace will trace centerlines, potrace won't.  There is some evidence that potrace does a better job of tracing fonts.
+
+CorelTrace and Adobe Streamline are commercial competitors.
+
+
+
+About GUI front-ends for tracing programs:
+
+Potracegui is a GUI (instead of command line) frontend (or wrapper) to autotrace and potrace (despite its name).  It uses KDE desktop environment on Linux (different from Gnome desktop.)
+
+Frontline was a GUI frontend to autotrace.  It used the GTK (Gnome) desktop environment. (Apparently it is not in most Linux distributions anymore.  The source is still available at SourceForge.  It would not easily compile for me.)
+
+Delineate is a portable GUI front-end written in Java, distributed with autotrace.
+
+Win32Trace is a GUI front-end to autotrace for MS Windows.
+
+Inkscape has potrace built in.
+
+
+
+About Gimp plugins for Autotrace:
+
+Autotrace started as a plugin for Gimp, but is not any more.
+
+Frontline had a plugin for Gimp, but apparently not any longer.
+
+I couldn't find any other tracing plugin for Gimp.
+
+
+
+About tracing in Gimp
+
+Often tracing means "selecting the outline of".  The magic wand and the foreground select tool in Gimp help you do that.  Gimp can convert a path to a selection and vice versa.
+
+
+
+Known limitations of the Trace plugin for Gimp
+
+It does a poor job of tracing fonts, either outlines or centerlines.  Potrace might be a better engine for that. If you want to trace fonts, use Inkscape.
+
+It leaves gaps between filled shapes (where the background shows through.)  A post processing step could fill in those gaps with the nearest color.  Or the tracing algorithm might generate splines that overlap so that there are no gaps.  
+
+For now, the Trace plugin aborts without creating an image if autotrace generates a large SVG file size ( greater than 600 kilobytes) and you have chosen "Create Paths: Many, Individual."  In this case, the Trace plugin presents a message "Trace plugin error: SVG file has too many individual paths to import."  (If the plugin did not abort, the plugin (and Gimp) would lock up as it imports the SVG file.  Gimp can render the vectors quickly, but takes an inordinate amount of time to read them into Gimp paths.)
+
+
+
+
+More notes:
+
+The Trace plugin will trace down to one color for centerlines.  Then, the rest of the image is transparent.  (It makes no sense to trace down to one color for outlines, since it reduces the image to one color.)
+
+The new, traced image size and resolution is the same as the original.
+
+The new, traced image name has an .svg suffix.  To save the new, traced image, you must choose a different suffix (file format) since Gimp won't save SVG.  However, whether or not you save the new image, the SVG format file created by autotrace will remain in the Gimp temporary directory (so you can use it.)
+
+
+
+Installation:
+
+Install in the normal way for Gimp plugins on your platform.  Install the autotrace program normally (to satisfy the requirement that the Trace plugin, or any other invocation from a shell, will find the executable file in the shell's search path.)
+

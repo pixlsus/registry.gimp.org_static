@@ -1,0 +1,7 @@
+import xmlrpclib
+import sys
+
+s = xmlrpclib.ServerProxy('http://localhost:8000', allow_none=True)
+
+s.set_foreground(255,0,0)
+# s.image(200,200,"RGB")

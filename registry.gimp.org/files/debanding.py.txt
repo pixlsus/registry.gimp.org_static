@@ -1,0 +1,180 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+#   Debanding - reduces high ISO banding and blue haze.
+#   Copyright (C) 2011  Mario Mlačak <mmlacak@gmail.com>
+#
+#   This program is free software; you can redistribute it and/or modify
+#   it under the terms of the GNU General Public License as published by
+#   the Free Software Foundation; either version 3 of the License, or
+#   (at your option) any later version.
+#
+#   This program is distributed in the hope that it will be useful,
+#   but WITHOUT ANY WARRANTY; without even the implied warranty of
+#   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#   GNU General Public License for more details.
+#
+#   You should have received a copy of the GNU General Public License
+#   along with this program; if not, write to the Free Software
+#   Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+
+from gimpfu import *
+
+gettext.install("gimp20-python", gimp.locale_directory, unicode=True)
+
+pdb = gimp.pdb
+
+TYPE_NONE = 0
+TYPE_DEBAND = 1
+TYPE_DENOISE = 2
+TYPE_DENOISE_MORE = 3
+
+PROGRESS_STEPS = 11
+PROGRESS_VALUE = 1.0 / PROGRESS_STEPS
+
+def update_progress(step):
+    value = step * PROGRESS_VALUE
+    gimp.progress_update(value)
+
+def debanding(image, drawable, if_gauss_blur, widthY, widthCb, widthCr, denoise_type, if_flatten):
+    gimp.context_push()
+    pdb.gimp_image_undo_group_start(image) # image.undo_group_start()
+
+    gimp.progress_init()
+    pdb.gimp_progress_set_text("gimp-drawable-set-visible")
+    for l in image.layers:
+        pdb.gimp_drawable_set_visible(l, False)
+
+    layer = image.active_layer
+    if layer is None:
+        layer = drawable
+    pdb.gimp_drawable_set_visible(layer, True)
+    update_progress(1)
+
+    wY = float(widthY)
+    wCb = float(widthCb)
+    wCr = float(widthCr)
+    if_gauss_value = wY > 0.0 or wCb > 0.0 or wCr > 0.0
+
+    if if_gauss_blur and if_gauss_value:
+        pdb.gimp_progress_set_text("plug-in-decompose")
+        new_img, none1, none2, none3 = pdb.plug_in_decompose(image, layer, "YCbCr_ITU_R709", 1)
+        update_progress(2)
+        
+        layer_Y = new_img.layers[0]
+        if wY > 0.0:
+            pdb.gimp_progress_set_text("plug-in-gauss-iir2")
+            pdb.plug_in_gauss_iir2(new_img, layer_Y, wY, wY)
+            update_progress(3)
+        
+        layer_Cb = new_img.layers[1]
+        if wCb > 0.0:
+            pdb.gimp_progress_set_text("plug-in-gauss-iir2")
+            pdb.plug_in_gauss_iir2(new_img, layer_Cb, wCb, wCb)
+            update_progress(4)
+        
+        layer_Cr = new_img.layers[2]
+        if wCr > 0.0:
+            pdb.gimp_progress_set_text("plug-in-gauss-iir2")
+            pdb.plug_in_gauss_iir2(new_img, layer_Cr, wCr, wCr)
+            update_progress(5)
+        
+        pdb.gimp_progress_set_text("plug-in-compose")
+        # does not work in layered mode !?
+        # new_img = pdb.plug_in_compose(new_img, None, none1, none2, none3, "YCbCr_ITU_R709") 
+        new_img = pdb.plug_in_drawable_compose(new_img, layer_Y, layer_Cb, layer_Cr,  None, "YCbCr_ITU_R709")
+        for l in new_img.layers:
+            pdb.gimp_drawable_set_visible(l, True)
+        new_flat = pdb.gimp_image_flatten(new_img)
+        layer = pdb.gimp_layer_new_from_visible(new_img, image, "Visible")
+        pdb.gimp_image_add_layer(image, layer, 0) # image.add_layer(layer, 0)
+
+    do_none = denoise_type == TYPE_NONE
+    do_deband = denoise_type == TYPE_DEBAND
+    do_denoise = denoise_type == TYPE_DENOISE
+    do_denoise_more = denoise_type == TYPE_DENOISE_MORE
+    do_denoising = do_denoise or do_denoise_more
+
+    if not do_none:
+        pdb.gimp_progress_set_text("gimp-layer-new-from-drawable")
+        luminosity = pdb.gimp_layer_new_from_drawable(layer, image)
+        update_progress(6)
+        
+        luminosity.name = "Luminosity"
+        index = pdb.gimp_image_get_layer_position(image, layer)
+        pdb.gimp_image_add_layer(image, luminosity, index+1)
+        pdb.gimp_progress_set_text("gimp-desaturate-full")
+        pdb.gimp_desaturate_full(luminosity, DESATURATE_LUMINOSITY)
+        update_progress(7)
+
+        if do_denoising:
+            pdb.gimp_progress_set_text("gimp-layer-new-from-drawable")
+            lightness = pdb.gimp_layer_new_from_drawable(layer, image)
+            update_progress(8)
+            
+            lightness.name = "Lightness"
+            pdb.gimp_image_add_layer(image, lightness, index+1)
+            pdb.gimp_progress_set_text("gimp-desaturate-full")
+            pdb.gimp_desaturate_full(lightness, DESATURATE_LIGHTNESS)
+            update_progress(9)
+            
+            if do_denoise:
+                pdb.gimp_layer_set_mode(lightness, OVERLAY_MODE)
+            elif do_denoise_more:
+                pdb.gimp_layer_set_mode(lightness, MULTIPLY_MODE)
+
+        pdb.gimp_layer_set_mode(layer, COLOR_MODE)
+        pdb.gimp_progress_set_text("gimp-layer-new-from-visible")
+        deband = pdb.gimp_layer_new_from_visible(image, image, "Debanded")
+        pdb.gimp_image_add_layer(image, deband, index)
+        update_progress(10)
+
+        pdb.gimp_progress_set_text("Finishing ...")
+        pdb.gimp_layer_set_mode(layer, NORMAL_MODE)
+        pdb.gimp_image_remove_layer(image, luminosity)
+        if do_denoising:
+            pdb.gimp_image_remove_layer(image, lightness)
+
+        if if_flatten:
+            flat = pdb.gimp_image_flatten(image)
+        update_progress(11)
+
+    # Throws: RuntimeError: execution error
+    pdb.gimp_image_undo_group_end(image) # image.undo_group_end()
+    gimp.context_pop()
+
+register(
+    "python-fu-debanding",
+    N_("Reduces high ISO banding, blue haze \n" \
+    "and chroma noise in active layer, \n" \
+    "generaly produced by Olympus gear."),
+    "Reduces high ISO banding, blue haze \n" \
+    "and chroma noise in active layer, \n" \
+    "generaly produced by Olympus gear.",
+    "Mario Mlačak",
+    "Mario Mlačak",
+    "2011-05-15",
+    N_("_Debanding ..."),
+    "RGB*",
+    [
+        (PF_IMAGE, "image",       "Input image", None),
+        (PF_DRAWABLE, "drawable", "Input drawable", None),
+        (PF_TOGGLE, "if_gauss_blur", _("Do Gauss blur on YCbCr?"), False),
+        (PF_FLOAT, "widthY", "Width Y (0.0-255.0)", 0.0),
+        (PF_FLOAT, "widthCb", "Width Cb (0.0-255.0)", 42.0),
+        (PF_FLOAT, "widthCr", "Width Cr (0.0-255.0)", 21.0),
+        (PF_RADIO, "denoise_type", _("Type"), TYPE_DEBAND,
+                   ((_("None"), TYPE_NONE),
+                    (_("Deband"), TYPE_DEBAND),
+                    (_("Denoise"),   TYPE_DENOISE),
+                    (_("Denoise more"),   TYPE_DENOISE_MORE))),
+        (PF_TOGGLE, "if_flatten", _("Flatten image?"), False),
+    ],
+    [],
+    debanding,
+    menu="<Image>/Filters/Enhance",
+    domain=("gimp20-python", gimp.locale_directory)
+    )
+
+main()
+

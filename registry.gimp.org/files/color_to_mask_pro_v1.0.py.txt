@@ -1,0 +1,195 @@
+# Color to Mask Pro
+# (copyLEFT) 2013 Andrey "Efenstor" Pivovarov. No rights reserved
+# Copy freely, modify freely, spread the word and remeber me in your prayers
+
+#!/usr/bin/env python
+
+import math
+from gimpfu import *
+
+
+def deinit(img):
+    pdb.gimp_undo_push_group_end(img)
+    pdb.gimp_progress_end()
+    pdb.gimp_displays_flush()
+
+
+def make_layer(mode, img, layer, name, before):
+    if mode==1:
+        # Copy layer
+        nl = layer.copy()
+        nl.name = name
+    else:
+        # Make a new layer
+        nl = gimp.Layer(img, name, img.width, img.height, RGB, 100, NORMAL_MODE)
+
+    if before: img.active_layer = before
+    img.add_layer(nl, -1)
+    return nl
+
+
+def do_the_alchemy(img, bk, name, bkcolor, pfilter):
+    diff = make_layer(1, img, bk, name, 0)
+    if pfilter==1: pdb.plug_in_blur(img, diff)
+    col = make_layer(0, img, 0, "Color", diff)
+    pdb.gimp_edit_fill(col, bkcolor)
+    col.mode = DIFFERENCE_MODE
+    return pdb.gimp_image_merge_down(img, col, 0)
+
+
+def do_the_magic(img, bk, name, bkcolor, pfilter):
+    diff = make_layer(1, img, bk, name, 0)
+    if pfilter==1: pdb.plug_in_blur(img, diff)
+    col1 = make_layer(0, img, 0, "Color #1", diff)
+    pdb.gimp_edit_fill(col1, bkcolor)
+    col1.mode = VALUE_MODE
+    col2 = make_layer(1, img, col1, "Color #2", col1)
+    col2.mode = DIFFERENCE_MODE
+    pdb.gimp_image_merge_down(img, col1, 0)
+    return pdb.gimp_image_merge_down(img, col2, 0)
+
+
+def mixdown(img, layer, ign):
+    if ign==1: return pdb.plug_in_colors_channel_mixer(img, layer, TRUE, 0,1,1, 0,0,0, 0,0,0)
+    elif ign==2: return pdb.plug_in_colors_channel_mixer(img, layer, TRUE, 1,0,1, 0,0,0, 0,0,0)
+    elif ign==3: return pdb.plug_in_colors_channel_mixer(img, layer, TRUE, 1,1,0, 0,0,0, 0,0,0)
+    else: return pdb.plug_in_colors_channel_mixer(img, layer, TRUE, 1,1,1, 0,0,0, 0,0,0)
+
+
+def color_to_mask_pro(img, bk, step, method, bkcol, dscol, pfilter, ign, thr, mblur, ec, ccc, cccwidth):
+
+    # Initialization
+    from gimpshelf import shelf
+    gimp.progress_init("Preparing...")
+    pdb.gimp_undo_push_group_start(img)
+    thrf = thr/100
+    lthr = 127-int(thrf*127)
+    hthr = 128+int(thrf*127)
+    gamma = 1+(1-thrf)*9
+    lthr64 = 63-int(thrf*63)
+    hthr64 = 64+int(thrf*63)
+
+    # Step 1
+    if step==1:
+        # Erase background light
+        if bkcol==0: bkcolor = BACKGROUND_FILL
+        else: bkcolor = FOREGROUND_FILL
+        if method==0: maskbk = do_the_alchemy(img, bk, "Background (alchemy)", bkcolor, pfilter)
+        elif method==1: maskbk = do_the_magic(img, bk, "Background (magic)", bkcolor, pfilter)
+        else:
+            maskbk_m = do_the_magic(img, bk, "Background (magic)", bkcolor, pfilter)
+            maskbk = do_the_alchemy(img, bk, "Background (alchemy)", bkcolor, pfilter)
+
+        # Erase background shadow
+        if dscol==0 and not method==1:
+            bgc = pdb.gimp_context_get_background()
+            fgc = pdb.gimp_context_get_foreground()
+            pdb.gimp_context_set_foreground((abs(bgc[0]-fgc[0]), abs(bgc[1]-fgc[1]), abs(bgc[2]-fgc[2])))
+            col = make_layer(0, img, 0, "Color", 0)
+            pdb.gimp_edit_fill(col, FOREGROUND_FILL)
+            col.mode = SUBTRACT_MODE
+            maskbk = pdb.gimp_image_merge_down(img, col, 0)
+            pdb.gimp_context_set_foreground(fgc)    # Restore the foreground color
+
+        # Turn monochrome and apply the tresholds
+        pdb.gimp_levels_stretch(maskbk)
+        mixdown(img, maskbk, ign)
+        if method==1:
+            # No drop shadow removal possible with the Value method
+            pdb.gimp_levels(maskbk, 0, lthr, hthr, 1, 0, 255)
+        else:
+            # Difference / Hybrid method
+            if dscol==0: pdb.gimp_levels(maskbk, 0, lthr64, hthr64, gamma, 0, 255)
+            else: pdb.gimp_levels(maskbk, 0, lthr, hthr, 1, 0, 255)
+
+        # Finalize the Hybrid method
+        if method>=2:
+            pdb.gimp_levels_stretch(maskbk_m)
+            mixdown(img, maskbk_m, ign)
+            pdb.gimp_levels(maskbk_m, 0, lthr, hthr, 1, 0, 255)
+            # Combine alchemy with magic
+            if method==2:
+                # Soft
+                maskbk.mode = OVERLAY_MODE
+            else:
+                # Hard
+                maskbk.mode = BURN_MODE
+            mask = pdb.gimp_image_merge_down(img, maskbk, 0)
+        else:
+            mask = maskbk
+
+        # Make it the mask
+        mask.name = "Mask preview"
+        pdb.gimp_layer_flatten(mask)
+
+        # Save some data for the step 2
+        shelf["ctmp_bk"] = bk
+        shelf["ctmp_mask"] = mask
+
+    # Step 2
+    if step==2:
+        # Restore some data from step 1
+        bk = shelf["ctmp_bk"]
+        mask = shelf["ctmp_mask"]
+        if pdb.gimp_item_is_valid(bk)==FALSE:
+            pdb.gimp_message("No background layer used in the step 1 found, cannot continue.")
+            deinit(img)
+            return
+        if pdb.gimp_item_is_valid(mask)==FALSE:
+            pdb.gimp_message("No mask preview layer created by the step 1 found, cannot continue.")
+            deinit(img)
+            return
+
+        # Turn the mask layer into a real mask
+        maskmask = mask.create_mask(ADD_COPY_MASK)
+        if pdb.gimp_layer_get_mask(bk)>=0: pdb.gimp_layer_remove_mask(bk, 1)
+        bk.add_mask(maskmask)
+        pdb.gimp_image_remove_layer(img, mask)
+
+        # Do the mask blurring
+        if mblur>0: pdb.plug_in_gauss_rle2(img, maskmask, mblur, mblur)
+
+        # Do the edge/shadow compression
+        ecf = ec/100
+        cpts = [ 0, 0, 127+(ecf*128), 255-int(ecf*255), 255, 255 ]
+        pdb.gimp_curves_spline(maskmask, 0, 6, cpts)
+
+        # Do the spill correction
+        if ccc:
+            pdb.gimp_selection_load(maskmask)
+            pdb.gimp_selection_invert(img)
+            pdb.gimp_selection_grow(img, cccwidth/2)
+            pdb.gimp_selection_feather(img, cccwidth)
+            pdb.plug_in_rotate_colormap(img, bk)
+            pdb.gimp_selection_none(img)
+
+    # Deinitialization
+    deinit(img)
+
+register(
+    "color_to_mask_pro",
+    "Erase a single-colored background like a pro",
+    "ZZZ",
+    "Efenstor",
+    "(copyLEFT) Andrey \"Efenstor\" Pivovarov",
+    "2013",
+    "<Image>/Layer/Mask/Color to Mask Pro...",
+    "RGB*",
+    [
+        (PF_RADIO, "step", "Step", 1, (("1: prepare and retouch", 1), ("2: finalize", 2))),
+        (PF_OPTION, "method", "Method", 2, ("Difference", "Value", "Hybrid (soft)", "Hybrid (hard)")),
+        (PF_OPTION, "bkcol", "Background color", 0, ("Background", "Foreground")),
+        (PF_OPTION, "dscol", "Drop shadow color", 0, ("Foreground / Background", "None")),
+        (PF_TOGGLE, "pfilter", "Pre-blur (less noise/artifacts)", 1),
+        (PF_OPTION, "ign", "Ignore channel", 0, ("None", "Red", "Green", "Blue")),
+        (PF_SLIDER, "thr", "Threshold (larger = softer)", 50, (0, 100, 1)),
+        (PF_FLOAT, "mblur", "Mask blur (px)", 0.5),
+        (PF_SLIDER, "ec", "Edge compression (larger = thinner)", 25, (0, 100, 1)),
+        (PF_TOGGLE, "ccc", "Color spill correction (MANUAL)", 0),
+        (PF_INT, "cccwidth", "Color spill correction width (px)", 25)
+    ],
+    [],
+    color_to_mask_pro)
+
+main()
+

@@ -1,0 +1,154 @@
+#!/usr/bin/env python
+
+from gimpfu import *
+
+__author__="Eduardo 'trialforce' Bonfandini"
+__date__  ="$29/08/2010 14:53:06$"
+
+def python_scale2x(img, tdrawable):
+    """
+    Reescale current layer using scale2x algorithm.
+    Based on http://scale2x.sourceforge.net/
+    Downloaded from trialforce.nostaljia.eng.br
+    """
+    width  = tdrawable.width
+    height = tdrawable.height
+    layer  = img.active_layer #get active layer
+
+    gimp.progress_init('Resizing image using scale2x algorithm')
+
+    #int a undo group
+    pdb.gimp_image_undo_group_start(img)
+
+    #resize the viewport of layer and image
+    img.resize(width*2, height*2, 0, 0)
+    layer.resize(layer.width*2, layer.height*2)
+
+    #get the pixels of layer
+    src = tdrawable.get_pixel_rgn(0, 0, width, height , False , False)
+
+    newLayer = gimp.Layer(img, 'scale2x', width*2, height*2, layer.type, 100, NORMAL_MODE)
+    dst = newLayer.get_pixel_rgn(0, 0, width*2, height*2 )
+
+    img.add_layer( newLayer );
+
+    for x in range( width ):
+        progress = (float(x)/float(width) )
+        gimp.progress_update(progress)
+        for y in range( height  ):
+
+            dx = x*2
+            dy = y*2
+
+            x1 = x -1
+
+            if ( x1 < 0 ): x1 = 0;
+
+            y1 = y - 1
+
+            if ( y1 < 0 ): y1 = 0;
+
+            x2 = x + 1
+
+            if x2 > width-1: x2 = width-1
+
+            y2 = y + 1
+
+            if y2 > height-1: y2 = height-1
+
+            #A (-1,-1)	B (0,-1) C (1,-1)
+            #D (-1,0)	E (0,0)	 F (1,0)
+            #G (-1,1)   H (0,1)	 I (1,1)
+
+            #a = src[x1,y1] #not used
+            b = src[x,y1]
+            #c = src[x,y1] #not used
+
+            d = src[x1,y]
+            e = src[x,y]
+            f = src[x2,y]
+
+            #g = src[x1,y2] #not used
+            h = src[x,y2]
+            #i = src[x2,y2] #not used
+
+            #E0 = D == B && B != H && D != F ? D : E;
+            #E1 = B == F && B != H && D != F ? F : E;
+            #E2 = D == H && B != H && D != F ? D : E;
+            #E3 = H == F && B != H && D != F ? F : E;
+
+            if ( d == b and b != h and d != f ):
+                e0 = d
+            else:
+                e0 = e
+
+            if ( b == f and b != h and d != f ):
+                e1 = f
+            else:
+                e1 = e
+
+            if ( d == h and b != h and d != f  ):
+                e2 = d
+            else:
+                e2 = e
+
+            if ( h == f and b != h and  d != f  ):
+                e3 = f
+            else:
+                e3 = e
+
+            dst[dx,dy]       = e0;
+            dst[dx+1,dy]     = e1;
+            dst[dx,dy+1]     = e2;
+            dst[dx+1,dy+1]   = e3;
+
+    tdrawable.update(0, 0, width*2, height*2) #update the 2x layer
+    img.remove_layer(layer) #remove the original layer
+    img.active_layer = newLayer #define newLayer as active layer
+    gimp.progress_update(1) #define 100% in the progress bar
+    pdb.gimp_image_undo_group_end(img) #int a undo group
+
+
+register(
+        "python_fu_scale2x",
+        "Reescale current layer using scale2x algorithm",
+        "Reescale current layer using scale2x algorithm",
+        "Eduardo 'Trialforce' Bonfandini",
+        "Eduardo 'Trialforce' Bonfandini",
+        "2010",
+        "<Image>/Filters/Artistic/_Scale2x...",
+        "",
+        [],
+        [],
+        python_scale2x)
+
+def python_scale2ex(img, tdrawable):
+    """Double the image size using scale2x and dilate"""
+    width  = tdrawable.width
+    height = tdrawable.height
+
+    pdb.gimp_image_undo_group_start(img) #int a undo group  
+    pdb.python_fu_scale2x(img, tdrawable)
+    #pdb.python_fu_scale2x(img, img.active_layer)
+    #duplicate size
+    pdb.gimp_image_scale_full(img, width*4, height*4,0)
+    #aply dilate
+    pdb.plug_in_dilate(img, img.active_layer, 0, 1  , 1.0 , 15 , 0 , 255)
+    #50% of size
+    pdb.gimp_image_scale_full(img, width*2, height*2,0)
+    pdb.gimp_image_undo_group_end(img) #int a undo group
+
+register(
+        "python_fu_scale2ex",
+        "Double the image size using scale2x and dilate",
+        "Double the image size using scale2x and dilate",
+        "Eduardo 'Trialforce' Bonfandini",
+        "Eduardo 'Trialforce' Bonfandini",
+        "2010",
+        "<Image>/Filters/Artistic/_Scale2EX......",
+        "RGB*,",
+        [],
+        [],
+        python_scale2ex)
+
+main()

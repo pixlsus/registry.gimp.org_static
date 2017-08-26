@@ -1,0 +1,264 @@
+#!/usr/bin/env python
+
+from gimpfu import *
+from array import array
+import time
+
+def pixel_cpy(dst, dpos, src, spos, bpp):
+	for i in range(bpp):
+		dst[dpos + i] = src[spos + i]
+
+def pixel_eql(src, pos0, pos1, bpp):
+	if pos0 == pos1:
+		return True
+	for i in range(bpp):
+		if src[pos0 + i] != src[pos1 + i]:
+			return False
+	return True
+
+def scale_dummy2x(src, x, y, w, h, bpp):
+	pos = (x + y * w) * bpp
+	return (pos, pos, pos, pos)
+
+def scale_scale2x(src, x, y, w, h, bpp):
+	x0 = x - 1 if x > 0     else 0
+	x2 = x + 1 if x < w - 1 else w - 1
+	y0 = y - 1 if y > 0     else 0
+	y2 = y + 1 if y < h - 1 else h - 1
+
+	x0 *= bpp
+	x  *= bpp
+	x2 *= bpp
+	y0 *= bpp * w
+	y  *= bpp * w
+	y2 *= bpp * w
+
+	B = x  + y0
+	D = x0 + y 
+	E = x  + y 
+	F = x2 + y 
+	H = x  + y2
+
+	if not pixel_eql(src, B, H, bpp) and not pixel_eql(src, D, F, bpp):
+		p0 = D if pixel_eql(src, B, D, bpp) else E
+		p1 = F if pixel_eql(src, B, F, bpp) else E
+		p2 = D if pixel_eql(src, H, D, bpp) else E
+		p3 = F if pixel_eql(src, H, F, bpp) else E
+		
+		return (p0, p1, p2, p3)
+
+	return (E, E, E, E)
+
+def scale_eagle2x(src, x, y, w, h, bpp):
+	x0 = x - 1 if x > 0     else 0
+	x2 = x + 1 if x < w - 1 else w - 1
+	y0 = y - 1 if y > 0     else 0
+	y2 = y + 1 if y < h - 1 else h - 1
+
+	x0 *= bpp
+	x  *= bpp
+	x2 *= bpp
+	y0 *= bpp * w
+	y  *= bpp * w
+	y2 *= bpp * w
+
+	A = x0 + y0
+	B = x  + y0
+	C = x2 + y0
+	D = x0 + y 
+	E = x  + y 
+	F = x2 + y 
+	G = x0 + y2
+	H = x  + y2
+	I = x2 + y2
+
+	p0 = A if pixel_eql(src, A, B, bpp) and pixel_eql(src, A, D, bpp) else E
+	p1 = C if pixel_eql(src, C, B, bpp) and pixel_eql(src, C, F, bpp) else E
+	p2 = G if pixel_eql(src, G, H, bpp) and pixel_eql(src, G, D, bpp) else E
+	p3 = I if pixel_eql(src, I, H, bpp) and pixel_eql(src, I, F, bpp) else E
+
+	return (p0, p1, p2, p3)
+
+def scale_dummy3x(src, x, y, w, h, bpp):
+	pos = (x + y * w) * bpp
+	return (pos, pos, pos, pos, pos, pos, pos, pos, pos)
+
+def scale_scale3x(src, x, y, w, h, bpp):
+	x0 = x - 1 if x > 0     else 0
+	x2 = x + 1 if x < w - 1 else w - 1
+	y0 = y - 1 if y > 0     else 0
+	y2 = y + 1 if y < h - 1 else h - 1
+
+	x0 *= bpp
+	x  *= bpp
+	x2 *= bpp
+	y0 *= bpp * w
+	y  *= bpp * w
+	y2 *= bpp * w
+
+	A = x0 + y0
+	B = x  + y0
+	C = x2 + y0
+	D = x0 + y 
+	E = x  + y 
+	F = x2 + y 
+	G = x0 + y2
+	H = x  + y2
+	I = x2 + y2
+
+	if not pixel_eql(src, B, H, bpp) and not pixel_eql(src, D, F, bpp):
+		D_B = pixel_eql(src, D, B, bpp)
+		D_H = pixel_eql(src, D, H, bpp)
+		F_B = pixel_eql(src, F, B, bpp)
+		F_H = pixel_eql(src, F, H, bpp)
+		
+		E_A = pixel_eql(src, E, A, bpp)
+		E_G = pixel_eql(src, E, G, bpp)
+		E_C = pixel_eql(src, E, C, bpp)
+		E_I = pixel_eql(src, E, I, bpp)
+		
+		p0 = D if D_B else E
+		p1 = B if (D_B and not E_C) or (F_B and not E_A) else E
+		p2 = F if F_B else E
+		
+		p3 = D if (D_B and not E_G) or (D_H and not E_A) else E
+		p4 = E
+		p5 = F if (F_B and not E_I) or (F_H and not E_C) else E
+		
+		p6 = D if D_H else E
+		p7 = H if (D_H and not E_I) or (F_H and not E_G) else E
+		p8 = F if F_H else E
+		return (p0, p1, p2, p3, p4, p5, p6, p7, p8)
+
+	return (E, E, E, E, E, E, E, E, E)
+
+def scale_eagle3x(src, x, y, w, h, bpp):
+	x0 = x - 1 if x > 0     else 0
+	x2 = x + 1 if x < w - 1 else w - 1
+	y0 = y - 1 if y > 0     else 0
+	y2 = y + 1 if y < h - 1 else h - 1
+
+	x0 *= bpp
+	x  *= bpp
+	x2 *= bpp
+	y0 *= bpp * w
+	y  *= bpp * w
+	y2 *= bpp * w
+
+	A = x0 + y0
+	B = x  + y0
+	C = x2 + y0
+	D = x0 + y 
+	E = x  + y 
+	F = x2 + y 
+	G = x0 + y2
+	H = x  + y2
+	I = x2 + y2
+
+	p0 = A if pixel_eql(src, A, B, bpp) and pixel_eql(src, A, D, bpp) else E
+	p1 = C if pixel_eql(src, C, B, bpp) and pixel_eql(src, C, F, bpp) else E
+	p2 = G if pixel_eql(src, G, H, bpp) and pixel_eql(src, G, D, bpp) else E
+	p3 = I if pixel_eql(src, I, H, bpp) and pixel_eql(src, I, F, bpp) else E
+
+	return (p0, E, p1, E, E, E, p2, E, p3)
+
+def resizer2x(dst, src, w, h, bpp, scalef):
+	hf = float(h)
+	for y in range(h):
+		gimp.progress_update(y / hf)
+		for x in range(w):
+			s = scalef(src, x, y, w, h, bpp)
+			pos = (4 * y * w + 2 * x) * bpp
+			pixel_cpy(dst, pos, src, s[0], bpp)
+			pixel_cpy(dst, pos + bpp, src, s[1], bpp)
+			pos += 2 * w * bpp
+			pixel_cpy(dst, pos, src, s[2], bpp)
+			pixel_cpy(dst, pos + bpp, src, s[3], bpp)
+
+def resizer3x(dst, src, w, h, bpp, scalef):
+	hf = float(h)
+	for y in range(h):
+		gimp.progress_update(y / hf)
+		for x in range(w):
+			s = scalef(src, x, y, w, h, bpp)
+			pos = (9 * y * w + 3 * x) * bpp
+			pixel_cpy(dst, pos, src, s[0], bpp)
+			pixel_cpy(dst, pos + bpp, src, s[1], bpp)
+			pixel_cpy(dst, pos + 2 * bpp, src, s[2], bpp)
+			pos += 3 * w * bpp
+			pixel_cpy(dst, pos, src, s[3], bpp)
+			pixel_cpy(dst, pos + bpp, src, s[4], bpp)
+			pixel_cpy(dst, pos + 2 * bpp, src, s[5], bpp)
+			pos += 3 * w * bpp
+			pixel_cpy(dst, pos, src, s[6], bpp)
+			pixel_cpy(dst, pos + bpp, src, s[7], bpp)
+			pixel_cpy(dst, pos + 2 * bpp, src, s[8], bpp)
+
+scalers = (
+		{'title': 'Dummy2x', 'scaler' : scale_dummy2x, 'factor' : 2},
+		{'title': 'Scale2x', 'scaler' : scale_scale2x, 'factor' : 2},
+		{'title': 'Eagle2x', 'scaler' : scale_eagle2x, 'factor' : 2},
+		{'title': 'Dummy3x', 'scaler' : scale_dummy3x, 'factor' : 3},
+		{'title': 'Scale3x', 'scaler' : scale_scale3x, 'factor' : 3},
+		{'title': 'Eagle3x', 'scaler' : scale_eagle3x, 'factor' : 3})
+
+def python_scalepx(image, drawable, method):
+	scaler = None
+	for s in scalers:
+		title = s['title']
+		if title == method:
+			scaler = s
+			break
+	f = scaler['factor']
+	scaler = scaler['scaler']
+	
+	w = drawable.width
+	h = drawable.height
+
+	rgn = drawable.get_pixel_rgn(0, 0, w, h, False, False)
+	src = array('B', rgn[0 : w, 0 : h])
+	bpp = rgn.bpp
+	dst = array('B', '\x00' * (f * w * f * h * bpp))
+	
+	time_s = time.time()
+	if f == 3:
+		resizer3x(dst, src, w, h, bpp, scaler)
+	else:
+		resizer2x(dst, src, w, h, bpp, scaler)
+	print("Scaling completed in %f" % (time.time() - time_s))
+
+	pdb.gimp_image_undo_group_start(image)
+
+	if image.width < w * f or  image.height < h * f:
+		image.resize(w * f, h * f, 0, 0)
+
+	nlayer = gimp.Layer(image, drawable.name + '_' + method, w * f, h * f, drawable.type, 100, NORMAL_MODE)
+	rgn = nlayer.get_pixel_rgn(0, 0, w * f, h * f, True, False)
+	rgn[0 : f * w, 0 : f * h] = dst.tostring()
+	image.add_layer(nlayer);
+	
+	nlayer.update(0, 0, w * f, h * f)
+	pdb.gimp_image_undo_group_end(image)
+
+radio_options = []
+for s in scalers:
+	title = s['title']
+	radio_options.append((title, title))
+	
+register(
+				"python_fu_scalepx",
+				"Pixelart Scaling Tool",
+				"Pixelart Scaling Tool",
+				"VK",
+				"VK-2013",
+				"2013-08-29",
+				"<Image>/Filters/Enhance/Scale Pixelart...",
+				"",
+				[
+					(PF_RADIO, "method", "Scale Algorithm:", "Scale2x", radio_options)
+				],
+				[],
+				python_scalepx
+				)
+
+main()

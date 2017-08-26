@@ -1,0 +1,100 @@
+#!/usr/bin/env python
+#
+#    Copyright 2010   Andy Shelley <andy@andyshelley.co.uk>
+#
+#    This program is free software; you can redistribute it and/or modify
+#    it under the terms of the GNU General Public License as published by
+#    the Free Software Foundation; either version 2 of the License, or
+#    (at your option) any later version.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU General Public License for more details.
+#
+#    You should have received a copy of the GNU General Public License
+#    along with this program; if not, write to the Free Software
+#    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+
+import math
+from gimpfu import *
+
+def python_smartgradient(timg, tdrawable, drn, ft):
+	selection, x1, y1, x2, y2 = pdb.gimp_selection_bounds (timg)  
+	if (selection):
+		originallayer = pdb.gimp_image_get_active_layer (timg)
+		originalfgcolour = pdb.gimp_context_get_foreground(timg)
+		originalbgcolour = pdb.gimp_context_get_background(timg)
+		width = pdb.gimp_image_width (timg)
+		height = pdb.gimp_image_height (timg)
+		sg = gimp.Layer(timg, "Smart Gradient #1", width, height, RGBA_IMAGE, 100, NORMAL_MODE)
+		timg.add_layer(sg, 0)
+		pdb.gimp_selection_all (timg)
+		pdb.gimp_edit_clear (sg)
+		if (drn == 1):
+			for x in range (x1, x2):
+				startcolour = pdb.gimp_image_pick_color (timg, tdrawable, x, y2, False, False, 0)
+				pdb.gimp_context_set_foreground(startcolour)
+				if (ft == 2):
+					endcolour = pdb.gimp_image_pick_color (timg, tdrawable, x, y1, False, False, 0)
+					pdb.gimp_context_set_background(endcolour)
+				pdb.gimp_selection_none (timg)
+				pdb.gimp_rect_select (timg, x, y1, 1, y2 - y1, CHANNEL_OP_ADD, False, 0)
+        			pdb.gimp_edit_blend(sg, CUSTOM_MODE, NORMAL_MODE, GRADIENT_LINEAR, 100, 0, REPEAT_NONE, FALSE, FALSE, 0, 0, TRUE, x, y2, x, y1)
+		elif (drn == 2):
+			for x in range (x1, x2):
+				startcolour = pdb.gimp_image_pick_color (timg, tdrawable, x, y1, False, False, 0)
+				pdb.gimp_context_set_foreground(startcolour)
+				if (ft == 2):
+					endcolour = pdb.gimp_image_pick_color (timg, tdrawable, x, y2, False, False, 0)
+					pdb.gimp_context_set_background(endcolour)
+				pdb.gimp_selection_none (timg)
+				pdb.gimp_rect_select (timg, x, y1, 1, y2 - y1, CHANNEL_OP_ADD, False, 0)
+        			pdb.gimp_edit_blend(sg, CUSTOM_MODE, NORMAL_MODE, GRADIENT_LINEAR, 100, 0, REPEAT_NONE, FALSE, FALSE, 0, 0, TRUE, x, y1, x, y2)
+		elif (drn == 3):
+			for y in range (y1, y2):
+				startcolour = pdb.gimp_image_pick_color (timg, tdrawable, x1, y, False, False, 0)
+				pdb.gimp_context_set_foreground(startcolour)
+				if (ft == 2):
+					endcolour = pdb.gimp_image_pick_color (timg, tdrawable, x2, y, False, False, 0)
+					pdb.gimp_context_set_background(endcolour)
+				pdb.gimp_selection_none (timg)
+				pdb.gimp_rect_select (timg, x1, y, x2 - x1, 1, CHANNEL_OP_ADD, False, 0)
+        			pdb.gimp_edit_blend(sg, CUSTOM_MODE, NORMAL_MODE, GRADIENT_LINEAR, 100, 0, REPEAT_NONE, FALSE, FALSE, 0, 0, TRUE, x1, y, x2, y)
+		elif (drn == 4):
+			for y in range (y1, y2):
+				startcolour = pdb.gimp_image_pick_color (timg, tdrawable, x2, y, False, False, 0)
+				pdb.gimp_context_set_foreground(startcolour)
+				if (ft == 2):
+					endcolour = pdb.gimp_image_pick_color (timg, tdrawable, x1, y, False, False, 0)
+					pdb.gimp_context_set_background(endcolour)
+				pdb.gimp_selection_none (timg)
+				pdb.gimp_rect_select (timg, x1, y, x2 - x1, 1, CHANNEL_OP_ADD, False, 0)
+        			pdb.gimp_edit_blend(sg, CUSTOM_MODE, NORMAL_MODE, GRADIENT_LINEAR, 100, 0, REPEAT_NONE, FALSE, FALSE, 0, 0, TRUE, x2, y, x1, y)
+		pdb.gimp_selection_none (timg)
+		pdb.gimp_rect_select (timg, x1, y1, x2- x1, y2 - y1, CHANNEL_OP_ADD, False, 0)
+		pdb.gimp_context_set_foreground(originalfgcolour)
+		pdb.gimp_context_set_background(originalbgcolour)
+		pdb.gimp_image_set_active_layer (timg, originallayer)
+	else: 
+		pdb.gimp_message ("Rectangular selection required")
+	
+	
+
+register(
+        "python_fu_smartgradient",
+        "Applies a linear gradient to a rectangular selection, in one of four directions, using the colours of the pixels at the starting edge, and fading, either to the background colour, or the colours of the pixels at the finishing edge.",
+        "Applies a linear gradient to a rectangular selection, in one of four directions, using the colours of the pixels at the starting edge, and fading, either to the background colour, or the colours of the pixels at the finishing edge.",
+        "Andrew Shelley",
+        "Andrew Shelley",
+        "2010",
+        "<Image>/Filters/Artistic/_Smart Gradient...",
+        "RGB*, GRAY*",
+        [
+		(PF_RADIO, "drn", "Direction", 1, (("North", 1),("South",2),("East",3),("West",4))),
+		(PF_RADIO, "ft", "Fade", 1, (("To Background Colour", 1),("To Selection Edge Colour",2)))
+        ],
+        [],
+        python_smartgradient)
+
+main()

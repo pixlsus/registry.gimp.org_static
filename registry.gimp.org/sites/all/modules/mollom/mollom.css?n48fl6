@@ -1,0 +1,20 @@
+
+#edit-mollom-captcha {
+  display: block;
+}
+
+/* Help themes to properly display Mollom's log messages. */
+.dblog-event pre,
+#simpletest-result-form table td {
+  white-space: pre-wrap;
+}
+
+/* Allow CAPTCHA rendering to take full form width. */
+.form-item-mollom-captcha label[for="edit-mollom-captcha"] {
+    float: none;
+}
+
+/* Accessibilty focus helper for audio CAPTCHA. */
+.mollom_captcha_flash_player:focus{
+    border: yellow 2px solid;
+}

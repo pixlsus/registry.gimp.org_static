@@ -1,0 +1,22 @@
+#!/usr/bin/env python
+
+from gimpfu import *
+       
+def minimal():
+    pass
+    
+register(
+    "python_minimal",
+    "Minimal plug-in example",
+    "Show the smallest possible Python plug-in example",
+    "Michael Schumacher",
+    "Michael Schumacher",
+    "2007",
+    "<Toolbox>/Xtns/Languages/Python-Fu/Minimal",
+    None,
+    [],
+    [],
+    minimal
+    )
+
+main()

@@ -1,0 +1,252 @@
+#! /usr/bin/env python
+
+###############################################################################
+# The GIMP -- GNU image manipulation program
+# Copyright (c) 1995-2010
+# Spencer Kimball, Peter Mattis and the GIMP Development Team
+#
+# glossystroke3d
+# Version 1.2.0 (For the GIMP 2.6), 15 Dec 2010
+# Stroke the current selection, create a 3D effect and a dropped shadow
+# Adapted from the tutorial: "iText tutorial" of Craig Marshall & Phil Harper. 
+# Published in http://gug.criticalhit.dk/tutorials/itext2/
+#
+# Copyright (c) 2010 Eric Leroy (eral) kelk1@hotmail.com
+# -----------------------------------------------------------------------------
+#
+# This program is free software; you can redistribute it and/or
+# modify it under the terms of the GNU General Public License
+# as published by the Free Software Foundation; either version 2
+# of the License, or (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+#
+###############################################################################
+
+from gimpfu import *
+
+def python_glossy_stroke_3d(
+    img, layer, fg_color, brush, stroke, rounding, ls_color, ls_z, glow, 
+    bright, shine, polish, sh_color, ds_x, ds_y, ds_blur, ds_opac) :
+
+    pdb.gimp_undo_push_group_start(img)
+
+    # save some values
+    cur_color = pdb.gimp_context_get_foreground()
+    cur_brush = pdb.gimp_context_get_brush()
+    img_w = pdb.gimp_image_width(img)
+    img_h = pdb.gimp_image_height(img)
+    cur_sel = pdb.gimp_selection_save(img)
+
+    # stroke the selection
+    stroke_layer = pdb.gimp_layer_new(
+        img,               # IMAGE
+        img_w,             # WIDTH
+        img_h,             # HEIGHT
+        RGBA_IMAGE,        # RGBA TYPE
+        "stroke_layer",    # NAME
+        100,               # OPACITY
+        NORMAL_MODE        # NORMAL MODE
+        )
+    pdb.gimp_image_add_layer(img, stroke_layer, -1)
+    pdb.gimp_image_set_active_layer(img, stroke_layer)
+    pdb.gimp_context_set_foreground(fg_color)
+    pdb.gimp_context_set_brush(brush)
+    if stroke == 0:
+      pdb.gimp_edit_stroke(stroke_layer)
+    else:
+      pdb.gimp_edit_bucket_fill(
+          stroke_layer,    # DRAWABLE
+          FG_BUCKET_FILL,  # FILL W/ FG
+          NORMAL_MODE,     # NORMAL PAINT MODE
+          100.0,           # 100% opacity
+          0,               # TRESHOLD
+          False,           # DO NOT USE THE COMPOSITE IMG
+          0,               # NOT USED
+          0                # NOT USED
+          )
+
+
+    # save selected stroke to channel
+    pdb.gimp_selection_layer_alpha(stroke_layer)
+    sel_chan = pdb.gimp_selection_save(img)
+
+    # create volume
+    pdb.gimp_selection_shrink(img, rounding)
+    volume_layer = pdb.gimp_layer_new(
+        img,               # IMAGE
+        img_w,             # WIDTH
+        img_h,             # HEIGHT
+        RGBA_IMAGE,        # RGBA TYPE
+        "volume_layer",    # NAME
+        100,               # OPACITY
+        NORMAL_MODE        # NORMAL MODE
+        )
+    pdb.gimp_image_add_layer(img, volume_layer, -1)
+    pdb.gimp_image_set_active_layer(img, volume_layer)
+    pdb.gimp_context_set_foreground((255, 255, 255))
+    pdb.gimp_edit_bucket_fill(
+        volume_layer,      # DRAWABLE
+        FG_BUCKET_FILL,    # FILL W/ FG
+        NORMAL_MODE,       # NORMAL PAINT MODE
+        100.0,             # 100% opacity
+        0,                 # TRESHOLD
+        False,             # DO NOT USE THE COMPOSITE IMG
+        0,                 # NOT USED
+        0                  # NOT USED
+        )
+    pdb.gimp_selection_none(img)
+    pdb.plug_in_gauss(
+        img,               # IMAGE
+        volume_layer,      # DRAWABLE
+        rounding * 2.0,    # HORIZONTAL BLURRING RADIUS
+        rounding * 2.0,    # VERTICAL BLURRING RADIUS
+        0                  # IIR (0) OR RLE (1)
+        )
+    pdb.gimp_layer_set_mode(volume_layer, OVERLAY_MODE)
+    volume_layer_copy = pdb.gimp_layer_copy(volume_layer, True)
+    pdb.gimp_image_add_layer(img, volume_layer_copy, -1)
+
+    # create lighting effect
+    pdb.gimp_image_set_active_channel(img, sel_chan)
+    pdb.plug_in_gauss(img, sel_chan, rounding * 2.0, rounding * 2.0, 0)
+    glossy_layer = pdb.gimp_layer_new(
+        img,               # IMAGE
+        img_w,             # WIDTH
+        img_h,             # HEIGHT
+        RGBA_IMAGE,        # RGBA TYPE
+        "glossy_layer",    # NAME
+        100,               # OPACITY
+        SCREEN_MODE        # SCREEN
+        )
+    pdb.gimp_image_add_layer(img, glossy_layer, -1)
+    pdb.gimp_image_set_active_layer(img, glossy_layer)
+    pdb.gimp_selection_load(sel_chan)
+    pdb.gimp_context_set_foreground((0, 0, 0))
+    pdb.gimp_edit_bucket_fill(
+        glossy_layer,      # DRAWABLE
+        FG_BUCKET_FILL,    # FILL W/ FG
+        NORMAL_MODE,       # NORMAL PAINT MODE
+        100.0,             # 100% opacity
+        0,                 # TRESHOLD
+        False,             # DO NOT USE THE COMPOSITE IMG
+        0,                 # NOT USED
+        0                  # NOT USED
+        )
+    pdb.gimp_selection_none(img)
+    if ds_x > ds_y:
+      if ds_y == 0:
+        ls_x = -ds_x
+        ls_y = 0
+      else:
+        ls_x = -ds_x / abs(ds_y)
+        ls_y = -ds_y / abs(ds_y)
+    else:
+      if ds_x == 0:
+        ls_x = 0
+        ls_y = -ds_y
+      else:
+        ls_x = -ds_x / abs(ds_x)
+        ls_y = -ds_y / abs(ds_x)
+
+    pdb.plug_in_lighting(
+        img,               # IMAGE
+        glossy_layer,      # DRAWABLE
+        sel_chan,          # BUMP MAP
+        None,              # ENVIRONMENT MAP
+        True,              # ENABLE BUMPMAPPING
+        False,             # DISABLE ENVMAPPING
+        0,                 # LINEAR BUMPMAP
+        1,                 # DIRECTIONAL LIGHT SOURCE
+        ls_color,          # WHITE LIGHT SOURCE
+        ls_x,              # LIGHT POSITION X
+        ls_y,              # LIGHT POSITION Y
+        ls_z,              # LIGHT POSITION Z
+        ls_x,              # LIGHT DIRECTION X
+        ls_y,              # LIGHT DIRECTION Y
+        ls_z,              # LIGHT DIRECTION Z
+        glow,              # AMBIANT INTENSITY (GLOWING)
+        bright,            # DIFFUSE INTENSITY (BRIGHT)
+        bright,            # DIFFUSE REFLECTIVITY
+        shine,             # SPECULAR REFLECTIVITY (SHINY)
+        polish,            # HIGHLIGHT (POLISHED)
+        True,              # ANTIALIASING
+        False,             # SAME IMAGE
+        False              # TRANSPARENT BACKGROUND
+        )
+
+    # drop shadow
+    pdb.gimp_image_set_active_layer(img, stroke_layer)
+    act_lay = pdb.gimp_image_get_active_layer(img)
+    pdb.gimp_selection_layer_alpha(act_lay)
+    pdb.script_fu_drop_shadow(
+        img,              # IMAGE
+        act_lay,          # MASK LAYER
+        ds_x,             # X OFFSET
+        ds_y,             # Y OFFSET
+        ds_blur,          # BLUR RADIUS
+        sh_color,         # SHADOW COLOR
+        ds_opac,          # SHADOW LAYER OPACITY
+        True              # ALLOW RESIZING
+        )
+
+    # restore initial state
+    pdb.gimp_image_resize(
+        img,              # IMAGE
+        img_w,            # WIDTH
+        img_h,            # HEIGHT
+        0,                # X OFFSET
+        0                 # Y OFFSET
+        )
+    pdb.gimp_selection_load(cur_sel)
+    pdb.gimp_image_remove_channel(img, cur_sel)
+    pdb.gimp_image_remove_channel(img, sel_chan)
+    pdb.gimp_image_set_active_layer(img, layer)
+    pdb.gimp_context_set_foreground(cur_color)
+    pdb.gimp_context_set_brush(cur_brush)
+
+    pdb.gimp_undo_push_group_end(img)
+    return
+
+register(
+    "python_fu_glossy_stroke_3d",
+    "Stroke with a glossy 3-D effect and a dropped shadow",
+    "Stroke with a glossy 3-D effect and a dropped shadow",
+    "Eric Leroy",
+    "Eric Leroy",
+    "2010",
+    "GlossyStroke 3D",
+    "*",
+    [
+      (PF_IMAGE, "image", "Input image", None),
+      (PF_DRAWABLE, "drawable", "Input layer", None),
+      (PF_COLOR, "fg_color", "Color:", (0, 157, 255)),
+      (PF_BRUSH, "brush", "Stroking brush:", None),
+      (PF_OPTION, "stroke", "Selection:", 0, ["Stroke", "Fill"]),
+      (PF_SPINNER, "rounding", "3D amount:", 2, (0, 50, 1)),
+      (PF_COLOR, "ls_color", "Light color:", (255, 255, 255)),
+      (PF_SPINNER, "ls_z", "Light height:", 0.5, (0.0, 20.0, 0.1)),
+      (PF_SPINNER, "glow", "Glowing:", 5.0, (0.0, 100000, 0.01)),
+      (PF_SPINNER, "bright", "Brightness:", 1.00, (0.0, 100000, 0.01)),
+      (PF_SPINNER, "shine", "Shiny:", 5.0, (0.0, 100000, 0.01)),
+      (PF_SPINNER, "polish", "Polish:", 30.0, (0.0, 100000, 0.01)),
+      (PF_COLOR, "sh_color", "Shadow color:", (0, 0, 0)),
+      (PF_SPINNER, "ds_x", "Shadow offset X:", 10, (-50, 50, 1)),
+      (PF_SPINNER, "ds_y", "Shadow offset Y:", 10, (-50, 50, 1)),
+      (PF_SPINNER, "ds_blur", "Shadow blur radius:", 15, (0, 50, 1)),
+      (PF_SLIDER, "ds_opac", "Shadow opacity:", 80, (0, 100, 1))
+    ],
+    [],
+    python_glossy_stroke_3d,
+    menu="<Image>/Filters/Light and Shadow")
+
+main()
+
+

@@ -1,0 +1,76 @@
+#!/usr/bin/env python
+# -*- coding: <utf-8> -*-
+# Author: Chris Mohler <cr33dog@gmail.com>
+# Copyright 2009 Chris Mohler
+# "Only Visible" and filename formatting introduced by mh
+# License: GPL v3+
+# Version 0.4
+# GIMP plugin to export layers as PNGs
+# modified by Shuning Bian 2011
+
+from gimpfu import *
+import os, re
+
+gettext.install("gimp20-python", gimp.locale_directory, unicode=True)
+
+def format_filename(layer):
+    layername = layer.name.decode('utf-8')
+    filename1 = layername + "@2x.png"
+    filename2 = layername + ".png"
+    return filename1,filename2
+
+def get_layers_to_export(img):
+    layers = []
+    for layer in img.layers:
+        if layer.visible:
+            layers.append(layer)
+    return layers
+
+def export_layers(img, path):
+    dupe = img.duplicate()
+    savelayers = get_layers_to_export(dupe)
+    for layer in dupe.layers:
+        layer.visible = 0 
+    for layer in dupe.layers:
+        if layer in savelayers:
+            layer.visible = 1
+
+            if layer.mask:
+                pdb.gimp_layer_remove_mask(layer, 0)
+
+            filename1,filename2 = format_filename(layer)
+            fullpath = os.path.join(path, filename1);
+            tmp = dupe.duplicate()
+            pdb.file_png_save(tmp, tmp.layers[0], fullpath, filename1, 0, 9, 1, 1, 1, 1, 1)
+
+            imgwidth = pdb.gimp_image_width(img)
+            imgheight = pdb.gimp_image_height(img)
+            pdb.gimp_image_scale_full(tmp, imgwidth/2, imgheight/2, 2)
+
+            fullpath = os.path.join(path, filename2)
+            pdb.file_png_save(tmp, tmp.layers[0], fullpath, filename2, 0, 9, 1, 1, 1, 1, 1)
+
+        dupe.remove_layer(layer)
+
+            
+register(
+    proc_name=("python-fu-export-layers-iphone4"),
+    blurb=("Export visible layers as PNG"),
+    help=("Export all visible layers as individual PNG files."),
+    author=("Chris Mohler <cr33dog@gmail.com> + sbian"),
+    copyright=("Chris Mohler"),
+    date=("2009"),
+    label=("as _PNG"),
+    imagetypes=("*"),
+    params=[
+        (PF_IMAGE, "img", "Image", None),
+        (PF_DIRNAME, "path", "Save PNGs here", os.getcwd()),
+           ],
+    results=[],
+    function=(export_layers), 
+    menu=("<Image>/File/E_xport Layers"), 
+    domain=("gimp20-python", gimp.locale_directory)
+    )
+
+main()
+

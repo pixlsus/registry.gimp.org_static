@@ -1,0 +1,116 @@
+#!/usr/bin/env python
+
+# GIMP plugin for applying Android menu icon style
+# For batch processing, use it like this:
+# gimp -i --batch-interpreter=python-fu-eval -b 'pdb.python_fu_androidicon_batch(None, None, "/path/to/pictures/*.svg", "/path/to/res");pdb.gimp_quit(1)'
+
+from gimpfu import *
+import glob
+import os
+import shutil
+import sys
+
+def show_error_msg(msg, e):
+    origMsgHandler = pdb.gimp_message_get_handler()
+    pdb.gimp_message_set_handler(ERROR_CONSOLE)
+    pdb.gimp_message("Error: %s" % (msg))
+    pdb.gimp_message_set_handler(origMsgHandler)
+    raise e(msg)
+
+def python_androidicon(timg, tdrawable):
+    
+    # Check dependencies
+    for plugin_name in ["python-layerfx-gradient-overlay", 
+        "python-layerfx-inner-shadow", "python-layerfx-bevel-emboss"]:
+        if not pdb.query(plugin_name):
+            show_error_msg("Plugin '%s' not found" % plugin_name, LookupError)
+
+    # Our whole operation will be one undo step
+    pdb.gimp_image_undo_group_start(timg)
+
+    # Some colors we'll need
+    black = gimpcolor.RGB(0, 0, 0)
+    white = gimpcolor.RGB(255, 255, 255)
+
+    # Create gradient...
+    gradient_name = "Android Menu Icon Gray"
+    pdb.gimp_gradient_new(gradient_name)
+    
+    pdb.gimp_gradient_segment_set_left_color(gradient_name, 0,
+        gimpcolor.rgb_parse_css("#8C8C8C"), 100)
+
+    pdb.gimp_gradient_segment_set_right_color(gradient_name, 0,
+        gimpcolor.rgb_parse_css("#B2B2B2"), 100)
+
+    # Apply gradient
+    # arguments: img, drawable, gradient, gradienttype, repeat, reverse, opacity, mode, centerx, centery, angle, width, merge
+    gradient_centery = timg.width * 0.4
+    gradient_width = timg.width * 0.66
+    pdb.python_layerfx_gradient_overlay(timg, tdrawable, gradient_name, 0, 0, False, 100, 0, 0, gradient_centery, 90, gradient_width, True)
+    
+    # Apply inner shadow
+    # arguments: img, drawable, color, opacity, contour, noise, mode, source, choke, size, offsetangle, offsetdist, merge):
+    pdb.python_layerfx_inner_shadow(timg, timg.active_layer, black, 20, 0, 0, 0, 1, 0, 4, 90, 2, True)
+
+    # Apply inner bevel
+    # arguments: img, drawable, style, depth, direction, size, soften, angle, altitude, glosscontour, highlightcolor, highlightmode, highlightopacity, shadowcolor, shadowmode, shadowopacity, surfacecontour, use_texture, pattern, scale, tex_depth, invert, merge
+    # layerfx requires an existing pattern. Won't be using it though.
+    pattern = pdb.gimp_patterns_get_list("")[1][0] 
+    pdb.python_layerfx_bevel_emboss(timg, timg.active_layer, 1, 1, 1, 1, 0, 90, 10, 0, white, 4, 20, black, 0, 25, 0, False, pattern, 1, 0, False, True)
+
+    # Clean up after ourselves
+    pdb.gimp_gradient_delete(gradient_name)
+
+    pdb.gimp_image_undo_group_end(timg)
+
+def python_androidicon_batch(image, drawable, file_pattern, destination_path):
+    file_list=glob.glob(file_pattern)
+    file_list.sort()
+
+    # Prepare destination
+    hdpi_path = os.path.join(destination_path, "drawable-hdpi")
+    if not os.path.exists(hdpi_path):
+        os.makedirs(hdpi_path)
+
+    mdpi_path = os.path.join(destination_path, "drawable-mdpi")
+    if not os.path.exists(mdpi_path):
+        os.makedirs(mdpi_path)
+
+    for file_name in file_list:
+        basename, ext = os.path.splitext(os.path.basename(file_name))
+        for size, basepath in [(48, mdpi_path), (72, hdpi_path)]:
+            image = pdb.gimp_file_load(file_name, file_name)
+            pdb.gimp_image_scale(image, size, size)
+            pdb.python_fu_androidicon(image, image.active_layer)
+            path = os.path.join(basepath, basename + ".png")
+            pdb.gimp_file_save(image, image.active_layer, path, path)
+            pdb.gimp_image_delete(image)    
+
+register(
+        "python_fu_androidicon",
+        "Apply Android menu icon visual style",
+        "Apply Android menu icon visual style",
+        "Peteris Caune",
+        "Peteris Caune",
+        "2011",
+        "<Image>/Filters/_Android Icon",
+        "RGB*, GRAY*",
+        [],
+        [],
+        python_androidicon)
+
+register(
+	"python_fu_androidicon_batch", 
+    "Apply Android menu icon visual style to specified files", 
+    "Apply Android menu icon visual style to specified files", 
+    "Peteris Caune",
+    "Peteris Caune",
+    "2011",
+    "<Image>/Filters/_Android Icon batch mode", "",
+  	[(PF_STRING, "file_pattern", "file_pattern", "*.png"),
+     (PF_STRING, "destination_path", "destination_path", ".")],
+    [],
+    python_androidicon_batch)
+
+main()
+

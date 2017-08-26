@@ -1,0 +1,62 @@
+#!/usr/bin/env python
+
+# TraceOverSet 1.0, a Python-fu Gimp plugin.
+# Michael B. Stevens, 
+# July 2013, released under Gnu Public License
+# Place in your .gimp-2.8 folder's plug-ins folder.  Make executable.
+# Tested in Gimp 2.8.
+# Will appear in the GIMP menus at <Image>Layer/TraceOverSet.
+# This is free and open source G.P.L. software.  Use at your own risk.
+
+from gimpfu import *
+import cPickle
+
+#import random
+
+def make_layers(timg, tdrawable,
+                        coltup, 
+                        opacity):
+
+    # Make a new simi-opaque layer.
+    lr = pdb.gimp_layer_new_from_drawable(tdrawable, timg)
+    pdb.gimp_image_insert_layer(timg, lr, None, -1)
+    pdb.plug_in_exchange (timg, lr,
+                          0,0,0,
+                          coltup[0],coltup[1], coltup[2],
+                          255,255,255)
+    pdb.gimp_layer_set_mode(lr, NORMAL_MODE)
+    pdb.gimp_layer_set_opacity(lr, 65.0)
+    
+    
+    # Make a second new layer for user to draw on.
+    pdb.gimp_context_set_foreground((0, 0, 0))
+    pdb.gimp_context_set_background((255, 255, 255))
+    lr2 = pdb.gimp_layer_new(timg, tdrawable.width,
+        tdrawable.height, RGB_IMAGE, "drawing", 100,
+        MULTIPLY_MODE)
+    pdb.gimp_drawable_fill(lr2, BACKGROUND_FILL)
+    pdb.gimp_image_insert_layer(timg, lr2, None, -1)
+    return
+
+
+register(
+    "TraceOverSet",
+    "Add simi-transparent layers for tracing over rougher drawings",
+    "Appears in <Image>/Links menu.  Choose color, opacity and go.",
+    "Michael B. Stevens",
+    "Programmed  by Michael B. Stevens, ",
+    "Released under Gnu Public License July 2013",
+    "<Image>/Layer/TraceOverSet",
+    "*",
+    [
+     (PF_COLOR, "coltup", "Color", (80,80,80)),
+     (PF_SLIDER, "opacity", "New Layer Opacity", 50, (0,100,1))
+    ],
+    [],
+    make_layers
+    )
+
+
+main()
+
+

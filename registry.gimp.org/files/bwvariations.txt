@@ -1,0 +1,302 @@
+;
+; Black & White Variations, v1.0
+;
+; A. Bischof
+; (C) 2012
+;
+; This script was tested with Gimp 2.6
+;
+; New versions will be distributed from http://registry.gimp.org/ only
+;
+; This program is free software; you can redistribute it and/or modify
+; it under the terms of the GNU General Public License as published by
+; the Free Software Foundation; either version 3 of the License, or
+; (at your option) any later version.
+; 
+; This program is distributed in the hope that it will be useful,
+; but WITHOUT ANY WARRANTY; without even the implied warranty of
+; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+; GNU General Public License for more details.
+; 
+; You should have received a copy of the GNU General Public License
+; along with this program; if not, see <http://www.gnu.org/licenses>.
+;
+; Define the function
+(define (script-fu-bwvariations 
+	  AbImage 
+	  AbEbene 
+	  AbNoFilter
+	  AbRedFilter 
+	  AbGreenFilter 
+	  AbBlueFilter 
+	  AbYellowFilter 
+	  AbOrangeFilter 
+	  AbYellowGreenFilter 
+	  AbLithoFilm 
+	  AbOrthoFilm 
+	  AbNormalContrast
+	  AbHighContrast 
+	  AbLandscape 
+	  AbPortrait 
+	  AbKodakHIE
+	  AbDesaturate
+	)
+;(define (script-fu-bwvariations AbImage AbEbene AbStart )
+   (gimp-image-undo-group-start AbImage)
+   
+  (define 
+    (AbEbenenZeiger 0)
+    (loopCount 0)
+    (i 0)
+  )
+
+; Liste Ebenenname::Aktion definieren, in Schleife abarbeiten
+;  (while (< i loopCount)
+   ; Create a new layer
+    (if (equal? AbNoFilter 1)
+      (begin
+	(set! AbEbenenZeiger (car (gimp-layer-copy AbEbene 0)))
+	; Give it a name
+	(gimp-drawable-set-name AbEbenenZeiger "b&w (no filter)")
+	; Add the new layer to the image
+	(gimp-image-add-layer AbImage AbEbenenZeiger 0)
+	; B&W (No Filter)
+	(plug-in-colors-channel-mixer TRUE AbImage AbEbenenZeiger TRUE 0.45 0.35 0.3 0 0 0 0 0 0)
+      )
+     )
+
+    (if (equal? AbRedFilter 1)
+      (begin
+	; Create a new layer
+	(set! AbEbenenZeiger (car (gimp-layer-copy AbEbene 0)))
+	; Give it a name
+	(gimp-drawable-set-name AbEbenenZeiger "b&w (red filter)")
+	; Add the new layer to the image
+	(gimp-image-add-layer AbImage AbEbenenZeiger 0)
+	; apply according black-white-transformation
+	;(plug-in-colors-channel-mixer TRUE AbImage AbEbenenZeiger TRUE 1.0 0.15 -0.15 0 0 0 0 0 0)
+	(plug-in-colors-channel-mixer TRUE AbImage AbEbenenZeiger TRUE 1.0 0 0 0 0 0 0 0 0)
+      )
+    )
+
+    (if (equal? AbGreenFilter 1)
+      (begin
+	; Create a new layer
+	(set! AbEbenenZeiger (car (gimp-layer-copy AbEbene 0)))
+	; Give it a name
+	(gimp-drawable-set-name AbEbenenZeiger "b&w (green filter)")
+	; Add the new layer to the image
+	(gimp-image-add-layer AbImage AbEbenenZeiger 0)
+	; apply according black-white-transformation
+	;(plug-in-colors-channel-mixer TRUE AbImage AbEbenenZeiger TRUE 0.35 0.55 0.2 0 0 0 0 0 0)
+	(plug-in-colors-channel-mixer TRUE AbImage AbEbenenZeiger TRUE 0 1.0 0 0 0 0 0 0 0)
+      )
+    )
+
+    (if (equal? AbBlueFilter 1)
+      (begin
+	; Create a new layer
+	(set! AbEbenenZeiger (car (gimp-layer-copy AbEbene 0)))
+	; Give it a name
+	(gimp-drawable-set-name AbEbenenZeiger "b&w (blue filter)")
+	; Add the new layer to the image
+	(gimp-image-add-layer AbImage AbEbenenZeiger 0)
+	; apply according black-white-transformation
+	;(plug-in-colors-channel-mixer TRUE AbImage AbEbenenZeiger TRUE 0.15 0.15 0.8 0 0 0 0 0 0)
+	(plug-in-colors-channel-mixer TRUE AbImage AbEbenenZeiger TRUE 0 0 1.0 0 0 0 0 0 0)
+	;(gimp-hue-saturation AbEbenenZeiger 0 -145 0 25)
+      )
+    )
+
+    (if (equal? AbYellowFilter 1)
+      (begin
+	; Create a new layer
+	(set! AbEbenenZeiger (car (gimp-layer-copy AbEbene 0)))
+	; Give it a name
+	(gimp-drawable-set-name AbEbenenZeiger "b&w (yellow filter)")
+	; Add the new layer to the image
+	(gimp-image-add-layer AbImage AbEbenenZeiger 0)
+	; apply according black-white-transformation
+	(plug-in-colors-channel-mixer TRUE AbImage AbEbenenZeiger TRUE 0.6 0.3 0.10 0 0 0 0 0 0)
+      )
+    )
+
+    (if (equal? AbOrangeFilter 1)
+      (begin
+	; Create a new layer
+	(set! AbEbenenZeiger (car (gimp-layer-copy AbEbene 0)))
+	; Give it a name
+	(gimp-drawable-set-name AbEbenenZeiger "b&w (orange filter)")
+	; Add the new layer to the image
+	(gimp-image-add-layer AbImage AbEbenenZeiger 0)
+	; apply according black-white-transformation
+	(plug-in-colors-channel-mixer TRUE AbImage AbEbenenZeiger TRUE 0.75 0.2 0.2 0 0 0 0 0 0)
+      )
+    )
+
+    (if (equal? AbYellowGreenFilter 1)
+      (begin
+	; Create a new layer
+	(set! AbEbenenZeiger (car (gimp-layer-copy AbEbene 0)))
+	; Give it a name
+	(gimp-drawable-set-name AbEbenenZeiger "b&w (yellow-green filter)")
+	; Add the new layer to the image
+	(gimp-image-add-layer AbImage AbEbenenZeiger 0)
+	; apply according black-white-transformation
+	(plug-in-colors-channel-mixer TRUE AbImage AbEbenenZeiger TRUE 0.25 0.65 0.15 0 0 0 0 0 0)
+      )
+    )
+
+    (if (equal? AbLithoFilm 1)
+      (begin
+	; Create a new layer
+	(set! AbEbenenZeiger (car (gimp-layer-copy AbEbene 0)))
+	; Give it a name
+	(gimp-drawable-set-name AbEbenenZeiger "b&w (Lithografic film)")
+	; Add the new layer to the image
+	(gimp-image-add-layer AbImage AbEbenenZeiger 0)
+	; apply according black-white-transformation
+	(plug-in-colors-channel-mixer TRUE AbImage AbEbenenZeiger TRUE 0.4 0.3 0.3 0 0 0 0 0 0)
+	(gimp-brightness-contrast AbEbenenZeiger 0 110)
+      )
+    )
+
+    (if (equal? AbOrthoFilm 1)
+      (begin
+	; Create a new layer
+	(set! AbEbenenZeiger (car (gimp-layer-copy AbEbene 0)))
+	; Give it a name
+	(gimp-drawable-set-name AbEbenenZeiger "b&w (Orthochromatic film)")
+	; Add the new layer to the image
+	(gimp-image-add-layer AbImage AbEbenenZeiger 0)
+	; apply according black-white-transformation
+	(plug-in-colors-channel-mixer TRUE AbImage AbEbenenZeiger TRUE -1.1 1.05 1.05 0 0 0 0 0 0)
+      )
+    )
+
+    (if (equal? AbNormalContrast 1)
+      (begin
+	; Create a new layer
+	(set! AbEbenenZeiger (car (gimp-layer-copy AbEbene 0)))
+	; Give it a name
+	(gimp-drawable-set-name AbEbenenZeiger "b&w (Normal Contrast)")
+	; Add the new layer to the image
+	(gimp-image-add-layer AbImage AbEbenenZeiger 0)
+	; apply according black-white-transformation
+	(plug-in-colors-channel-mixer TRUE AbImage AbEbenenZeiger TRUE 0.43 0.33 0.30 0.43 0.33 0.30 0.43 0.33 0.30)
+      )
+    )
+
+    (if (equal? AbHighContrast 1)
+      (begin
+	; Create a new layer
+	(set! AbEbenenZeiger (car (gimp-layer-copy AbEbene 0)))
+	; Give it a name
+	(gimp-drawable-set-name AbEbenenZeiger "b&w (High Contrast)")
+	; Add the new layer to the image
+	(gimp-image-add-layer AbImage AbEbenenZeiger 0)
+	; apply according black-white-transformation
+	(plug-in-colors-channel-mixer TRUE AbImage AbEbenenZeiger TRUE 0.40 0.34 0.60 0.40 0.34 0.60 0.40 0.34 0.60)
+      )
+    )
+
+    (if (equal? AbLandscape 1)
+      (begin
+	; Create a new layer
+	(set! AbEbenenZeiger (car (gimp-layer-copy AbEbene 0)))
+	; Give it a name
+	(gimp-drawable-set-name AbEbenenZeiger "b&w (Landscape)")
+	; Add the new layer to the image
+	(gimp-image-add-layer AbImage AbEbenenZeiger 0)
+	; apply according black-white-transformation
+	(plug-in-colors-channel-mixer TRUE AbImage AbEbenenZeiger TRUE 0.1 1.3 -0.35 0 0 0 0 0 0)
+      )
+    )
+
+    (if (equal? AbPortrait 1)
+      (begin
+	; Create a new layer
+	(set! AbEbenenZeiger (car (gimp-layer-copy AbEbene 0)))
+	; Give it a name
+	(gimp-drawable-set-name AbEbenenZeiger "b&w (Portrait)")
+	; Add the new layer to the image
+	(gimp-image-add-layer AbImage AbEbenenZeiger 0)
+	; apply according black-white-transformation
+	(plug-in-colors-channel-mixer TRUE AbImage AbEbenenZeiger TRUE 0.55 0.3 0.25 0 0 0 0 0 0)
+      )
+    )
+
+    (if (equal? AbKodakHIE 1)
+      (begin
+	; Create a new layer
+	(set! AbEbenenZeiger (car (gimp-layer-copy AbEbene 0)))
+	; Give it a name
+	(gimp-drawable-set-name AbEbenenZeiger "b&w (Kodak HIE")
+	; Add the new layer to the image
+	(gimp-image-add-layer AbImage AbEbenenZeiger 0)
+	; apply according black-white-transformation
+	(plug-in-colors-channel-mixer TRUE AbImage AbEbenenZeiger TRUE 1.0 1.0 -1.0 0.0 1.0 1.0 -1.0 0.0 1.0)
+      )
+    )
+
+    (if (equal? AbDesaturate 1)
+      (begin
+	; Create a new layer
+	(set! AbEbenenZeiger (car (gimp-layer-copy AbEbene 0)))
+	; Give it a name
+	(gimp-drawable-set-name AbEbenenZeiger "b&w (GIMP Desaturate)")
+	; Add the new layer to the image
+	(gimp-image-add-layer AbImage AbEbenenZeiger 0)
+	; apply according black-white-transformation
+	(gimp-desaturate AbEbenenZeiger)
+      )
+    )
+
+;   (set! i (+ i 1))
+;  )
+; 
+
+
+; GEGL->c2g moeglich? Bei gimp2.8 wohl noch nicht :(
+
+
+   ;
+   ; Complete the undo group
+   (gimp-image-undo-group-end AbImage)
+   ; Flush the display 
+   (gimp-displays-flush)   
+ 
+)
+
+
+; Register the function with the GIMP
+;
+(script-fu-register 
+	"script-fu-bwvariations"
+	_"bwvariations"
+	"Black White variations"
+	"Andre Bischof (a.bischof@gmx.net)"
+	"Andre Bischof, Koeln, Deutschland"
+	"28.09.2012"
+	"RGB*"
+	SF-IMAGE	"The Image"		0
+	SF-DRAWABLE	"The Layer"		0
+	SF-TOGGLE	"No filter"		0
+	SF-TOGGLE	"RED filter" 		1
+	SF-TOGGLE	"GREEN filter" 		1
+	SF-TOGGLE	"BLUE filter" 		1
+	SF-TOGGLE	"YELLOW filter" 	0
+	SF-TOGGLE	"ORANGE filter" 	0
+	SF-TOGGLE	"YELLOW-GREEN filter" 	0
+	SF-TOGGLE	"Lithographic film" 	0
+	SF-TOGGLE	"Orthochromatic film" 	0
+	SF-TOGGLE	"Normal Contrast" 	1
+	SF-TOGGLE	"High Contrast" 	1
+	SF-TOGGLE	"Landscape" 		0
+	SF-TOGGLE	"Portrait" 		0
+	SF-TOGGLE	"Kodak HIE" 		1
+	SF-TOGGLE	"Desaturate" 		0
+)
+;
+(script-fu-menu-register "script-fu-bwvariations"
+			 "<Image>/Filters/Misc")

@@ -1,0 +1,22 @@
+a.best-answer-select-answer  {
+  display: block;
+  width: 60px;
+  height: 60px;
+  text-indent:-9999px;
+  float: left;
+  background: url(graphics/select_button.png) no-repeat;
+}
+
+a.best-answer-select-answer:hover{
+  background-position: 0 -60px;
+}
+
+a.best-answer-this-answer {
+  width: 60px;
+  height: 60px;
+  float: left;
+  background: url(graphics/select_button.png) no-repeat;
+  background-position: 0 -60px;
+  border: 0;
+ }
+

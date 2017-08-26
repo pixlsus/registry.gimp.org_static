@@ -1,0 +1,1574 @@
+'''
+Brendan's Gimp Interface Improvement
+
+Some things to improve the GIMP interface based on my experience using
+it for digital painting:
+- cycle brush size
+- cycle dynamics
+- cycle draw mode (eraser <->paintbrush equivalent)
+- select drawn (cycles between select all and select non-transparent on current layer)
+- draw perspective guide lines
+
+version 2 (20130825):
+    adds control interface
+    changes ui to create perspective lines on first run (fixing some bugs in the process)
+    adds optional horizon line
+    adds option  to lock vp2 to height of vp1
+    adds brush size presets and ability to switch between them
+    adds visual indicators of erase/dynamics states
+    moves most parameter data to gimp shelf
+    persists parameters across sessions
+    allows choice of brush for perspective lines
+    adds drop down for brush size choice
+    
+I would reposition the control panel to be at the same place on every invocation
+except that the gtk/gdk api is so brain dead there is no obvious way to do it 
+
+limitations in the GIMP API mean that some things are difficult or impossible to achieve - 
+such as real time feedback for changs in the control panel (because the panel might persist
+while the active image changes and the GIMP API does not expose what image is currently active)
+There is also no way to communicate changes back to the control panel other than by the panel polling 
+(which it does, but this is a little tedious).
+
+Brendan Scott
+Version: 2 (Beta release)
+25 August 2013
+
+Copyright (C) 2013 Brendan Scott
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/
+
+
+'''
+
+
+
+from gimpshelf import shelf
+from gimpfu import *
+import gimp
+import math # perhaps use taylor series instead of importing?
+import gtk
+from gobject import timeout_add
+from gobject import TYPE_STRING
+import json
+
+
+BASE_BRUSH_SIZES = [2, 5,  10, 20, 40]  # just randomly chosen!
+DEFAULT_BRUSH_INDEX = 0
+BGII = "BGII_"
+RELATIVE = False
+TINY_FIXED = True
+TINY_SIZE = 3
+SCALE_FACTOR = 2 # one brush size is this multiple of the previous one
+POLL_RATE = 1000
+SHELF_SELECT= "BGII_Cycle_Select"
+SHELF_BRUSH_NAME=BGII+"Brush_Name"
+SHELF_DYNAMICS =BGII+"Cycle_Dynamics"
+SHELF_ERASE = "BGII_Cycle_Erase"
+SHELF_LOCK_HORIZON = 'BGII_Lock_Horizon'
+SHELF_DRAW_HORIZON = 'BGII_Draw_Horizon'
+SHELF_MEASURE = 'BGII_Use_Measuring_Stick'
+SHELF_HORIZON= BGII+"Horizon_Colour" 
+SHELF_LONG_SIDE=BGII+"Long_Side"
+SHELF_SHORT_SIDE=BGII+"Short_Side"
+SHELF_BRUSH_SIZES = BGII+"Brush_Sizes"
+SHELF_BRUSH_SIZES_INDEX = BGII+"Brush_Sizes_Index"
+BRUSH_SIZE_PRESETS = BGII+"Brush_Size_Presets"
+SHELF_BGII_INITIALISED = BGII+"Initialised"
+
+DEFAULT_HORIZON_COLOUR= (0, 0, 0)
+PERSPECTIVE_PATH_NAME = "BGII Perspective"
+SELECT_NOT_ALPHA = 0
+SELECT_ALL = 1
+PAINTBRUSH_NORMAL = 0
+PAINTBRUSH_ERASE = 23
+VP_COUNT_KEY = BGII+"VP_Count"
+DEFAULT_VP_COUNT = 3
+DYNAMICS_OFF =  'Dynamics Off'
+DYNAMICS_ON =  'Pressure Opacity'
+LAST_WINDOW_POS = "Last Position of Control Window"
+
+
+DEFAULTS = {
+    SHELF_LONG_SIDE:10, 
+    SHELF_SHORT_SIDE:10, 
+    SHELF_LOCK_HORIZON:True, 
+    SHELF_DRAW_HORIZON:True, 
+    SHELF_HORIZON:(0, 0, 0), 
+    SHELF_BRUSH_SIZES: ["2", "5", "10","20", "40"], 
+    SHELF_BRUSH_SIZES_INDEX:0, 
+    SHELF_SELECT:SELECT_NOT_ALPHA
+}
+
+
+WIDGET_NAMES={ # for connecting a widget to its shelf storage
+    SHELF_BRUSH_NAME:"brush_list", 
+    SHELF_LOCK_HORIZON:"Lock_Horizon",  
+    SHELF_DRAW_HORIZON :"Draw_Horizon", 
+    SHELF_MEASURE:"can_has_target", 
+    SHELF_LONG_SIDE:"long_side", 
+    SHELF_SHORT_SIDE:"short_side" 
+    } 
+
+
+SAVE_FILE_NAME = BGII+"_save.txt"
+
+DEFAULT_BRUSH_SIZE_PRESETS = ["1, 2, 5, 10, 20", 
+                "10, 20 , 40, 80", 
+                "30, 60, 120, 240"
+                ]
+
+
+GENERAL_INITIALISATION_KEYS = [
+        SHELF_BRUSH_NAME, 
+        SHELF_LOCK_HORIZON, 
+        SHELF_DRAW_HORIZON, 
+        SHELF_LONG_SIDE, 
+        SHELF_SHORT_SIDE, 
+        SHELF_BRUSH_SIZES, 
+        SHELF_BRUSH_SIZES_INDEX
+        ]
+
+#### UI
+
+UI_XML= '''<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <requires lib="gtk+" version="2.24"/>
+  <!-- interface-naming-policy project-wide -->
+  <object class="GtkAdjustment" id="adjustment1">
+    <property name="lower">1</property>
+    <property name="upper">3</property>
+    <property name="value">1</property>
+    <property name="step_increment">1</property>
+    <property name="page_increment">10</property>
+  </object>
+  <object class="GtkAdjustment" id="adjustment2">
+    <property name="lower">1</property>
+    <property name="upper">100</property>
+    <property name="value">12</property>
+    <property name="step_increment">1</property>
+    <property name="page_increment">10</property>
+  </object>
+  <object class="GtkAdjustment" id="adjustment3">
+    <property name="lower">1</property>
+    <property name="upper">100</property>
+    <property name="value">10</property>
+    <property name="step_increment">1</property>
+    <property name="page_increment">10</property>
+  </object>
+  <object class="GtkAdjustment" id="adjustment4">
+    <property name="upper">100</property>
+    <property name="step_increment">1</property>
+    <property name="page_increment">10</property>
+  </object>
+  <object class="GtkWindow" id="window1">
+    <property name="can_focus">False</property>
+    <signal name="destroy" handler="destroy" swapped="no"/>
+    <signal name="destroy-event" handler="destroy" swapped="no"/>
+    <child>
+      <object class="GtkVBox" id="vbox1">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <child>
+          <object class="GtkFrame" id="frame1">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="label_xalign">0</property>
+            <property name="shadow_type">none</property>
+            <child>
+              <object class="GtkAlignment" id="alignment1">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="left_padding">12</property>
+                <child>
+                  <object class="GtkVBox" id="vbox2">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <child>
+                      <object class="GtkHBox" id="hbox8">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="homogeneous">True</property>
+                        <child>
+                          <object class="GtkCheckButton" id="Lock_Horizon">
+                            <property name="label" translatable="yes">Lock Horizon to VP1</property>
+                            <property name="visible">True</property>
+                            <property name="can_focus">True</property>
+                            <property name="receives_default">False</property>
+                            <property name="tooltip_text" translatable="yes">Set y coordinate of VP2 equal to that of VP1 </property>
+                            <property name="active">True</property>
+                            <property name="draw_indicator">True</property>
+                            <signal name="toggled" handler="on_checkbox_toggle" swapped="no"/>
+                          </object>
+                          <packing>
+                            <property name="expand">True</property>
+                            <property name="fill">True</property>
+                            <property name="position">0</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="GtkCheckButton" id="Draw_Horizon">
+                            <property name="label" translatable="yes">Draw Horizon</property>
+                            <property name="visible">True</property>
+                            <property name="can_focus">True</property>
+                            <property name="receives_default">False</property>
+                            <property name="yalign">0.49000000953674316</property>
+                            <property name="active">True</property>
+                            <property name="draw_indicator">True</property>
+                            <signal name="toggled" handler="on_checkbox_toggle" swapped="no"/>
+                          </object>
+                          <packing>
+                            <property name="expand">False</property>
+                            <property name="fill">True</property>
+                            <property name="position">1</property>
+                          </packing>
+                        </child>
+                      </object>
+                      <packing>
+                        <property name="expand">False</property>
+                        <property name="fill">True</property>
+                        <property name="position">0</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkHBox" id="hbox5">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <child>
+                          <object class="GtkLabel" id="label6">
+                            <property name="visible">True</property>
+                            <property name="can_focus">False</property>
+                            <property name="label" translatable="yes">Use Brush</property>
+                          </object>
+                          <packing>
+                            <property name="expand">False</property>
+                            <property name="fill">True</property>
+                            <property name="position">0</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="GtkComboBox" id="brush_list">
+                            <property name="visible">True</property>
+                            <property name="can_focus">False</property>
+                            <signal name="changed" handler="on_brush_list_changed" swapped="no"/>
+                          </object>
+                          <packing>
+                            <property name="expand">True</property>
+                            <property name="fill">True</property>
+                            <property name="position">1</property>
+                          </packing>
+                        </child>
+                      </object>
+                      <packing>
+                        <property name="expand">True</property>
+                        <property name="fill">True</property>
+                        <property name="position">1</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkVBox" id="vbox4">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <child>
+                          <object class="GtkLabel" id="label1">
+                            <property name="visible">True</property>
+                            <property name="can_focus">False</property>
+                            <property name="label" translatable="yes">Perspective Lines</property>
+                          </object>
+                          <packing>
+                            <property name="expand">True</property>
+                            <property name="fill">True</property>
+                            <property name="position">0</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="GtkHBox" id="hbox1">
+                            <property name="visible">True</property>
+                            <property name="can_focus">False</property>
+                            <child>
+                              <object class="GtkLabel" id="label5">
+                                <property name="visible">True</property>
+                                <property name="can_focus">False</property>
+                                <property name="label" translatable="yes">Long Side</property>
+                              </object>
+                              <packing>
+                                <property name="expand">True</property>
+                                <property name="fill">True</property>
+                                <property name="position">0</property>
+                              </packing>
+                            </child>
+                            <child>
+                              <object class="GtkSpinButton" id="long_side">
+                                <property name="visible">True</property>
+                                <property name="can_focus">True</property>
+                                <property name="primary_icon_activatable">False</property>
+                                <property name="secondary_icon_activatable">False</property>
+                                <property name="primary_icon_sensitive">True</property>
+                                <property name="secondary_icon_sensitive">True</property>
+                                <property name="adjustment">adjustment2</property>
+                                <property name="snap_to_ticks">True</property>
+                                <signal name="value-changed" handler="on_long_side_value_changed" swapped="no"/>
+                              </object>
+                              <packing>
+                                <property name="expand">True</property>
+                                <property name="fill">True</property>
+                                <property name="position">1</property>
+                              </packing>
+                            </child>
+                            <child>
+                              <object class="GtkLabel" id="label8">
+                                <property name="visible">True</property>
+                                <property name="can_focus">False</property>
+                                <property name="label" translatable="yes">Short Side</property>
+                              </object>
+                              <packing>
+                                <property name="expand">True</property>
+                                <property name="fill">True</property>
+                                <property name="position">2</property>
+                              </packing>
+                            </child>
+                            <child>
+                              <object class="GtkSpinButton" id="short_side">
+                                <property name="visible">True</property>
+                                <property name="can_focus">True</property>
+                                <property name="primary_icon_activatable">False</property>
+                                <property name="secondary_icon_activatable">False</property>
+                                <property name="primary_icon_sensitive">True</property>
+                                <property name="secondary_icon_sensitive">True</property>
+                                <property name="adjustment">adjustment3</property>
+                                <property name="snap_to_ticks">True</property>
+                                <signal name="value-changed" handler="on_short_side_value_changed" swapped="no"/>
+                              </object>
+                              <packing>
+                                <property name="expand">True</property>
+                                <property name="fill">True</property>
+                                <property name="position">3</property>
+                              </packing>
+                            </child>
+                          </object>
+                          <packing>
+                            <property name="expand">True</property>
+                            <property name="fill">True</property>
+                            <property name="position">1</property>
+                          </packing>
+                        </child>
+                      </object>
+                      <packing>
+                        <property name="expand">True</property>
+                        <property name="fill">True</property>
+                        <property name="position">2</property>
+                      </packing>
+                    </child>
+                  </object>
+                </child>
+              </object>
+            </child>
+            <child type="label">
+              <object class="GtkLabel" id="label2">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="label" translatable="yes">&lt;b&gt;Perspective&lt;/b&gt;</property>
+                <property name="use_markup">True</property>
+              </object>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">0</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkFrame" id="frame2">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="label_xalign">0</property>
+            <property name="shadow_type">none</property>
+            <child>
+              <object class="GtkAlignment" id="alignment2">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="left_padding">12</property>
+                <child>
+                  <object class="GtkVBox" id="vbox3">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <child>
+                      <object class="GtkHBox" id="hbox2">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="homogeneous">True</property>
+                        <child>
+                          <object class="GtkLabel" id="label">
+                            <property name="visible">True</property>
+                            <property name="can_focus">False</property>
+                            <property name="label" translatable="yes">Paint/Erase Mode:</property>
+                          </object>
+                          <packing>
+                            <property name="expand">True</property>
+                            <property name="fill">True</property>
+                            <property name="position">0</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="GtkButton" id="Eraser">
+                            <property name="visible">True</property>
+                            <property name="can_focus">True</property>
+                            <property name="receives_default">True</property>
+                          </object>
+                          <packing>
+                            <property name="expand">True</property>
+                            <property name="fill">True</property>
+                            <property name="position">1</property>
+                          </packing>
+                        </child>
+                      </object>
+                      <packing>
+                        <property name="expand">True</property>
+                        <property name="fill">True</property>
+                        <property name="position">0</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkHBox" id="hbox3">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="homogeneous">True</property>
+                        <child>
+                          <object class="GtkLabel" id="label4">
+                            <property name="visible">True</property>
+                            <property name="can_focus">False</property>
+                            <property name="label" translatable="yes">Dynamics:</property>
+                          </object>
+                          <packing>
+                            <property name="expand">True</property>
+                            <property name="fill">True</property>
+                            <property name="position">0</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="GtkButton" id="Dynamics">
+                            <property name="visible">True</property>
+                            <property name="can_focus">True</property>
+                            <property name="receives_default">True</property>
+                            <property name="image_position">right</property>
+                          </object>
+                          <packing>
+                            <property name="expand">True</property>
+                            <property name="fill">True</property>
+                            <property name="position">1</property>
+                          </packing>
+                        </child>
+                      </object>
+                      <packing>
+                        <property name="expand">True</property>
+                        <property name="fill">True</property>
+                        <property name="position">1</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkHBox" id="hbox7">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="homogeneous">True</property>
+                        <child>
+                          <object class="GtkLabel" id="label10">
+                            <property name="visible">True</property>
+                            <property name="can_focus">False</property>
+                            <property name="label" translatable="yes">Brush Size:</property>
+                          </object>
+                          <packing>
+                            <property name="expand">True</property>
+                            <property name="fill">True</property>
+                            <property name="position">0</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="GtkComboBox" id="brush_size">
+                            <property name="visible">True</property>
+                            <property name="can_focus">False</property>
+                            <signal name="changed" handler="on_brush_size_changed" swapped="no"/>
+                          </object>
+                          <packing>
+                            <property name="expand">False</property>
+                            <property name="fill">True</property>
+                            <property name="position">1</property>
+                          </packing>
+                        </child>
+                      </object>
+                      <packing>
+                        <property name="expand">True</property>
+                        <property name="fill">True</property>
+                        <property name="position">2</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkHBox" id="hbox6">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <child>
+                          <object class="GtkLabel" id="label7">
+                            <property name="visible">True</property>
+                            <property name="can_focus">False</property>
+                            <property name="label" translatable="yes">Brush Preset</property>
+                          </object>
+                          <packing>
+                            <property name="expand">False</property>
+                            <property name="fill">True</property>
+                            <property name="position">0</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="GtkComboBox" id="brush_size_preset">
+                            <property name="visible">True</property>
+                            <property name="can_focus">False</property>
+                            <signal name="changed" handler="on_brush_size_preset_changed" swapped="no"/>
+                          </object>
+                          <packing>
+                            <property name="expand">True</property>
+                            <property name="fill">True</property>
+                            <property name="position">1</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="GtkButton" id="preset_delete">
+                            <property name="label">gtk-delete</property>
+                            <property name="visible">True</property>
+                            <property name="can_focus">True</property>
+                            <property name="receives_default">True</property>
+                            <property name="use_stock">True</property>
+                            <signal name="released" handler="on_preset_delete_released" swapped="no"/>
+                          </object>
+                          <packing>
+                            <property name="expand">False</property>
+                            <property name="fill">True</property>
+                            <property name="position">2</property>
+                          </packing>
+                        </child>
+                      </object>
+                      <packing>
+                        <property name="expand">True</property>
+                        <property name="fill">True</property>
+                        <property name="position">3</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkHBox" id="hbox4">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <child>
+                          <object class="GtkLabel" id="label9">
+                            <property name="visible">True</property>
+                            <property name="can_focus">False</property>
+                            <property name="label" translatable="yes">Add Preset</property>
+                          </object>
+                          <packing>
+                            <property name="expand">True</property>
+                            <property name="fill">True</property>
+                            <property name="position">0</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="GtkEntry" id="preset_entry">
+                            <property name="visible">True</property>
+                            <property name="can_focus">True</property>
+                            <property name="primary_icon_activatable">False</property>
+                            <property name="secondary_icon_activatable">False</property>
+                            <property name="primary_icon_sensitive">True</property>
+                            <property name="secondary_icon_sensitive">True</property>
+                          </object>
+                          <packing>
+                            <property name="expand">True</property>
+                            <property name="fill">True</property>
+                            <property name="position">1</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="GtkButton" id="preset_add">
+                            <property name="label">gtk-add</property>
+                            <property name="visible">True</property>
+                            <property name="can_focus">True</property>
+                            <property name="receives_default">True</property>
+                            <property name="use_stock">True</property>
+                            <signal name="released" handler="on_preset_add_released" swapped="no"/>
+                          </object>
+                          <packing>
+                            <property name="expand">True</property>
+                            <property name="fill">True</property>
+                            <property name="position">2</property>
+                          </packing>
+                        </child>
+                      </object>
+                      <packing>
+                        <property name="expand">True</property>
+                        <property name="fill">True</property>
+                        <property name="position">4</property>
+                      </packing>
+                    </child>
+                  </object>
+                </child>
+              </object>
+            </child>
+            <child type="label">
+              <object class="GtkLabel" id="label3">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="yalign">0.47999998927116394</property>
+                <property name="label" translatable="yes">&lt;b&gt;Cycle&lt;/b&gt;</property>
+                <property name="use_markup">True</property>
+              </object>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">1</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkStatusbar" id="statusbar1">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="spacing">3</property>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">2</property>
+          </packing>
+        </child>
+      </object>
+    </child>
+  </object>
+</interface>
+
+'''
+
+def bgii_initialise():
+    ''' Load a subset of shelf data from file on first run '''
+    
+    initialised = get_stored(SHELF_BGII_INITIALISED, False)
+    
+    if initialised:
+        return
+
+    shelf[SHELF_BGII_INITIALISED] = True
+
+    try:
+        f = open(SAVE_FILE_NAME, 'r')
+        save_dict = json.load(f)
+        f.close()
+        
+        for k, v in save_dict.items():
+            if k in GENERAL_INITIALISATION_KEYS:
+                shelf[k]=v
+        
+    except IOError:  # Can't find file, do nothing, rely on default values
+        return 
+    
+
+
+def bgii_cycle_brush_size():
+    bgii_initialise()
+    
+    brush_sizes = get_stored(SHELF_BRUSH_SIZES, DEFAULTS[SHELF_BRUSH_SIZES])
+    # brush_sizes is a list of str
+    current_index  = get_stored(SHELF_BRUSH_SIZES_INDEX,  DEFAULTS[SHELF_BRUSH_SIZES_INDEX])
+    
+    brush_index = (current_index+1)%len(brush_sizes)
+    new_value = int(brush_sizes[brush_index])
+    gimp.pdb.gimp_context_set_brush_size(new_value)
+    shelf[SHELF_BRUSH_SIZES_INDEX]=brush_index
+
+register( "cycle_brush_size",
+              "Cycles through pre set brush sizes",
+            '''Cycles through pre set brush sizes''', 
+            "Brendan Scott",
+            "Brendan Scott",
+            "2013",
+            "<Toolbox>/Tools/BGII/Cycle/Brush Size",
+            "",
+            [],
+            [], 
+            bgii_cycle_brush_size
+            )
+             
+
+def get_stored(key,  default):
+    try:
+        retval = shelf[key]
+    except KeyError:
+        retval = default
+#        shelf[key] = default
+    return retval
+
+def bgii_cycle_select(image="",  layer=""):
+    SHELF_KEY = SHELF_SELECT
+    DEFAULT_VALUE = SELECT_NOT_ALPHA
+
+    selection_states=(SELECT_NOT_ALPHA, SELECT_ALL)
+
+    if image =="" or layer == "": 
+        return
+
+    current_value = get_stored(SHELF_SELECT,  DEFAULTS[SHELF_SELECT])
+    new_value = (current_value+1)%len(selection_states)
+    
+    shelf[SHELF_SELECT]= new_value
+    
+    if new_value == SELECT_NOT_ALPHA:
+        sample_transparent = gimp.pdb.gimp_context_get_sample_transparent()
+        gimp.pdb.gimp_context_set_sample_transparent(TRUE)
+        color = (255, 255, 255, 0) 
+        gimp.pdb.gimp_image_select_color(image, CHANNEL_OP_REPLACE,  layer, color )
+        gimp.pdb.gimp_selection_invert(image)
+        gimp.pdb.gimp_context_set_sample_transparent(sample_transparent) # reinstate previous sample state
+    
+    elif new_value== SELECT_ALL:
+        gimp.pdb.gimp_selection_all(image)
+
+register( "bgii_cycle_select",
+              "Cycles selection between all and that part of layer which is not full alpha",
+            '''Cycles selection between all and that part of layer which is not full alpha''', 
+            "Brendan Scott",
+            "Brendan Scott",
+            "2013",
+            "<Toolbox>/Tools/BGII/Select/Drawn Part",
+            "",
+            [
+            (PF_IMAGE, "image", "Input image", ""),
+            (PF_DRAWABLE, "layer", "Input drawable", "")
+            ],
+            [], 
+            bgii_cycle_select)
+
+        
+def bgii_cycle_dynamics():
+    current_value = gimp.pdb.gimp_context_get_dynamics()
+   
+    if current_value == DYNAMICS_OFF:
+        new_value= DYNAMICS_ON
+    elif current_value == DYNAMICS_ON:
+        new_value=DYNAMICS_OFF
+    else: # do nothing
+        return
+        
+    gimp.pdb.gimp_context_set_dynamics(new_value)
+
+register( "bgii_cycle_dynamics",
+          "Cycles current dynamics between none and pressure-opacity",
+        '''Toggles current dynamics between none and pressure-opacity''', 
+        "Brendan Scott",
+        "Brendan Scott",
+        "2013",
+        "<Toolbox>/Tools/BGII/Cycle/Dynamics",
+        "",
+        [],
+        [], 
+        bgii_cycle_dynamics
+        )
+
+
+def bgii_cycle_eraser():
+    TOGGLE_MODES = [23, 0] # 0 = normal, 23 = erase mode
+    current_mode = gimp.pdb.gimp_context_get_paint_mode()
+   
+    if current_mode == PAINTBRUSH_NORMAL:
+        new_mode= PAINTBRUSH_ERASE
+    elif current_mode == PAINTBRUSH_ERASE:
+        new_mode=PAINTBRUSH_NORMAL
+    else: # do nothing
+        return
+    gimp.pdb.gimp_context_set_paint_mode(new_mode)
+  
+  
+register( "bgii_cycle_eraser",
+      "Toggles current drawing mode between normal and erase",
+    '''Toggles current drawing mode between normal and erase (simulates toggling eraser and paintbrush)''', 
+    "Brendan Scott",
+    "Brendan Scott",
+    "2013",
+    "<Toolbox>/Tools/BGII/Cycle/Eraser",
+    "",
+    [],
+    [], 
+    bgii_cycle_eraser)
+
+def get_perspective_brush():
+    perspective_brush = {
+        "mode":0, 
+        "opacity": 100.0, 
+        "size":1, 
+        "aspect_ratio":1.0, 
+        "angle":0.0, 
+        "dynamics":"Dynamics Off", 
+       "colour":(0, 0, 0) 
+    }
+    # See if we can find a brush that works!
+    
+    current_brush = pdb.gimp_context_get_brush()
+    perspective_brush['brush_name']= get_stored(SHELF_BRUSH_NAME,  current_brush)
+    
+#    print "current_brush: %s stored brush: %s "%(current_brush,  perspective_brush['brush_name'])
+    return perspective_brush
+
+BGII_PERSPECTIVE_BRUSH_NAME = "BGII_Pixel"
+
+def path_to_vp_tuple(image,  perspective_path):
+    ''' Expects to receive a perspective_path - that is, a path with:
+        a single stroke; and (1st used, rest ignored)
+        that stroke with only 3 control points  (1st three used, rest ignored)
+    - ie a stroke list of length 18, returns location of 3 centre points. 
+    Needs image in case path needs to be adjusted for horizon
+    '''
+    
+    num_strokes, stroke_ids = pdb.gimp_vectors_get_strokes(perspective_path)
+    
+    stroke_id=stroke_ids[0]
+    type, num_points, controlpoints, closed = pdb.gimp_vectors_stroke_get_points(perspective_path, stroke_id)
+    
+    vp1 = controlpoints[2:4]
+    vp2 = controlpoints[8:10]
+    if len(controlpoints)>10:
+        vp3=controlpoints[14:16]
+    else:
+        vp3 = None
+    
+    lock_to_vp1 = get_stored(SHELF_LOCK_HORIZON,  True)
+
+    if not lock_to_vp1:
+        return  (vp1,  vp2,  vp3)
+
+    elif vp2[1] ==vp1[1]: 
+        return (vp1,  vp2,  vp3)
+    
+    else:
+        # need to reset vp2 then recreate path 
+        cp_list = list(controlpoints)
+        x= vp2[0]
+        y=vp1[1]
+        cp_list[6:12]= [x, y, x, y, x, y]
+
+        perspective_path = perspective_path_from_cp_list(image, cp_list) # re init path in UI
+        vp2 = (x, y)
+        
+
+    return (vp1,  vp2,  vp3)
+
+
+def get_active_brush_details():
+    mode =  pdb.gimp_context_get_paint_mode()
+    opacity = pdb.gimp_context_get_opacity()
+    brush_name = pdb.gimp_context_get_brush()
+    size = pdb.gimp_context_get_brush_size()
+    aspect_ratio = pdb.gimp_context_get_brush_aspect_ratio()
+    angle = pdb.gimp_context_get_brush_angle()
+    dynamics  = pdb.gimp_context_get_dynamics()
+    colour = pdb.gimp_context_get_foreground()
+
+    brush = {
+        "mode":mode, 
+        "opacity": opacity, 
+        "brush_name":brush_name, 
+        "size":size, 
+        "aspect_ratio":aspect_ratio, 
+        "angle":angle, 
+        "dynamics":dynamics, 
+        'colour':colour
+        }
+    return brush
+
+def set_brush_details(brush):
+    pdb.gimp_context_set_paint_mode(brush['mode'])
+    pdb.gimp_context_set_opacity(brush['opacity'])
+    try:
+        pdb.gimp_context_set_brush(brush['brush_name'])
+    except RuntimeError:
+        pass
+        
+    pdb.gimp_context_set_brush_size(brush['size'])
+    pdb.gimp_context_set_brush_aspect_ratio(brush['aspect_ratio'])
+    pdb.gimp_context_set_brush_angle(brush['angle'])
+    pdb.gimp_context_set_dynamics(brush['dynamics'])
+    pdb.gimp_context_set_foreground(brush['colour'])
+   
+def dist(p1, p2):
+    '''euclidean distance between p1 and p2
+    where p1 and p2 are 2-tuples or arrays of length 2 '''
+    
+    x1= float(p1[0])
+    y1=float(p1[1])
+    x2=float(p2[0])
+    y2 = float(p2[1])
+    
+    a = (x1-x2)**2.0+(y1-y2)**2.0
+    return a**0.5
+
+
+def rotate(p, angle): 
+    ''' rotate a point p around the origin through angle radians'''
+    cosa = math.cos(angle)
+    sina = math.sin(angle)
+    return (p[0]*cosa - p[1]*sina, p[0]*sina+p[1]*cosa)
+    
+    
+def vect_add(p1, p2):
+    return (p1[0]+p2[0], p1[1]+p2[1])
+
+    
+def calc_control_points(layer):    
+    ''' locate control points along the outside border of the layer
+    '''
+    h = pdb.gimp_drawable_height(layer)
+    w = pdb.gimp_drawable_width(layer)
+    points_long_side = get_stored(SHELF_LONG_SIDE,  DEFAULTS[SHELF_LONG_SIDE])
+    points_short_side = get_stored(SHELF_SHORT_SIDE, DEFAULTS[SHELF_SHORT_SIDE])
+    
+    controlpoints = []
+    if h>w:  # portrait style
+        increment_x = float(w)/float(points_short_side)
+        increment_y = float(h)/float(points_long_side)
+        first_range = points_short_side
+        second_range = points_long_side
+    else:
+        increment_x = float(w)/float(points_long_side)
+        increment_y = float(h)/float(points_short_side)
+        first_range = points_long_side
+        second_range = points_short_side
+        
+    for i in range(first_range):
+        controlpoints.append([i*increment_x, 0]) 
+        controlpoints.append([i*increment_x, h]) 
+    
+    for i in range(second_range):
+        controlpoints.append([0, i*increment_y]) 
+        controlpoints.append([w, i*increment_y])  
+    
+    controlpoints.append([w, h])
+    return controlpoints
+
+
+def stroke_perspective_lines(layer,  vp,  colour):
+    # find length of longest possible ray by distance to all corners
+    h = pdb.gimp_drawable_height(layer)
+    w = pdb.gimp_drawable_width(layer)
+    corners = [(0, 0), (w, 0), (w, h), (0, h)  ]
+    distances = []
+    for p in corners:
+        distances.append(dist(vp, p))
+    distances.sort()
+    draw_length = distances[-1]*1.1 #marginally larger to account for rounding etc.
+
+    # backup brush (could do this outside this function, 
+    # but logically ought to be here
+    save_brush = get_active_brush_details()
+
+    # calculate the strokes, draw
+    angle_increment = math.pi/36.0
+    
+    set_brush_details(get_perspective_brush())
+    pdb.gimp_context_set_foreground(colour)
+    controlpoints = calc_control_points(layer)
+    
+    
+    for cp in controlpoints:
+        #cp = calc_control_point(vp, draw_length,  angle_increment*i)
+        strokes = [vp[0], vp[1], cp[0], cp[1]]
+        pdb.gimp_paintbrush_default(layer, len(strokes), strokes)
+
+
+    # draw horizon
+    draw_horizon = get_stored(SHELF_DRAW_HORIZON,  True)
+#    print "draw_horizon = %s"%draw_horizon
+    if draw_horizon:
+        y = vp[1]
+        strokes = [0, y, w, y]
+        c = get_stored(SHELF_HORIZON, DEFAULT_HORIZON_COLOUR)
+#        print "horizon colour: ", c
+        pdb.gimp_context_set_foreground(c)
+        pdb.gimp_paintbrush_default(layer, len(strokes), strokes)
+    
+
+    # restore previous brush settings
+    set_brush_details(save_brush)
+    
+    
+def perspective_path_from_cp_list(image,  cp_list):
+    ''' create "perspective" path in image from control point list
+    If the path already exists, delete it first'''
+    
+    VECTOR_POSITION = 0 
+    perspective_path  = pdb.gimp_image_get_vectors_by_name(image, PERSPECTIVE_PATH_NAME)
+
+    if perspective_path is not None:
+        pdb.gimp_image_remove_vectors(image, perspective_path)
+    
+    perspective_path = pdb.gimp_vectors_new(image,  PERSPECTIVE_PATH_NAME)
+    stroke_id = pdb.gimp_vectors_stroke_new_from_points(perspective_path, 0,len(cp_list), cp_list, 0)
+    pdb.gimp_image_add_vectors(image, perspective_path, VECTOR_POSITION)
+    # can't use insert vectors because of bug in api
+    pdb.gimp_item_set_visible(perspective_path, 1)
+    return perspective_path
+    
+def bgii_three_point_perspective(*args):
+    image = args[0]
+
+    if image is None:
+        return #no image!
+
+    bgii_initialise()
+    
+    SHELF_KEY = "BGII_Two_Point_Perspective_Path"
+    PATH_NAME = "BGII Perspective"
+    PARENT_VECTORS = 0 # required to be 0 as at GIMP 2.8
+    VECTOR_POSITION = 0 # top of stack
+    PERSPECTIVE_GROUP_NAME = "BGII Perspective"
+    VP1_LAYER_NAME = "BGII Vanishing Point 1"
+    VP2_LAYER_NAME = "BGII Vanishing Point 2"    
+    VP3_LAYER_NAME = "BGII Vanishing Point 3"
+    VP1_COLOUR = (255, 0, 0)
+    VP2_COLOUR = (0, 255, 0)
+    VP3_COLOUR = (0, 0, 255)
+    VP_LAYER_NAMES = [VP1_LAYER_NAME, VP2_LAYER_NAME, VP3_LAYER_NAME]
+    COLOURS = {
+                    VP1_LAYER_NAME:VP1_COLOUR, 
+                    VP2_LAYER_NAME:VP2_COLOUR,
+                    VP3_LAYER_NAME:VP3_COLOUR
+                        }
+
+    perspective_path  = pdb.gimp_image_get_vectors_by_name(image, PERSPECTIVE_PATH_NAME)
+    height = pdb.gimp_image_height(image)
+    width = pdb.gimp_image_width(image)
+    
+    if perspective_path is None: # path doesn't exist, so need to create it, then exit
+        h = height/2
+        w = width
+        
+        controlpoints = [0, h, 0,h, 0, h,  # VP1
+                                    w, h, w, h, w, h,   # VP2
+                                    w/2,0, w/2, 0,w/2, 0  # VP3  
+                                    ]  
+
+        perspective_path = perspective_path_from_cp_list(image, controlpoints)
+
+    vp1,  vp2,  vp3 = path_to_vp_tuple(image, perspective_path)
+    vanishing_points= {
+        VP1_LAYER_NAME:vp1, 
+        VP2_LAYER_NAME:vp2, 
+        VP3_LAYER_NAME:vp3  
+    }
+    
+    # delete existing layers
+    perspective_layer_group = pdb.gimp_image_get_layer_by_name(image, PERSPECTIVE_GROUP_NAME)
+    layer_visibility = {}
+    layer_opacity = {}
+    if perspective_layer_group is not None:
+        for name in VP_LAYER_NAMES: 
+            # preserve visibility when recreating layers
+            item = pdb.gimp_image_get_layer_by_name(image, name)
+            if item is not None:
+                layer_visibility[name]=pdb.gimp_item_get_visible(item)
+                layer_opacity[name]=pdb.gimp_layer_get_opacity(item)
+            else:
+                layer_visibility[name]= True # on by default
+                layer_opacity[name]=100.0
+                
+#        print "perspective_layer_group (A)= %s"%perspective_layer_group
+        layer_visibility[PERSPECTIVE_GROUP_NAME]=pdb.gimp_item_get_visible(perspective_layer_group)
+        layer_opacity[PERSPECTIVE_GROUP_NAME]=pdb.gimp_layer_get_opacity(perspective_layer_group)
+        # now kill them all
+        pdb.gimp_image_remove_layer(image, perspective_layer_group)
+
+    perspective_layer_group = pdb.gimp_layer_group_new(image)
+    pdb.gimp_item_set_name(perspective_layer_group, PERSPECTIVE_GROUP_NAME)
+    pdb.gimp_image_insert_layer(image, perspective_layer_group, None, 0)
+
+    vp_layers = {}
+    for vpl in VP_LAYER_NAMES:
+        vp_layers[vpl] = pdb.gimp_layer_new(image, width, height, 1, # 1 = RGBA image
+                                                                    vpl, 100.0, 0)
+                        
+    for vpl in  [VP3_LAYER_NAME, VP2_LAYER_NAME, VP1_LAYER_NAME]:
+        pdb.gimp_image_insert_layer(image, vp_layers[vpl], perspective_layer_group, 0)
+    
+    for vpl in VP_LAYER_NAMES:
+        item = vp_layers[vpl]
+        try:
+            pdb.gimp_item_set_visible(item, layer_visibility[vpl])
+            pdb.gimp_layer_set_opacity(item, layer_opacity[vpl])
+        except KeyError:   # when layers are first created there will be a key error for visibility/opacity
+            pdb.gimp_item_set_visible(item,True)
+            pdb.gimp_layer_set_opacity(item, 100.0)
+        if vanishing_points[vpl] is not None:
+            stroke_perspective_lines(item,  vanishing_points[vpl], COLOURS[vpl])
+    try:
+        pdb.gimp_item_set_visible(perspective_layer_group, layer_visibility[PERSPECTIVE_GROUP_NAME])
+        pdb.gimp_layer_set_opacity(perspective_layer_group, layer_opacity[PERSPECTIVE_GROUP_NAME])
+    except KeyError:
+        pdb.gimp_item_set_visible(perspective_layer_group, True)
+        pdb.gimp_layer_set_opacity(perspective_layer_group, 100.0)
+        
+        
+register( "bgii_three_point_perspective",
+      "Creates Perspective Lines in a separate layer (first run is initialisation)",
+    '''Creates a path with three nodes, creates a layer with separate perspective lines for each of these nodes.''', 
+    "Brendan Scott",
+    "Brendan Scott",
+    "2013",
+    "<Toolbox>/Tools/BGII/Perspective Lines/Update",
+    "",
+    [(PF_IMAGE, "image", "Input image", None)],
+    [], 
+    bgii_three_point_perspective)
+    
+
+BGII_WINDOW_KEY= "BGII Control Panel"
+LOCK_HORIZON = BGII+"Lock_Horizon"
+DRAW_HORIZON = BGII+"Horizon_Can_Has"
+MEASURE_STICK=BGII+"Measure_Stick"
+TOTAL_VP = BGII+"Total_VP"
+
+
+def set_model_from_list (cb, items):
+    """Reworking of 
+    from http://faq.pygtk.org/index.py?req=show&file=faq16.008.htp
+    """          
+    
+    model = cb.get_model()
+    
+    if model is None:
+        model = gtk.ListStore(TYPE_STRING)
+        cb.set_model(model)
+    else:
+        model.clear()
+        
+    for i in items:
+        model.append([i])
+
+
+def parse_size_preset(preset):
+    ''' given a comma separated string for a brush size preset, return a 
+    list of str of the individual entries'''
+    preset_list = preset.strip().split(",")
+    retval = []
+    for p in preset_list:
+        try:
+            retval.append(str(int(p)))
+            # convert to int to validate but store as string 
+        except ValueError:  # ignore
+            pass 
+        
+    return retval
+    
+
+class BGII_Config_Window():
+    
+    def __init__(self,  *args):
+        self.set_defaults()
+        
+        try:
+            can_has_window = shelf[BGII_WINDOW_KEY]
+#            print can_has_window
+            if not can_has_window:
+                self.init_bgii_window()
+        except KeyError:
+            self.init_bgii_window()
+        
+        self.deserialise()
+        self.update() # this adds a callback to itself 
+
+
+    def init_bgii_window(self):
+#        filename = "bgii.ui"
+        self.builder = gtk.Builder()
+        self.builder.add_from_string(UI_XML)
+        self.window = self.builder.get_object("window1")
+        self.eraser_button = self.builder.get_object("Eraser")
+        self.dynamics_button = self.builder.get_object("Dynamics")
+        self.window.set_title(BGII_WINDOW_KEY)
+        map = self.eraser_button.get_colormap() 
+        self.red    = map.alloc_color("red")
+        self.blue = map.alloc_color("blue")
+        
+        
+        #### ComboBoxes 
+        num_brushes, brush_list = pdb.gimp_brushes_get_list("")
+        self.brush_list_combo = self.builder.get_object("brush_list")
+        set_model_from_list(self.brush_list_combo,  brush_list)
+
+        self.brush_size_preset = self.builder.get_object("brush_size_preset")
+        set_model_from_list(self.brush_size_preset,  DEFAULT_BRUSH_SIZE_PRESETS)
+
+        self.brush_size = self.builder.get_object("brush_size") # Brush size combo
+
+        self.set_cell_renderers()
+        self.set_signal_handlers()
+        self.window.show()
+        shelf[BGII_WINDOW_KEY] = True
+        
+        return self.window
+
+    def set_cell_renderers(self):
+        for cb in [self.brush_size_preset, self.brush_list_combo,  self.brush_size]:
+            if type(cb) == gtk.ComboBoxEntry:
+                cb.set_text_column(0)
+            elif type(cb) == gtk.ComboBox:
+                cell = gtk.CellRendererText()
+                cb.pack_start(cell, True)
+                cb.add_attribute(cell, 'text', 0)
+
+
+    def set_signal_handlers(self):
+        #### Signals
+        handlers ={"destroy": self.destroy, 
+            "on_checkbox_toggle": self.on_checkbox, 
+            "on_brush_list_changed":self.on_brush_list_changed, 
+            "on_long_side_value_changed": self.on_long_side_value_changed, 
+            "on_short_side_value_changed":self.on_short_side_value_changed, 
+            "on_preset_add_released":self.on_preset_add_released, 
+            "on_preset_delete_released":self.on_preset_delete_released, 
+            "on_brush_size_preset_changed": self.on_brush_size_preset_changed, 
+            "on_brush_size_changed":self.on_brush_size_changed}
+
+        self.builder.connect_signals(handlers)
+        
+    def set_defaults(self):
+        defaults = {
+            'BGII_Lock_Horizon':True,
+            'BGII_Draw_Horizon':True,
+            'BGII_Use_Measuring_Stick':False,
+            SHELF_SELECT: SELECT_NOT_ALPHA, 
+            VP_COUNT_KEY:DEFAULT_VP_COUNT, 
+            SHELF_HORIZON: DEFAULT_HORIZON_COLOUR
+
+            }
+        for k, v in defaults.items():
+            v = get_stored(k, v)
+            shelf[k]= v
+            # this way if the config script is rerun it doesn't reset values already set
+
+    def on_brush_size_changed(self, *args):
+        size = self.brush_size.get_active_text()
+        if size is None:
+            return
+            
+        brush_size = int(size)
+        index = self.brush_size.get_active()
+        shelf[SHELF_BRUSH_SIZES_INDEX]= index # so that cycling works properly
+        
+        gimp.pdb.gimp_context_set_brush_size(brush_size)
+
+    def on_brush_size_preset_changed(self, *args):
+        w = self.brush_size_preset
+        active = self.brush_size_preset.get_active_text()
+        if active is None:
+            return
+            
+        sizes = parse_size_preset(active)
+        # deal with storage
+        shelf[SHELF_BRUSH_SIZES]= sizes
+        shelf[SHELF_BRUSH_SIZES_INDEX]= 0
+        # update UI
+
+        set_model_from_list(self.brush_size,  sizes)
+        self.brush_size.set_active(len(sizes)-1)
+        
+
+    def get_size_presets(self):
+        model = self.brush_size_preset.get_model()
+        iter = model.get_iter_root()
+        preset_list = []
+        while iter is not None:
+            val = model.get_value(iter, 0)
+#            print "val = ", val
+            preset_list.append(val)
+            iter = model.iter_next(iter)
+        
+        return preset_list
+
+    def on_preset_delete_released(self, *args):
+        w =self.brush_size_preset
+        index = w.get_active()
+        if index == -1:
+            return
+        w.remove_text(index)
+        w.set_active(-1)
+        
+
+    def on_preset_add_released(self, *args):
+        '''Get preset entry value
+        parse it (to validate)
+        add it to preset model
+        sort model
+        update
+        '''
+        e = self.builder.get_object("preset_entry")
+        text = e.get_text()
+        parsed = parse_size_preset(text)
+        if len(parsed) == 0:
+            return
+            
+        new_preset = ", ".join(parsed)
+
+        # build current presets
+        w =self.brush_size_preset
+        preset_list = self.get_size_presets()
+        
+        preset_list.append(new_preset)
+        #sorting them by initial brush size is actually a little tricky:
+        preset_list.sort(key= lambda p: int(parse_size_preset(p)[0]))
+        current_active = w.get_active_text()
+#        print "current_active", current_active
+        if current_active is not None:
+            index = preset_list.index(current_active)
+        # there is an insert method for liststores, but
+        # finding the right spot to insert is where the effort is.  
+        # reinitialise model for combobox 
+        set_model_from_list(self.brush_size_preset,  preset_list)
+
+        if current_active is not None:
+            self.brush_size_preset.set_active(index)
+        
+        e.set_text("")
+    
+    def on_long_side_value_changed(self, *args):
+        # would like to just have one callback but widgets passed don't identify themselves
+        # sigh
+        w = args[0]
+        key = SHELF_LONG_SIDE
+        value = w.get_value_as_int()
+        shelf[key]= value
+        return False
+        
+    def on_short_side_value_changed(self, *args):
+        w = args[0]
+        key = SHELF_SHORT_SIDE
+        value = w.get_value_as_int()
+        shelf[key]= value
+        return False
+
+    def on_brush_list_changed(self, *args):
+        combo = args[0]
+        new_index = combo.get_active()
+        new_value = combo.get_active_text()
+#        print "got index, value: ",  new_index, new_value
+        shelf[SHELF_BRUSH_NAME]= new_value
+  
+    def on_checkbox(self, *args):
+        toggle_button = args[0]
+        name = gtk.Buildable.get_name(toggle_button)
+        active = toggle_button.get_active()
+        key = BGII+name
+        shelf[key]= active
+#        print "'%s':%s,"%(key,  active)
+        
+
+    def set_colour(self,  button,  colour):
+        style = button.get_style()
+        current_colour = style.bg[gtk.STATE_NORMAL]
+        if current_colour == colour:
+            return
+        
+        new_style = style.copy()
+        new_style.bg[gtk.STATE_NORMAL] = colour
+        button.set_style(new_style)
+        
+
+    def update(self, *args):
+        timeout_add(POLL_RATE, self.update, self)
+        current_eraser = gimp.pdb.gimp_context_get_paint_mode()
+        current_dynamics = gimp.pdb.gimp_context_get_dynamics()
+
+        if current_eraser == PAINTBRUSH_ERASE:
+            self.set_colour(self.eraser_button,  self.red)
+        else:
+            self.set_colour(self.eraser_button, self.blue)
+
+        if current_dynamics== DYNAMICS_OFF:
+            self.set_colour(self.dynamics_button, self.red)
+        else:
+            self.set_colour(self.dynamics_button, self.blue)
+
+        ''' 
+#make a gdk.color for red
+map = btn.get_colormap() 
+color = map.alloc_color("red")
+
+#copy the current style and replace the background
+style = btn.get_style().copy()
+style.bg[gtk.STATE_NORMAL] = color
+
+#set the button's style to the one you created
+btn.set_style(style)
+
+'''
+
+    def destroy(self, *args):
+#        print "got a destroy",  args
+        self.serialise()
+        shelf[BGII_WINDOW_KEY]= False
+        gtk.main_quit()
+
+    def serialise(self):
+        ''' store all of the current settings'''
+        key_list = [SHELF_BRUSH_NAME, 
+        SHELF_DRAW_HORIZON, 
+        SHELF_LOCK_HORIZON, 
+        SHELF_LONG_SIDE, 
+        SHELF_SHORT_SIDE, 
+        SHELF_BRUSH_SIZES, 
+        SHELF_BRUSH_SIZES_INDEX
+        ]
+        
+        save_dict= {}
+
+        for k in key_list:
+            if k == SHELF_BRUSH_NAME:
+                default = pdb.gimp_context_get_brush()
+            else:
+                default = DEFAULTS[k]
+            save_dict[k]= get_stored(k, default)
+
+        preset_list = self.get_size_presets()
+        save_dict[BRUSH_SIZE_PRESETS]= preset_list
+
+#        root_win = self.window.get_root_window()
+#        window_position = self.window.window.get_root_origin()
+#        save_dict[LAST_WINDOW_POS]= (window_position[0], window_position[1])
+
+        f = open(SAVE_FILE_NAME, 'w')
+        json.dump(save_dict, f)
+        f.close()
+        
+
+    def deserialise(self):
+        try:
+            f = open(SAVE_FILE_NAME, 'r')
+            save_dict = json.load(f)
+            f.close()
+        except IOError:  # Can't find file, do nothing
+            return 
+    
+        initialised = get_stored(SHELF_BGII_INITIALISED, False)
+        if initialised:
+            for k in GENERAL_INITIALISATION_KEYS: 
+                '''We have already read these particular keys from the save file
+                before opening the control window, so use the current values from memory
+                rather than reinitialising from save file. 
+                '''
+                try:
+                    save_dict[k] = get_stored(k, save_dict[k])
+                    # if in shelf, then use it, otherwise fall over to value from  save file
+                except KeyError:
+                    pass
+                    
+#        try:
+#            last_window_pos = save_dict[LAST_WINDOW_POS]
+#            self.window.move(last_window_pos[0], last_window_pos[1])
+#            del save_dict[LAST_WINDOW_POS]
+#        except KeyError:
+#            pass
+            
+        for k, v in save_dict.items():
+            self.set_vals(k, v)
+            
+            
+    def set_vals(self, key, value):
+        ''' initialise the interface  and gimp shelf based on saved values
+        Different methods have to be used to set different widgets
+        '''
+
+        if key in [SHELF_BRUSH_SIZES_INDEX,  SHELF_BRUSH_SIZES]:
+            shelf[key] = value
+            return
+            
+           
+        if key == BRUSH_SIZE_PRESETS:
+            set_model_from_list(self.brush_size_preset,  value)
+            return # don't bother shelfing
+
+        w = self.builder.get_object(WIDGET_NAMES[key])
+        
+        if key == SHELF_BRUSH_NAME:
+            tree_model = w.get_model()
+            iter = tree_model.get_iter_root()
+            index = 0
+            while iter is not None:
+                val = tree_model.get_value(iter, 0)
+                if val == value:
+                    w.set_active(index)
+                    break
+                iter = tree_model.iter_next(iter)
+                index +=1
+
+        elif key == SHELF_DRAW_HORIZON or key == SHELF_LOCK_HORIZON:
+            w.set_active(value)
+        
+        elif key == SHELF_LONG_SIDE or key == SHELF_SHORT_SIDE:
+           w.set_value(value)
+
+        shelf[key]= value
+        
+
+    def on_togglebutton(self, *args):
+        toggle_button = args[0]
+        name = gtk.Buildable.get_name(toggle_button)
+        active = toggle_button.get_active()
+#        print "got a toggle from : %s with active: %s "%(name,  active)
+        if name == "Eraser":
+            bgii_cycle_eraser()
+        if name=="Dynamics":
+            bgii_cycle_dynamics()
+        if name=="Selection":
+            bgii_cycle_select()
+        return True
+        
+        
+        
+def bgii_config():
+    b = BGII_Config_Window()
+    gtk.main()
+
+register( "bgii_config",
+      "Control Panel for BGII",
+    '''Control Panel for BGII - more parameters for your BGII pleasure''', 
+    "Brendan Scott",
+    "Brendan Scott",
+    "2013",
+    "<Toolbox>/Tools/BGII/Control Panel",
+    "",
+    [],
+    [], 
+    bgii_config)
+    
+
+def bgii_reset():
+    shelf[BGII_WINDOW_KEY] = False
+        
+        
+
+register( "bgii_reset",
+      "BGII Reset Control Panel",
+    '''BGII Reset Control Panel if an error - otherwise restart GIMP''', 
+    "Brendan Scott",
+    "Brendan Scott",
+    "2013",
+    "<Toolbox>/Tools/BGII/Debug/Window Flag Reset",
+    "",
+    [],
+    [], 
+    bgii_reset)
+    
+main()
+

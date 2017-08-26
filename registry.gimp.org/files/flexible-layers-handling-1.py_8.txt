@@ -1,0 +1,144 @@
+# -*- coding: utf-8 -*-
+#This script helps you with some basic operations on animations (when for instance one frame consists of several grouped layers) like setting linking and visibility status,and (or) doing opacity fadings, which can be compressed or expanded separatly. Because it's necessary to become experienced with the fade cycle settings, SAVE YOUR WORK FIRST! Use the testfile you can download (see link below) to experimentate on, and use the journal, so that you can every time go back to the status, from where you started. You can select two ways of layer processing: default is, that every layer is independant from each other. For example, if you wanna change every third layer, you need the parameter 'startlayer' for the first layer to be changed, and the 'skip' parameter, in this case '2', and the number (quantity) of independant layers, for which the processing is repeated. The second way is to change to subgroup mode (first parameter), so that you process the layers of your subgroup, defined by your start- and endlayer, and this can also be repeated throughout all existing layers, but jumping over to the next subgroup by skipping the amount of layers, which are defined by the 'skip' parameter. If you want to add opacity changes, you have to activate Function-1 (parameter 9). A normal fade setting without start- and endcompression will be completely linear, which "feels" unnatural, when you, for instance, wanna create the seamless swelling of waves. Therefore you can simulate (for startrange and endrange separatly) the character of a sinuscurve, no matter of using it in compressing mode or in expanding mode. Be patient with some operations, if you have a layerstack with hundreds of layers, because it will quite take a while until the plugin has finished. Better waiting some seconds, than going crazy when trying to do the same thing by hand, or?
+#See example on http://www.balsamedia.de/gimp-scripting/flexible-layers-handling-example.html
+#On this site you can also download a zipfile, which contains the following: flexible-layers-handling1.py, flexible-layers-handling2.py, testfile.xcf. The testfile contains 100 layers, and intends to help you getting experienced with the possibilities of the scripts. Experimentate on! Perhaps you will realize, that you can save a lot of time with these scripts, especially when you work on multilayered images or animations. Don't hesitate, to give a chargeback to the author. You can do that by PayPal on the same website.
+
+#Your layers should be organized similar to the following:
+# layer1 == frame 1
+# sublayer1 of frame1
+# sublayer2 of frame1
+# sublayer3 of frame1
+# sublayer4 of frame1...
+# layer2 == frame 2
+# sublayer1 of frame2
+# sublayer2 of frame2
+# sublayer3 of frame2
+# sublayer4 of frame2...
+#and so on...
+
+#!/usr/bin/env python
+
+import math
+from gimpfu import *
+
+def gprint( text ): #this function is only for debugging purpose
+   pdb.gimp_message(text)
+   return
+
+def python_flexible_layers(myImage, myDrawable, startlayer, endlayer, skip_by1, groupmode, repeat1, visible, linked, name, function1, mode, startopacity, endopacity, start_compr_factor, start_togglecpex, start_exponential, startlevel_add, startrange, end_compr_factor, end_togglecpex, end_exponential, endlevel_add, endrange):
+    i1 = i2 = startlayer
+    opacity = startopacity
+    opacityadd = group_by1 = startopacityrange = endopacityfirst = expandrange = rangecounter = endrangecounter = 0
+    cycle = counter = 1
+    if groupmode == True:
+        if endlayer > 1:
+            group_by1 = endlayer - 1
+            opacityadd = (endopacity - startopacity) / group_by1
+    else:
+        opacityadd = (endopacity - startopacity) / (endlayer - 1)
+    endopacityfirst = startopacity + (endlayer - endrange) * opacityadd
+    expandrange = endopacity - endopacityfirst
+    while (i1 <= (len(myImage.layers)) and groupmode == True) or (i1 <= startlayer + (endlayer - 1) + (endlayer * skip_by1) and groupmode == False):
+        if groupmode == True:
+            while i2 <= i1 + group_by1 and i2 <= len(myImage.layers):
+                myLayer = myImage.layers[int(i2)-1]
+                i2 += 1
+                startopacityrange, endopacityfirst, expandrange, endrangecounter = set_fu1(myImage, myLayer, groupmode, mode, name, startopacity, endopacity, opacity, opacityadd, start_compr_factor, start_exponential, startlevel_add, end_compr_factor, end_exponential, endlevel_add, visible, linked, startlayer, endlayer, skip_by1, i1, i2, function1, startrange, endrange, rangecounter, endrangecounter, start_togglecpex, end_togglecpex, counter, startopacityrange, endopacityfirst, expandrange)
+                opacity += opacityadd
+                rangecounter += 1
+            i1 += skip_by1 + group_by1 + 1
+            i2 = i1
+            opacity = startopacity
+            rangecounter = 0
+        else:
+            myLayer = myImage.layers[i1 - 1]
+            startopacityrange, endopacityfirst, expandrange, endrangecounter = set_fu1(myImage, myLayer, groupmode, mode, name, startopacity, endopacity, opacity, opacityadd, start_compr_factor, start_exponential, startlevel_add, end_compr_factor, end_exponential, endlevel_add, visible, linked, startlayer, endlayer, skip_by1, i1, i2, function1, startrange, endrange, rangecounter, endrangecounter, start_togglecpex, end_togglecpex, counter, startopacityrange, endopacityfirst, expandrange)
+            i1 += skip_by1 + 1
+        counter += 1
+        if groupmode == False:
+            rangecounter += 1
+            cycle += 1
+            opacity += opacityadd
+            if cycle > endlayer + 1:
+                break
+        elif repeat1 == False:
+            break
+
+def set_fu1(myImage, myLayer, groupmode, mode, name, startopacity, endopacity, opacity, opacityadd, start_compr_factor, start_exponential, startlevel_add, end_compr_factor, end_exponential, endlevel_add, visible, linked, startlayer, endlayer, skip_by1, i1, i2, function1, startrange, endrange, rangecounter, endrangecounter, start_togglecpex, end_togglecpex, counter, startopacityrange, endopacityfirst, expandrange):
+    multiplier = 0
+    pdb.gimp_drawable_set_visible(myLayer, visible)
+    pdb.gimp_drawable_set_linked(myLayer, linked)
+    if name != "":
+        pdb.gimp_drawable_set_name(myLayer, name)
+    if function1 == True:
+        pdb.gimp_layer_set_mode(myLayer, mode)
+        opacitytemp = opacity
+        subrepeatrange = (startrange + 1) * counter
+        if counter > 1:
+            subrepeatrange += startlayer - 1
+        if (i1 <= startlayer + startrange * (skip_by1 + 1) and groupmode == False and startrange <= endlayer and start_compr_factor > 0) or (i2 <= subrepeatrange and startrange <= endlayer and i2 <= len(myImage.layers) and groupmode == True and start_compr_factor > 0):
+            if start_togglecpex == 0:
+                multiplier = (rangecounter) / startrange
+            else:
+                multiplier = (startrange - rangecounter + 0) / startrange
+            multiplier *= (multiplier ** start_exponential)
+            if i1 == startlayer:
+                startopacityrange = startrange * opacityadd
+            if start_togglecpex == 0:
+                opacitytemp = startopacity + (startopacityrange * multiplier) * start_compr_factor
+            else:
+                opacitytemp = startopacity + startopacityrange - (startopacityrange * multiplier) * start_compr_factor
+        if (i1 <= startlayer + endlayer * (skip_by1 + 1) and rangecounter > endlayer - endrange - 1 and groupmode == False and endrange <= endlayer and end_compr_factor > 0) or (i2 <= subrepeatrange and endrange <= endlayer and i2 <= len(myImage.layers) and groupmode == True and end_compr_factor > 0):
+            if end_togglecpex == 1:
+                multiplier = (endrangecounter + 1) / endrange
+                multiplier *= (multiplier ** end_exponential)
+                opacitytemp = (endopacityfirst + expandrange * multiplier * end_compr_factor) + endlevel_add
+            else:
+                multiplier = (endrange - endrangecounter - 1) / endrange
+                multiplier *= (multiplier ** end_exponential)
+                opacitytemp = endopacity - (multiplier * opacityadd * (endlayer + 1 - rangecounter - 1) * end_compr_factor) + endlevel_add
+            endrangecounter += 1
+        if opacity > 100 or opacitytemp > 100:
+            opacity = opacitytemp = 100
+        elif opacity < 0 or opacitytemp < 0:
+            opacity = opacitytemp = 0
+        pdb.gimp_layer_set_opacity(myLayer, opacitytemp)
+    return startopacityrange, endopacityfirst, expandrange, endrangecounter
+
+register(
+	"python-fu_flexible_layers_handling-1",
+	"Customisible layers",
+	"Customisible layers",
+	"Axel Woehrle",
+	"Copyright 2011 Axel Woehrle",
+	"Juli 2011",
+	"<Image>/Layer/Flexible layers handling/1. Set fixed opacity or let it fade,\nset opacitymode, layername and status for linking and visibility",
+	"RGB*, GRAY*",
+	[
+        (PF_INT, "startlayer", "Startlayer (1 == first visible!):", 1), # layer at top we consider as layer with number 1
+        (PF_SPINNER, "endlayer", "Number of (independant) layers to process, or cyclelength (subgroup):", 1, (0,1000,1)),
+        (PF_INT, "skip_by1", "How much layers have to be skipped before next layer to change?", 0),
+        (PF_BOOL, "groupmode", "Change from independant layers (default) to subgroup layers?", False),
+        (PF_BOOL, "repeat1", "Repeat throughout all remaining layers (only for subgroup)?", False),
+        (PF_BOOL, "visible", "Should these layers be visible?", True),
+        (PF_BOOL, "linked", "Link these layers together?", False),
+        (PF_STRING, "name", "Name (default == empty, no change)", ""),
+        (PF_BOOL, "function1", "SET Func-1 (settings for opacity) AS ACTIVE?---------------------------------------->", False),
+        (PF_INT, "mode", "   Param-1-a-# Opacitymode:", 0),
+        (PF_FLOAT, "startopacity", "   Param-1-b-# Startopacity:", 0.0),
+        (PF_FLOAT, "endopacity", "   Param-1-c-# Endopacity:", 100.0),
+        (PF_SPINNER, "start_compr_factor", "   Param-1-d-# Startcurve compression (0 == no effect, 1 == normal compression):", 0, (0.0,4,0.01)),
+        (PF_SLIDER, "start_togglecpex", "   Param-1-e-# Compress or expand (0 == compress, 1 == expand):", 0, (0,1,1)),
+        (PF_SLIDER, "start_exponential", "   Param-1-f-# Startcurve exponential stretch (1 == default):", 1, (1,10,1)),
+        (PF_FLOAT, "startlevel_add", "   Param-1-g-# Startlevel add (experimental):", 0),
+        (PF_SLIDER, "startrange", "   Param-1-h-# Startrange (from startlayer on):", 1, (0,100,1)),
+        (PF_SPINNER, "end_compr_factor", "   Param-1-i-# Endcurve compression (0 == no effect, 1 == normal compression):", 0, (0.0,4,0.01)),
+        (PF_SLIDER, "end_togglecpex", "   Param-1-j-# Compress or expand (0 == compress, 1 == expand):", 0, (0,1,1)),
+        (PF_SLIDER, "end_exponential", "   Param-1-k-# Endcurve exponential stretch (1 == default):", 1, (1,10,1)),
+        (PF_FLOAT, "endlevel_add", "   Param-1-l-# Endlevel add (experimental):", 0),
+        (PF_SLIDER, "endrange", "   Param-1-m-# Endrange (backwards from Endlayer on):", 1, (0,100,1)),
+	],
+	[],
+	python_flexible_layers)
+
+main()

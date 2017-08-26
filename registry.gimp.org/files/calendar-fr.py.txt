@@ -1,0 +1,876 @@
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
+
+# Script para GIMP en Python : Crear calendario de imagen
+# Realizado por Fco. Javier Pérez Pacheco como ejercicio
+
+# Copyright under GPL v2
+# Translate the menu to English, add some language mods and other changes to increase flexibility, I hope;
+# Robert Brizard on Dec. 3, 2009.   Tested with GIMP 2.6.7 and Python 2.6.2
+#  version 0.2 with 'date comments' on July 14, 2010.
+
+# importamos los módulos necesarios
+from gimpfu import *
+import gtk
+import datetime
+
+#************** GTK PARTS FOR SEC. 11 ************
+def messBox(message, gtk_type, modal):
+    """
+     Halt the script and display instructions concerning what is expected next.
+    """
+    if modal == 0:
+        flag = gtk.DIALOG_DESTROY_WITH_PARENT
+    else:
+        flag = gtk.DIALOG_MODAL|gtk.DIALOG_DESTROY_WITH_PARENT
+    msgBox = gtk.MessageDialog(None, flag, gtk_type, gtk.BUTTONS_OK, message)
+    msgBox.run()
+    msgBox.destroy()
+#*************************************************
+
+default_font = "Sans"
+pt2px_conv = 300.0/72.0     # for print calendar it's 300 px/inch. (To convert from mm to pixel multiply by 118/9.99)
+rel_size_my = 0.06          # relative size of month & year font to the height of the image except in calendar
+weekdays_l = []             # list of weekday tags in different languages
+weekdays_en = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']; weekdays_l.append(weekdays_en)
+weekdays_fr = ['dim', 'lun', 'mar', 'mer', 'jeu', 'ven', 'sam']; weekdays_l.append(weekdays_fr)
+weekdays_de = ['Son', 'Mon', 'Die', 'Mit', 'Don', 'Fre', 'Sam']; weekdays_l.append(weekdays_de)
+weekdays_it = ['Dom', 'Lun', 'Mar', 'Mer', 'Gio', 'Ven', 'Sab']; weekdays_l.append(weekdays_it)
+weekdays_es = ['Dom', 'Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab']; weekdays_l.append(weekdays_es)
+weekdays_ru = ['Вск', 'Пнд', 'Втр', 'Срд', 'Чтв', 'Птн', 'Сбт']; weekdays_l.append(weekdays_ru)
+
+def Size_font(cell_w, cell_h, text, font):
+    """
+    To select a size for the font so the text (one string) will fit inside a cell, priority given to width.
+
+    Input variables: cell_w, the cell width
+                     cell_h, the cell width
+                     text, the string to fit inside the cell
+                     font, the font for the string
+    Output:     the font size for the fitted string
+    """
+    size_es = 5.0
+    size_font = 7.0
+    while (size_font - size_es) > 0.05:     # for the width of the cell, should be absolute value but too much time!  
+        size_es = size_font
+        text_width, text_height, text_ascent, text_descent = pdb.gimp_text_get_extents_fontname(text, size_es, PIXELS, font)
+        size_font = size_es * 0.9 *  cell_w / text_width
+    # verify if the height is OK
+    height_font = text_height + text_ascent
+    while height_font/cell_h > 1.0:
+        size_font = size_font * 0.95
+        text_width, text_height, text_ascent, text_descent = pdb.gimp_text_get_extents_fontname(text, size_font, PIXELS, font)
+        height_font = text_height + text_ascent
+    return(size_font)
+
+def max_text_width(text_list, font):
+    """
+    Return the index of the string which occupies the max. width of the list
+    The caller is responsible for a non empty test_list.
+
+    Input variables: text_list, the list of strings to test
+                     font, the font to use for the strings
+    Output:     the list index of the longest string of the lot
+    """
+    cont = 0
+    cont_max = 0
+    text_width_max = 0
+    for item in text_list:
+        if item == [] or '': continue
+        text_width = pdb.gimp_text_get_extents_fontname(item, 40, POINTS, font)[0]
+        if text_width > text_width_max:
+            text_width_max = text_width
+            cont_max = cont
+        cont += 1
+    return(cont_max)
+
+def iscommentNr(strng, max_date, task, mess_present):
+    """
+    Check if a string is a number and of possible use for comment tasks (sec. 11)
+
+    Output:     positive integer or <0 if failed
+                if failed add a explication line to mess_present
+    """
+    try:
+        strng = strng.strip()
+        date_nr = int(strng)
+    except:
+        date_nr = -1
+        mess_present += "Erreur pour nombre '%s' dans '%s'. \n" %(strng, task)
+    else:
+        if not (0 < date_nr < max_date):
+            mess_present += "Avertissement, le nombre '%d' est non utilisable dans '%s'. \n" %(date_nr, task)
+            date_nr = -2
+    return( date_nr, mess_present)
+#=============================================================================================================
+
+def Calendar(img, drawable, PhoCal_sep, cal_size_w, cal_size_h, first_weekday, weekday_header, bg_weekdays,
+             font_weekdays, color_weekdays, color_festive, font_number, size_font_cal, color_number, month,
+             year, lang, font_month, space_month, print_ratio):
+
+    month = int(month); year = int(year)    # PF_SPINNER return a float
+    # comenzamos a agrupar el UNDO                                                                                       
+    pdb.gimp_image_undo_group_start(img)
+    pdb.gimp_context_push()
+    gimp.progress_init("Calendrier imagé: sections 1-3 de 12")
+    pdb.gimp_progress_pulse()
+
+    #1 OUTPUT LANGUAGE & HEADER TYPE ======================================
+
+    ##### variables defines in this section
+    months_l = []   # the list of list for the name of the month in different languages
+    # months : list of names of the months used in the rest of the code, start with '' for month 0
+    # weekdays : list of tags for the day of the week uses in the rest of the code
+    mess = ""       # store text to communicate to the user by the 'Errors Console'
+    # text_width : the width of the text box for a tag in weekdays
+    # cont_max : the index of the weekdays list that has the longest text
+    #####################################
+    
+    # user choice for the language to appear on the calendar
+    months_en = ['', 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']; months_l.append(months_en)        # english
+    months_fr = ['', 'Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre']; months_l.append(months_fr)         # french
+    months_de = ['', 'Januar', 'Februar ', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember']; months_l.append(months_de)          # german    
+    months_it = ['', 'Gennaio', 'Febbraio', 'Marzo', 'Aprile', 'Maggio', 'Giugno', 'luglio', 'Agosto', 'Settembre', 'Ottobre', 'Novembre', 'Dicembre']; months_l.append(months_it) # italian
+    months_es = ['', 'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre']; months_l.append(months_es)     #spanish
+    months_ru = ['', 'Январь', 'Февраль', 'Март', 'Апрель', 'Май ', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь']; months_l.append(months_ru)             #russian
+                # <- add your language here if not in the above list, then modify '(PF_OPTION, "lang" ...' in the register( ) function
+    months = months_l[lang]
+
+    # examples of weekday type of header
+    # bilingual_en_fr = ['M/L', 'T/M', 'W/M', 'T/J', 'F/V', 'S/S', 'S/D'] # and others variations
+    # user's presentation of the weekday headers
+    weekday_header = "["+weekday_header+"]"
+    weekdays = eval(weekday_header)
+    if len(weekdays) != 7:
+        mess = "PROBLÈME:\n le nombre de jours dans votre en-tête des jours est %s .\n Un en-tête substitut sera utilisé,\
+mais pas de garantie sur sa pertinence!" %(str(len(weekdays)))
+    # find the largest tag of the the weekdays header. This result will also be used later in section 4.
+    cont_max = max_text_width(weekdays, font_weekdays)
+    if len(weekdays[cont_max])>12:
+        mess = "PROBLÈME:\n une étiquette d'en-tête des jours a plus de 12 caratères, trop long.\n Un en-tête substitut sera utilisé,\
+mais pas de garantie sur sa pertinence!"
+    if mess != "":
+        gimp.message(mess)
+        mess = ""
+        weekdays = weekdays_l[lang]
+        if first_weekday == True:       # the first day is monday
+            weekdays.append(weekdays[0])
+            del weekdays[0]
+    # month 13 is for first semester of the year and 14 is the second semester?
+    
+    #2 PRESiZE CALENDAR PAGE ==============================================
+
+    ##### variables defines in this section
+    # layer_photo : the layer of the starting image
+    # widthPho : the width of the starting image
+    # heightPho : height of the photo
+    # widthCal : the width of the calendar box
+    # sep : separation in px between photo & calendar box
+    # w : it's the widest dim of the calendar box or photo
+    #####################################
+
+    pdb.gimp_image_set_resolution(img, 300, 300)    # this is for printing.
+    #img.unit = 1   # unit 1 is inch? (no effect alone)
+
+    layer_photo = drawable
+    layer_photo.add_alpha()
+
+    widthPho = layer_photo.width 
+    heightPho = layer_photo.height
+    widthCal = cal_size_w*widthPho
+    sep = PhoCal_sep*heightPho
+    if widthCal < 300:
+        gimp.message("ERREUR:\n Le calendrier est trop petit pour la lisibilité des jours de la semaine.\
+\nEssayez avec un calendrier ou image plus large, fin du greffon.")
+        return
+    heightCal = widthCal        # for now, will change after  
+    if cal_size_w < 1:
+        w = widthPho            # w is the widest dim of the calendar box or photo
+        dx = (w-widthCal)/2.0     # delta x for calendar box
+        offx = 0
+    else:
+        w = widthCal
+        dx = 0.0
+        offx = (w - widthPho)/2.0
+    pcy = heightPho + sep       # position of the top of the calendar box along y    
+    h = pcy + heightCal         # h, the provisional height of calendar page
+    pdb.gimp_image_resize(img, w, h, offx, 0)
+    drawa_photo = pdb.gimp_image_get_active_drawable(img)
+    pdb.gimp_drawable_set_name( drawa_photo, "image de départ")
+
+    #3 CREATE CALENDAR'S LAYER BACKGROUND =================================
+
+    ##### variables defines in this section
+    # layer_bg : ID of the background layer
+    #####################################
+    layer_bg = pdb.gimp_layer_new(img, w, h, RGB_IMAGE, "arrière plan de page", 100, NORMAL_MODE)
+    img.add_layer(layer_bg, -1)
+    pdb.gimp_image_lower_layer(img, layer_bg)
+
+    layer_bg.fill(BACKGROUND_FILL)
+
+    #4 FONT SIZES FOR CALENDAR BOX ========================================
+
+    ##### variables defines in this section
+    # calculate the size of the font for weekday by finding the cell size.
+    heightCal = widthCal * cal_size_h   # choice of the user for the height of the calendar box
+    sep_w = widthCal/7  # distance between the column of the dates table
+    sep_h = heightCal/5.5 # vertical distance, 5 weeks and 1 header (½ height of week), temporary
+    # size_font_weekdays : size of the font for days of the week, found in relation to the cell size
+    # height_layer_weekdays : height of the banner behind the days of the week
+    # size_font_number : size of the font for date of the month
+    #####################################
+
+    pdb.gimp_progress_set_text("Calendrier imagé: sections 4-6 de 12")    
+    pdb.gimp_progress_pulse()
+    # adjust the largest tag to one cell
+    size_font_weekdays = Size_font(sep_w, sep_h*(size_font_cal*0.77+0.1), weekdays[cont_max]+'  ', font_weekdays)
+    text_width, text_height, text_ascent, text_descent = pdb.gimp_text_get_extents_fontname(weekdays[cont_max],\
+                                                            int(size_font_weekdays), PIXELS, font_weekdays)
+    height_layer_weekdays = text_height + text_ascent + text_descent
+
+    sep_h = (heightCal-height_layer_weekdays)/5    # vertical separation between week row, not exact for grid
+    size_font_number = size_font_cal*Size_font(sep_w, sep_h, '28  ', font_number)
+
+    #5 WEEKDAY HEADER LAYER =============================================
+
+    ##### variables defines in this section
+    cont = 0        # reseetting the counter
+    py = pcy + height_layer_weekdays/5     # y coodinate for the top of the text bounding box for header
+    # centerX :
+    # drawa_weekdays : 
+    #####################################
+    
+    while(cont<7):
+        centerX = int(dx+(sep_w - pdb.gimp_text_get_extents_fontname(weekdays[cont], int(size_font_weekdays),\
+                                                                     PIXELS, font_weekdays)[0])/ 2.0)
+        px = (cont%7)*sep_w + centerX   # center justify
+        layer_txt = pdb.gimp_text_fontname(img, drawable, px, py, weekdays[cont], -1, True,\
+                                           int(size_font_weekdays), PIXELS, font_weekdays)
+        pdb.gimp_layer_set_lock_alpha(layer_txt, 255)
+        if (first_weekday == False and cont==0) or (first_weekday == True and cont==6):
+            pdb.gimp_context_set_background(color_festive)
+        else:
+            pdb.gimp_context_set_background(color_weekdays)
+
+        pdb.gimp_edit_fill(layer_txt, BACKGROUND_FILL)
+        pdb.gimp_floating_sel_to_layer(layer_txt)
+        if cont > 0:
+            pdb.gimp_image_merge_down(img, layer_txt, 0)
+        cont = cont + 1
+
+    drawa_weekdays = pdb.gimp_image_get_active_drawable(img)
+    pdb.gimp_drawable_set_name( drawa_weekdays, "en-tête jours semaine")
+
+    #6 CREATE BACKGROUND WEEKDAYS (BANNER) ================================
+
+    ##### variables defines in this section
+    # layer_bg_weekdays : 
+    day = datetime.date(year, month, 1)
+    dayofmonth = datetime.date.weekday(day)
+    #####################################
+    
+    layer_bg_weekdays = pdb.gimp_layer_new(img, widthCal , height_layer_weekdays, RGB_IMAGE,\
+                                           "arrière plan d'en-tête", 100, NORMAL_MODE)
+    layer_bg_weekdays.add_alpha()
+    img.add_layer(layer_bg_weekdays, -1)
+    pdb.gimp_image_lower_layer(img, layer_bg_weekdays)
+
+    pdb.gimp_context_set_background(bg_weekdays)
+    layer_bg_weekdays.fill(BACKGROUND_FILL)
+    
+    layer_bg_weekdays.set_offsets(int(round(dx)), int(round(pcy)))     # try to center horizontaly, with same width as the photo or the calendar grid
+
+    # preparation for the grid layer
+    if first_weekday == False:  # week start on sunday else week start on monday
+        dayofmonth = (dayofmonth + 1)%7
+
+    nextmonth_year = year
+    nextmonth_month = month+1
+    if nextmonth_month > 12:
+        nextmonth_year = year+1
+        nextmonth_month = 1     
+
+    ndaysofmonth = datetime.date(int(nextmonth_year), int(nextmonth_month), 1) - day  # number of days in that month
+    # nbDay6Row is the nb of day(s) at beginning  of 6e row of dates
+    nbDay6Row = dayofmonth + ndaysofmonth.days - 35
+
+    #7 GRID LAYER =========================================================
+    
+    ##### variables defines in this section
+    hbswb = 3.5     # half brush stroke width for the external border in the grid layer below
+    pgy = (pcy + height_layer_weekdays - 2*hbswb)   # position y of the top of the external border of grid layer
+    # step_h : one cell vertical size from center to center grid line (half width of grid line = 1.5 px)
+    # step_w : one cell horizontal size from center to center grid line
+    #####################################
+    
+    pdb.gimp_progress_set_text("Calendrier imagé: sections 7-10 de 12")
+    pdb.gimp_progress_pulse()
+    # place a rectangle around the dates the same color as bg_weekdays
+    layer_grid = pdb.gimp_layer_new(img, w, h, RGB_IMAGE, "grille", 100, NORMAL_MODE)
+    layer_grid.add_alpha()
+    img.add_layer(layer_grid, -1)   # second param. give position on layer stack
+    pdb.gimp_image_lower_layer(img, layer_grid)
+    pdb.gimp_edit_clear(layer_grid)
+
+    pdb.gimp_context_swap_colors()
+    # 2*hbswb is the width of the brush
+    pdb.gimp_rect_select(img, dx+3, pgy+hbswb, 7*sep_w-2*hbswb, 5*sep_h+2*hbswb, 2, False, 0)
+    pdb.gimp_context_set_brush('Circle (07)')
+    bckg_grid_drawa = pdb.gimp_image_get_active_drawable(img)
+    pdb.gimp_edit_stroke(bckg_grid_drawa)
+
+    # Traces lines  (don't work? Solution is a layer the size of 'img')
+    pdb.gimp_context_set_brush('Circle (03)')
+    # divide space inside border of box, the inside 3 px of the above border are in this space.
+    x1 = dx + 2*hbswb-1.5; x2 = x1 + widthCal - 4*hbswb + 3.0 # the 1.5 is there for the grid line width
+    y1 = pcy + height_layer_weekdays - 1.5; y2 = 5*sep_h + y1 + 1.5
+    step_w = (x2-x1)/7.0; step_h = (y2-y1)/5.0
+    for i in range(1, 7):
+        segment = [x1+i*(step_w), y1, x1+i*(step_w), y2]        # vertical lines
+        pdb.gimp_pencil(bckg_grid_drawa, 4, segment)
+        if i < 5:
+            segment = [x1, y1+i*(step_h), x2, y1+i*(step_h)]    # horizontal lines
+            pdb.gimp_pencil(bckg_grid_drawa, 4, segment)
+    pdb.gimp_context_swap_colors()
+    pdb.gimp_selection_none(img)
+
+    # erase the empty part of the grid at the beginning and at the end of the month
+    pdb.gimp_context_set_brush('Circle (05)')
+    cont = 1
+    while cont < dayofmonth:    # at the beginning
+        segment = [x1+cont*(step_w), y1+3.5, x1+cont*(step_w), y1+step_h-4.0]
+        pdb.gimp_eraser_default(bckg_grid_drawa, 4, segment)
+        cont += 1
+    cont = 6
+    while cont > 7+nbDay6Row:   # at the end
+        segment = [x1+cont*(step_w), y2-2.5, x1+cont*(step_w), y2-step_h+4.0]
+        pdb.gimp_eraser_default(bckg_grid_drawa, 4, segment)
+        cont -= 1
+
+    #8 MONTH'S NAME LAYER =================================================
+
+    ##### variables defines in this section
+    size_font_month = rel_size_my*heightPho     # for the options: space_month != 3
+    # layer_month : ID of the editable month text layer
+    ofY = 0     # for added space at the top of the page
+    #####################################
+    
+    if space_month == 3: # for option : add in calendar (with possibility of same font size for each month).
+        cont_max = max_text_width(months, font_month)
+        size_font_month = Size_font(2*step_w, step_h, months[cont_max]+'  '+str(year), font_month)
+    layer_month = pdb.gimp_text_fontname(img, drawable, 0, 0, months[month], -1, True,
+                                         int(size_font_month),  PIXELS, font_month)
+    pdb.gimp_layer_set_lock_alpha(layer_month, 255)
+    pdb.gimp_floating_sel_to_layer(layer_month)
+    pdb.gimp_layer_set_opacity(layer_month, 40)
+
+    # resize the page now that we have all the parts
+    h = pcy + height_layer_weekdays +  5*sep_h + 2*hbswb + 1.7*layer_month.height
+    x = w/15
+    y = 0.4*layer_month.height
+    if space_month == 0: # add bottom
+        y = h - 1.4*layer_month.height
+    if space_month == 2: # don't add, place on image
+        h = pcy + height_layer_weekdays +  5*sep_h + 2*hbswb
+    if space_month == 1: # add top
+        ofY = 1.7*layer_month.height
+    if space_month == 3: # don't add, place in calendar (empty cells)
+        x = 0
+        h = pcy + height_layer_weekdays +  5*sep_h + 2*hbswb
+        y = h - 1.5*layer_month.height - 2*hbswb
+        pdb.gimp_layer_set_opacity(layer_month, 100)
+    pdb.gimp_image_resize(img, w, h, 0, ofY)
+    
+    layer_month.set_offsets(int(round(x)), int(round(y)))
+
+    #9 YEAR LAYER =========================================================
+
+    ##### variables defines in this section
+    # ID of the editable year text layer
+    layer_year = pdb.gimp_text_fontname(img, drawable, 0, 0, str(int(year)), -1, True,
+                                        int(size_font_month),  PIXELS, font_month)
+    # x et y are coord. for offsetting the year text in the layer
+    #####################################
+
+    pdb.gimp_layer_set_lock_alpha(layer_year, 255)
+    pdb.gimp_floating_sel_to_layer(layer_year)
+    pdb.gimp_layer_set_opacity(layer_year, 40)
+
+    x = w - layer_year.width - (w/15)
+    y = h - 1.4*layer_year.height
+    if space_month == 2 or space_month == 1:
+        y = 0.4*layer_month.height
+    # place month & year in the empty grid if it's the user choice (the min. is 2 cells)
+    if space_month == 3:
+        x = pdb.gimp_text_get_extents_fontname(months[int(month)]+'  ', int(size_font_month), PIXELS, font_month)[0]
+        y = h - 1.5*layer_year.height - 2*hbswb
+        pdb.gimp_layer_set_opacity(layer_year, 100)
+
+    layer_year.set_offsets(int(round(x)), int(round(y)))
+
+    if space_month == 3:        # complete sections 8 
+        center_my = dx + step_w - pdb.gimp_text_get_extents_fontname(months[int(month)]+'  '+str(int(year)),
+                                                                     int(size_font_month), PIXELS, font_month)[0]/2
+        pdb.gimp_layer_set_linked(layer_year, True)        
+        pdb.gimp_layer_set_linked(layer_month, True)
+        if dayofmonth > -nbDay6Row:
+            pdb.gimp_layer_translate(layer_month, center_my+2, -4*step_h-1)
+        else:
+            pdb.gimp_layer_translate(layer_year, 5*step_w+center_my, 1)
+        pdb.gimp_layer_set_linked(layer_year, False)        
+        pdb.gimp_layer_set_linked(layer_month, False)
+
+    #10 TABLE OF DATES ====================================================
+
+    ##### variables defines in this section
+    nbCol = 0  # column counter to implement a 'split level' on row 5 to absorb row 6.
+    # offset_centerX :
+    # offset_Y :
+    # dpx : delta on position x (px : position of date along x)
+    dpy = 0     # delta on position y (py)
+    size_font = size_font_number    #
+    cont = 0    # reset counter of the day of the month, here
+    cell_date_shift = dayofmonth # the last variable will be change in the table construction
+    #####################################
+
+    # to center horizontaly and verticaly the 'table of dates'
+    text_width, text_height = pdb.gimp_text_get_extents_fontname('10', int(size_font_number), PIXELS,
+                                                                 font_number)[0:2]
+    height_date = text_height   # need it later
+    offset_centerX = dx + 5.5 +(step_w - text_width)/ 2.0
+    offset_Y = pcy + ofY + height_layer_weekdays - 1.5 + (step_h-text_height)/2.0 
+    # right justification for single digit date
+    dpxR = pdb.gimp_text_get_extents_fontname('3', int(size_font_number), PIXELS, font_number)[0]
+    # for the placement of double dates in one cell
+    if nbDay6Row > 0:
+        text_width, text_height = pdb.gimp_text_get_extents_fontname('24 /11', int(0.7*size_font_number),
+                                                                     PIXELS, font_number)[0:2]
+        # width_dl_date = text_width   # need it later
+        dpx_s = dx+5+(step_w - text_width)/ 2.0 - offset_centerX
+        dpy_s = pcy + ofY + height_layer_weekdays + (step_h/2-text_height) - offset_Y
+    
+    while(cont<ndaysofmonth.days):
+        px = (dayofmonth%7)*step_w + offset_centerX
+        py = (dayofmonth/7)*step_h + offset_Y
+        if cont+1 < 10:
+            date = str(cont+1)
+            dpx = dpxR
+        else:
+            date = str(cont+1)
+            dpx = 0
+            if nbDay6Row > 0 and nbCol < 2*nbDay6Row and int(dayofmonth/7) > 3:
+                if int(dayofmonth/7) == 4 and nbCol < nbDay6Row:
+                    size_font = int(0.7*size_font_number)
+                    date = str(cont+1) + " /"
+                    dpx = dpx_s; dpy = dpy_s
+                    nbCol += 1
+                elif int(dayofmonth/7) == 5 and nbCol < 2*nbDay6Row:
+                    size_font = int(0.7*size_font_number)
+                    dpx = dpx_s + size_font*1.3; dpy = dpy_s + text_height - step_h
+                    date = "/ " + str(cont+1)
+                    nbCol += 1
+                else:
+                    dpx = 0 ; dpy = 0; size_font = size_font_number
+        layer_txt = pdb.gimp_text_fontname(img, drawable, px+dpx, py+dpy, date, -1, True,
+                                           int(size_font), PIXELS, font_number)
+        pdb.gimp_layer_set_lock_alpha(layer_txt, 255)
+        if (first_weekday == True and dayofmonth%7==6) or (first_weekday == False and dayofmonth%7==0):
+            pdb.gimp_context_set_background(color_festive)
+        else:
+            pdb.gimp_context_set_background(color_number)
+
+        pdb.gimp_edit_fill(layer_txt, BACKGROUND_FILL)
+        pdb.gimp_floating_sel_to_layer(layer_txt)
+        if cont > 0:
+            pdb.gimp_image_merge_down(img, layer_txt, 0)
+
+        cont += 1
+        dayofmonth += 1
+    pdb.gimp_drawable_set_name(pdb.gimp_image_get_active_drawable(img), "tableau des dates")
+
+    #11 HELPING WITH DATE COMMENTS ========================================
+
+    ##### variables define in this section
+    # row_nb : row number of the cell starting at 0
+    # col_nb : column number of the cell starting at 1
+    double_date_comm = []   # list of double date comments
+    comm_w = step_w - 5.0 # max width of the text bounding box for comment
+    comm_h = [] ; comm_h.append(0) # max height of the text bounding box for comment, index nb of date in cell
+    day_list = []  # initial (not the repeat) list of days with comment
+    comm_list = [] # comments as it appears in the following 'date comments dialog', for existence and auto sizing
+    comm_line = [] # template: ['comment line', float(cx), float(cy), index=1 or 2, day], give what to display
+    #and where, index is for one date cell or two
+    comments_text = "" # text to include in the layer_dialog (from PF_TEXT or parasite)?
+    # cale_parasit :  a 'parasite' object to keep the last comments made before an undo
+    mess = ""       # one message that depend on different situations
+    #####################################
+
+    pdb.gimp_progress_set_text("Calendrier imagé: sections 11-12 de 12")
+    max_size_comm = round(Size_font(step_w, step_h/3.0, "Ben's birthday", default_font))
+    if max_size_comm >= 6.0: # if it is worthwhile give the option
+        mess = """ Le calque ** Pour commentaires de date ** ne contient maintenant AUCUN commentaire.
+    1) Pour sauter cette section, cliquez immédiatement sur 'Valider' au bas de ce message."""
+        cale_parasit = img.parasite_find('calendar-input')
+        if cale_parasit:
+            comments_text = cale_parasit.data
+            mess = """ Le calque ** Pour commentaires de date ** contient déjà DES commentaires.
+    1) Pour accepter ceux-ci, cliquez immédiatement sur 'valider' au bas de ce message."""
+        # make a 'date comments' layer
+        layer_comment = pdb.gimp_text_fontname(img, drawable, 0, 0, "** Pour commentaires de date **\n\
+Spécifiez la taille de la police à utiliser avec l'outil texte: non (auto) est 0, oui est 1? 0\n(Si la réponse est 1, \
+le domaine serait d'environ 6<taille_police<%s px.)\n(Dans le gabarit de commentaire suivant, avant le symbole\
+ '|' sera en haut de la cellule, après en bas; et <r> indique la répétition du même commentaire après\
+ tant de semaine)\nJour => première ligne du commentaire|deuxième ligne <r> intervalle en semaine\
+ (: sont attendus ensuite)\n%s" %(str(max_size_comm), comments_text), -1, True,  25, PIXELS, font_number)
+        # permit bottom and top cell comment for single date cell
+        pdb.gimp_layer_set_lock_alpha(layer_comment, 255) # for coloring the non transparent parts only
+        pdb.gimp_floating_sel_to_layer(layer_comment)
+        gimp.displays_flush()
+        # user entry of the comments
+        messBox("""Écrire une liste de jour associé de court commentaire (moins de 14 caractères par ligne pour un \
+calendrier de 900 px en largeur) à inclure dans les cellules du calendrier.%s
+    2) Pour entrer des commentaires, DÉPLACER CETTE FENÊTRE-MESSAGE HORS DE L'AIRE OCCUPÉE PAR LES FENÊTRES GIMP SUR L'ÉCRAN \
+pour éviter sa disparition sous celles-ci;
+    3) double cliquer sur l'icone du calque de texte '** Pour commentaires ...' dans la boîte de dialogue Calques et vérifiez, \
+dans l'Éditeur de texte GIMP, si la réponse par défaut à la question sur la taille est ok pour vous;
+    4) dans cette fenêtre d'édition entrer ou changer votre texte comme: '11 => |Anniversaire, Ben <entrée> 7 => Club rencontre <r> 1'\
+, ici <entrée> est la touche clavier;
+    5) avant de fermer la fenêtre d'édition, choisissez la police, possiblement la taille de la police et sa couleur dans \
+l'Options de l'outil texte de GIMP, ensuite fermer la fenêtre d'édition;
+    6) c'est mieux DE NE PAS TOUCHER À RIEN D'AUTRE DANS GIMP, cliquer sur 'Valider' au bas de ce message pour continuer ..."""\
+                %mess, gtk.MESSAGE_INFO, 0)
+        pdb.gimp_progress_pulse()
+        mess = ""; mess_w = ""
+        # find the Tasks from the text layer
+        tasks_text = pdb.gimp_text_layer_get_text(layer_comment) # tasks_text is a string to parse
+        color_comm = pdb.gimp_text_layer_get_color(layer_comment)
+        pdb.gimp_context_set_foreground(color_comm)
+        font_comm = pdb.gimp_text_layer_get_font(layer_comment)
+
+        tasks_line = tasks_text.splitlines()
+        if len(tasks_line) > 0: # something left in that layer? The 'else:' is after line 660
+            place = tasks_line[1].find('?')
+            force_size_comm = tasks_line[1][place+1:].strip()   # to have the same font size for each month
+
+            # go to the comment orders and see about repeat field and check some day validity
+            tasks_line = tasks_line[5:]
+            day_not = []
+            tasks_repeat = []
+            for task in tasks_line:
+                day_str = task[:task.find('=>')]
+                day_rep, mess_w = iscommentNr(day_str,  ndaysofmonth.days + 1, task, mess_w)
+                if day_rep<0:
+                    # remember index of faulty day
+                    day_not.append(tasks_line.index(task))
+                    tasks_line[tasks_line.index(task)] = ''
+                    continue
+                day_list.append(day_rep)
+                # does tasks_line contains a repeat field then remove it from the line and add to tasks_line?
+                item = task.split('<r>')
+                if len(item) == 2 :
+                    tasks_line[tasks_line.index(task)] = task[:task.find('<r>')]
+                    repeat_int, mess_w = iscommentNr(item.pop(),  5, task, mess_w)
+                    if repeat_int<0: continue
+                    limit = ndaysofmonth.days + 1 - repeat_int*7
+                    comment_rep = item[0][item[0].find('=>'):].strip()
+                    while repeat_int != 0 and day_rep < limit:
+                        day_rep += repeat_int*7
+                        line_rep = str(day_rep) +' '+ comment_rep
+                        tasks_repeat.append(line_rep)
+            # eliminate comment existence which don't start with a day number
+            for i in day_not:
+                tasks_line.remove('')
+            # do not put it in if there is a collision with a non repeating comment
+            for task in tasks_repeat:
+                if int(task[:task.find('=>')]) in day_list:
+                    mess_w += "Erreur de collision avec '%s'. \n" %task
+                    tasks_repeat.remove(task)
+            tasks_line.extend(tasks_repeat)
+
+            # space available in cell for comment (if we do not move the dates)
+            comm_h.append((step_h -3.0 - height_date)/2.0 -2.0) # max height of the bounding box normal cell
+            # max height of the bounding box for double day cell but max width is the same
+            comm_h.append((step_h -3.0)/4.0 -2.0)
+            # construct the 'comm_line' list for displaying the comments
+            for i in range(0, len(tasks_line)):
+                item = tasks_line[i].split('=> ')
+                if len(item) != 2:
+                    mess_w += "Erreur d'utilisation de '=>' dans '%s'. \n" %tasks_line[i]
+                    continue
+                day_pt = int(item[0].strip())
+                comment_pt = item[1].strip()
+                # find the cell in the calendar grid from a date with the shift of 'cell_date_shift'
+                row_nb = int((day_pt + cell_date_shift - 0.1)/7)
+                col_nb = int(day_pt + cell_date_shift - row_nb*7)
+                cx = x1 + step_w*(col_nb-1.0) + 1.5 
+                # find rhe top left coord of the text bounding box for top, for both need both?
+                cyt = y1 + ofY + step_h*(row_nb) + 2.5
+                # find rhe top left coord of the text bounding box to be put at bottom of a normal date
+                cyb = y1 + ofY + step_h*(row_nb+1) - comm_h[1] - 1.5
+                # is there a line break symbol
+                place = item[1].find('|')
+                comm_line_pt = item[1].split('|')
+                comm_list.extend(comm_line_pt)
+                # look for a line break if not it is at top of cell
+                # complications with the double date per cell for 'nbDay6Row > 0', put in an empty space at the top of the grid
+                if nbDay6Row >= col_nb and row_nb >= 4:
+                    # remove line break if there and -2.5 in cx
+                    cx = x1 + step_w*(cell_date_shift-2.5) + 1.5 
+                    cyt = y1 + ofY + comm_h[2]/10.0 +1.5; cyb = -1
+                    #replace the break line by a space to make one comment (if 'place' at beginning or end, discard)
+                    break_s = ' '
+                    if place<2 or (len(comment_pt)-place)<2 : break_s = ''
+                    comment_t = str(day_pt) + ') ' + comment_pt.replace('|', break_s)
+                    double_date_comm.append(day_pt)     # list of day for comment in double date cell
+                    if row_nb > 4:
+                        row_nb = 4  # this is the lower day
+                    comm_line.append([comment_t, cx, cyt, 2, day_pt])
+                else:   # normal cell
+                    if len(comm_line_pt) > 1:
+                        comment_t = comm_line_pt[0].strip() # at the top
+                        if len(comment_t) > 0:
+                            comm_line.append([comment_t, cx, cyt, 1, day_pt])
+                        comment_b = comm_line_pt[1].strip() # at the bottom
+                        if len(comment_b) > 0:
+                            comm_line.append([comment_b, cx, cyb, 1, day_pt])
+                    elif place == -1:
+                        comment_t = comm_line_pt[0]
+                        comm_line.append([comment_t, cx, cyt, 1, day_pt])
+            if mess_w:  # warning for comment error
+                gimp.message("AVERTISSEMENT DANS COMMENTAIRES:\n Rejet de commentaire entier ou partiel suivant.\n"\
+                            + mess_w)
+
+    #11b HELPING WITH DATE COMMENTS ========================================
+
+            if comm_list != []:
+                double_date_comm.sort()
+                # store the actual comments in a persistent parasite
+                calendar_input = '\n'.join(tasks_line)
+                if img.parasite_find('calendar-input'): img.parasite_detach('calendar-input')
+                cale_parasit = img.attach_new_parasite('calendar-input', 1, calendar_input)
+                # find the largest comment and adjust the font size to the space
+                index_comm = max_text_width(comm_list, font_comm)
+                if int(force_size_comm) != 1:   #  if force_size_comm = '0' use auto
+                    #gimp.message("The value of comm_list is "+str(comm_list))
+                    size_es = 5.0
+                    size_comm_adj = 7.0
+                    while (size_comm_adj - size_es) > 0.05:
+                        size_es = size_comm_adj
+                        text_width, text_height = pdb.gimp_text_get_extents_fontname(comm_list[index_comm], size_es,
+                                                                                     PIXELS, font_comm)[0:2]
+                        size_comm_adj = size_es * 0.9 *  comm_h[1] / text_height
+                    constraint = 'hauteur'
+                    if text_width/comm_w > 0.95:
+                        constraint = 'largeur'
+                        # verify if the width is OK
+                        while text_width/comm_w > 0.95:
+                            size_comm_adj *=  0.95
+                            text_width = pdb.gimp_text_get_extents_fontname(comm_list[index_comm], size_comm_adj,
+                                                                            PIXELS, font_comm)[0]
+                    size_comm_adj = round(size_comm_adj)
+                    mess_comm = "fut contrainte en auto par la %s du texte" %constraint
+                    if size_comm_adj < 6: mess = "AVERTISSEMENT DANS COMMENTAIRES:\n La ligne de commentaire '%s' est trop longue\
+ pour l'espace disponible!\n Le calque 'commentaires' ne sera pas ajouté.\n Un parasite \
+appelé 'calendar-input' a été ajouté à l'image." %comm_list[index_comm]
+                else:
+                    size_comm_adj, unit = pdb.gimp_text_layer_get_font_size(layer_comment)
+                    mess_comm = "was chosen by you"
+                    if size_comm_adj > 1.3*max_size_comm : mess = "AVERTISSEMENT DANS COMMENTAIRES: \nLa taille de la police que\
+ vous avez choisi est trop grosse (%s px). Le calque 'commentaires' ne sera pas ajouté.\
+\n Un parasite appelé 'calendar-input' a été ajouté à l'image." %str(size_comm_adj)
+
+                if mess:    # warning mess for font size
+                    gimp.message(mess)
+                    mess = ""
+                    pdb.gimp_image_remove_layer(img, layer_comment)
+                else :      # no warnings mess, do it
+                    pdb.gimp_edit_clear(layer_comment)
+                    pdb.gimp_drawable_set_name(layer_comment, "commentaires")
+                    # for the info comments messages formatting
+                    mess_comm_dict = {'widest line': comm_list[index_comm], 'font name': font_comm,\
+                                      'font size': str(size_comm_adj), 'font choice': mess_comm}
+                    gimp.message("INFO POUR COMMENTAIRES:\n Votre ligne commentaire la plus longue était '%(widest line)s'\
+ et la police utilisée était '%(font name)s'.\n Sa taille de %(font size)s px,\
+ %(font choice)s.\n Un parasite appelé 'calendar-input' a été ajouté à l'image." % mess_comm_dict)
+                    # display the date comment
+                    done_col = []
+                    for item in comm_line:
+                        comment_pt = item[0]
+                        text_width, text_height = pdb.gimp_text_get_extents_fontname(comment_pt, size_comm_adj, PIXELS, font_comm)[0:2]
+                        del_x = (comm_w - text_width)/2.0
+                        del_y = (comm_h[item[3]] - text_height)/2.0
+                        cy = item[2]
+                        if item[3] == 2: # double date cell
+                            comment_order = double_date_comm.index(item[4])+1    # the comment order
+                            offset_scomm = (step_h - 3.0 - len(double_date_comm)*comm_h[2])/2.0
+                            cy += (comment_order-1.0)*comm_h[2] + offset_scomm # to terminate the evaluation of cy
+                            del_x = 0   # special case for double date, it is left justified
+                            # remember the previous cell(s) column: row always 4 and col. is 1 or 2 (done_col = [1,2])
+                            if len(done_col) != 2:
+                                col_nb = int(item[4] + cell_date_shift)%7
+                                if col_nb not in done_col:
+                                    done_col.append(col_nb)
+                        layer_temp = pdb.gimp_text_fontname(img, drawable, item[1]+del_x, cy+del_y,\
+                                                            comment_pt, -1, True, size_comm_adj,  PIXELS, font_comm)
+                        pdb.gimp_layer_set_lock_alpha(layer_temp, 255)
+                        pdb.gimp_edit_fill(layer_temp, FOREGROUND_FILL)
+                        layer_comment = pdb.gimp_image_merge_down(img, layer_temp, 1)
+                        
+                    for col in done_col:
+                        # add a thin border, same color as comment around the double cell affected to draw attention
+                        bx = x1 + step_w*(col-1.0) + 0.5
+                        by = y1 + ofY + step_h*4.0 + 1.0
+                        pdb.gimp_layer_resize_to_image_size(layer_comment)
+                        pdb.gimp_rect_select(img, bx, by, step_w-1.5, step_h-0.5, 2, False, 0) # faster with line tracing?
+                        pdb.gimp_context_set_brush('Circle (01)')
+                        comment_drawa = pdb.gimp_image_get_active_drawable(img)
+                        pdb.gimp_edit_stroke(comment_drawa)  # put line inside selection? 
+                        pdb.gimp_selection_none(img)
+                
+            else:   # terminate the 'step' because 'comm_list' is empty even is 'tasks_line' is not 
+                gimp.message("AVERTISSEMENT DANS COMMENTAIRES:\n Il n'y a pas de commentaire disponible ou trouvé!\n Alors le calque\
+ 'commentaires' n'apparaitera pas.")
+                pdb.gimp_image_remove_layer(img, layer_comment)
+            
+        else:   # delete the comments layer if not len(tasks_line) > 0:
+            pdb.gimp_image_remove_layer(img, layer_comment)
+
+    #12 PRINTING BORDERS & WRAPPING UP ====================================
+
+    ##### variables define in this section
+    asp_rat = float(w/h)    # aspect ratio (width/height) without printing borders
+    deltaw = 0              # the width of the added border to one side
+    print_pap = [asp_rat, float(4.0/6.0), float(8.0/10.0), float(8.5/11), float(8.5/14), float(11.0/17)]
+    # 'mess_values_dict': the following dictionary is for helping in translation of the messages by 'mapping'
+    paper_width = [4.0, 8.0, 8.5, 8.5, 11.0]
+    #####################################
+
+    pdb.gimp_progress_pulse()
+    # add an extension like '_cale09_01' to the name for documentation and protection of the initial file (less likely to overwrite)
+    ye_mo_s = str(year)[2:4] + "_%02d" % month
+    add_s = "_cale" + ye_mo_s
+    im_file = img.filename  
+    if im_file != None:
+        dotp = im_file.rfind('.')   # return -1 if a dot is not found
+        if dotp == -1:
+            dotp = len(im_file)
+        ext = im_file[dotp:]        # if no dot: ext = ''
+         # check if not already there and the dot is inside the image name
+        if im_file[dotp-10:dotp] != add_s and len(ext) < len(img.name):
+            if im_file[dotp-10:dotp-5] == "_cale":
+                im_file = im_file[0:dotp-5]+ye_mo_s+ext
+            else :
+                im_file = im_file[0:dotp]+add_s+ext
+            img.filename = im_file
+
+    # for the messages formatting
+    mess_values_dict = {'aspect_ratio_before': asp_rat, 'aspect_ratio_after': print_pap[print_ratio], 'month_id': "'"+\
+                ye_mo_s, 'suggest_rel_height_cal': 0., 'paper_width': str(paper_width[print_ratio-1]), 'new_image_width': ""}
+    # make the added border the same color as the background
+    pdb.gimp_image_set_active_layer(img, layer_bg)
+    pdb.gimp_context_pop()
+    pdb.gimp_layer_resize_to_image_size(layer_bg)
+    
+    if print_ratio != 0:
+        gimp.message( "INFO POUR IMPRESSION:\nLe rapport largeur/hauteur de la page du mois avant l'ajout des bordures est : \
+%(aspect_ratio_before)1.4f \n Après, pour le mois %(month_id)s, ce sera : %(aspect_ratio_after)1.4f"\
+% mess_values_dict)
+        if asp_rat > print_pap[print_ratio]:
+            # add to the top or bottom (TODO? split the border 1/2 on separation photo-calendar)
+            deltah = w /  print_pap[print_ratio] - h
+            h += deltah
+            if space_month == 1:
+                img.resize(w, h, 0, deltah)                
+            else:
+                img.resize(w, h, 0, 0)
+            cal_size_h_new = (heightCal + deltah) /  widthCal
+            PhoCal_sep_new = (sep + deltah) / (heightPho*2.0)
+            if cal_size_h_new <= 0.7 and deltah > 4: # and (space_month==0 or space_month==1):
+                mess_values_dict.update({'suggest_rel_height_cal': cal_size_h_new})
+                mess_values_dict.update({'suggest_rel_separarion': PhoCal_sep_new})
+                gimp.message( "SUGGESTION POUR IMPRESSION:\n Si vous désirez éviter l'ajout de la bordure du haut ou \
+en bas, recommencez avec une hauteur relative de la boîte du calendrier = %(suggest_rel_height_cal)1.3f\
+ .\n Si vous désirez centrer verticalement l'élément entre la séparation photo-calendrier et la bordure extérieure \
+vous aurez besoin d'une séparation relative de %(suggest_rel_separarion)1.3f" % mess_values_dict)
+        if asp_rat < print_pap[print_ratio]:
+            deltaw = (h *  print_pap[print_ratio] - w)/2    # add to each side
+            w += 2*deltaw
+            img.resize(w, h, deltaw, 0)
+            cal_size_h_new = (heightCal + (w-2*deltaw)/print_pap[print_ratio] - h) /  widthCal
+            if cal_size_h_new > 0.3 and deltaw > 3:
+                mess_values_dict.update({'suggest_rel_height_cal': cal_size_h_new})
+                gimp.message( "SUGGESTION POUR IMPRESSION:\n Si vous désirez éviter l'ajout des bordures sur les côtés, recommencez\
+ avec une hauteur relative de la boîte du calendrier = %(suggest_rel_height_cal)1.3f " % mess_values_dict)
+        
+        pdb.gimp_layer_resize_to_image_size(layer_bg)
+        # verify if the image size is suitable for printing
+        if (widthPho+2*deltaw)/200 < paper_width[print_ratio-1]:
+            mess_values_dict.update({'new_image_width': str(int(paper_width[print_ratio-1]*200 - 2*deltaw))})
+            mess = "AVERTISSEMENT POUR IMPRESSION:\nLa dimension de la photo semble trop petite pour une impression de qualité sur\
+ papier avec une largeur de %(paper_width)s .\nSuggestion : agrandissez la taille ou recommencez avec une largeur de photo supérieure\
+ à  %(new_image_width)s pixels, pour plus de 200 ppp." % mess_values_dict
+        gimp.message(mess or "INFO POUR IMPRESSION:\n Fin normale du greffon. Avant d'imprimer, décidez pour l'ajustement final si vous\
+ redimensionnez l'image, réajustez la netteté et/ou ajustez la résolution d'impression.  Changer \
+les unités, en bas à gauche dans la fenêtre <image>, peut aider.\n À la prochaine.") 
+        mess = ""
+    else:
+        gimp.message( "INFO:\n Fin normale du greffon.\n Le rapport largeur/hauteur de la page pour \
+le  mois %(month_id)s est : %(aspect_ratio_before)1.4f\n À la prochaine." % mess_values_dict)
+
+    # todo: make a permanent parasite that contains all external input values for further plug-ins?
+    gimp.displays_flush()
+    # agrupamos UNDO
+    pdb.gimp_image_undo_group_end(img)
+
+# función principal
+if __name__ == '__main__':
+
+    # llamada a función register
+    register(
+        "calendar",
+        "Avant de  cliquer sur 'Valider' dans ce greffon, regardez si la couleur d'arrière plan de GIMP qui sera celle \
+de l'arrière plan du futur calendrier, convient. Il y a quatre éléments principaux sur la page du calendrier :\
+ l'arrière plan de la page (comme mise en valeur du reste), l'image de départ (en haut), la boîte du calendrier \
+(sous l'image) et le texte mois-année. \nFichier du greffon: calendar-fr.py .",
+        "Créer un calendrier standard d'un mois avec image. Pour aider le post traitement, huit calques sont ajoutés à celui de l'image de départ, \
+cinq pour la boîte calendrier (un pour les commentaires est optionel), deux pour mois-année et un pour l'arrière plan.",
+        "Javi Pacheco and R. Brizard",
+        "Javi Pacheco",
+        "2007",
+        "Calendrier imagé ...",
+        "*",
+        [   (PF_IMAGE, "img", "IMAGE:", 0),
+            (PF_DRAWABLE, "drawable", "DRAWABLE:", 0),  # need those if you use the menu path at the end of 'register()'
+            (PF_SPINNER, "PhoCal_sep", "Séparation, photo & calendrier, relative à la hauteur de la photo ",\
+                 0.050, (0.0, 0.500, 0.005)),
+            (PF_SPINNER, "cal_size_w", "Largeur de la boîte du calendrier, relative à celle de la photo ", 1.0, (0.20, 1.80, 0.01)),
+            (PF_SPINNER, "cal_size_h", "Hauteur de la boîte du calendrier, relative à sa largeur ", 0.50, (0.30, 0.70, 0.01)),
+            (PF_TOGGLE, "first_weekday", "Cliquer sur le bouton si vous voulez DIMANCHE comme premier jour de la semaine,\
+\n sinon c'est LUNDI. Si changement vérifiez alors l'en-tête des jours.", True),
+            (PF_STRING, "weekday_header", "Étiquettes pour l'en-tête des jours, changez à l'intérieur des ' ' seulement. \
+\nSi vous supprimez une virgule, le greffon utilisera alors une en-tête de remplacement.",\
+                "'LUN', 'MAR', 'MER', 'JEU', 'VEN', 'SAM', 'DIM'"), # str(weekdays_l[0]) is a possibility
+            (PF_COLOR, "bg_weekdays", "Couleur pour l'arrière plan de l'en-tête des jours & celle des lignes de la grille", (200,200,200)),
+            (PF_FONT, "font_weekdays", "Police pour les jours de la semaine ", 'Sans Bold'),
+            (PF_COLOR, "color_weekdays", "Couleur pour les jours de la semaine ", (0,0,0)),
+            (PF_COLOR, "color_festive", "Couleur pour les dimanches", (0,0,0)),
+            (PF_FONT, "font_number", "Police pour les dates", default_font),
+            (PF_SPINNER, "size_font_cal", "Taille relative de la police dans le calendrier, à celle choisie automatiquement ",\
+                 0.9, (0.6, 1.3, 0.1)),
+            (PF_COLOR, "color_number", "Couleur pour les dates autres que les dimanches", (0,0,0)),
+            (PF_SPINNER, "month", "Mois requis ", 1, (1, 12, 1)),
+            (PF_SPINNER, "year", "Année requise ", 2010, (1900, 2999, 1)),
+            (PF_OPTION, "lang", "Langage pour nom du mois (si changement revoyez l'en-tête des jours)", 1,\
+                ["English", "Français", "Deutsch", "Italiano", "Castellano", "Русский"]),
+            (PF_FONT, "font_month", "Police pour le texte mois & année ", 'Lucida Sans Bold'),
+            (PF_OPTION, "space_month", "Ajoutez de l'espace, sur la page, pour le mois & l'année;\n sinon choisir 'Non'.", 0,\
+                ["En bas", "En haut", "Non, sur l'image", "Non, dans le calendrier"]),
+            (PF_OPTION, "print_ratio", "Cible: impression sur format de papier courant (imprimer plus tard)", 0, ["Laisser faire",\
+                "4x6 po", "8x10 po", "8.5x11 po", "8.5x14 po", "11x17 po"])
+        ],
+        [],
+        Calendar,
+        menu="<Image>/Plugins-Python/Image/Ajouts")     # end register()
+    
+    main()

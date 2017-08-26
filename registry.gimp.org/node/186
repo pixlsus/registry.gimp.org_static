@@ -1,0 +1,582 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML+RDFa 1.0//EN"
+  "http://www.w3.org/MarkUp/DTD/xhtml-rdfa-1.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" version="XHTML+RDFa 1.0" dir="ltr">
+
+<head profile="http://www.w3.org/1999/xhtml/vocab">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="shortcut icon" href="../files/favicon.png" type="image/png" />
+<link rel="alternate" type="application/rss+xml" title="Comments for &quot;Layer Effects&quot;" href="../crss/node/186" />
+<link rel="canonical" href="186" />
+<meta name="Generator" content="Drupal 7 (http://drupal.org)" />
+<link rel="shortlink" href="186" />
+  <title>Layer Effects | GIMP Plugin Registry</title>
+  <style type="text/css" media="all">@import url("../modules/system/system.base.css?n48fl6");
+@import url("../modules/system/system.menus.css?n48fl6");
+@import url("../modules/system/system.messages.css?n48fl6");
+@import url("../modules/system/system.theme.css?n48fl6");</style>
+<style type="text/css" media="all">@import url("../modules/aggregator/aggregator.css?n48fl6");
+@import url("../modules/book/book.css?n48fl6");
+@import url("../modules/comment/comment.css?n48fl6");
+@import url("../sites/all/modules/date/date_api/date.css?n48fl6");
+@import url("../sites/all/modules/date/date_popup/themes/datepicker.1.7.css?n48fl6");
+@import url("../sites/all/modules/date/date_repeat_field/date_repeat_field.css?n48fl6");
+@import url("../modules/field/theme/field.css?n48fl6");
+@import url("../sites/all/modules/mollom/mollom.css?n48fl6");
+@import url("../modules/node/node.css?n48fl6");
+@import url("../modules/poll/poll.css?n48fl6");
+@import url("../modules/search/search.css?n48fl6");
+@import url("../modules/user/user.css?n48fl6");
+@import url("../modules/forum/forum.css?n48fl6");
+@import url("../sites/all/modules/views/css/views.css?n48fl6");</style>
+<style type="text/css" media="all">@import url("../sites/all/modules/ctools/css/ctools.css?n48fl6");
+@import url("../sites/all/modules/rate/rate.css?n48fl6");
+@import url("../sites/all/modules/tagclouds/tagclouds.css?n48fl6");
+@import url("../sites/all/modules/panels/css/panels.css?n48fl6");
+@import url("../sites/all/modules/best_answer/best_answer.css?n48fl6");
+@import url("../sites/all/modules/rate/templates/fivestar/fivestar.css?n48fl6");</style>
+<style type="text/css" media="all">@import url("../files/color/garland-5ac73a91/style.css?n48fl6");</style>
+<style type="text/css" media="print">@import url("../themes/garland/print.css?n48fl6");</style>
+
+<!--[if lt IE 7]>
+<link type="text/css" rel="stylesheet" href="http://registry.gimp.org/themes/garland/fix-ie.css?n48fl6" media="all" />
+<![endif]-->
+  <script type="text/javascript" src="../misc/jquery.js?v=1.4.4"></script>
+<script type="text/javascript" src="../misc/jquery.once.js?v=1.2"></script>
+<script type="text/javascript" src="../misc/drupal.js?n48fl6"></script>
+<script type="text/javascript" src="../sites/all/modules/rate/rate.js?n48fl6"></script>
+<script type="text/javascript" src="../sites/all/modules/rate/templates/fivestar/fivestar.js?n48fl6"></script>
+<script type="text/javascript" src="../misc/tableheader.js?n48fl6"></script>
+<script type="text/javascript">
+<!--//--><![CDATA[//><!--
+jQuery.extend(Drupal.settings, {"basePath":"\/","pathPrefix":"","ajaxPageState":{"theme":"garland","theme_token":"P1CH7wAzkU4Kao7-bETIZ1S0CZ2XQBE5BS8UlZyu1o0","js":{"misc\/jquery.js":1,"misc\/jquery.once.js":1,"misc\/drupal.js":1,"sites\/all\/modules\/rate\/rate.js":1,"sites\/all\/modules\/rate\/templates\/fivestar\/fivestar.js":1,"misc\/tableheader.js":1},"css":{"modules\/system\/system.base.css":1,"modules\/system\/system.menus.css":1,"modules\/system\/system.messages.css":1,"modules\/system\/system.theme.css":1,"modules\/aggregator\/aggregator.css":1,"modules\/book\/book.css":1,"modules\/comment\/comment.css":1,"sites\/all\/modules\/date\/date_api\/date.css":1,"sites\/all\/modules\/date\/date_popup\/themes\/datepicker.1.7.css":1,"sites\/all\/modules\/date\/date_repeat_field\/date_repeat_field.css":1,"modules\/field\/theme\/field.css":1,"sites\/all\/modules\/mollom\/mollom.css":1,"modules\/node\/node.css":1,"modules\/poll\/poll.css":1,"modules\/search\/search.css":1,"modules\/user\/user.css":1,"modules\/forum\/forum.css":1,"sites\/all\/modules\/views\/css\/views.css":1,"sites\/all\/modules\/ctools\/css\/ctools.css":1,"sites\/all\/modules\/rate\/rate.css":1,"sites\/all\/modules\/tagclouds\/tagclouds.css":1,"sites\/all\/modules\/panels\/css\/panels.css":1,"sites\/all\/modules\/best_answer\/best_answer.css":1,"sites\/all\/modules\/rate\/templates\/fivestar\/fivestar.css":1,"themes\/garland\/style.css":1,"themes\/garland\/print.css":1,"themes\/garland\/fix-ie.css":1}},"rate":{"basePath":"\/rate\/vote\/js","destination":"node\/186"}});
+//--><!]]>
+</script>
+</head>
+<body class="html not-front not-logged-in two-sidebars page-node page-node- page-node-186 node-type-scriptfu fluid-width" >
+  <div id="skip-link">
+    <a href="186#main-content" class="element-invisible element-focusable">Skip to main content</a>
+  </div>
+      
+  <div id="wrapper">
+    <div id="container" class="clearfix">
+
+      <div id="header">
+        <div id="logo-floater">
+                              <div id="branding"><strong><a href="../index.html">
+                          <img src="../files/logo.png" alt="GIMP Plugin Registry " title="GIMP Plugin Registry " id="logo" />
+                        <span>GIMP Plugin Registry</span>            </a></strong></div>
+                          </div>
+
+        <h2 class="element-invisible">Main menu</h2><ul class="links inline main-menu"><li class="menu-100 first"><a href="../about" title="Information about the Registry">About</a></li>
+<li class="menu-136"><a href="23851" title="Documentation and How-Tos">Documentation</a></li>
+<li class="menu-88"><a href="../forum">Forums</a></li>
+<li class="menu-74"><a href="http://gug.criticalhit.dk" title="The GIMP User Group">GIMP User Group</a></li>
+<li class="menu-1142"><a href="25574" title="GIMP Help">Get Help</a></li>
+<li class="menu-1256"><a href="26216" title="Get info on using RSS to stay updated about what&#039;s going on on the site.">Stay Updated!</a></li>
+<li class="menu-73 last"><a href="http://www.gimp.org/" title="The GIMP Homepage">gimp.org</a></li>
+</ul>              </div> <!-- /#header -->
+
+              <div id="sidebar-first" class="sidebar">
+            <div class="region region-sidebar-first">
+    <div id="block-system-navigation" class="block block-system block-menu clearfix">
+
+    <h2 class="title">Navigation</h2>
+  
+  <div class="content">
+    <ul class="menu"><li class="first leaf"><a href="25574" title="FAQ &amp; How To&#039;s">FAQ &amp; How To&#039;s</a></li>
+<li class="leaf"><a href="../glossary.1" title="">Content By Name</a></li>
+<li class="collapsed"><a href="../aggregator">Feed aggregator</a></li>
+<li class="leaf"><a href="../popular">Popular content</a></li>
+<li class="leaf"><a href="25392" title="Report Spam Here">Report Spam Here</a></li>
+<li class="last leaf"><a href="../tagclouds">Tags</a></li>
+</ul>  </div>
+</div>
+<div id="block-block-1" class="block block-block clearfix">
+
+    
+  <div class="content">
+    If you'd like to upload plug-ins, please create an account below. You do <em>not</em> need one for download. Enjoy :-)  </div>
+</div>
+<div id="block-user-login" class="block block-user clearfix">
+
+    <h2 class="title">User login</h2>
+  
+  <div class="content">
+    <form action="http://registry.gimp.org/node/186?destination=node/186" method="post" id="user-login-form" accept-charset="UTF-8"><div><div class="form-item form-type-textfield form-item-name">
+  <label for="edit-name">Username <span class="form-required" title="This field is required.">*</span></label>
+ <input type="text" id="edit-name" name="name" value="" size="15" maxlength="60" class="form-text required" />
+</div>
+<div class="form-item form-type-password form-item-pass">
+  <label for="edit-pass">Password <span class="form-required" title="This field is required.">*</span></label>
+ <input type="password" id="edit-pass" name="pass" size="15" maxlength="128" class="form-text required" />
+</div>
+<div class="item-list"><ul><li class="first last"><a href="../user/password" title="Request new password via e-mail.">Request new password</a></li>
+</ul></div><input type="hidden" name="form_build_id" value="form-0p0PE7zgtXpjxIIXOg-Oedt_mgMk8mXSS150Vwvv74I" />
+<input type="hidden" name="form_id" value="user_login_block" />
+<div class="form-actions form-wrapper" id="edit-actions"><input type="submit" id="edit-submit" name="op" value="Log in" class="form-submit" /></div></div></form>  </div>
+</div>
+<div id="block-node-syndicate" class="block block-node clearfix">
+
+    <h2 class="title">Syndicate</h2>
+  
+  <div class="content">
+    <a href="../rss.xml" class="feed-icon" title="Subscribe to Syndicate"><img src="../misc/feed.png" width="16" height="16" alt="Subscribe to Syndicate" /></a>  </div>
+</div>
+  </div>
+        </div>
+      
+      <div id="center"><div id="squeeze"><div class="right-corner"><div class="left-corner">
+          <h2 class="element-invisible">You are here</h2><div class="breadcrumb"><a href="../index.html">Home</a></div>                    <a id="main-content"></a>
+          <div id="tabs-wrapper" class="clearfix">                                <h1 class="with-tabs">Layer Effects</h1>
+                              </div>                                                  <div class="clearfix">
+              <div class="region region-content">
+    <div id="block-system-main" class="block block-system clearfix">
+
+    
+  <div class="content">
+    <div id="node-186" class="node node-scriptfu node-promoted">
+
+  
+      
+      <span class="submitted">January 24, 2008 - 22:43 — <span class="username">JonStipe</span></span>
+  
+  <div class="content clearfix">
+    <div class="form-item form-type-item">
+  <label>Rate </label>
+ <div class="rate-widget-2 rate-widget clear-block rate-average rate-widget-fivestar rate-6f1fe535d289b20220837fbd207dff9e rate-node-186-2-3" id="rate-node-186-2-3"><div class="item-list"><ul><li class="first"><span class="rate-button rate-fivestar-btn-empty rate-fivestar-1" id="rate-button-1">1</span></li>
+<li><span class="rate-button rate-fivestar-btn-empty rate-fivestar-2" id="rate-button-2">2</span></li>
+<li><span class="rate-button rate-fivestar-btn-empty rate-fivestar-3" id="rate-button-3">3</span></li>
+<li><span class="rate-button rate-fivestar-btn-empty rate-fivestar-4" id="rate-button-4">4</span></li>
+<li class="last"><span class="rate-button rate-fivestar-btn-empty rate-fivestar-5" id="rate-button-5">5</span></li>
+</ul></div><div class="rate-info">Total votes: 0</div><div class="rate-description">Rate this item!</div></div>
+</div>
+<div class="field field-name-upload field-type-file field-label-hidden"><div class="field-items"><div class="field-item even"><table class="sticky-enabled">
+ <thead><tr><th>Attachment</th><th>Size</th> </tr></thead>
+<tbody>
+ <tr class="odd"><td><span class="file"><img class="file-icon" alt="" title="text/x-scheme" src="../modules/file/icons/text-x-generic.png" /> <a href="../files/layerfx.scm" type="text/x-scheme; length=56794" title="layerfx.scm">layerfx.scm</a></span></td><td>55.46 KB</td> </tr>
+ <tr class="even"><td><span class="file"><img class="file-icon" alt="" title="text/x-python" src="../modules/file/icons/text-x-script.png" /> <a href="../files/layerfx.py" type="text/x-python; length=273976" title="layerfx.py">layerfx.py</a></span></td><td>267.55 KB</td> </tr>
+ <tr class="odd"><td><span class="file"><img class="file-icon" alt="" title="text/plain" src="../modules/file/icons/text-plain.png" /> <a href="../files/layerfx.2.8.py.txt" type="text/plain; length=276763" title="layerfx.2.8.py.txt">layerfx.2.8.py</a></span></td><td>270.28 KB</td> </tr>
+</tbody>
+</table>
+</div></div></div><div class="field field-name-body field-type-text-with-summary field-label-hidden"><div class="field-items"><div class="field-item even"><p>This is a series of scripts that implement various layer effects:</p>
+<ul><li>Drop Shadow</li>
+<li>Inner Shadow</li>
+<li>Outer Glow</li>
+<li>Inner Glow</li>
+<li>Bevel and Emboss</li>
+<li>Satin</li>
+<li>Color Overlay</li>
+<li>Gradient Overlay</li>
+<li>Pattern Overlay</li>
+<li>Stroke</li>
+</ul><p>Some effects can have contours (a.k.a. curves) and noise added to them. Effects can either be applied on a separate layer, or be merged into the active layer (which in some cases gives better results).</p>
+<p>Tested with GIMP 2.4.2.</p>
+<p>Updated 4/12/2012:</p>
+<ul><li>New Python version now makes use of layer groups. Effect layers will be automatically grouped with the original layer. This requires GIMP 2.7 or later and was tested with 2.8rc1. Older version is provided for compatibility with previous GIMP versions.</li>
+</ul><p>Updated 6/9/2009:</p>
+<ul><li>Stroke now supports gradients and patterns! (Python version only)</li>
+<li>Better undo handling in the Python version.</li>
+<li>Various bugfixes.</li>
+</ul><p>Updated 11/15/2008:</p>
+<ul><li>The Python version now has live previewing! With the "Preview" checkbox active, the preview now updates automatically every time you change a setting!</li>
+<li>New "Reapply Effects" function: Reapplies all effects that have been applied to the current layer. If you change anything on the layer, use this to update all the effects in one go! (Mind you, this only works for effects that were not applied using the "Merge with layer" option.)</li>
+<li>Various bugfixes.</li>
+</ul><p>Updated 09/02/2008:</p>
+<ul><li>Bugfix in Script-Fu version.</li>
+</ul><p>Updated 07/19/2008:</p>
+<ul><li>You can now scale patterns in pattern overlays. (Python version only.)</li>
+</ul><p>Updated 07/08/2008:<br />
+This script has now been rewritten as a Python plugin! This adds several new features that weren't possible in Script-Fu!</p>
+<ul><li>You can now preview effects! Click the "Preview" button to see what it will look like with the currently selected settings.</li>
+<li>The plugin now records the settings used to make an effect, so now you can reapply it! Run the same effect plugin on the same layer again, and it recovers the previous settings for that layer and shows them in the dialog box. You can then change the settings and apply the effect again, and it will replace the original effect layer! (Note: This will only work if you don't select "Merge with layer". Once an effect has been merged into the layer, it can't be removed or changed.)</li>
+</ul><p>Updated 04/21/2008:</p>
+<ul><li>Bugfix</li>
+</ul><p>Updated 03/02/2008:</p>
+<ul><li>Added grayscale support</li>
+<li>Bugfixes</li>
+</ul><h2>How to install (Script-Fu version):</h2>
+<ol><li>Right-click on the link below that says "layerfx.scm". A pop-up menu should appear. Click "Save Target As..." or "Save Link As..." or whatever the equivalent option in your browser is.</li>
+<li>Save the file "layerfx.scm" in your scripts folder. If you're not sure where your scripts folder is, you can check by opening GIMP and going to &lt;Toolbox&gt;/File/Preferences -&gt; Folders -&gt; Scripts. If more than one folder is shown, then any one of them will work.</li>
+<li>Once you have saved the file in your scripts folder, if you are already running GIMP, either click &lt;Toolbox&gt;/Xtns/Script-Fu/Refresh Scripts, or just close and reopen GIMP.</li>
+<li>If you have done this correctly, the scripts will appear in the menu under &lt;Image&gt;/Script-Fu/Layer Effects. If this menu is not there, try clicking &lt;Toolbox&gt;/Xtns/Script-Fu/Refresh Scripts. If it's still not there, make sure the file is in your scripts folder and that the filename ends with ".scm", not ".txt" or ".scm.txt" or something.</li>
+</ol><h2>How to install (Python version):</h2>
+<ol><li>Right-click on the link below that says "layerfx.py". A pop-up menu should appear. Click "Save Target As..." or "Save Link As..." or whatever the equivalent option in your browser is.</li>
+<li>Save the file "layerfx.py" in your plug-ins folder. If you're not sure where your plug-ins folder is, you can check by opening GIMP and going to &lt;Toolbox&gt;/File/Preferences -&gt; Folders -&gt; Plug-Ins. If more than one folder is shown, then any one of them will work.</li>
+<li>If you're on a UNIX system, make sure layerfx.py is executable by typing this in the shell:<br /><code>chmod +x layerfx.py</code><br />
+On other operating systems, you might have to do something else to make it executable.</li>
+<li>Once you have saved the file in your plug-ins folder, if you are already running GIMP, close and reopen it.</li>
+<li>If you have done this correctly, the scripts will appear in the menu under &lt;Image&gt;/Layer/Layer Effects, and &lt;Layers&gt;/Layer Effects. If these menus are not there, close and reopen GIMP. If they're still not there, make sure the file is in your plug-ins folder, that it is executable, that you have Python support installed, and that the filename ends with ".py", not ".txt" or ".py.txt" or something.</li>
+</ol></div></div></div><div class="field field-name-taxonomy-vocabulary-7 field-type-taxonomy-term-reference field-label-inline clearfix"><div class="field-label">Code License:&nbsp;</div><div class="field-items"><div class="field-item even"><a href="../taxonomy/term/36">GPLv3</a></div></div></div><div class="field field-name-taxonomy-vocabulary-5 field-type-taxonomy-term-reference field-label-inline clearfix"><div class="field-label">Tags:&nbsp;</div><div class="field-items"><div class="field-item even"><a href="../taxonomy/term/52">python</a></div><div class="field-item odd"><a href="../taxonomy/term/121">shadow</a></div><div class="field-item even"><a href="../taxonomy/term/122">bevel</a></div><div class="field-item odd"><a href="../taxonomy/term/123">emboss</a></div><div class="field-item even"><a href="../taxonomy/term/124">glow</a></div><div class="field-item odd"><a href="../taxonomy/term/128">2.4</a></div><div class="field-item even"><a href="../taxonomy/term/129">noise</a></div><div class="field-item odd"><a href="../taxonomy/term/239">layer effects</a></div><div class="field-item even"><a href="../taxonomy/term/240">overlay</a></div><div class="field-item odd"><a href="../taxonomy/term/241">satin</a></div><div class="field-item even"><a href="../taxonomy/term/242">stroke</a></div></div></div><div class="field field-name-taxonomy-vocabulary-1 field-type-taxonomy-term-reference field-label-inline clearfix"><div class="field-label">GIMP Version:&nbsp;</div><div class="field-items"><div class="field-item even"><a href="../taxonomy/term/779">2.7</a></div></div></div><div class="field field-name-taxonomy-vocabulary-3 field-type-taxonomy-term-reference field-label-inline clearfix"><div class="field-label">Scripting Engine:&nbsp;</div><div class="field-items"><div class="field-item even"><a href="../taxonomy/term/22">Python</a></div></div></div>  </div>
+
+  <div class="clearfix">
+          <div class="links"><ul class="links inline"><li class="comment_forbidden first last"><span><a href="../user/login?destination=comment%252Freply%252F186%2523comment-form">Log in</a> to post comments</span></li>
+</ul></div>
+    
+    <div id="comments" class="comment-wrapper">
+  
+          <h2 class="title">Comments</h2>
+      
+  <a id="comment-17735"></a>
+<div class="comment odd">
+
+  <div class="clearfix">
+
+    <span class="submitted">July 12, 2013 - 19:49 — <span class="username">mackenzie</span></span>
+
+  
+  
+        <h3><a href="../comment/17735#comment-17735" class="permalink" rel="bookmark">I can&#039;t get the script to work</a></h3>
+    
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>hello, </p>
+<p>I have tried twice to get the script to work. I've followed these instructions: For Windows 7, you go to the website <a href="186">http://registry.gimp.org/node/186</a> and as you can see there are 3 options under attachment: layerfx.scm , layerfx.py , layerfx.2.8.py</p>
+<p>1. Right-click on layerfx.2.8.py and you are going to get a few options like: Open link in a new tab, Open link in a new window (if you are using Firefox)....etc. Select the one that says "Save Link As".</p>
+<p>2. A new window is going to pop up and it's going to ask you where you want to save your file. But before save it, YOU MUST DELETE THE .txt from the file (this is important), I don't know why it adds that .txt<br />
+Again, before you save it, you file should have the following name, this is important: layerfx.2.8.py NOT layerfx.2.8.py.txt. Now you can save it anywhere you want.</p>
+<p>3. Copy and paste your file that you just downloaded , layerfx.2.8.py (again NOT layerfx.2.8.py.txt) to the following folder: C:\Program Files\GIMP 2\lib\gimp\2.0\plug-ins </p>
+<p>but as soon as I get to actually downloading the file, it saves it as the layerfx.2.8.py.txt file. Since I can't change the file type, in order for me to use it properly, this file is useless to me and I really wanted to use it. </p>
+<p>Can someone please explain to me what I am doing wrong?</p>
+</div></div></div>          </div>
+  </div>
+
+  <ul class="links inline"><li class="comment_forbidden first last"><span><a href="../user/login?destination=comment%252Freply%252F186%2523comment-form">Log in</a> to post comments</span></li>
+</ul></div>
+
+<div class="indented"><a id="comment-18158"></a>
+<div class="comment even">
+
+  <div class="clearfix">
+
+    <span class="submitted">December 14, 2013 - 11:22 — <span class="username">maxmm5</span></span>
+
+  
+  
+        <h3><a href="../comment/18158#comment-18158" class="permalink" rel="bookmark">I can&#039;t get the scrip to work</a></h3>
+    
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>Hi Mackenzie,<br />
+You need Code Writer from win apps store (assuming your using windows 8). Then right click Layerfx.2.8.py.text you downloaded and select Open with/Code Writer, tap the save button and choice Save as...take note after this that Text file must be converted to Python file format so click the dropdown arrow beside the word Text, then tap save again and select the plug-in folder from GIMP. I hope you got my English, I'm not a native English speaker.<br />
+Regards,<br />
+mamm5</p>
+</div></div></div>          </div>
+  </div>
+
+  <ul class="links inline"><li class="comment_forbidden first last"><span><a href="../user/login?destination=comment%252Freply%252F186%2523comment-form">Log in</a> to post comments</span></li>
+</ul></div>
+<a id="comment-17747"></a>
+<div class="comment comment-by-node-author odd">
+
+  <div class="clearfix">
+
+    <span class="submitted">July 14, 2013 - 10:43 — <span class="username">JonStipe</span></span>
+
+  
+  
+        <h3><a href="../comment/17747#comment-17747" class="permalink" rel="bookmark">You already pointed out how</a></h3>
+    
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>You already pointed out how the file name has to end in .py and not .py.txt. If it's adding the .txt to the file name, just go ahead and download it anyway, then rename the file you downloaded and delete the .txt from the file name.</p>
+</div></div></div>          </div>
+  </div>
+
+  <ul class="links inline"><li class="comment_forbidden first last"><span><a href="../user/login?destination=comment%252Freply%252F186%2523comment-form">Log in</a> to post comments</span></li>
+</ul></div>
+</div><a id="comment-17708"></a>
+<div class="comment even">
+
+  <div class="clearfix">
+
+    <span class="submitted">July 9, 2013 - 20:09 — <span class="username">Yalniz</span></span>
+
+  
+  
+        <h3><a href="../comment/17708#comment-17708" class="permalink" rel="bookmark">Why Layer Effects preview windows haven&#039;t enough speed? </a></h3>
+    
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>Hello every one<br />
+First thanks from JonStipe for his great layer effects plugin for gimp.<br />
+My question is something like a feedback :)<br />
+Why layer Effects plugin preview windows haven't enough speed?<br />
+When I use this plugin I'm like a blind man and my final result is really fortuitous and I play with numbers to find my custom result and that in 80% isn't my custom result and it showed some late.<br />
+Please add a faster preview window to this awesome plugin.<br />
+thanks again.<br />
+Regards Samad</p>
+</div></div></div>          </div>
+  </div>
+
+  <ul class="links inline"><li class="comment_forbidden first last"><span><a href="../user/login?destination=comment%252Freply%252F186%2523comment-form">Log in</a> to post comments</span></li>
+</ul></div>
+<a id="comment-17656"></a>
+<div class="comment odd">
+
+  <div class="clearfix">
+
+    <span class="submitted">June 19, 2013 - 03:37 — <span class="username">imamhossain</span></span>
+
+  
+  
+        <h3><a href="../comment/17656#comment-17656" class="permalink" rel="bookmark">I&#039;ve learned more about layer effects</a></h3>
+    
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>Actually I had required to know more about layer effects. Now I can install it correctly &amp; can apply the effects to my created layers perfectly. Thank for share.</p>
+</div></div></div>          </div>
+  </div>
+
+  <ul class="links inline"><li class="comment_forbidden first last"><span><a href="../user/login?destination=comment%252Freply%252F186%2523comment-form">Log in</a> to post comments</span></li>
+</ul></div>
+<a id="comment-17007"></a>
+<div class="comment even">
+
+  <div class="clearfix">
+
+    <span class="submitted">March 19, 2013 - 00:34 — <span class="username">Kitkat</span></span>
+
+  
+  
+        <h3><a href="../comment/17007#comment-17007" class="permalink" rel="bookmark">Downloading the .scm file...</a></h3>
+    
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>Hi, new girl here...<br />
+I tried to download the .scm file and got an error message that Windows couldn't open it because it didn't recognize the program that wrote it. What else can I do to get this plug-in? I'd really love to have it.</p>
+</div></div></div>          </div>
+  </div>
+
+  <ul class="links inline"><li class="comment_forbidden first last"><span><a href="../user/login?destination=comment%252Freply%252F186%2523comment-form">Log in</a> to post comments</span></li>
+</ul></div>
+
+<div class="indented"><a id="comment-17018"></a>
+<div class="comment comment-by-node-author odd">
+
+  <div class="clearfix">
+
+    <span class="submitted">March 19, 2013 - 18:49 — <span class="username">JonStipe</span></span>
+
+  
+  
+        <h3><a href="../comment/17018#comment-17018" class="permalink" rel="bookmark">Don&#039;t try to open it, just</a></h3>
+    
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>Don't try to open it, just save it.</p>
+</div></div></div>          </div>
+  </div>
+
+  <ul class="links inline"><li class="comment_forbidden first last"><span><a href="../user/login?destination=comment%252Freply%252F186%2523comment-form">Log in</a> to post comments</span></li>
+</ul></div>
+</div><a id="comment-16941"></a>
+<div class="comment even">
+
+  <div class="clearfix">
+
+    <span class="submitted">March 10, 2013 - 19:58 — <span class="username">Emad</span></span>
+
+  
+  
+        <h3><a href="../comment/16941#comment-16941" class="permalink" rel="bookmark">Layer Effects installation</a></h3>
+    
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>The above noted  steps are not correct, and i was lucky to find a video on YouTube, that directed me to the right easy way for installation.<br />
+<a href="http://www.youtube.com/watch?v=RuqPIo4s6BM">http://www.youtube.com/watch?v=RuqPIo4s6BM</a></p>
+<p>thought to share my experience.</p>
+</div></div></div>          </div>
+  </div>
+
+  <ul class="links inline"><li class="comment_forbidden first last"><span><a href="../user/login?destination=comment%252Freply%252F186%2523comment-form">Log in</a> to post comments</span></li>
+</ul></div>
+<a id="comment-16697"></a>
+<div class="comment odd">
+
+  <div class="clearfix">
+
+    <span class="submitted">January 30, 2013 - 13:40 — <span class="username">ultimatezpro</span></span>
+
+  
+  
+        <h3><a href="../comment/16697#comment-16697" class="permalink" rel="bookmark">So thanks</a></h3>
+    
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>So thanks</p>
+</div></div></div>          </div>
+  </div>
+
+  <ul class="links inline"><li class="comment_forbidden first last"><span><a href="../user/login?destination=comment%252Freply%252F186%2523comment-form">Log in</a> to post comments</span></li>
+</ul></div>
+<a id="comment-16053"></a>
+<div class="comment even">
+
+  <div class="clearfix">
+
+    <span class="submitted">November 12, 2012 - 19:34 — <span class="username">Raymon</span></span>
+
+  
+  
+        <h3><a href="../comment/16053#comment-16053" class="permalink" rel="bookmark">Layer effect</a></h3>
+    
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>Thank you so much for the information, i have followed propperly and now i have Script-fu added in my menu and it works,, best regards</p>
+</div></div></div>          </div>
+  </div>
+
+  <ul class="links inline"><li class="comment_forbidden first last"><span><a href="../user/login?destination=comment%252Freply%252F186%2523comment-form">Log in</a> to post comments</span></li>
+</ul></div>
+<h2 class="element-invisible">Pages</h2><div class="item-list"><ul class="pager"><li class="pager-current first">1</li>
+<li class="pager-item"><a title="Go to page 2" href="186?page=1">2</a></li>
+<li class="pager-item"><a title="Go to page 3" href="186?page=2">3</a></li>
+<li class="pager-item"><a title="Go to page 4" href="186?page=3">4</a></li>
+<li class="pager-item"><a title="Go to page 5" href="186?page=4">5</a></li>
+<li class="pager-item"><a title="Go to page 6" href="186?page=5">6</a></li>
+<li class="pager-item"><a title="Go to page 7" href="186?page=6">7</a></li>
+<li class="pager-item"><a title="Go to page 8" href="186?page=7">8</a></li>
+<li class="pager-item"><a title="Go to page 9" href="186?page=8">9</a></li>
+<li class="pager-ellipsis">…</li>
+<li class="pager-next"><a title="Go to next page" href="186?page=1">next ›</a></li>
+<li class="pager-last last"><a title="Go to last page" href="186?page=13">last »</a></li>
+</ul></div>
+        </div>
+  </div>
+
+</div>
+  </div>
+</div>
+  </div>
+          </div>
+          <a href="../crss/node/186" class="feed-icon" title="Subscribe to Comments for &quot;Layer Effects&quot;"><img src="../misc/feed.png" width="16" height="16" alt="Subscribe to Comments for &quot;Layer Effects&quot;" /></a>            <div class="region region-footer">
+    <div id="block-block-5" class="block block-block clearfix">
+
+    
+  <div class="content">
+    Unless otherwise noted, the rights for the individual plugins are with their respective authors. Logo image by Jakub Steiner.
+<marquee style="width: 0px; position: absolute"> <a href="http://brazzersdeporno.com" title="porno">porno</a> - <a href="http://www.porno724.com/" target="_blank" title="Porno izle">Porno izle</a> <a href="http://www.yokyokpornolar.com/" target="_blank" title="porno abi">porno abi</a> </marquee>  </div>
+</div>
+  </div>
+      </div></div></div></div> <!-- /.left-corner, /.right-corner, /#squeeze, /#center -->
+
+              <div id="sidebar-second" class="sidebar">
+            <div class="region region-sidebar-second">
+    <div id="block-views-relevant-questions-block-1" class="block block-views clearfix">
+
+    <h2 class="title">Questions</h2>
+  
+  <div class="content">
+    <div class="view view-relevant-questions view-id-relevant_questions view-display-id-block_1 view-dom-id-d1d97fab62a234ef09e93f02fd4ccc64">
+        
+  
+  
+      <div class="view-content">
+      <div class="item-list">    <ul>          <li class="views-row views-row-1 views-row-odd views-row-first">  
+  <div class="views-field views-field-title">        <span class="field-content"><a href="28571">layerfx.2.8.py Shadows are not being generated</a></span>  </div></li>
+          <li class="views-row views-row-2 views-row-even">  
+  <div class="views-field views-field-title">        <span class="field-content"><a href="28282">Why Layer Effects haven&#039;t any preview windows ? </a></span>  </div></li>
+          <li class="views-row views-row-3 views-row-odd">  
+  <div class="views-field views-field-title">        <span class="field-content"><a href="28223">Python version not working</a></span>  </div></li>
+          <li class="views-row views-row-4 views-row-even">  
+  <div class="views-field views-field-title">        <span class="field-content"><a href="28090">Why won&#039;t my layers effects that I downloaded work?</a></span>  </div></li>
+          <li class="views-row views-row-5 views-row-odd views-row-last">  
+  <div class="views-field views-field-title">        <span class="field-content"><a href="27133">I have tried many times to add layerfx.scm but i keep getting this error message</a></span>  </div></li>
+      </ul></div>    </div>
+  
+  
+  
+  
+  
+  
+</div>  </div>
+</div>
+<div id="block-search-form" class="block block-search clearfix">
+
+    
+  <div class="content">
+    <form action="186" method="post" id="search-block-form" accept-charset="UTF-8"><div><div class="container-inline">
+      <h2 class="element-invisible">Search form</h2>
+    <div class="form-item form-type-textfield form-item-search-block-form">
+  <label class="element-invisible" for="edit-search-block-form--2">Search </label>
+ <input title="Enter the terms you wish to search for." type="text" id="edit-search-block-form--2" name="search_block_form" value="" size="15" maxlength="128" class="form-text" />
+</div>
+<div class="form-actions form-wrapper" id="edit-actions--2"><input type="submit" id="edit-submit--2" name="op" value="Search" class="form-submit" /></div><input type="hidden" name="form_build_id" value="form-HCrr31wA3V0Nlbyr4Kr7yZfdnD2N8iwhisSQdLjXZeo" />
+<input type="hidden" name="form_id" value="search_block_form" />
+</div>
+</div></form>  </div>
+</div>
+<div id="block-forum-active" class="block block-forum clearfix">
+
+    <h2 class="title">Active forum topics</h2>
+  
+  <div class="content">
+    <div class="item-list"><ul><li class="first"><a href="32356" title="3 comments">Can&#039;t access &quot;My account&quot;</a></li>
+<li><a href="32371">Delete account</a></li>
+<li class="last"><a href="32363">Outline</a></li>
+</ul></div><div class="more-link"><a href="../forum" title="Read the latest forum topics.">More</a></div>  </div>
+</div>
+<div id="block-views-newest-questions-block-1" class="block block-views clearfix">
+
+    <h2 class="title">Updated Questions</h2>
+  
+  <div class="content">
+    <div class="view view-newest-questions view-id-newest_questions view-display-id-block_1 view-dom-id-64e3a45ad79c5bed31060c8b05388c55">
+        
+  
+  
+      <div class="view-content">
+      <div class="item-list">    <ul>          <li class="views-row views-row-1 views-row-odd views-row-first">  
+  <span class="views-field views-field-title">        <span class="field-content"><a href="32373">Shadow and Highlights Recovery - Adding group undo</a></span>  </span>  
+  <div class="views-field views-field-last-updated">    <span class="views-label views-label-last-updated">Last change</span>    <span class="field-content">3 hours 22 min</span>  </div>  
+  <div class="views-field views-field-field-answer-count">        <div class="field-content">No answers, yet!</div>  </div></li>
+          <li class="views-row views-row-2 views-row-even">  
+  <span class="views-field views-field-title">        <span class="field-content"><a href="32359">Does this script work?</a></span>  </span>  
+  <div class="views-field views-field-last-updated">    <span class="views-label views-label-last-updated">Last change</span>    <span class="field-content">4 months 2 weeks</span>  </div>  
+  <div class="views-field views-field-field-answer-count">        <div class="field-content">No answers, yet!</div>  </div></li>
+          <li class="views-row views-row-3 views-row-odd views-row-last">  
+  <span class="views-field views-field-title">        <span class="field-content"><a href="32349">File upload problem</a></span>  </span>  
+  <div class="views-field views-field-last-updated">    <span class="views-label views-label-last-updated">Last change</span>    <span class="field-content">6 months 35 min</span>  </div>  
+  <div class="views-field views-field-field-answer-count">        <div class="field-content">1 Answer(s)</div>  </div></li>
+      </ul></div>    </div>
+  
+  
+  
+      
+<div class="more-link">
+  <a href="../newest-questions">
+    more  </a>
+</div>
+  
+  
+  
+</div>  </div>
+</div>
+<div id="block-comment-recent" class="block block-comment clearfix">
+
+    <h2 class="title">Recent comments</h2>
+  
+  <div class="content">
+    <div class="item-list"><ul><li class="first"><a href="../comment/19262#comment-19262">Black triangles</a>&nbsp;<span>2 hours 29 min ago</span></li>
+<li><a href="../comment/19261#comment-19261">I use the Python version of</a>&nbsp;<span>4 days 4 hours ago</span></li>
+<li class="last"><a href="../comment/19260#comment-19260">I have the same problem too</a>&nbsp;<span>1 week 2 days ago</span></li>
+</ul></div>  </div>
+</div>
+<div id="block-node-recent" class="block block-node clearfix">
+
+    <h2 class="title">Recent content</h2>
+  
+  <div class="content">
+    <table>
+<tbody>
+ <tr class="odd"><td class="title-author"><div class="node-title"><a href="32373">Shadow and Highlights Recovery - Adding group undo</a></div><div class="node-author"><span class="username">programmer_ceds</span></div></td><td class="edit"></td><td class="delete"></td> </tr>
+ <tr class="even"><td class="title-author"><div class="node-title"><a href="32360">GIMP Plugin Registry in Lockdown mode</a></div><div class="node-author"><span class="username">schumaml</span></div></td><td class="edit"></td><td class="delete"></td> </tr>
+ <tr class="odd"><td class="title-author"><div class="node-title"><a href="32372">Split to Special PNG&#039;s</a></div><div class="node-author"><span class="username">Efenstor</span></div></td><td class="edit"></td><td class="delete"></td> </tr>
+ <tr class="even"><td class="title-author"><div class="node-title"><a href="32371">Delete account</a></div><div class="node-author"><span class="username">amarz82</span></div></td><td class="edit"></td><td class="delete"></td> </tr>
+ <tr class="odd"><td class="title-author"><div class="node-title"><a href="32370">Export with MozJPEG</a></div><div class="node-author"><span class="username">Efenstor</span></div></td><td class="edit"></td><td class="delete"></td> </tr>
+ <tr class="even"><td class="title-author"><div class="node-title"><a href="32369">Shadow and Highlights Recovery</a></div><div class="node-author"><span class="username">erwinsoo</span></div></td><td class="edit"></td><td class="delete"></td> </tr>
+ <tr class="odd"><td class="title-author"><div class="node-title"><a href="27656">GIMP Extensions Pack for Windows</a></div><div class="node-author"><span class="username">GIMP Extensions</span></div></td><td class="edit"></td><td class="delete"></td> </tr>
+ <tr class="even"><td class="title-author"><div class="node-title"><a href="32341">Removed...</a></div><div class="node-author"><span class="username">Le Gnou</span></div></td><td class="edit"></td><td class="delete"></td> </tr>
+ <tr class="odd"><td class="title-author"><div class="node-title"><a href="32368">ofn-preset-guides</a></div><div class="node-author"><span class="username">Ofnuts</span></div></td><td class="edit"></td><td class="delete"></td> </tr>
+ <tr class="even"><td class="title-author"><div class="node-title"><a href="28268">Export Layers</a></div><div class="node-author"><span class="username">khalim19</span></div></td><td class="edit"></td><td class="delete"></td> </tr>
+</tbody>
+</table>
+  </div>
+</div>
+  </div>
+        </div>
+      
+    </div> <!-- /#container -->
+  </div> <!-- /#wrapper -->
+  </body>
+</html>

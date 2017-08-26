@@ -1,0 +1,201 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+#
+# by Andreas Schönfelder
+#
+# Version 1.1 (20101120)
+#
+# License:
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation# either version 2 of the License, or
+# (at your option) any later version. 
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# The GNU Public License is available at
+# http://www.gnu.org/copyleft/gpl.html
+
+
+from gimpfu import *
+
+def python_remove_timestamp(img, drawable, color, threshold, grow1, grow2, spread_count, spread, offset_count, offset):
+	# undo group
+	pdb.gimp_image_undo_group_start(
+		img				# image
+	)
+	# select color
+	pdb.gimp_by_color_select(
+		drawable,		# drawable
+		color,			# color
+		threshold,		# threshold
+		3,				# operation (0=add, 1=substract, 2=replace, 3=intersect)
+		False,			# antialias
+		False,			# feather
+		0,				# feather-radius
+		False			# sample-merged
+	)
+	# grow selection
+	pdb.gimp_selection_grow(
+		img,			# image
+		grow1			# steps
+	)
+	# add alpha channel
+	pdb.gimp_layer_add_alpha(
+		drawable		# layer
+	)
+	# clear selected
+	pdb.gimp_edit_clear(
+		drawable		# drawable
+	)
+	# create new layer
+	layer1 = pdb.gimp_layer_copy(
+		drawable	,	# layer
+		True			# add-alpha
+	)
+	# add new creates layer
+	pdb.gimp_image_add_layer(
+		img,			# image
+		layer1,			# layer
+		1				# position
+	)
+	# grow selection
+	pdb.gimp_selection_grow(
+		img,			# image
+		grow2			# steps
+	)
+	# interchange pixels
+	for i in range(0, int(spread_count)):
+		pdb.plug_in_spread(
+			img,		# image
+			layer1,		# drawable
+			spread,		# spread-amount-x
+			spread		# spread-amount-x
+		)
+	# melt pixels
+	pdb.plug_in_randomize_slur(
+		img,			# image
+		layer1,			# drawable
+		100,			# rndm-pct
+		5,				# rndm-rcount
+		True,			# randomize
+		1				# seed (only randomize=False)
+	)
+	# select nothing
+	pdb.gimp_selection_none(
+		img				# image
+	)
+	# offset layers
+	for i in range(0, int(offset_count)):
+		# create new layers
+		layer2 = pdb.gimp_layer_copy(
+			layer1,		# layer
+			True		# add-alpha
+		)
+		layer3 = pdb.gimp_layer_copy(
+			layer1,		# layer
+			True		# add-alpha
+		)
+		layer4 = pdb.gimp_layer_copy(
+			layer1,		# layer
+			True		# add-alpha
+		)
+		# add new creates layers
+		pdb.gimp_image_add_layer(
+			img,		# image
+			layer2,		# layer
+			2			# position
+		)
+		pdb.gimp_image_add_layer(
+			img,		# image
+			layer3,		# layer
+			3			# position
+		)
+		pdb.gimp_image_add_layer(
+			img,		# image
+			layer4,		# layer
+			4			# position
+		)
+		# offset new created layers
+		pdb.gimp_drawable_offset(
+			layer1,		# drawable
+			False,		# wrap-around
+			1,			# fill-type (0=background, 1=transparent)
+			-offset,	# offset-x
+			-offset	# offset-y
+		)
+		pdb.gimp_drawable_offset(
+			layer2,		# drawable
+			False,		# wrap-around
+			1,			# fill-type (0=background, 1=transparent)
+			offset,	# offset-x
+			-offset	# offset-y
+		)
+		pdb.gimp_drawable_offset(
+			layer3,		# drawable
+			False,		# wrap-around
+			1,			# fill-type (0=background, 1=transparent)
+			-offset,	# offset-x
+			offset		# offset-y
+		)
+		pdb.gimp_drawable_offset(
+			layer4,		# drawable
+			False,		# wrap-around
+			1,			# fill-type (0=background, 1=transparent)
+			offset,		# offset-x
+			offset		# offset-y
+		)
+		# merge all new layers
+		pdb.gimp_drawable_set_visible(
+			drawable,	# drawable
+			False		# visible
+		)
+		layer1 = pdb.gimp_image_merge_visible_layers(
+			img,		# image
+			1			# merge-type (0=expand, 1=to-image, 2=to-bottom-layer)
+		)
+		pdb.gimp_drawable_set_visible(
+			drawable,	# drawable
+			True		# visible
+		)
+	# merge all layers
+	pdb.gimp_image_merge_visible_layers(
+		img,			# image
+		1				# merge-type (0=expand, 1=to-image, 2=to-bottom-layer)
+	)
+	# undo group
+	pdb.gimp_image_undo_group_end(
+		img				# image
+	)
+
+register(
+	"python_fu_remove_timestamp",
+	"Delete timestamp within an image",
+	"Delete timestamp within an image",
+	"Andreas Schoenfelder <passtschu at freenet dot de>",
+	"Andreas Schoenfelder <passtschu at freenet dot de>",
+	"2010-11-20",
+	"<Image>/Python-Fu/Remove timestamp",
+	"	",
+	[
+		#(PF_IMAGE, "image", "Input image", None),										# current image
+		#(PF_DRAWABLE, "drawable", "Input layer", None),								# current layer
+		(PF_COLOR, "color", "Color of timestamp", (255, 255, 0)),						# color
+		(PF_SPINNER, "threshold", "Threshold", 60, (1, 255, 1)),						# threshold
+		(PF_SPINNER, "grow1", "Grow selection after color select", 3, (1, 255, 1)),		# grow1
+		(PF_SPINNER, "grow2", "Grow selection befor spread", 10, (1, 255, 1)),			# grow2
+		(PF_SPINNER, "spread_count", "Spread count", 3, (1, 10, 1)),					# spread count
+		(PF_SPINNER, "spread", "Spread value", 10, (1, 100, 1)),						# spread
+		(PF_SPINNER, "offset_count", "Offset count", 3, (1, 10, 1)),					# offset count
+		(PF_SPINNER, "offset", "Offset value", 3, (1, 100, 1))							# offset
+    ],
+	[],
+	python_remove_timestamp
+)
+
+main()
+

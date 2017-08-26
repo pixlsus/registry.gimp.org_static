@@ -1,0 +1,84 @@
+#!/usr/bin/env python
+
+# Luminosity Masks
+# by Mike Rosulek
+#
+# Implements (and extends) Tony Kuyper's luminosity mask techniques in GIMP.
+#
+# Changelog:
+#   v1.0 [2011-08-01]: Initial release
+#   v1.1 [2011-08-02]: Choose desaturation mode
+
+from gimpfu import *
+
+norm = {
+    'lights': (lambda x: x/255.0),
+    'darks':  (lambda x: (255 - x)/255.0),
+    'mids':   (lambda x: (255 - 2*abs(127.5-x))/255.0)
+}
+
+def ncurve(x):
+    return( int(255*x) )
+
+desaturate_mode = {
+    'light': DESATURATE_LIGHTNESS,
+    'lum':   DESATURATE_LUMINOSITY,
+    'avg':   DESATURATE_AVERAGE
+}
+
+def lum_mask(timg, tdrawable, baselayer, mode, region, expand):
+    if not pdb.gimp_drawable_is_layer(tdrawable):
+        pdb.gimp_message("Can only be called on a layer, not on a mask")
+        return()
+    
+    timg.undo_group_start()
+
+    if pdb.gimp_layer_get_mask(tdrawable) != None:
+        pdb.gimp_layer_remove_mask(tdrawable, MASK_DISCARD)
+
+    duplicated = 0
+
+    if not pdb.gimp_drawable_is_gray(baselayer):
+        newbase = pdb.gimp_layer_new_from_drawable(baselayer, timg)
+        pdb.gimp_drawable_set_name(newbase, "Desaturated Luminosity Mask")
+        pdb.gimp_image_add_layer(timg, newbase, -1)
+        pdb.gimp_desaturate_full(newbase, desaturate_mode[mode])
+        duplicated = 1
+        baselayer = newbase
+
+    mask = pdb.gimp_layer_create_mask(baselayer, ADD_COPY_MASK)
+    pdb.gimp_layer_add_mask(tdrawable, mask)
+
+    if duplicated:
+        pdb.gimp_image_remove_layer(timg, baselayer)
+
+    mynorm = norm[region]
+    pdb.gimp_curves_explicit(mask, 0,256,
+        [ ncurve(mynorm(x)**(2**(-expand))) for x in range(256) ] )
+
+    pdb.gimp_layer_set_edit_mask(tdrawable, FALSE)
+
+
+    timg.undo_group_end()
+    gimp.displays_flush
+
+register(
+        "luminosity_mask",
+        "Add luminosity mask to this layer",
+        "Add luminosity mask to this layer",
+        "Mike Rosulek",
+        "Mike Rosulek",
+        "v1.0, August 2011",
+        "<Image>/Filters/Generic/Luminosity Mask...",
+#        "<Image>/Layer/Mask/Add Luminosity Mask...",
+        "RGB*, GRAY*",
+        [
+                (PF_LAYER, "layer", "Use luminosity from:", None),
+                (PF_RADIO, "mode", "Desaturation Mode", "lum", (("Lightness","light"), ("Luminosity","lum"), ("Average","avg"))),
+                (PF_RADIO, "tone", "Tone Region", "lights", (("Lights","lights"), ("Darks","darks"), ("Midtones","mids"))),
+                (PF_SLIDER, "expand", "Expand/contract", 0, [-3,3,0.1])
+        ],
+        [],
+        lum_mask)
+
+main()

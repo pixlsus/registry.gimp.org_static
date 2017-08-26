@@ -1,0 +1,1443 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML+RDFa 1.0//EN"
+  "http://www.w3.org/MarkUp/DTD/xhtml-rdfa-1.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" version="XHTML+RDFa 1.0" dir="ltr">
+
+<head profile="http://www.w3.org/1999/xhtml/vocab">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="shortcut icon" href="../files/favicon.png" type="image/png" />
+<link rel="alternate" type="application/rss+xml" title="Comments for &quot;s&quot;" href="../crss/node/28059" />
+<link rel="canonical" href="28059" />
+<meta name="Generator" content="Drupal 7 (http://drupal.org)" />
+<link rel="shortlink" href="28059" />
+  <title>s | GIMP Plugin Registry</title>
+  <style type="text/css" media="all">@import url("../modules/system/system.base.css?n48fl6");
+@import url("../modules/system/system.menus.css?n48fl6");
+@import url("../modules/system/system.messages.css?n48fl6");
+@import url("../modules/system/system.theme.css?n48fl6");</style>
+<style type="text/css" media="all">@import url("../modules/aggregator/aggregator.css?n48fl6");
+@import url("../modules/book/book.css?n48fl6");
+@import url("../modules/comment/comment.css?n48fl6");
+@import url("../sites/all/modules/date/date_api/date.css?n48fl6");
+@import url("../sites/all/modules/date/date_popup/themes/datepicker.1.7.css?n48fl6");
+@import url("../sites/all/modules/date/date_repeat_field/date_repeat_field.css?n48fl6");
+@import url("../modules/field/theme/field.css?n48fl6");
+@import url("../sites/all/modules/mollom/mollom.css?n48fl6");
+@import url("../modules/node/node.css?n48fl6");
+@import url("../modules/poll/poll.css?n48fl6");
+@import url("../modules/search/search.css?n48fl6");
+@import url("../modules/user/user.css?n48fl6");
+@import url("../modules/forum/forum.css?n48fl6");
+@import url("../sites/all/modules/views/css/views.css?n48fl6");</style>
+<style type="text/css" media="all">@import url("../sites/all/modules/ctools/css/ctools.css?n48fl6");
+@import url("../sites/all/modules/rate/rate.css?n48fl6");
+@import url("../sites/all/modules/tagclouds/tagclouds.css?n48fl6");
+@import url("../sites/all/modules/panels/css/panels.css?n48fl6");
+@import url("../sites/all/modules/best_answer/best_answer.css?n48fl6");
+@import url("../sites/all/modules/rate/templates/fivestar/fivestar.css?n48fl6");</style>
+<style type="text/css" media="all">@import url("../files/color/garland-5ac73a91/style.css?n48fl6");</style>
+<style type="text/css" media="print">@import url("../themes/garland/print.css?n48fl6");</style>
+
+<!--[if lt IE 7]>
+<link type="text/css" rel="stylesheet" href="http://registry.gimp.org/themes/garland/fix-ie.css?n48fl6" media="all" />
+<![endif]-->
+  <script type="text/javascript" src="../misc/jquery.js?v=1.4.4"></script>
+<script type="text/javascript" src="../misc/jquery.once.js?v=1.2"></script>
+<script type="text/javascript" src="../misc/drupal.js?n48fl6"></script>
+<script type="text/javascript" src="../sites/all/modules/rate/rate.js?n48fl6"></script>
+<script type="text/javascript" src="../sites/all/modules/rate/templates/fivestar/fivestar.js?n48fl6"></script>
+<script type="text/javascript">
+<!--//--><![CDATA[//><!--
+jQuery.extend(Drupal.settings, {"basePath":"\/","pathPrefix":"","ajaxPageState":{"theme":"garland","theme_token":"218OkgyoW6VEUPfL_4pnht7_gF9moJ6E0VGu-q0X1Lo","js":{"misc\/jquery.js":1,"misc\/jquery.once.js":1,"misc\/drupal.js":1,"sites\/all\/modules\/rate\/rate.js":1,"sites\/all\/modules\/rate\/templates\/fivestar\/fivestar.js":1},"css":{"modules\/system\/system.base.css":1,"modules\/system\/system.menus.css":1,"modules\/system\/system.messages.css":1,"modules\/system\/system.theme.css":1,"modules\/aggregator\/aggregator.css":1,"modules\/book\/book.css":1,"modules\/comment\/comment.css":1,"sites\/all\/modules\/date\/date_api\/date.css":1,"sites\/all\/modules\/date\/date_popup\/themes\/datepicker.1.7.css":1,"sites\/all\/modules\/date\/date_repeat_field\/date_repeat_field.css":1,"modules\/field\/theme\/field.css":1,"sites\/all\/modules\/mollom\/mollom.css":1,"modules\/node\/node.css":1,"modules\/poll\/poll.css":1,"modules\/search\/search.css":1,"modules\/user\/user.css":1,"modules\/forum\/forum.css":1,"sites\/all\/modules\/views\/css\/views.css":1,"sites\/all\/modules\/ctools\/css\/ctools.css":1,"sites\/all\/modules\/rate\/rate.css":1,"sites\/all\/modules\/tagclouds\/tagclouds.css":1,"sites\/all\/modules\/panels\/css\/panels.css":1,"sites\/all\/modules\/best_answer\/best_answer.css":1,"sites\/all\/modules\/rate\/templates\/fivestar\/fivestar.css":1,"themes\/garland\/style.css":1,"themes\/garland\/print.css":1,"themes\/garland\/fix-ie.css":1}},"rate":{"basePath":"\/rate\/vote\/js","destination":"node\/28059"}});
+//--><!]]>
+</script>
+</head>
+<body class="html not-front not-logged-in two-sidebars page-node page-node- page-node-28059 node-type-scriptfu fluid-width" >
+  <div id="skip-link">
+    <a href="28059#main-content" class="element-invisible element-focusable">Skip to main content</a>
+  </div>
+      
+  <div id="wrapper">
+    <div id="container" class="clearfix">
+
+      <div id="header">
+        <div id="logo-floater">
+                              <div id="branding"><strong><a href="../index.html">
+                          <img src="../files/logo.png" alt="GIMP Plugin Registry " title="GIMP Plugin Registry " id="logo" />
+                        <span>GIMP Plugin Registry</span>            </a></strong></div>
+                          </div>
+
+        <h2 class="element-invisible">Main menu</h2><ul class="links inline main-menu"><li class="menu-100 first"><a href="../about" title="Information about the Registry">About</a></li>
+<li class="menu-136"><a href="23851" title="Documentation and How-Tos">Documentation</a></li>
+<li class="menu-88"><a href="../forum">Forums</a></li>
+<li class="menu-74"><a href="http://gug.criticalhit.dk" title="The GIMP User Group">GIMP User Group</a></li>
+<li class="menu-1142"><a href="25574" title="GIMP Help">Get Help</a></li>
+<li class="menu-1256"><a href="26216" title="Get info on using RSS to stay updated about what&#039;s going on on the site.">Stay Updated!</a></li>
+<li class="menu-73 last"><a href="http://www.gimp.org/" title="The GIMP Homepage">gimp.org</a></li>
+</ul>              </div> <!-- /#header -->
+
+              <div id="sidebar-first" class="sidebar">
+            <div class="region region-sidebar-first">
+    <div id="block-system-navigation" class="block block-system block-menu clearfix">
+
+    <h2 class="title">Navigation</h2>
+  
+  <div class="content">
+    <ul class="menu"><li class="first leaf"><a href="25574" title="FAQ &amp; How To&#039;s">FAQ &amp; How To&#039;s</a></li>
+<li class="leaf"><a href="../glossary.1" title="">Content By Name</a></li>
+<li class="collapsed"><a href="../aggregator">Feed aggregator</a></li>
+<li class="leaf"><a href="../popular">Popular content</a></li>
+<li class="leaf"><a href="25392" title="Report Spam Here">Report Spam Here</a></li>
+<li class="last leaf"><a href="../tagclouds">Tags</a></li>
+</ul>  </div>
+</div>
+<div id="block-block-1" class="block block-block clearfix">
+
+    
+  <div class="content">
+    If you'd like to upload plug-ins, please create an account below. You do <em>not</em> need one for download. Enjoy :-)  </div>
+</div>
+<div id="block-user-login" class="block block-user clearfix">
+
+    <h2 class="title">User login</h2>
+  
+  <div class="content">
+    <form action="http://registry.gimp.org/node/28059?destination=node/28059" method="post" id="user-login-form" accept-charset="UTF-8"><div><div class="form-item form-type-textfield form-item-name">
+  <label for="edit-name">Username <span class="form-required" title="This field is required.">*</span></label>
+ <input type="text" id="edit-name" name="name" value="" size="15" maxlength="60" class="form-text required" />
+</div>
+<div class="form-item form-type-password form-item-pass">
+  <label for="edit-pass">Password <span class="form-required" title="This field is required.">*</span></label>
+ <input type="password" id="edit-pass" name="pass" size="15" maxlength="128" class="form-text required" />
+</div>
+<div class="item-list"><ul><li class="first last"><a href="../user/password" title="Request new password via e-mail.">Request new password</a></li>
+</ul></div><input type="hidden" name="form_build_id" value="form-3DMuT1XYVJCIdzQaeUAaz1Au4b5SXHk3v7awvHQ8iVs" />
+<input type="hidden" name="form_id" value="user_login_block" />
+<div class="form-actions form-wrapper" id="edit-actions"><input type="submit" id="edit-submit" name="op" value="Log in" class="form-submit" /></div></div></form>  </div>
+</div>
+<div id="block-node-syndicate" class="block block-node clearfix">
+
+    <h2 class="title">Syndicate</h2>
+  
+  <div class="content">
+    <a href="../rss.xml" class="feed-icon" title="Subscribe to Syndicate"><img src="../misc/feed.png" width="16" height="16" alt="Subscribe to Syndicate" /></a>  </div>
+</div>
+  </div>
+        </div>
+      
+      <div id="center"><div id="squeeze"><div class="right-corner"><div class="left-corner">
+          <h2 class="element-invisible">You are here</h2><div class="breadcrumb"><a href="../index.html">Home</a></div>                    <a id="main-content"></a>
+          <div id="tabs-wrapper" class="clearfix">                                <h1 class="with-tabs">s</h1>
+                              </div>                                                  <div class="clearfix">
+              <div class="region region-content">
+    <div id="block-system-main" class="block block-system clearfix">
+
+    
+  <div class="content">
+    <div id="node-28059" class="node node-scriptfu node-promoted">
+
+  
+      
+      <span class="submitted">April 17, 2013 - 12:57 — <span class="username">sunil232</span></span>
+  
+  <div class="content clearfix">
+    <div class="form-item form-type-item">
+  <label>Rate </label>
+ <div class="rate-widget-2 rate-widget clear-block rate-average rate-widget-fivestar rate-c2f94a72ae79d832f1c54d5d85aa4245 rate-node-28059-2-3" id="rate-node-28059-2-3"><div class="item-list"><ul><li class="first"><span class="rate-button rate-fivestar-btn-empty rate-fivestar-1" id="rate-button-1">1</span></li>
+<li><span class="rate-button rate-fivestar-btn-empty rate-fivestar-2" id="rate-button-2">2</span></li>
+<li><span class="rate-button rate-fivestar-btn-empty rate-fivestar-3" id="rate-button-3">3</span></li>
+<li><span class="rate-button rate-fivestar-btn-empty rate-fivestar-4" id="rate-button-4">4</span></li>
+<li class="last"><span class="rate-button rate-fivestar-btn-empty rate-fivestar-5" id="rate-button-5">5</span></li>
+</ul></div><div class="rate-info">Total votes: 0</div><div class="rate-description">Rate this item!</div></div>
+</div>
+<div class="field field-name-body field-type-text-with-summary field-label-hidden"><div class="field-items"><div class="field-item even"><p>;;;<br />
+;;; COLOGRAM.SCM -*-scheme-*- This File is written by Friedemann Wolpert 2010<br />
+;;; You can contact the Author using the following eMail: <a href="mailto:Friedemann@MedienKunstOnline.De">Friedemann@MedienKunstOnline.De</a><br />
+;;; Project Entry for "Mach Flott den Schrott 2", Heise Magazin</p>
+<p>	(define (script-fu-cologram image layer rows-per-sec dpi-setting img-resize want-sharpen want-grid want-adjframe frameforecolor framerearcolor adjframedist adjframewidth want-cutframe cutframedist cutframewidth<br />
+	;anchor-top anchor-down anchor-left anchor-right format<br />
+	) </p>
+<p>	(let* (</p>
+<p>		(width (car (gimp-image-width image)))<br />
+		(height (car (gimp-image-height image)))<br />
+		(mode 0) (l 0) (y 0) (y2)<br />
+		(layerinfo (gimp-image-get-layers image)); needed for amount of Layers<br />
+		(num-layers (car layerinfo))<br />
+	 	(layers (cadr layerinfo))<br />
+		(width2 (* width num-layers)) ; ;   width2 = width * num-layers reversed<br />
+		(new-image) (new-layer) (floating-layer) (want-alpha)<br />
+        (grid-layer)<br />
+		(dpi-value)<br />
+		(Target-Width)<br />
+      	(Target-Height)<br />
+		(scaleval)<br />
+	)</p>
+<p>	; --- create new image<br />
+	(set! new-image (car (gimp-image-new width height mode)))</p>
+<p>	; --- start undo Group Cologram (new-image)<br />
+    (gimp-image-undo-group-start new-image); No History for generated Image<br />
+    (gimp-image-undo-group-start image); No History for generated Image</p>
+<p>	; -- Set Default Colors<br />
+	(gimp-context-set-default-colors)</p>
+<p>      ; reset Brush Sizes !!!</p>
+<p>	; --- Set Resolution to selected DPI Setting; place up</p>
+<p>	(cond </p>
+<p>        (( equal? dpi-setting 0 )<br />
+		  (set! dpi-value 300)<br />
+	    )<br />
+        (( equal? dpi-setting 1 )<br />
+		  (set! dpi-value 150)<br />
+	    )<br />
+        (( equal? dpi-setting 2 )<br />
+		  (set! dpi-value 180)<br />
+	    )<br />
+        (( equal? dpi-setting 3 )<br />
+		  (set! dpi-value 300)<br />
+	    )<br />
+        (( equal? dpi-setting 4 )<br />
+		  (set! dpi-value 360)<br />
+	    )<br />
+        (( equal? dpi-setting 5 )<br />
+		  (set! dpi-value 600)<br />
+	    )<br />
+        (( equal? dpi-setting 6 )<br />
+		  (set! dpi-value 720)<br />
+	    )</p>
+<p>	)</p>
+<p>	; img-resize - if value not 0 then resize image depending on DPI settings !!! reset width and height afterwards</p>
+<p>    ;<br />
+    ; "0 = No Changes (Default)" "1 = US-LETTER" "2 = US-LEGAL" "3 = Din A3" "4 = Din A4" "5 = Din A5" "6 = Din A6")<br />
+    ; </p>
+<p>	(cond ;  make sure to subtract the frame and cutmark width !!! - you can eval portrait or landscape depending on width &gt; height or vv.</p>
+<p>        (( equal? img-resize 1 )  ; 1 == US-LETTER 8.5 x 11 inch differ between (portrait &amp; landscape)  </p>
+<p>          	(cond ( (&lt; width height) ; width &lt; height -&gt; Height &gt; Width -&gt; Portrait</p>
+<p>			;Set Target Size<br />
+			(set! Target-Width (* 8.5 dpi-value)) ;  US LETTER Portrait<br />
+			(set! Target-Height  (* 11 dpi-value)) ; Scale Factor</p>
+<p>			; check if want cutframe &amp; want adjframe</p>
+<p>				(cond<br />
+          			(( equal? want-adjframe TRUE )</p>
+<p>  					(cond   ; still fits Image ?<br />
+					((&lt; (* (+ adjframewidth adjframedist) 2) Target-Height )</p>
+<p>						(set! Target-Height (- Target-Height (* (+ adjframewidth adjframedist) 2)) )</p>
+<p>					))</p>
+<p>					(set! scaleval (/ Target-Height height)) ; We want a proportional Image<br />
+					(set! Target-Width (* width scaleval))					</p>
+<p> 				))</p>
+<p>				(cond<br />
+          			(( equal? want-cutframe TRUE )</p>
+<p>  					(cond<br />
+					((&lt; (* (+ cutframewidth cutframedist) 2) Target-Width )</p>
+<p>						(set! Target-Width (- Target-Width (* (+ cutframewidth cutframedist) 2)) )</p>
+<p>					))</p>
+<p>  					(cond<br />
+					((&lt; (* (+ cutframewidth cutframedist) 2) Target-Height )</p>
+<p>						(set! Target-Height (- Target-Height (* (+ cutframewidth cutframedist) 2)) )					</p>
+<p>					))</p>
+<p> 				)) </p>
+<p>	    	))<br />
+	    	; US LETTER<br />
+          	(cond ( (&gt; width height) ; Landscape</p>
+<p>			;Set Target Size<br />
+			(set! Target-Height (* 8.5 dpi-value)) ;  US LETTER Landscape<br />
+			(set! Target-Width  (* 11 dpi-value))  ;  Scale Factor</p>
+<p>			; check if want cutframe &amp; want adjframe</p>
+<p>				(cond </p>
+<p>					(( equal? want-adjframe TRUE )</p>
+<p>						(cond   ; still fits Image ?<br />
+						((&lt; (* (+ adjframewidth adjframedist) 2) Target-Width )</p>
+<p>							(set! Target-Width (- Target-Width (* (+ adjframewidth adjframedist) 2)) )</p>
+<p>						))</p>
+<p>						(set! scaleval (/ Target-Width width)) ; We want a proportional Image<br />
+						(set! Target-Height (* height scaleval))<br />
+					)<br />
+ 				)</p>
+<p>				(cond </p>
+<p>          			(( equal? want-cutframe TRUE )</p>
+<p>						(cond   ; still fits Image ?<br />
+						((&lt; (* (+ cutframewidth cutframedist) 2) Target-Height )</p>
+<p>							(set! Target-Height (- Target-Height (* (+ cutframewidth cutframedist) 2)) )</p>
+<p>						))</p>
+<p>						(cond<br />
+						((&lt; (* (+ cutframewidth cutframedist) 2) Target-Width )</p>
+<p>							(set! Target-Width (- Target-Width (* (+ cutframewidth cutframedist) 2)) )					</p>
+<p>						))</p>
+<p> 				)) </p>
+<p>	    	)) </p>
+<p>			; US LETTER SQUARE<br />
+          	(cond((= width height) ; Square Format - use Landscape for Better Resolution </p>
+<p>				;Set Target Size<br />
+				(set! Target-Height (* 8.5 dpi-value)) ;  US LETTER Landscape<br />
+				(set! Target-Width  (* 11 dpi-value))  ;  Scale Factor</p>
+<p>				; check if want cutframe &amp; want adjframe</p>
+<p>					(cond<br />
+						(( equal? want-adjframe TRUE )</p>
+<p>						(cond   ; still fits Image ?<br />
+						((&lt; (* (+ adjframewidth adjframedist) 2) Target-Width )</p>
+<p>							(set! Target-Width (- Target-Width (* (+ adjframewidth adjframedist) 2)) )</p>
+<p>						))</p>
+<p>						(set! scaleval (/ Target-Width width)) ; We want a proportional Image<br />
+						(set! Target-Height (* height scaleval))					</p>
+<p>					))</p>
+<p>					(cond</p>
+<p>						(( equal? want-cutframe TRUE )</p>
+<p>							(cond<br />
+							((&lt; (* (+ cutframewidth cutframedist) 2) Target-Height )</p>
+<p>								(set! Target-Height (- Target-Height (* (+ cutframewidth cutframedist) 2)) )</p>
+<p>							))</p>
+<p>							(cond<br />
+							((&lt; (* (+ cutframewidth cutframedist) 2) Target-Width )</p>
+<p>								(set! Target-Width (- Target-Width (* (+ cutframewidth cutframedist) 2)) )					</p>
+<p>							))</p>
+<p>					)) </p>
+<p>				)</p>
+<p>			)  </p>
+<p>			; ------------------------------<br />
+			; Valid for all Target Sizes !!!<br />
+			; ------------------------------<br />
+			; reset width / height value !!!<br />
+			(set! width Target-Width)<br />
+			(set! height Target-Height)</p>
+<p>			; Scale Source Image to desired Size<br />
+			(gimp-image-scale-full image Target-Width Target-Height 3) ; 2 cubic 3 lancosz</p>
+<p>			   ; -- Resize the Image accordingly 	adjframewidth 8.5 x 11" x dpi-value </p>
+<p>			(gimp-image-scale new-image Target-Width Target-Height) ; Scale Source Images Up !  	</p>
+<p>			(set! width2 (* width num-layers)) </p>
+<p>			(cond ; -- Sharpen all Layers </p>
+<p>				(( equal? want-sharpen TRUE )</p>
+<p>					(set! l 0); l=0;</p>
+<p>					(while (&lt; l num-layers);  want-sharpen</p>
+<p>						(plug-in-unsharp-mask 0 image (aref layers l) 1 10 10)<br />
+						(set! l (+ l 1))              ; l = l + 1 </p>
+<p>					)<br />
+				)<br />
+			) ; want sharpen</p>
+<p>		) ; end US LETTER </p>
+<p>	   ;	-- START US LEGAL<br />
+       (( equal? img-resize 2 )  ; 2 == US-LEGAL 8.5 x 14 inch differ between (portrait/landscape/square)  </p>
+<p>          	(cond ( (&lt; width height) ; width &lt; height -&gt; Height &gt; Width -&gt; Portrait</p>
+<p>			;Set Target Size<br />
+			(set! Target-Width (* 8.5 dpi-value)) ;  US LEGAL Portrait<br />
+			(set! Target-Height  (* 14 dpi-value)) ; Scale Factor</p>
+<p>			; check if want cutframe &amp; want adjframe</p>
+<p>				(cond<br />
+          			(( equal? want-adjframe TRUE )</p>
+<p>  					(cond   ; still fits Image ?<br />
+					((&lt; (* (+ adjframewidth adjframedist) 2) Target-Height )</p>
+<p>						(set! Target-Height (- Target-Height (* (+ adjframewidth adjframedist) 2)) )</p>
+<p>					))</p>
+<p>					(set! scaleval (/ Target-Height height)) ; We want a proportional Image<br />
+					(set! Target-Width (* width scaleval))					</p>
+<p> 				))</p>
+<p>				(cond<br />
+          			(( equal? want-cutframe TRUE )</p>
+<p>  					(cond<br />
+					((&lt; (* (+ cutframewidth cutframedist) 2) Target-Width )</p>
+<p>						(set! Target-Width (- Target-Width (* (+ cutframewidth cutframedist) 2)) )</p>
+<p>					))</p>
+<p>  					(cond<br />
+					((&lt; (* (+ cutframewidth cutframedist) 2) Target-Height )</p>
+<p>						(set! Target-Height (- Target-Height (* (+ cutframewidth cutframedist) 2)) )					</p>
+<p>					))</p>
+<p> 				)) </p>
+<p>	    	))<br />
+	    	; US LEGAL<br />
+          	(cond ( (&gt; width height) ; Landscape</p>
+<p>			;Set Target Size<br />
+			(set! Target-Width  (* 14 dpi-value))  ;  Scale Factor<br />
+			(set! Target-Height (* 8.5 dpi-value)) ;  US LEGAL Landscape</p>
+<p>			; check if want cutframe &amp; want adjframe</p>
+<p>				(cond </p>
+<p>					(( equal? want-adjframe TRUE )</p>
+<p>						(cond   ; still fits Image ?<br />
+						((&lt; (* (+ adjframewidth adjframedist) 2) Target-Width )</p>
+<p>							(set! Target-Width (- Target-Width (* (+ adjframewidth adjframedist) 2)) )</p>
+<p>						))</p>
+<p>						(set! scaleval (/ Target-Width width)) ; We want a proportional Image<br />
+						(set! Target-Height (* height scaleval))<br />
+					)<br />
+ 				)</p>
+<p>				(cond </p>
+<p>          			(( equal? want-cutframe TRUE )</p>
+<p>						(cond   ; still fits Image ?<br />
+						((&lt; (* (+ cutframewidth cutframedist) 2) Target-Height )</p>
+<p>							(set! Target-Height (- Target-Height (* (+ cutframewidth cutframedist) 2)) )</p>
+<p>						))</p>
+<p>						(cond<br />
+						((&lt; (* (+ cutframewidth cutframedist) 2) Target-Width )</p>
+<p>							(set! Target-Width (- Target-Width (* (+ cutframewidth cutframedist) 2)) )					</p>
+<p>						))</p>
+<p> 				)) </p>
+<p>	    	)) </p>
+<p>			; US LEGAL SQUARE<br />
+          	(cond((= width height) ; Square Format - use Landscape for Better Resolution </p>
+<p>				;Set Target Size<br />
+				(set! Target-Width  (* 14 dpi-value))  ;  Scale Factor<br />
+				(set! Target-Height (* 8.5 dpi-value)) ;  US LEGAL Landscape</p>
+<p>				; check if want cutframe &amp; want adjframe</p>
+<p>					(cond<br />
+						(( equal? want-adjframe TRUE )</p>
+<p>						(cond   ; still fits Image ?<br />
+						((&lt; (* (+ adjframewidth adjframedist) 2) Target-Width )</p>
+<p>							(set! Target-Width (- Target-Width (* (+ adjframewidth adjframedist) 2)) )</p>
+<p>						))</p>
+<p>						(set! scaleval (/ Target-Width width)) ; We want a proportional Image<br />
+						(set! Target-Height (* height scaleval))					</p>
+<p>					))</p>
+<p>					(cond</p>
+<p>						(( equal? want-cutframe TRUE )</p>
+<p>							(cond<br />
+							((&lt; (* (+ cutframewidth cutframedist) 2) Target-Height )</p>
+<p>								(set! Target-Height (- Target-Height (* (+ cutframewidth cutframedist) 2)) )</p>
+<p>							))</p>
+<p>							(cond<br />
+							((&lt; (* (+ cutframewidth cutframedist) 2) Target-Width )</p>
+<p>								(set! Target-Width (- Target-Width (* (+ cutframewidth cutframedist) 2)) )					</p>
+<p>							))</p>
+<p>					)) </p>
+<p>				)</p>
+<p>			)  </p>
+<p>			; ------------------------------<br />
+			; Valid for all Target Sizes !!!<br />
+			; ------------------------------<br />
+			; reset width / height value !!!<br />
+			(set! width Target-Width)<br />
+			(set! height Target-Height)</p>
+<p>			; Scale Source Image to desired Size<br />
+			(gimp-image-scale-full image Target-Width Target-Height 3) ; 2 cubic 3 lancosz</p>
+<p>			   ; -- Resize the Image accordingly 	adjframewidth 8.5 x 11" x dpi-value </p>
+<p>			(gimp-image-scale new-image Target-Width Target-Height) ; Scale Source Images Up !  	</p>
+<p>			(set! width2 (* width num-layers)) </p>
+<p>			(cond ; -- Sharpen all Layers </p>
+<p>				(( equal? want-sharpen TRUE )</p>
+<p>					(set! l 0); l=0;</p>
+<p>					(while (&lt; l num-layers);  want-sharpen</p>
+<p>						(plug-in-unsharp-mask 0 image (aref layers l) 1 10 10)<br />
+						(set! l (+ l 1))              ; l = l + 1 </p>
+<p>					)<br />
+				)<br />
+			) ; want sharpen</p>
+<p>		) ; end US LEGAL 		</p>
+<p>	; --- Start Din A3 !!!</p>
+<p>       (( equal? img-resize 3 )  ; 3 == Din-A3 11.69 x 16.54 inch differ between (portrait/landscape/square)  </p>
+<p>          	(cond ( (&lt; width height) ; width &lt; height -&gt; Height &gt; Width -&gt; Portrait</p>
+<p>			;Set Target Size<br />
+			(set! Target-Width (* 11.69 dpi-value)) ;  Din A3 Portrait<br />
+			(set! Target-Height  (* 16.54 dpi-value)) ; Scale Factor</p>
+<p>			; check if want cutframe &amp; want adjframe</p>
+<p>				(cond<br />
+          			(( equal? want-adjframe TRUE )</p>
+<p>  					(cond   ; still fits Image ?<br />
+					((&lt; (* (+ adjframewidth adjframedist) 2) Target-Height )</p>
+<p>						(set! Target-Height (- Target-Height (* (+ adjframewidth adjframedist) 2)) )</p>
+<p>					))</p>
+<p>					(set! scaleval (/ Target-Height height)) ; We want a proportional Image<br />
+					(set! Target-Width (* width scaleval))					</p>
+<p> 				))</p>
+<p>				(cond<br />
+          			(( equal? want-cutframe TRUE )</p>
+<p>  					(cond<br />
+					((&lt; (* (+ cutframewidth cutframedist) 2) Target-Width )</p>
+<p>						(set! Target-Width (- Target-Width (* (+ cutframewidth cutframedist) 2)) )</p>
+<p>					))</p>
+<p>  					(cond<br />
+					((&lt; (* (+ cutframewidth cutframedist) 2) Target-Height )</p>
+<p>						(set! Target-Height (- Target-Height (* (+ cutframewidth cutframedist) 2)) )					</p>
+<p>					))</p>
+<p> 				)) </p>
+<p>	    	))<br />
+	    	; Din A3<br />
+          	(cond ( (&gt; width height) ; Landscape</p>
+<p>			;Set Target Size<br />
+			(set! Target-Width  (* 16.54 dpi-value))  ;  Scale Factor<br />
+			(set! Target-Height (* 11.69 dpi-value))  ;  Din A3 Landscape</p>
+<p>			; check if want cutframe &amp; want adjframe</p>
+<p>				(cond </p>
+<p>					(( equal? want-adjframe TRUE )</p>
+<p>						(cond   ; still fits Image ?<br />
+						((&lt; (* (+ adjframewidth adjframedist) 2) Target-Width )</p>
+<p>							(set! Target-Width (- Target-Width (* (+ adjframewidth adjframedist) 2)) )</p>
+<p>						))</p>
+<p>						(set! scaleval (/ Target-Width width)) ; We want a proportional Image<br />
+						(set! Target-Height (* height scaleval))<br />
+					)<br />
+ 				)</p>
+<p>				(cond </p>
+<p>          			(( equal? want-cutframe TRUE )</p>
+<p>						(cond   ; still fits Image ?<br />
+						((&lt; (* (+ cutframewidth cutframedist) 2) Target-Height )</p>
+<p>							(set! Target-Height (- Target-Height (* (+ cutframewidth cutframedist) 2)) )</p>
+<p>						))</p>
+<p>						(cond<br />
+						((&lt; (* (+ cutframewidth cutframedist) 2) Target-Width )</p>
+<p>							(set! Target-Width (- Target-Width (* (+ cutframewidth cutframedist) 2)) )					</p>
+<p>						))</p>
+<p> 				)) </p>
+<p>	    	)) </p>
+<p>			; Din A3 SQUARE<br />
+          	(cond((= width height) ; Square Format - use Landscape for Better Resolution </p>
+<p>				;Set Target Size<br />
+				(set! Target-Width  (* 16.54 dpi-value))  ;  Scale Factor<br />
+				(set! Target-Height (* 11.69 dpi-value))  ;  Din A3 Landscape</p>
+<p>				; check if want cutframe &amp; want adjframe</p>
+<p>					(cond<br />
+						(( equal? want-adjframe TRUE )</p>
+<p>						(cond   ; still fits Image ?<br />
+						((&lt; (* (+ adjframewidth adjframedist) 2) Target-Width )</p>
+<p>							(set! Target-Width (- Target-Width (* (+ adjframewidth adjframedist) 2)) )</p>
+<p>						))</p>
+<p>						(set! scaleval (/ Target-Width width)) ; We want a proportional Image<br />
+						(set! Target-Height (* height scaleval))					</p>
+<p>					))</p>
+<p>					(cond</p>
+<p>						(( equal? want-cutframe TRUE )</p>
+<p>							(cond<br />
+							((&lt; (* (+ cutframewidth cutframedist) 2) Target-Height )</p>
+<p>								(set! Target-Height (- Target-Height (* (+ cutframewidth cutframedist) 2)) )</p>
+<p>							))</p>
+<p>							(cond<br />
+							((&lt; (* (+ cutframewidth cutframedist) 2) Target-Width )</p>
+<p>								(set! Target-Width (- Target-Width (* (+ cutframewidth cutframedist) 2)) )					</p>
+<p>							))</p>
+<p>					)) </p>
+<p>				)</p>
+<p>			)  </p>
+<p>			; ------------------------------<br />
+			; Valid for all Target Sizes !!!<br />
+			; ------------------------------<br />
+			; reset width / height value !!!<br />
+			(set! width Target-Width)<br />
+			(set! height Target-Height)</p>
+<p>			; Scale Source Image to desired Size<br />
+			(gimp-image-scale-full image Target-Width Target-Height 3) ; 2 cubic 3 lancosz</p>
+<p>			   ; -- Resize the Image accordingly 	adjframewidth 8.5 x 11" x dpi-value </p>
+<p>			(gimp-image-scale new-image Target-Width Target-Height) ; Scale Source Images Up !  	</p>
+<p>			(set! width2 (* width num-layers)) </p>
+<p>			(cond ; -- Sharpen all Layers </p>
+<p>				(( equal? want-sharpen TRUE )</p>
+<p>					(set! l 0); l=0;</p>
+<p>					(while (&lt; l num-layers);  want-sharpen</p>
+<p>						(plug-in-unsharp-mask 0 image (aref layers l) 1 10 10)<br />
+						(set! l (+ l 1))              ; l = l + 1 </p>
+<p>					)<br />
+				)<br />
+			) ; want sharpen</p>
+<p>		) ; end Din A3 		</p>
+<p>		; --- Start Din A4 !!!</p>
+<p>       (( equal? img-resize 4 )  ; 4 == Din-A4 8.27 x 11.69 inch differ between (portrait/landscape/square)  </p>
+<p>          	(cond ( (&lt; width height) ; width &lt; height -&gt; Height &gt; Width -&gt; Portrait</p>
+<p>			;Set Target Size<br />
+			(set! Target-Width  (* 8.27 dpi-value)) ;  Din A4 Portrait<br />
+			(set! Target-Height (* 11.69 dpi-value)) ; Scale Factor</p>
+<p>			; check if want cutframe &amp; want adjframe</p>
+<p>				(cond<br />
+          			(( equal? want-adjframe TRUE )</p>
+<p>  					(cond   ; still fits Image ?<br />
+					((&lt; (* (+ adjframewidth adjframedist) 2) Target-Height )</p>
+<p>						(set! Target-Height (- Target-Height (* (+ adjframewidth adjframedist) 2)) )</p>
+<p>					))</p>
+<p>					(set! scaleval (/ Target-Height height)) ; We want a proportional Image<br />
+					(set! Target-Width (* width scaleval))					</p>
+<p> 				))</p>
+<p>				(cond<br />
+          			(( equal? want-cutframe TRUE )</p>
+<p>  					(cond<br />
+					((&lt; (* (+ cutframewidth cutframedist) 2) Target-Width )</p>
+<p>						(set! Target-Width (- Target-Width (* (+ cutframewidth cutframedist) 2)) )</p>
+<p>					))</p>
+<p>  					(cond<br />
+					((&lt; (* (+ cutframewidth cutframedist) 2) Target-Height )</p>
+<p>						(set! Target-Height (- Target-Height (* (+ cutframewidth cutframedist) 2)) )					</p>
+<p>					))</p>
+<p> 				)) </p>
+<p>	    	))<br />
+	    	; Din A4<br />
+          	(cond ( (&gt; width height) ; Landscape</p>
+<p>			;Set Target Size<br />
+			(set! Target-Width  (* 11.69 dpi-value))  ;  Scale Factor<br />
+			(set! Target-Height (* 8.27 dpi-value))   ;  Din A4 Landscape</p>
+<p>			; check if want cutframe &amp; want adjframe</p>
+<p>				(cond </p>
+<p>					(( equal? want-adjframe TRUE )</p>
+<p>						(cond   ; still fits Image ?<br />
+						((&lt; (* (+ adjframewidth adjframedist) 2) Target-Width )</p>
+<p>							(set! Target-Width (- Target-Width (* (+ adjframewidth adjframedist) 2)) )</p>
+<p>						))</p>
+<p>						(set! scaleval (/ Target-Width width)) ; We want a proportional Image<br />
+						(set! Target-Height (* height scaleval))<br />
+					)<br />
+ 				)</p>
+<p>				(cond </p>
+<p>          			(( equal? want-cutframe TRUE )</p>
+<p>						(cond   ; still fits Image ?<br />
+						((&lt; (* (+ cutframewidth cutframedist) 2) Target-Height )</p>
+<p>							(set! Target-Height (- Target-Height (* (+ cutframewidth cutframedist) 2)) )</p>
+<p>						))</p>
+<p>						(cond<br />
+						((&lt; (* (+ cutframewidth cutframedist) 2) Target-Width )</p>
+<p>							(set! Target-Width (- Target-Width (* (+ cutframewidth cutframedist) 2)) )					</p>
+<p>						))</p>
+<p> 				)) </p>
+<p>	    	)) </p>
+<p>			; Din A4 SQUARE<br />
+          	(cond((= width height) ; Square Format - use Landscape for Better Resolution </p>
+<p>				;Set Target Size<br />
+				(set! Target-Width  (* 11.69 dpi-value))  ;  Scale Factor<br />
+				(set! Target-Height (* 8.27 dpi-value))   ;  Din A4 Landscape</p>
+<p>				; check if want cutframe &amp; want adjframe</p>
+<p>					(cond<br />
+						(( equal? want-adjframe TRUE )</p>
+<p>						(cond   ; still fits Image ?<br />
+						((&lt; (* (+ adjframewidth adjframedist) 2) Target-Width )</p>
+<p>							(set! Target-Width (- Target-Width (* (+ adjframewidth adjframedist) 2)) )</p>
+<p>						))</p>
+<p>						(set! scaleval (/ Target-Width width)) ; We want a proportional Image<br />
+						(set! Target-Height (* height scaleval))					</p>
+<p>					))</p>
+<p>					(cond</p>
+<p>						(( equal? want-cutframe TRUE )</p>
+<p>							(cond<br />
+							((&lt; (* (+ cutframewidth cutframedist) 2) Target-Height )</p>
+<p>								(set! Target-Height (- Target-Height (* (+ cutframewidth cutframedist) 2)) )</p>
+<p>							))</p>
+<p>							(cond<br />
+							((&lt; (* (+ cutframewidth cutframedist) 2) Target-Width )</p>
+<p>								(set! Target-Width (- Target-Width (* (+ cutframewidth cutframedist) 2)) )					</p>
+<p>							))</p>
+<p>					)) </p>
+<p>				)</p>
+<p>			)  </p>
+<p>			; ------------------------------<br />
+			; Valid for all Target Sizes !!!<br />
+			; ------------------------------<br />
+			; reset width / height value !!!<br />
+			(set! width Target-Width)<br />
+			(set! height Target-Height)</p>
+<p>			; Scale Source Image to desired Size<br />
+			(gimp-image-scale-full image Target-Width Target-Height 3) ; 2 cubic 3 lancosz</p>
+<p>			   ; -- Resize the Image accordingly 	adjframewidth 8.5 x 11" x dpi-value </p>
+<p>			(gimp-image-scale new-image Target-Width Target-Height) ; Scale Source Images Up !  	</p>
+<p>			(set! width2 (* width num-layers)) </p>
+<p>			(cond ; -- Sharpen all Layers </p>
+<p>				(( equal? want-sharpen TRUE )</p>
+<p>					(set! l 0); l=0;</p>
+<p>					(while (&lt; l num-layers);  want-sharpen</p>
+<p>						(plug-in-unsharp-mask 0 image (aref layers l) 1 10 10)<br />
+						(set! l (+ l 1))              ; l = l + 1 </p>
+<p>					)<br />
+				)<br />
+			) ; want sharpen</p>
+<p>		) ; end Din A4	</p>
+<p>	; --- Start Din A5 !!!</p>
+<p>       (( equal? img-resize 5 )  ; 5 == Din-A5 5.83 x 8.27 inch differ between (portrait/landscape/square)  </p>
+<p>          	(cond ( (&lt; width height) ; width &lt; height -&gt; Height &gt; Width -&gt; Portrait</p>
+<p>			;Set Target Size<br />
+			(set! Target-Width (* 5.83 dpi-value))  ; Din A5 Portrait<br />
+			(set! Target-Height (* 8.27 dpi-value)) ; Scale Factor</p>
+<p>			; check if want cutframe &amp; want adjframe</p>
+<p>				(cond<br />
+          			(( equal? want-adjframe TRUE )</p>
+<p>  					(cond   ; still fits Image ?<br />
+					((&lt; (* (+ adjframewidth adjframedist) 2) Target-Height )</p>
+<p>						(set! Target-Height (- Target-Height (* (+ adjframewidth adjframedist) 2)) )</p>
+<p>					))</p>
+<p>					(set! scaleval (/ Target-Height height)) ; We want a proportional Image<br />
+					(set! Target-Width (* width scaleval))					</p>
+<p> 				))</p>
+<p>				(cond<br />
+          			(( equal? want-cutframe TRUE )</p>
+<p>  					(cond<br />
+					((&lt; (* (+ cutframewidth cutframedist) 2) Target-Width )</p>
+<p>						(set! Target-Width (- Target-Width (* (+ cutframewidth cutframedist) 2)) )</p>
+<p>					))</p>
+<p>  					(cond<br />
+					((&lt; (* (+ cutframewidth cutframedist) 2) Target-Height )</p>
+<p>						(set! Target-Height (- Target-Height (* (+ cutframewidth cutframedist) 2)) )					</p>
+<p>					))</p>
+<p> 				)) </p>
+<p>	    	))<br />
+	    	; Din A5<br />
+          	(cond ( (&gt; width height) ; Landscape</p>
+<p>			;Set Target Size<br />
+			(set! Target-Width  (* 8.27 dpi-value))  ;  Scale Factor<br />
+			(set! Target-Height (* 5.83 dpi-value))  ;  Din A5 Landscape</p>
+<p>			; check if want cutframe &amp; want adjframe</p>
+<p>				(cond </p>
+<p>					(( equal? want-adjframe TRUE )</p>
+<p>						(cond   ; still fits Image ?<br />
+						((&lt; (* (+ adjframewidth adjframedist) 2) Target-Width )</p>
+<p>							(set! Target-Width (- Target-Width (* (+ adjframewidth adjframedist) 2)) )</p>
+<p>						))</p>
+<p>						(set! scaleval (/ Target-Width width)) ; We want a proportional Image<br />
+						(set! Target-Height (* height scaleval))<br />
+					)<br />
+ 				)</p>
+<p>				(cond </p>
+<p>          			(( equal? want-cutframe TRUE )</p>
+<p>						(cond   ; still fits Image ?<br />
+						((&lt; (* (+ cutframewidth cutframedist) 2) Target-Height )</p>
+<p>							(set! Target-Height (- Target-Height (* (+ cutframewidth cutframedist) 2)) )</p>
+<p>						))</p>
+<p>						(cond<br />
+						((&lt; (* (+ cutframewidth cutframedist) 2) Target-Width )</p>
+<p>							(set! Target-Width (- Target-Width (* (+ cutframewidth cutframedist) 2)) )					</p>
+<p>						))</p>
+<p> 				)) </p>
+<p>	    	)) </p>
+<p>			; Din A5 SQUARE<br />
+          	(cond((= width height) ; Square Format - use Landscape for Better Resolution </p>
+<p>				;Set Target Size<br />
+				(set! Target-Width  (* 8.27 dpi-value))  ;  Scale Factor<br />
+				(set! Target-Height (* 5.83 dpi-value))  ;  Din A5 Landscape</p>
+<p>				; check if want cutframe &amp; want adjframe</p>
+<p>					(cond<br />
+						(( equal? want-adjframe TRUE )</p>
+<p>						(cond   ; still fits Image ?<br />
+						((&lt; (* (+ adjframewidth adjframedist) 2) Target-Width )</p>
+<p>							(set! Target-Width (- Target-Width (* (+ adjframewidth adjframedist) 2)) )</p>
+<p>						))</p>
+<p>						(set! scaleval (/ Target-Width width)) ; We want a proportional Image<br />
+						(set! Target-Height (* height scaleval))					</p>
+<p>					))</p>
+<p>					(cond</p>
+<p>						(( equal? want-cutframe TRUE )</p>
+<p>							(cond<br />
+							((&lt; (* (+ cutframewidth cutframedist) 2) Target-Height )</p>
+<p>								(set! Target-Height (- Target-Height (* (+ cutframewidth cutframedist) 2)) )</p>
+<p>							))</p>
+<p>							(cond<br />
+							((&lt; (* (+ cutframewidth cutframedist) 2) Target-Width )</p>
+<p>								(set! Target-Width (- Target-Width (* (+ cutframewidth cutframedist) 2)) )					</p>
+<p>							))</p>
+<p>					)) </p>
+<p>				)</p>
+<p>			)  </p>
+<p>			; ------------------------------<br />
+			; Valid for all Target Sizes !!!<br />
+			; ------------------------------<br />
+			; reset width / height value !!!<br />
+			(set! width Target-Width)<br />
+			(set! height Target-Height)</p>
+<p>			; Scale Source Image to desired Size<br />
+			(gimp-image-scale-full image Target-Width Target-Height 3) ; 2 cubic 3 lancosz</p>
+<p>			   ; -- Resize the Image accordingly 	adjframewidth 8.5 x 11" x dpi-value </p>
+<p>			(gimp-image-scale new-image Target-Width Target-Height) ; Scale Source Images Up !  	</p>
+<p>			(set! width2 (* width num-layers)) </p>
+<p>			(cond ; -- Sharpen all Layers </p>
+<p>				(( equal? want-sharpen TRUE )</p>
+<p>					(set! l 0); l=0;</p>
+<p>					(while (&lt; l num-layers);  want-sharpen</p>
+<p>						(plug-in-unsharp-mask 0 image (aref layers l) 1 10 10)<br />
+						(set! l (+ l 1))              ; l = l + 1 </p>
+<p>					)<br />
+				)<br />
+			) ; want sharpen</p>
+<p>		) ; end Din A5	</p>
+<p>		; --- Start Din A6 !!!</p>
+<p>       (( equal? img-resize 6 )  ; 6 == Din-A6 4.13 x 5.83 inch differ between (portrait/landscape/square)  </p>
+<p>          	(cond ( (&lt; width height) ; width &lt; height -&gt; Height &gt; Width -&gt; Portrait</p>
+<p>			;Set Target Size<br />
+			(set! Target-Width   (* 4.13 dpi-value)) ;  Din A6 Portrait<br />
+			(set! Target-Height  (* 5.83 dpi-value)) ;  Scale Factor</p>
+<p>			; check if want cutframe &amp; want adjframe</p>
+<p>				(cond<br />
+          			(( equal? want-adjframe TRUE )</p>
+<p>  					(cond   ; still fits Image ?<br />
+					((&lt; (* (+ adjframewidth adjframedist) 2) Target-Height )</p>
+<p>						(set! Target-Height (- Target-Height (* (+ adjframewidth adjframedist) 2)) )</p>
+<p>					))</p>
+<p>					(set! scaleval (/ Target-Height height)) ; We want a proportional Image<br />
+					(set! Target-Width (* width scaleval))					</p>
+<p> 				))</p>
+<p>				(cond<br />
+          			(( equal? want-cutframe TRUE )</p>
+<p>  					(cond<br />
+					((&lt; (* (+ cutframewidth cutframedist) 2) Target-Width )</p>
+<p>						(set! Target-Width (- Target-Width (* (+ cutframewidth cutframedist) 2)) )</p>
+<p>					))</p>
+<p>  					(cond<br />
+					((&lt; (* (+ cutframewidth cutframedist) 2) Target-Height )</p>
+<p>						(set! Target-Height (- Target-Height (* (+ cutframewidth cutframedist) 2)) )					</p>
+<p>					))</p>
+<p> 				)) </p>
+<p>	    	))<br />
+	    	; Din A6<br />
+          	(cond ( (&gt; width height) ; Landscape</p>
+<p>			;Set Target Size<br />
+			(set! Target-Width  (* 5.83 dpi-value))  ;  Scale Factor<br />
+			(set! Target-Height (* 4.13 dpi-value))  ;  Din A6 Landscape</p>
+<p>			; check if want cutframe &amp; want adjframe</p>
+<p>				(cond </p>
+<p>					(( equal? want-adjframe TRUE )</p>
+<p>						(cond   ; still fits Image ?<br />
+						((&lt; (* (+ adjframewidth adjframedist) 2) Target-Width )</p>
+<p>							(set! Target-Width (- Target-Width (* (+ adjframewidth adjframedist) 2)) )</p>
+<p>						))</p>
+<p>						(set! scaleval (/ Target-Width width)) ; We want a proportional Image<br />
+						(set! Target-Height (* height scaleval))<br />
+					)<br />
+ 				)</p>
+<p>				(cond </p>
+<p>          			(( equal? want-cutframe TRUE )</p>
+<p>						(cond   ; still fits Image ?<br />
+						((&lt; (* (+ cutframewidth cutframedist) 2) Target-Height )</p>
+<p>							(set! Target-Height (- Target-Height (* (+ cutframewidth cutframedist) 2)) )</p>
+<p>						))</p>
+<p>						(cond<br />
+						((&lt; (* (+ cutframewidth cutframedist) 2) Target-Width )</p>
+<p>							(set! Target-Width (- Target-Width (* (+ cutframewidth cutframedist) 2)) )					</p>
+<p>						))</p>
+<p> 				)) </p>
+<p>	    	)) </p>
+<p>			; Din A6 SQUARE<br />
+          	(cond((= width height) ; Square Format - use Landscape for Better Resolution </p>
+<p>				;Set Target Size<br />
+				(set! Target-Width  (* 5.83 dpi-value))  ;  Scale Factor<br />
+				(set! Target-Height (* 4.13 dpi-value))  ;  Din A6 Landscape</p>
+<p>				; check if want cutframe &amp; want adjframe</p>
+<p>					(cond<br />
+						(( equal? want-adjframe TRUE )</p>
+<p>						(cond   ; still fits Image ?<br />
+						((&lt; (* (+ adjframewidth adjframedist) 2) Target-Width )</p>
+<p>							(set! Target-Width (- Target-Width (* (+ adjframewidth adjframedist) 2)) )</p>
+<p>						))</p>
+<p>						(set! scaleval (/ Target-Width width)) ; We want a proportional Image<br />
+						(set! Target-Height (* height scaleval))					</p>
+<p>					))</p>
+<p>					(cond</p>
+<p>						(( equal? want-cutframe TRUE )</p>
+<p>							(cond<br />
+							((&lt; (* (+ cutframewidth cutframedist) 2) Target-Height )</p>
+<p>								(set! Target-Height (- Target-Height (* (+ cutframewidth cutframedist) 2)) )</p>
+<p>							))</p>
+<p>							(cond<br />
+							((&lt; (* (+ cutframewidth cutframedist) 2) Target-Width )</p>
+<p>								(set! Target-Width (- Target-Width (* (+ cutframewidth cutframedist) 2)) )					</p>
+<p>							))</p>
+<p>					)) </p>
+<p>				)</p>
+<p>			)  </p>
+<p>			; ------------------------------<br />
+			; Valid for all Target Sizes !!!<br />
+			; ------------------------------<br />
+			; reset width / height value !!!<br />
+			(set! width Target-Width)<br />
+			(set! height Target-Height)</p>
+<p>			; Scale Source Image to desired Size<br />
+			(gimp-image-scale-full image Target-Width Target-Height 3) ; 2 cubic 3 lancosz</p>
+<p>			   ; -- Resize the Image accordingly 	adjframewidth 8.5 x 11" x dpi-value </p>
+<p>			(gimp-image-scale new-image Target-Width Target-Height) ; Scale Source Images Up !  	</p>
+<p>			(set! width2 (* width num-layers)) </p>
+<p>			(cond ; -- Sharpen all Layers </p>
+<p>				(( equal? want-sharpen TRUE )</p>
+<p>					(set! l 0); l=0;</p>
+<p>					(while (&lt; l num-layers);  want-sharpen</p>
+<p>						(plug-in-unsharp-mask 0 image (aref layers l) 1 10 10)<br />
+						(set! l (+ l 1))              ; l = l + 1 </p>
+<p>					)<br />
+				)<br />
+			) ; want sharpen</p>
+<p>		) ; end Din A6 		</p>
+<p>		; --- Start Din A7 !!!</p>
+<p>       (( equal? img-resize 7 )  ; 7 == Din-A7 2.91 x 4.13 inch differ between (portrait/landscape/square)  </p>
+<p>          	(cond ( (&lt; width height) ; width &lt; height -&gt; Height &gt; Width -&gt; Portrait</p>
+<p>			;Set Target Size<br />
+			(set! Target-Width (* 2.91 dpi-value)) ;  Din A7 Portrait<br />
+			(set! Target-Height  (* 4.13 dpi-value)) ; Scale Factor</p>
+<p>			; check if want cutframe &amp; want adjframe</p>
+<p>				(cond<br />
+          			(( equal? want-adjframe TRUE )</p>
+<p>  					(cond   ; still fits Image ?<br />
+					((&lt; (* (+ adjframewidth adjframedist) 2) Target-Height )</p>
+<p>						(set! Target-Height (- Target-Height (* (+ adjframewidth adjframedist) 2)) )</p>
+<p>					))</p>
+<p>					(set! scaleval (/ Target-Height height)) ; We want a proportional Image<br />
+					(set! Target-Width (* width scaleval))					</p>
+<p> 				))</p>
+<p>				(cond<br />
+          			(( equal? want-cutframe TRUE )</p>
+<p>  					(cond<br />
+					((&lt; (* (+ cutframewidth cutframedist) 2) Target-Width )</p>
+<p>						(set! Target-Width (- Target-Width (* (+ cutframewidth cutframedist) 2)) )</p>
+<p>					))</p>
+<p>  					(cond<br />
+					((&lt; (* (+ cutframewidth cutframedist) 2) Target-Height )</p>
+<p>						(set! Target-Height (- Target-Height (* (+ cutframewidth cutframedist) 2)) )					</p>
+<p>					))</p>
+<p> 				)) </p>
+<p>	    	))<br />
+	    	; Din A7<br />
+          	(cond ( (&gt; width height) ; Landscape</p>
+<p>			;Set Target Size<br />
+			(set! Target-Width  (* 4.13 dpi-value))  ;  Scale Factor<br />
+			(set! Target-Height (* 2.91 dpi-value))  ;  Din A7 Landscape</p>
+<p>			; check if want cutframe &amp; want adjframe</p>
+<p>				(cond </p>
+<p>					(( equal? want-adjframe TRUE )</p>
+<p>						(cond   ; still fits Image ?<br />
+						((&lt; (* (+ adjframewidth adjframedist) 2) Target-Width )</p>
+<p>							(set! Target-Width (- Target-Width (* (+ adjframewidth adjframedist) 2)) )</p>
+<p>						))</p>
+<p>						(set! scaleval (/ Target-Width width)) ; We want a proportional Image<br />
+						(set! Target-Height (* height scaleval))<br />
+					)<br />
+ 				)</p>
+<p>				(cond </p>
+<p>          			(( equal? want-cutframe TRUE )</p>
+<p>						(cond   ; still fits Image ?<br />
+						((&lt; (* (+ cutframewidth cutframedist) 2) Target-Height )</p>
+<p>							(set! Target-Height (- Target-Height (* (+ cutframewidth cutframedist) 2)) )</p>
+<p>						))</p>
+<p>						(cond<br />
+						((&lt; (* (+ cutframewidth cutframedist) 2) Target-Width )</p>
+<p>							(set! Target-Width (- Target-Width (* (+ cutframewidth cutframedist) 2)) )					</p>
+<p>						))</p>
+<p> 				)) </p>
+<p>	    	)) </p>
+<p>			; Din A7 SQUARE<br />
+          	(cond((= width height) ; Square Format - use Landscape for Better Resolution </p>
+<p>				;Set Target Size<br />
+				(set! Target-Width  (* 4.13 dpi-value))  ;  Scale Factor<br />
+				(set! Target-Height (* 2.91 dpi-value))  ;  Din A7 Landscape</p>
+<p>				; check if want cutframe &amp; want adjframe</p>
+<p>					(cond<br />
+						(( equal? want-adjframe TRUE )</p>
+<p>						(cond   ; still fits Image ?<br />
+						((&lt; (* (+ adjframewidth adjframedist) 2) Target-Width )</p>
+<p>							(set! Target-Width (- Target-Width (* (+ adjframewidth adjframedist) 2)) )</p>
+<p>						))</p>
+<p>						(set! scaleval (/ Target-Width width)) ; We want a proportional Image<br />
+						(set! Target-Height (* height scaleval))					</p>
+<p>					))</p>
+<p>					(cond</p>
+<p>						(( equal? want-cutframe TRUE )</p>
+<p>							(cond<br />
+							((&lt; (* (+ cutframewidth cutframedist) 2) Target-Height )</p>
+<p>								(set! Target-Height (- Target-Height (* (+ cutframewidth cutframedist) 2)) )</p>
+<p>							))</p>
+<p>							(cond<br />
+							((&lt; (* (+ cutframewidth cutframedist) 2) Target-Width )</p>
+<p>								(set! Target-Width (- Target-Width (* (+ cutframewidth cutframedist) 2)) )					</p>
+<p>							))</p>
+<p>					)) </p>
+<p>				)</p>
+<p>			)  </p>
+<p>			; ------------------------------<br />
+			; Valid for all Target Sizes !!!<br />
+			; ------------------------------<br />
+			; reset width / height value !!!<br />
+			(set! width Target-Width)<br />
+			(set! height Target-Height)</p>
+<p>			; Scale Source Image to desired Size<br />
+			(gimp-image-scale-full image Target-Width Target-Height 3) ; 2 cubic 3 lancosz</p>
+<p>			   ; -- Resize the Image accordingly 	adjframewidth 8.5 x 11" x dpi-value </p>
+<p>			(gimp-image-scale new-image Target-Width Target-Height) ; Scale Source Images Up !  	</p>
+<p>			(set! width2 (* width num-layers)) </p>
+<p>			(cond ; -- Sharpen all Layers </p>
+<p>				(( equal? want-sharpen TRUE )</p>
+<p>					(set! l 0); l=0;</p>
+<p>					(while (&lt; l num-layers);  want-sharpen</p>
+<p>						(plug-in-unsharp-mask 0 image (aref layers l) 1 10 10)<br />
+						(set! l (+ l 1))              ; l = l + 1 </p>
+<p>					)<br />
+				)<br />
+			) ; want sharpen</p>
+<p>		) ; end Din A7	</p>
+<p>		; --- Start Din A8 !!!</p>
+<p>       (( equal? img-resize 8 )  ; 8 == Din-A8 2.05 x 2.91 inch differ between (portrait/landscape/square)  </p>
+<p>          	(cond ( (&lt; width height) ; width &lt; height -&gt; Height &gt; Width -&gt; Portrait</p>
+<p>			;Set Target Size<br />
+			(set! Target-Width (* 2.05 dpi-value)) ;  Din A8 Portrait<br />
+			(set! Target-Height  (* 2.91 dpi-value)) ; Scale Factor</p>
+<p>			; check if want cutframe &amp; want adjframe</p>
+<p>				(cond<br />
+          			(( equal? want-adjframe TRUE )</p>
+<p>  					(cond   ; still fits Image ?<br />
+					((&lt; (* (+ adjframewidth adjframedist) 2) Target-Height )</p>
+<p>						(set! Target-Height (- Target-Height (* (+ adjframewidth adjframedist) 2)) )</p>
+<p>					))</p>
+<p>					(set! scaleval (/ Target-Height height)) ; We want a proportional Image<br />
+					(set! Target-Width (* width scaleval))					</p>
+<p> 				))</p>
+<p>				(cond<br />
+          			(( equal? want-cutframe TRUE )</p>
+<p>  					(cond<br />
+					((&lt; (* (+ cutframewidth cutframedist) 2) Target-Width )</p>
+<p>						(set! Target-Width (- Target-Width (* (+ cutframewidth cutframedist) 2)) )</p>
+<p>					))</p>
+<p>  					(cond<br />
+					((&lt; (* (+ cutframewidth cutframedist) 2) Target-Height )</p>
+<p>						(set! Target-Height (- Target-Height (* (+ cutframewidth cutframedist) 2)) )					</p>
+<p>					))</p>
+<p> 				)) </p>
+<p>	    	))<br />
+	    	; Din A8<br />
+          	(cond ( (&gt; width height) ; Landscape</p>
+<p>			;Set Target Size<br />
+			(set! Target-Width  (* 2.91 dpi-value))  ;  Scale Factor<br />
+			(set! Target-Height (* 2.05 dpi-value))  ;  Din A8 Landscape</p>
+<p>			; check if want cutframe &amp; want adjframe</p>
+<p>				(cond </p>
+<p>					(( equal? want-adjframe TRUE )</p>
+<p>						(cond   ; still fits Image ?<br />
+						((&lt; (* (+ adjframewidth adjframedist) 2) Target-Width )</p>
+<p>							(set! Target-Width (- Target-Width (* (+ adjframewidth adjframedist) 2)) )</p>
+<p>						))</p>
+<p>						(set! scaleval (/ Target-Width width)) ; We want a proportional Image<br />
+						(set! Target-Height (* height scaleval))<br />
+					)<br />
+ 				)</p>
+<p>				(cond </p>
+<p>          			(( equal? want-cutframe TRUE )</p>
+<p>						(cond   ; still fits Image ?<br />
+						((&lt; (* (+ cutframewidth cutframedist) 2) Target-Height )</p>
+<p>							(set! Target-Height (- Target-Height (* (+ cutframewidth cutframedist) 2)) )</p>
+<p>						))</p>
+<p>						(cond<br />
+						((&lt; (* (+ cutframewidth cutframedist) 2) Target-Width )</p>
+<p>							(set! Target-Width (- Target-Width (* (+ cutframewidth cutframedist) 2)) )					</p>
+<p>						))</p>
+<p> 				)) </p>
+<p>	    	)) </p>
+<p>			; Din A8 SQUARE<br />
+          	(cond((= width height) ; Square Format - use Landscape for Better Resolution </p>
+<p>				;Set Target Size<br />
+				(set! Target-Width  (* 2.91 dpi-value))  ;  Scale Factor<br />
+				(set! Target-Height (* 2.05 dpi-value))  ;  Din A8 Landscape</p>
+<p>				; check if want cutframe &amp; want adjframe</p>
+<p>					(cond<br />
+						(( equal? want-adjframe TRUE )</p>
+<p>						(cond   ; still fits Image ?<br />
+						((&lt; (* (+ adjframewidth adjframedist) 2) Target-Width )</p>
+<p>							(set! Target-Width (- Target-Width (* (+ adjframewidth adjframedist) 2)) )</p>
+<p>						))</p>
+<p>						(set! scaleval (/ Target-Width width)) ; We want a proportional Image<br />
+						(set! Target-Height (* height scaleval))					</p>
+<p>					))</p>
+<p>					(cond</p>
+<p>						(( equal? want-cutframe TRUE )</p>
+<p>							(cond<br />
+							((&lt; (* (+ cutframewidth cutframedist) 2) Target-Height )</p>
+<p>								(set! Target-Height (- Target-Height (* (+ cutframewidth cutframedist) 2)) )</p>
+<p>							))</p>
+<p>							(cond<br />
+							((&lt; (* (+ cutframewidth cutframedist) 2) Target-Width )</p>
+<p>								(set! Target-Width (- Target-Width (* (+ cutframewidth cutframedist) 2)) )					</p>
+<p>							))</p>
+<p>					)) </p>
+<p>				)</p>
+<p>			)<br />
+			; ------------------------------<br />
+			; Valid for all Target Sizes !!!<br />
+			; ------------------------------<br />
+			; reset width / height value !!!<br />
+			(set! width Target-Width)<br />
+			(set! height Target-Height)</p>
+<p>			; Scale Source Image to desired Size<br />
+			(gimp-image-scale-full image Target-Width Target-Height 3) ; 2 cubic 3 lancosz</p>
+<p>			   ; -- Resize the Image accordingly 	adjframewidth 8.5 x 11" x dpi-value </p>
+<p>			(gimp-image-scale new-image Target-Width Target-Height) ; Scale Source Images Up !  	</p>
+<p>			(set! width2 (* width num-layers)) </p>
+<p>			(cond ; -- Sharpen all Layers </p>
+<p>				(( equal? want-sharpen TRUE )</p>
+<p>					(set! l 0); l=0;</p>
+<p>					(while (&lt; l num-layers);  want-sharpen</p>
+<p>						(plug-in-unsharp-mask 0 image (aref layers l) 1 10 10)<br />
+						(set! l (+ l 1))              ; l = l + 1 </p>
+<p>					)<br />
+				)<br />
+			) ; want sharpen</p>
+<p>		) ; end Din A8 		</p>
+<p>	) ; end Target Size </p>
+<p>	; Clear Selection<br />
+	(gimp-selection-none image)</p>
+<p>	(gimp-display-new new-image) ; show it!<br />
+	(set! new-layer (car (gimp-layer-new new-image width height RGB-IMAGE "Cologram" 100 NORMAL-MODE)))<br />
+	(gimp-image-add-layer new-image new-layer 0)<br />
+	(gimp-image-set-active-layer new-image new-layer)<br />
+;	(set! want-alpha (car (gimp-drawable-has-alpha layer))) ; only works if no alpha layer ...<br />
+;	(if (= want-alpha TRUE) ; bugged<br />
+;		(gimp-layer-add-alpha new-layer image ) ; remove the alpha channel ... add white as background ...<br />
+	; (gimp-layer-flatten layer) RGBA-&gt;RGB removes Alpha from a Layer<br />
+	; iterate all layers &amp; flatten (if required at all !!!)<br />
+;	)</p>
+<p>    ; -- Set Palette for adjustment Layer </p>
+<p>	(gimp-edit-fill new-layer BG-IMAGE-FILL)<br />
+    ; else transparent Alpha Channel gets Black instead of translucent      </p>
+<p>	; --- copy each section, could be improved - minor bugs (does use same row for all slices)</p>
+<p>	(set! y  0)		; y  = 0;<br />
+	(set! y2 0)		; y2 = 0;	</p>
+<p>	;(while (&lt; y (- width num-layers))   ; while y &lt; (width + 1) - Bug Here !!! One Step too far </p>
+<p>      (while (&lt; y width)	</p>
+<p>       	;(gimp-rect-select image y 0 rows-per-sec height 2 0 0); one slice rows-per-sec in Width - Height in Height</p>
+<p>		(set! l 0); 			l=0;</p>
+<p>		(while (&lt; l num-layers);      while l &lt; 5 (eg 5 Layers), iterate through all layers</p>
+<p>			(gimp-rect-select image y 0 rows-per-sec height 2 0 0); one slice rows-per-sec in Width - Height in Height<br />
+			(gimp-edit-copy (aref layers l))  ; copy current layer l<br />
+			(set! floating-layer (car (gimp-edit-paste new-layer FALSE))) ; </p>
+<p>			; Now, move scale and anchor it<br />
+			(gimp-floating-sel-to-layer floating-layer)<br />
+			(gimp-layer-set-offsets floating-layer y2 0)</p>
+<p>			(set! y2 (+ y2 rows-per-sec)) ; y2 = y2 + rows-per-sec<br />
+			(set! l (+ l 1))              ; l = l + 1<br />
+			(set! y (+ y rows-per-sec))<br />
+		)</p>
+<p>            ;(set! y (+ y (* num-layers rows-per-sec)))   ; y = y + ( num-layers * rows-per-sec )<br />
+	)</p>
+<p>	(gimp-drawable-update new-layer 0 0 width height)<br />
+	(set! new-layer (car(gimp-image-merge-visible-layers new-image 1))) ; reset to new Value !</p>
+<p>	; Drawing the Barrier Grid - This Section depends on your Gimp Version and may need Adjustment<br />
+	(cond<br />
+          (( equal? want-grid TRUE )   </p>
+<p>		; -- Initiate Grid Layer<br />
+      	(set! grid-layer (car(gimp-layer-new new-image (car (gimp-image-width new-image)) (car (gimp-image-height new-image)) 1 "Barrier Grid" 100 NORMAL)))</p>
+<p>      	(gimp-image-add-layer new-image grid-layer 0)<br />
+      	(gimp-edit-clear grid-layer)</p>
+<p>    	  ; -- Set Default Colors<br />
+	      (gimp-context-set-default-colors)</p>
+<p>		; --- Draw Grid Layer ' uses plug-in-grid for huge performance boost !!!</p>
+<p>      	; Start Offset For Alignment of Grid and Image ||-&gt; Todo<br />
+		(set! y (* rows-per-sec ( / (- num-layers 1 ) 2 ))) ; y = rows-per-sec * (numlayers-1)/2  </p>
+<p>		; Attention: There is a Bug in plug-in-grid you may need to adopt the Script depending on your Gimp Version</p>
+<p>		;(plug-in-grid run-mode image   drawable   hwidth        hspace                hoffset         hcolor    hopacity          vwidth         vspace voffset  vcolor  vopacity iwidth ispace ioffset icolor iopacity)<br />
+		;For Gimp &gt;= 2.6.7 use this Line<br />
+            (plug-in-grid  1 new-image  grid-layer    0           1                       0            '(0 0 0)     0     (- (* rows-per-sec num-layers) rows-per-sec)    (* rows-per-sec num-layers)      0      '(0 0 0)    255    0     0      0   '(0 0 0)  255) ; non-interactive=1</p>
+<p>		;For Gimp &lt; 2.6.7 use this Line<br />
+		;	  (plug-in-grid  1 new-image grid-layer   0  (* rows-per-sec num-layers)     0     '(0 0 0)     0   (- (* rows-per-sec num-layers) rows-per-sec)  1   y   '(0 0 0)    255     0       0       0    '(0 0 0)  255) ; non-interactive=1</p>
+<p>			  ; --- No Selection<br />
+      	(gimp-selection-none new-image)<br />
+		(gimp-selection-none image)</p>
+<p>		; --- Flip Grid Layer<br />
+		(gimp-flip grid-layer 1) ; Vertical Flip for perfect alignment !</p>
+<p>         )<br />
+	)</p>
+<p>      ; Want an adjustment Frame</p>
+<p>	(cond </p>
+<p>          (( equal? want-adjframe TRUE )<br />
+ 	    ; Draw a Rect Frame with required Sizes !	</p>
+<p>	    ; -- Resize the Image accordingly 	adjframedist adjframewidth<br />
+          (gimp-image-resize new-image  (+  width (* adjframedist 2))  (+ height  (*  adjframedist 2)) adjframedist adjframedist); resize &amp; center</p>
+<p>	    ; Ebene auf Bildgrösse<br />
+          (gimp-layer-resize-to-image-size new-layer)   ; Cologram Layer</p>
+<p>	    (cond </p>
+<p>          (( equal? want-grid TRUE ) </p>
+<p>              (gimp-layer-resize-to-image-size grid-layer)  ;  </p>
+<p>          ))</p>
+<p>	    ; reset width / height value !!!<br />
+	    (set! width (car (gimp-image-width new-image)))<br />
+	    (set! height (car (gimp-image-height new-image)))         </p>
+<p>          (gimp-selection-all new-image)		</p>
+<p>          ; -- Resize the Image accordingly 	adjframewidth<br />
+          (gimp-image-resize new-image (+ width (* adjframewidth 2))(+ height (* adjframewidth 2)) adjframewidth  adjframewidth )</p>
+<p>          ; Rahmen auf Bildgrösse<br />
+          (gimp-layer-resize-to-image-size new-layer)   ; Cologram Layer</p>
+<p>	    (cond </p>
+<p>          (( equal? want-grid TRUE )<br />
+	      (gimp-layer-resize-to-image-size grid-layer)<br />
+          ))</p>
+<p>	    ; Now invert selection and fill it !<br />
+	    (gimp-selection-invert new-image)</p>
+<p>          ; -- Set Palette for adjustment Layer<br />
+          (gimp-context-set-foreground frameforecolor)<br />
+          (gimp-context-set-background framerearcolor)          </p>
+<p>          (gimp-edit-fill new-layer BG-IMAGE-FILL)	</p>
+<p>	    (cond </p>
+<p>          (( equal? want-grid TRUE ) </p>
+<p>            (gimp-edit-fill grid-layer FG-IMAGE-FILL)</p>
+<p>          ))</p>
+<p>          ; Reset Palette<br />
+	    (gimp-context-set-default-colors)</p>
+<p>	    ; reset width / height value !!!<br />
+	    (set! width (car (gimp-image-width new-image)))<br />
+	    (set! height (car (gimp-image-height new-image)))</p>
+<p>	    )<br />
+	)</p>
+<p>      (gimp-selection-none new-image)</p>
+<p>	; ----    Want a Cut Frame (No Need for Color here)</p>
+<p>	(cond </p>
+<p>          (( equal? want-cutframe TRUE )   </p>
+<p> 	    ; Draw a Rect Frame with required Sizes !	</p>
+<p>	    ; -- Resize the Image accordingly 	cutframedist cutframewidth<br />
+          (gimp-image-resize new-image  (+  width (* cutframedist 2))  (+ height  (*  cutframedist 2)) cutframedist cutframedist); resize &amp; center</p>
+<p>	    ; Ebene auf Bildgrösse<br />
+          (gimp-layer-resize-to-image-size new-layer)   ; Cologram Layer</p>
+<p>	    (cond </p>
+<p>          (( equal? want-grid TRUE ) </p>
+<p>              (gimp-layer-resize-to-image-size grid-layer) 	</p>
+<p>          ))</p>
+<p>	    ; reset width / height value !!!<br />
+	    (set! width (car (gimp-image-width new-image)))<br />
+	    (set! height (car (gimp-image-height new-image)))         </p>
+<p>          (gimp-selection-all new-image)		</p>
+<p>          ; -- Resize the Image accordingly 	cutframewidth<br />
+          (gimp-image-resize new-image (+ width (* cutframewidth 2))(+ height (* cutframewidth 2)) cutframewidth cutframewidth)</p>
+<p>          ; Rahmen auf Bildgrösse<br />
+          (gimp-layer-resize-to-image-size new-layer)   ; Cologram Layer</p>
+<p>	    (cond </p>
+<p>          (( equal? want-grid TRUE )</p>
+<p>	      (gimp-layer-resize-to-image-size grid-layer)  </p>
+<p>          )) </p>
+<p>	    ; Now invert selection and fill it !<br />
+	    (gimp-selection-invert new-image)	 </p>
+<p>          (gimp-edit-fill new-layer FG-IMAGE-FILL)	</p>
+<p>	    (cond </p>
+<p>          (( equal? want-grid TRUE ) </p>
+<p>            (gimp-edit-fill grid-layer FG-IMAGE-FILL)</p>
+<p>          ))</p>
+<p>          ; Reset Palette<br />
+	    (gimp-context-set-default-colors)</p>
+<p>	    ; reset width / height value !!!<br />
+	    (set! width (car (gimp-image-width new-image)))<br />
+	    (set! height (car (gimp-image-height new-image)))</p>
+<p>          (gimp-selection-none new-image) </p>
+<p>	    )</p>
+<p>	)</p>
+<p>      ; --- Draw Register Marks depending on chosen Size (and DPI Values)</p>
+<p>	;(cond </p>
+<p>       ;   (( equal? format 0)  ; Default size<br />
+		  ;(gimp-image-set-resolution new-image 150 150) ; Canon Printer 600, Epson 720 dpi<br />
+	        ;(gimp-message "Default Format")<br />
+	 ;   )<br />
+       ;   (( equal? format 1)  ; Want Din-A4 size<br />
+		  ;(gimp-image-set-resolution new-image 180 180) ; Canon Printer 600, Epson 720 dpi<br />
+		  ;(gimp-message "Want Din-A4")<br />
+              ;(gimp-image-resize  ... )<br />
+	 ;   )</p>
+<p>	;)</p>
+<p>      ; --- Draw Register Marks</p>
+<p>	;(cond </p>
+<p>       ;   (( equal? anchor-top TRUE )<br />
+		  ;(gimp-image-set-resolution new-image 150 150) ; Canon Printer 600, Epson 720 dpi<br />
+	        ;(gimp-message "Anchor Points wanted")<br />
+	 ;   )</p>
+<p>	;)</p>
+<p>	;(cond </p>
+<p>        ;  (( equal? anchor-down TRUE )<br />
+		  ;(gimp-image-set-resolution new-image 150 150) ; Canon Printer 600, Epson 720 dpi<br />
+	        ;(gimp-message "Anchor Points wanted")<br />
+	  ;  )<br />
+        ;  (( equal? anchor-down FALSE )<br />
+		  ;(gimp-image-set-resolution new-image 180 180) ; Canon Printer 600, Epson 720 dpi<br />
+		  ;(gimp-message "No Anchor Points wanted")<br />
+	 ;   )</p>
+<p>	 ;)</p>
+<p>	 ;(cond </p>
+<p>       ;   (( equal? anchor-left TRUE )<br />
+		  ;(gimp-image-set-resolution new-image 150 150) ; Canon Printer 600, Epson 720 dpi<br />
+	        ;(gimp-message "Do sumthin ...")<br />
+ 	 ;	   (gimp-ellipse-select new-image 5 5 5 5 REPLACE 1 0 0)<br />
+       ;       (gimp-context-set-foreground '(255 0 0));<br />
+       ;       (gimp-edit-stroke grid-layer)</p>
+<p>              ;(gimp-rect-select new-image 0 5 5 1 REPLACE 0 0) ; Create a Cross<br />
+              ;(gimp-rect-select new-image 5 0 1 5 0 0 0)<br />
+		  ;(gimp-context-set-foreground '(0 0 0));<br />
+              ;(gimp-edit-stroke grid-layer)<br />
+      ;        (gimp-context-set-foreground '(0 255 0));<br />
+	;        (gimp-edit-stroke new-layer) 	</p>
+<p>	;    )</p>
+<p>	;)</p>
+<p>	;(cond </p>
+<p>      ;    (( equal? anchor-right TRUE )<br />
+		  ;(gimp-image-set-resolution new-image 150 150) ; Canon Printer 600, Epson 720 dpi<br />
+      ;        (gimp-context-set-foreground '(255 0 0));<br />
+ 	;	  (gimp-ellipse-select new-image (- width 10) 5 5 5 REPLACE 1 0 0)<br />
+      ;        (gimp-edit-stroke grid-layer)<br />
+      ;        (gimp-context-set-foreground '(0 255 0));<br />
+	;        (gimp-edit-stroke new-layer)<br />
+	;    )</p>
+<p>	;)</p>
+<p>	; --- No Selection<br />
+      (gimp-selection-none new-image)<br />
+	(gimp-selection-none image)</p>
+<p>	; -- Set Default Colors<br />
+	(gimp-context-set-default-colors)</p>
+<p>	; --- Flush Displays<br />
+	(gimp-displays-flush)</p>
+<p>	(cond </p>
+<p>        (<br />
+		 (equal? want-grid TRUE)<br />
+ 		 (gimp-drawable-set-visible grid-layer FALSE)<br />
+		 (gimp-drawable-set-visible grid-layer TRUE)<br />
+	    ) </p>
+<p>	)</p>
+<p>	; --- Set Resolution to selected DPI Setting; place up</p>
+<p>	(gimp-image-set-resolution new-image dpi-value dpi-value) ; Canon Printer 600, Epson 720 dpi</p>
+<p>	; --- cleanup<br />
+	(gimp-image-undo-group-end new-image)<br />
+	(gimp-image-undo-group-end image) </p>
+<p>    )</p>
+<p>)</p>
+<p>(script-fu-register "script-fu-cologram"<br />
+		    "Create Barrier 3D Photos..."<br />
+		    "Interlace all Layers into a Cologram. This is a Free Plugin. 2011 Friedemann Wolpert"<br />
+		    "Friedemann"<br />
+		    "2011, Friedemann"<br />
+		    "6nd August 2011"<br />
+		    "*"<br />
+		    SF-IMAGE      _"The Image"         0<br />
+		    SF-DRAWABLE   _"The Layer"         0<br />
+		    SF-ADJUSTMENT _"Rows per Section"  '(1 1 100 1 10 0 0)<br />
+		    SF-OPTION      "Printer Resolution" '("300 DPI Canon" "150 DPI Canon" "180 DPI Epson" "300 DPI Canon" "360 DPI Epson" "600 DPI Canon" "720 DPI Epson")<br />
+            SF-OPTION      "Resize Target Image" '("No Changes (Default)" "US-Letter" "US-Legal" "Din A3" "Din A4" "Din A5" "Din A6" "Din A7" "Din A8")<br />
+		    SF-TOGGLE      "Sharpen Source Images (Improves Quality when Changing Target Size)" FALSE<br />
+            SF-TOGGLE      "Create a Parallax Grid Layer (Important)" TRUE<br />
+		    ; Resize Image when Frames are desired<br />
+            SF-TOGGLE      "Create Adjustment Frame" TRUE<br />
+            SF-COLOR	   "Frame Fore Color"	'(0 0 0)<br />
+            SF-COLOR	   "Frame Rear Color"	'(0 0 0)<br />
+		    SF-ADJUSTMENT  "Adjustment Frame Distance (px)" '(50 0 1000 1 10 0 0) ; Resize Image !<br />
+		    SF-ADJUSTMENT  "Adjustment Frame Width (px)" '(1 1 20 1 10 0 0) ; Passerrahmen<br />
+		    SF-TOGGLE      "Create a Cut Mark" TRUE<br />
+            SF-ADJUSTMENT  "Cut Frame Distance from adj. Frame (px)" '(50 0 1000 1 10 0 0) ; Resize Image !<br />
+		    SF-ADJUSTMENT  "Cut Frame Width (px)" '(2 1 20 1 10 0 0) ; Schnittmarke<br />
+		    ;SF-TOGGLE     "Print Top Register Mark" FALSE ; Passerkreuz<br />
+		    ;SF-TOGGLE     "Print Down Register Mark" FALSE<br />
+		    ;SF-TOGGLE     "Print Left Register Mark" FALSE<br />
+		    ;SF-TOGGLE     "Print Right Register Mark" FALSE<br />
+		    ;SF-OPTION     "Resize Image for Register Mark" '("Default" "Din-A5" "Din-A4" "Din-A3" )<br />
+)</p>
+<p>(script-fu-menu-register "script-fu-cologram" "/3D Parallax Barrier")</p>
+<p>; Friedemann Wolpert 2011,  Heise Mach Flott den Schrott 2 Project Entry</p>
+</div></div></div><div class="field field-name-taxonomy-vocabulary-7 field-type-taxonomy-term-reference field-label-inline clearfix"><div class="field-label">Code License:&nbsp;</div><div class="field-items"><div class="field-item even"><a href="../taxonomy/term/1677">541</a></div></div></div><div class="field field-name-taxonomy-vocabulary-3 field-type-taxonomy-term-reference field-label-inline clearfix"><div class="field-label">Scripting Engine:&nbsp;</div><div class="field-items"><div class="field-item even"><a href="../taxonomy/term/20">Script-Fu</a></div></div></div><div class="field field-name-taxonomy-vocabulary-1 field-type-taxonomy-term-reference field-label-inline clearfix"><div class="field-label">GIMP Version:&nbsp;</div><div class="field-items"><div class="field-item even"><a href="../taxonomy/term/382">any</a></div></div></div><div class="field field-name-taxonomy-vocabulary-5 field-type-taxonomy-term-reference field-label-inline clearfix"><div class="field-label">Tags:&nbsp;</div><div class="field-items"><div class="field-item even"><a href="../taxonomy/term/1625">3D ready</a></div></div></div>  </div>
+
+  <div class="clearfix">
+          <div class="links"></div>
+    
+      </div>
+
+</div>
+  </div>
+</div>
+  </div>
+          </div>
+          <a href="../crss/node/28059" class="feed-icon" title="Subscribe to Comments for &quot;s&quot;"><img src="../misc/feed.png" width="16" height="16" alt="Subscribe to Comments for &quot;s&quot;" /></a>            <div class="region region-footer">
+    <div id="block-block-5" class="block block-block clearfix">
+
+    
+  <div class="content">
+    Unless otherwise noted, the rights for the individual plugins are with their respective authors. Logo image by Jakub Steiner.
+<marquee style="width: 0px; position: absolute"> <a href="http://brazzersdeporno.com" title="porno">porno</a> - <a href="http://www.porno724.com/" target="_blank" title="Porno izle">Porno izle</a> <a href="http://www.yokyokpornolar.com/" target="_blank" title="porno abi">porno abi</a> </marquee>  </div>
+</div>
+  </div>
+      </div></div></div></div> <!-- /.left-corner, /.right-corner, /#squeeze, /#center -->
+
+              <div id="sidebar-second" class="sidebar">
+            <div class="region region-sidebar-second">
+    <div id="block-views-relevant-questions-block-1" class="block block-views clearfix">
+
+    <h2 class="title">Questions</h2>
+  
+  <div class="content">
+    <div class="view view-relevant-questions view-id-relevant_questions view-display-id-block_1 view-dom-id-4637dd20546a743e9f68a9a2b236fb8f">
+        
+  
+  
+      <div class="view-empty">
+      <p><em>No questions yet ... </em></p>
+    </div>
+  
+  
+  
+  
+  
+  
+</div>  </div>
+</div>
+<div id="block-search-form" class="block block-search clearfix">
+
+    
+  <div class="content">
+    <form action="28059" method="post" id="search-block-form" accept-charset="UTF-8"><div><div class="container-inline">
+      <h2 class="element-invisible">Search form</h2>
+    <div class="form-item form-type-textfield form-item-search-block-form">
+  <label class="element-invisible" for="edit-search-block-form--2">Search </label>
+ <input title="Enter the terms you wish to search for." type="text" id="edit-search-block-form--2" name="search_block_form" value="" size="15" maxlength="128" class="form-text" />
+</div>
+<div class="form-actions form-wrapper" id="edit-actions--2"><input type="submit" id="edit-submit--2" name="op" value="Search" class="form-submit" /></div><input type="hidden" name="form_build_id" value="form-vR1zkku4GPcIL1HhaysvCM7lqiwAlTANxLrGWXxj6D4" />
+<input type="hidden" name="form_id" value="search_block_form" />
+</div>
+</div></form>  </div>
+</div>
+<div id="block-forum-active" class="block block-forum clearfix">
+
+    <h2 class="title">Active forum topics</h2>
+  
+  <div class="content">
+    <div class="item-list"><ul><li class="first"><a href="32356" title="3 comments">Can&#039;t access &quot;My account&quot;</a></li>
+<li><a href="32371">Delete account</a></li>
+<li class="last"><a href="32363">Outline</a></li>
+</ul></div><div class="more-link"><a href="../forum" title="Read the latest forum topics.">More</a></div>  </div>
+</div>
+<div id="block-views-newest-questions-block-1" class="block block-views clearfix">
+
+    <h2 class="title">Updated Questions</h2>
+  
+  <div class="content">
+    <div class="view view-newest-questions view-id-newest_questions view-display-id-block_1 view-dom-id-c8d7deef17686bc1753fa639b9640634">
+        
+  
+  
+      <div class="view-content">
+      <div class="item-list">    <ul>          <li class="views-row views-row-1 views-row-odd views-row-first">  
+  <span class="views-field views-field-title">        <span class="field-content"><a href="32373">Shadow and Highlights Recovery - Adding group undo</a></span>  </span>  
+  <div class="views-field views-field-last-updated">    <span class="views-label views-label-last-updated">Last change</span>    <span class="field-content">3 hours 24 min</span>  </div>  
+  <div class="views-field views-field-field-answer-count">        <div class="field-content">No answers, yet!</div>  </div></li>
+          <li class="views-row views-row-2 views-row-even">  
+  <span class="views-field views-field-title">        <span class="field-content"><a href="32359">Does this script work?</a></span>  </span>  
+  <div class="views-field views-field-last-updated">    <span class="views-label views-label-last-updated">Last change</span>    <span class="field-content">4 months 2 weeks</span>  </div>  
+  <div class="views-field views-field-field-answer-count">        <div class="field-content">No answers, yet!</div>  </div></li>
+          <li class="views-row views-row-3 views-row-odd views-row-last">  
+  <span class="views-field views-field-title">        <span class="field-content"><a href="32349">File upload problem</a></span>  </span>  
+  <div class="views-field views-field-last-updated">    <span class="views-label views-label-last-updated">Last change</span>    <span class="field-content">6 months 36 min</span>  </div>  
+  <div class="views-field views-field-field-answer-count">        <div class="field-content">1 Answer(s)</div>  </div></li>
+      </ul></div>    </div>
+  
+  
+  
+      
+<div class="more-link">
+  <a href="../newest-questions">
+    more  </a>
+</div>
+  
+  
+  
+</div>  </div>
+</div>
+<div id="block-comment-recent" class="block block-comment clearfix">
+
+    <h2 class="title">Recent comments</h2>
+  
+  <div class="content">
+    <div class="item-list"><ul><li class="first"><a href="../comment/19262#comment-19262">Black triangles</a>&nbsp;<span>2 hours 30 min ago</span></li>
+<li><a href="../comment/19261#comment-19261">I use the Python version of</a>&nbsp;<span>4 days 4 hours ago</span></li>
+<li class="last"><a href="../comment/19260#comment-19260">I have the same problem too</a>&nbsp;<span>1 week 2 days ago</span></li>
+</ul></div>  </div>
+</div>
+<div id="block-node-recent" class="block block-node clearfix">
+
+    <h2 class="title">Recent content</h2>
+  
+  <div class="content">
+    <table>
+<tbody>
+ <tr class="odd"><td class="title-author"><div class="node-title"><a href="32373">Shadow and Highlights Recovery - Adding group undo</a></div><div class="node-author"><span class="username">programmer_ceds</span></div></td><td class="edit"></td><td class="delete"></td> </tr>
+ <tr class="even"><td class="title-author"><div class="node-title"><a href="32360">GIMP Plugin Registry in Lockdown mode</a></div><div class="node-author"><span class="username">schumaml</span></div></td><td class="edit"></td><td class="delete"></td> </tr>
+ <tr class="odd"><td class="title-author"><div class="node-title"><a href="32372">Split to Special PNG&#039;s</a></div><div class="node-author"><span class="username">Efenstor</span></div></td><td class="edit"></td><td class="delete"></td> </tr>
+ <tr class="even"><td class="title-author"><div class="node-title"><a href="32371">Delete account</a></div><div class="node-author"><span class="username">amarz82</span></div></td><td class="edit"></td><td class="delete"></td> </tr>
+ <tr class="odd"><td class="title-author"><div class="node-title"><a href="32370">Export with MozJPEG</a></div><div class="node-author"><span class="username">Efenstor</span></div></td><td class="edit"></td><td class="delete"></td> </tr>
+ <tr class="even"><td class="title-author"><div class="node-title"><a href="32369">Shadow and Highlights Recovery</a></div><div class="node-author"><span class="username">erwinsoo</span></div></td><td class="edit"></td><td class="delete"></td> </tr>
+ <tr class="odd"><td class="title-author"><div class="node-title"><a href="27656">GIMP Extensions Pack for Windows</a></div><div class="node-author"><span class="username">GIMP Extensions</span></div></td><td class="edit"></td><td class="delete"></td> </tr>
+ <tr class="even"><td class="title-author"><div class="node-title"><a href="32341">Removed...</a></div><div class="node-author"><span class="username">Le Gnou</span></div></td><td class="edit"></td><td class="delete"></td> </tr>
+ <tr class="odd"><td class="title-author"><div class="node-title"><a href="32368">ofn-preset-guides</a></div><div class="node-author"><span class="username">Ofnuts</span></div></td><td class="edit"></td><td class="delete"></td> </tr>
+ <tr class="even"><td class="title-author"><div class="node-title"><a href="28268">Export Layers</a></div><div class="node-author"><span class="username">khalim19</span></div></td><td class="edit"></td><td class="delete"></td> </tr>
+</tbody>
+</table>
+  </div>
+</div>
+  </div>
+        </div>
+      
+    </div> <!-- /#container -->
+  </div> <!-- /#wrapper -->
+  </body>
+</html>

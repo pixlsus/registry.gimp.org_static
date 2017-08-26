@@ -1,0 +1,521 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML+RDFa 1.0//EN"
+  "http://www.w3.org/MarkUp/DTD/xhtml-rdfa-1.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" version="XHTML+RDFa 1.0" dir="ltr">
+
+<head profile="http://www.w3.org/1999/xhtml/vocab">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="shortcut icon" href="../files/favicon.png" type="image/png" />
+<link rel="alternate" type="application/rss+xml" title="Comments for &quot;Export Layers as PDF&quot;" href="../crss/node/25677" />
+<link rel="canonical" href="25677" />
+<meta name="Generator" content="Drupal 7 (http://drupal.org)" />
+<link rel="shortlink" href="25677" />
+  <title>Export Layers as PDF | GIMP Plugin Registry</title>
+  <style type="text/css" media="all">@import url("../modules/system/system.base.css?n48fl6");
+@import url("../modules/system/system.menus.css?n48fl6");
+@import url("../modules/system/system.messages.css?n48fl6");
+@import url("../modules/system/system.theme.css?n48fl6");</style>
+<style type="text/css" media="all">@import url("../modules/aggregator/aggregator.css?n48fl6");
+@import url("../modules/book/book.css?n48fl6");
+@import url("../modules/comment/comment.css?n48fl6");
+@import url("../sites/all/modules/date/date_api/date.css?n48fl6");
+@import url("../sites/all/modules/date/date_popup/themes/datepicker.1.7.css?n48fl6");
+@import url("../sites/all/modules/date/date_repeat_field/date_repeat_field.css?n48fl6");
+@import url("../modules/field/theme/field.css?n48fl6");
+@import url("../sites/all/modules/mollom/mollom.css?n48fl6");
+@import url("../modules/node/node.css?n48fl6");
+@import url("../modules/poll/poll.css?n48fl6");
+@import url("../modules/search/search.css?n48fl6");
+@import url("../modules/user/user.css?n48fl6");
+@import url("../modules/forum/forum.css?n48fl6");
+@import url("../sites/all/modules/views/css/views.css?n48fl6");</style>
+<style type="text/css" media="all">@import url("../sites/all/modules/ctools/css/ctools.css?n48fl6");
+@import url("../sites/all/modules/rate/rate.css?n48fl6");
+@import url("../sites/all/modules/tagclouds/tagclouds.css?n48fl6");
+@import url("../sites/all/modules/panels/css/panels.css?n48fl6");
+@import url("../sites/all/modules/best_answer/best_answer.css?n48fl6");
+@import url("../sites/all/modules/rate/templates/fivestar/fivestar.css?n48fl6");</style>
+<style type="text/css" media="all">@import url("../files/color/garland-5ac73a91/style.css?n48fl6");</style>
+<style type="text/css" media="print">@import url("../themes/garland/print.css?n48fl6");</style>
+
+<!--[if lt IE 7]>
+<link type="text/css" rel="stylesheet" href="http://registry.gimp.org/themes/garland/fix-ie.css?n48fl6" media="all" />
+<![endif]-->
+  <script type="text/javascript" src="../misc/jquery.js?v=1.4.4"></script>
+<script type="text/javascript" src="../misc/jquery.once.js?v=1.2"></script>
+<script type="text/javascript" src="../misc/drupal.js?n48fl6"></script>
+<script type="text/javascript" src="../sites/all/modules/rate/rate.js?n48fl6"></script>
+<script type="text/javascript" src="../sites/all/modules/rate/templates/fivestar/fivestar.js?n48fl6"></script>
+<script type="text/javascript" src="../misc/tableheader.js?n48fl6"></script>
+<script type="text/javascript">
+<!--//--><![CDATA[//><!--
+jQuery.extend(Drupal.settings, {"basePath":"\/","pathPrefix":"","ajaxPageState":{"theme":"garland","theme_token":"2a4IK8Ld635u_eh1kcCTVcTmHXsR1-b0oox0_6Rg6P4","js":{"misc\/jquery.js":1,"misc\/jquery.once.js":1,"misc\/drupal.js":1,"sites\/all\/modules\/rate\/rate.js":1,"sites\/all\/modules\/rate\/templates\/fivestar\/fivestar.js":1,"misc\/tableheader.js":1},"css":{"modules\/system\/system.base.css":1,"modules\/system\/system.menus.css":1,"modules\/system\/system.messages.css":1,"modules\/system\/system.theme.css":1,"modules\/aggregator\/aggregator.css":1,"modules\/book\/book.css":1,"modules\/comment\/comment.css":1,"sites\/all\/modules\/date\/date_api\/date.css":1,"sites\/all\/modules\/date\/date_popup\/themes\/datepicker.1.7.css":1,"sites\/all\/modules\/date\/date_repeat_field\/date_repeat_field.css":1,"modules\/field\/theme\/field.css":1,"sites\/all\/modules\/mollom\/mollom.css":1,"modules\/node\/node.css":1,"modules\/poll\/poll.css":1,"modules\/search\/search.css":1,"modules\/user\/user.css":1,"modules\/forum\/forum.css":1,"sites\/all\/modules\/views\/css\/views.css":1,"sites\/all\/modules\/ctools\/css\/ctools.css":1,"sites\/all\/modules\/rate\/rate.css":1,"sites\/all\/modules\/tagclouds\/tagclouds.css":1,"sites\/all\/modules\/panels\/css\/panels.css":1,"sites\/all\/modules\/best_answer\/best_answer.css":1,"sites\/all\/modules\/rate\/templates\/fivestar\/fivestar.css":1,"themes\/garland\/style.css":1,"themes\/garland\/print.css":1,"themes\/garland\/fix-ie.css":1}},"rate":{"basePath":"\/rate\/vote\/js","destination":"node\/25677"}});
+//--><!]]>
+</script>
+</head>
+<body class="html not-front not-logged-in two-sidebars page-node page-node- page-node-25677 node-type-scriptfu fluid-width" >
+  <div id="skip-link">
+    <a href="25677#main-content" class="element-invisible element-focusable">Skip to main content</a>
+  </div>
+      
+  <div id="wrapper">
+    <div id="container" class="clearfix">
+
+      <div id="header">
+        <div id="logo-floater">
+                              <div id="branding"><strong><a href="../index.html">
+                          <img src="../files/logo.png" alt="GIMP Plugin Registry " title="GIMP Plugin Registry " id="logo" />
+                        <span>GIMP Plugin Registry</span>            </a></strong></div>
+                          </div>
+
+        <h2 class="element-invisible">Main menu</h2><ul class="links inline main-menu"><li class="menu-100 first"><a href="../about" title="Information about the Registry">About</a></li>
+<li class="menu-136"><a href="23851" title="Documentation and How-Tos">Documentation</a></li>
+<li class="menu-88"><a href="../forum">Forums</a></li>
+<li class="menu-74"><a href="http://gug.criticalhit.dk" title="The GIMP User Group">GIMP User Group</a></li>
+<li class="menu-1142"><a href="25574" title="GIMP Help">Get Help</a></li>
+<li class="menu-1256"><a href="26216" title="Get info on using RSS to stay updated about what&#039;s going on on the site.">Stay Updated!</a></li>
+<li class="menu-73 last"><a href="http://www.gimp.org/" title="The GIMP Homepage">gimp.org</a></li>
+</ul>              </div> <!-- /#header -->
+
+              <div id="sidebar-first" class="sidebar">
+            <div class="region region-sidebar-first">
+    <div id="block-system-navigation" class="block block-system block-menu clearfix">
+
+    <h2 class="title">Navigation</h2>
+  
+  <div class="content">
+    <ul class="menu"><li class="first leaf"><a href="25574" title="FAQ &amp; How To&#039;s">FAQ &amp; How To&#039;s</a></li>
+<li class="leaf"><a href="../glossary.1" title="">Content By Name</a></li>
+<li class="collapsed"><a href="../aggregator">Feed aggregator</a></li>
+<li class="leaf"><a href="../popular">Popular content</a></li>
+<li class="leaf"><a href="25392" title="Report Spam Here">Report Spam Here</a></li>
+<li class="last leaf"><a href="../tagclouds">Tags</a></li>
+</ul>  </div>
+</div>
+<div id="block-block-1" class="block block-block clearfix">
+
+    
+  <div class="content">
+    If you'd like to upload plug-ins, please create an account below. You do <em>not</em> need one for download. Enjoy :-)  </div>
+</div>
+<div id="block-user-login" class="block block-user clearfix">
+
+    <h2 class="title">User login</h2>
+  
+  <div class="content">
+    <form action="http://registry.gimp.org/node/25677?destination=node/25677" method="post" id="user-login-form" accept-charset="UTF-8"><div><div class="form-item form-type-textfield form-item-name">
+  <label for="edit-name">Username <span class="form-required" title="This field is required.">*</span></label>
+ <input type="text" id="edit-name" name="name" value="" size="15" maxlength="60" class="form-text required" />
+</div>
+<div class="form-item form-type-password form-item-pass">
+  <label for="edit-pass">Password <span class="form-required" title="This field is required.">*</span></label>
+ <input type="password" id="edit-pass" name="pass" size="15" maxlength="128" class="form-text required" />
+</div>
+<div class="item-list"><ul><li class="first last"><a href="../user/password" title="Request new password via e-mail.">Request new password</a></li>
+</ul></div><input type="hidden" name="form_build_id" value="form-deOW-GOH7GTcIDMFEJ8IcvOFeNKtkLKwil0Th3V81Dc" />
+<input type="hidden" name="form_id" value="user_login_block" />
+<div class="form-actions form-wrapper" id="edit-actions"><input type="submit" id="edit-submit" name="op" value="Log in" class="form-submit" /></div></div></form>  </div>
+</div>
+<div id="block-node-syndicate" class="block block-node clearfix">
+
+    <h2 class="title">Syndicate</h2>
+  
+  <div class="content">
+    <a href="../rss.xml" class="feed-icon" title="Subscribe to Syndicate"><img src="../misc/feed.png" width="16" height="16" alt="Subscribe to Syndicate" /></a>  </div>
+</div>
+  </div>
+        </div>
+      
+      <div id="center"><div id="squeeze"><div class="right-corner"><div class="left-corner">
+          <h2 class="element-invisible">You are here</h2><div class="breadcrumb"><a href="../index.html">Home</a></div>                    <a id="main-content"></a>
+          <div id="tabs-wrapper" class="clearfix">                                <h1 class="with-tabs">Export Layers as PDF</h1>
+                              </div>                                                  <div class="clearfix">
+              <div class="region region-content">
+    <div id="block-system-main" class="block block-system clearfix">
+
+    
+  <div class="content">
+    <div id="node-25677" class="node node-scriptfu node-promoted">
+
+  
+      
+      <span class="submitted">November 3, 2011 - 06:12 — <span class="username">tubaman</span></span>
+  
+  <div class="content clearfix">
+    <div class="form-item form-type-item">
+  <label>Rate </label>
+ <div class="rate-widget-2 rate-widget clear-block rate-average rate-widget-fivestar rate-273edaef8949f6df64aeea7cb0df2c4c rate-node-25677-2-3" id="rate-node-25677-2-3"><div class="item-list"><ul><li class="first"><span class="rate-button rate-fivestar-btn-empty rate-fivestar-1" id="rate-button-1">1</span></li>
+<li><span class="rate-button rate-fivestar-btn-empty rate-fivestar-2" id="rate-button-2">2</span></li>
+<li><span class="rate-button rate-fivestar-btn-empty rate-fivestar-3" id="rate-button-3">3</span></li>
+<li><span class="rate-button rate-fivestar-btn-empty rate-fivestar-4" id="rate-button-4">4</span></li>
+<li class="last"><span class="rate-button rate-fivestar-btn-empty rate-fivestar-5" id="rate-button-5">5</span></li>
+</ul></div><div class="rate-info">Total votes: 0</div><div class="rate-description">Rate this item!</div></div>
+</div>
+<div class="field field-name-upload field-type-file field-label-hidden"><div class="field-items"><div class="field-item even"><table class="sticky-enabled">
+ <thead><tr><th>Attachment</th><th>Size</th> </tr></thead>
+<tbody>
+ <tr class="odd"><td><span class="file"><img class="file-icon" alt="" title="text/plain" src="../modules/file/icons/text-plain.png" /> <a href="../files/export_layers_pdf-0.1.py.txt" type="text/plain; length=2508" title="export_layers_pdf-0.1.py.txt">export_layers_pdf-0.1.py</a></span></td><td>2.45 KB</td> </tr>
+ <tr class="even"><td><span class="file"><img class="file-icon" alt="" title="text/plain" src="../modules/file/icons/text-plain.png" /> <a href="../files/export_layers_pdf-0.2.py.txt" type="text/plain; length=2524" title="export_layers_pdf-0.2.py.txt">export_layers_pdf-0.2.py (updated to use compressed PNGs instead of tiffs)</a></span></td><td>2.46 KB</td> </tr>
+</tbody>
+</table>
+</div></div></div><div class="field field-name-body field-type-text-with-summary field-label-hidden"><div class="field-items"><div class="field-item even"><p>I'm tired of building a PDF from layers manually so I finally got around to scripting it.  This requires "convert" from ImageMagick to be installed.  It has been tested on Linux(Ubuntu).</p>
+</div></div></div><div class="field field-name-taxonomy-vocabulary-7 field-type-taxonomy-term-reference field-label-inline clearfix"><div class="field-label">Code License:&nbsp;</div><div class="field-items"><div class="field-item even"><a href="../taxonomy/term/36">GPLv3</a></div></div></div><div class="field field-name-taxonomy-vocabulary-5 field-type-taxonomy-term-reference field-label-inline clearfix"><div class="field-label">Tags:&nbsp;</div><div class="field-items"><div class="field-item even"><a href="../taxonomy/term/306">layers</a></div><div class="field-item odd"><a href="../taxonomy/term/401">export</a></div><div class="field-item even"><a href="../taxonomy/term/552">pdf</a></div></div></div><div class="field field-name-taxonomy-vocabulary-1 field-type-taxonomy-term-reference field-label-inline clearfix"><div class="field-label">GIMP Version:&nbsp;</div><div class="field-items"><div class="field-item even"><a href="../taxonomy/term/523">2.6</a></div></div></div><div class="field field-name-taxonomy-vocabulary-3 field-type-taxonomy-term-reference field-label-inline clearfix"><div class="field-label">Scripting Engine:&nbsp;</div><div class="field-items"><div class="field-item even"><a href="../taxonomy/term/22">Python</a></div></div></div>  </div>
+
+  <div class="clearfix">
+          <div class="links"><ul class="links inline"><li class="comment_forbidden first last"><span><a href="../user/login?destination=comment%252Freply%252F25677%2523comment-form">Log in</a> to post comments</span></li>
+</ul></div>
+    
+    <div id="comments" class="comment-wrapper">
+  
+          <h2 class="title">Comments</h2>
+      
+  <a id="comment-18016"></a>
+<div class="comment odd">
+
+  <div class="clearfix">
+
+    <span class="submitted">October 7, 2013 - 18:40 — <span class="username">BugzMe</span></span>
+
+  
+  
+        <h3><a href="../comment/18016#comment-18016" class="permalink" rel="bookmark">OCR Improvement</a></h3>
+    
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>I found this script for making PDF files with searchable OCR over at <a href="http://blog.konradvoelkel.de/2010/01/linux-ocr-and-pdf-problem-solved">http://blog.konradvoelkel.de/2010/01/linux-ocr-and-pdf-problem-solved</a>.  It would be awesome to somehow have this integrated into this plugin!</p>
+<p><code><br />
+#!/bin/bash<br />
+echo "usage: pdfocr.sh document.pdf orientation split left top right bottom lang author title"<br />
+# where orientation is one of 0,1,2,3, meaning the amount of rotation by 90°<br />
+# and split is either 0 (already single-paged) or 1 (2 book-pages per pdf-page)<br />
+# and (left top right bottom) are the coordinates to crop (after rotation!)<br />
+# and lang is a language as in "cuneiform -l".<br />
+# and author,title are used for the PDF metadata<br />
+# all values relative to a resolution of 300dpi<br />
+#<br />
+# usage examples:<br />
+# ./pdfocr.sh SomeFile.pdf 0 0 0 0 2500 2000 ger SomeAuthor SomeTitle<br />
+# will process a PDF with one page per pdf-page, cropping to width 2500 and height 2000<br />
+pdftk "$1" burst dont_ask<br />
+for f in pg_*.pdf<br />
+do<br />
+echo "pre-processing $f ..."<br />
+convert -quiet -rotate $[90*$2] -monochrome -normalize -density 300 "$f" "$f.png"<br />
+convert -quiet -crop $6x$7+$4+$5 "$f.png" "$f.png"<br />
+if [ "1" = "$3" ];<br />
+then<br />
+convert -quiet -crop $[$6/2]x$7+0+0 "$f.png" "$f.1.png"<br />
+convert -quiet -crop 0x$7+$[$6/2]+0 "$f.png" "$f.2.png"<br />
+rm -f "$f.png"<br />
+else<br />
+echo no splitting<br />
+fi<br />
+rm -f "$f"<br />
+done<br />
+for f in pg_*.png<br />
+do<br />
+echo "processing $f ..."<br />
+convert "$f" "$f.bmp"<br />
+cuneiform -l $8 -f hocr -o "$f.hocr" "$f.bmp"<br />
+convert -blur 0.4 "$f" "$f.bmp"<br />
+hocr2pdf -i "$f.bmp" -s -o "$f.pdf" &lt; "$f.hocr" rm -f "$f" "$f.bmp" "$f.hocr" done echo "InfoKey: Author" &gt; in.info<br />
+echo "InfoValue: $9" &gt;&gt; in.info<br />
+echo "InfoKey: Title" &gt;&gt; in.info<br />
+echo "InfoValue: $10" &gt;&gt; in.info<br />
+echo "InfoKey: Creator" &gt;&gt; in.info<br />
+echo "InfoValue: PDF OCR scan script" &gt;&gt; in.info<br />
+pdfjoin --fitpaper --tidy --outfile "$1.ocr1.pdf" "pg_*.png.pdf"<br />
+rm -f pg_*.png.pdf<br />
+pdftk "$1.ocr1.pdf" update_info doc_data.txt output "$1.ocr2.pdf"<br />
+pdftk "$1.ocr2.pdf" update_info in.info output "$1-ocr.pdf"<br />
+rm -f "$1.ocr1.pdf" "$1.ocr2.pdf" doc_data.txt in.info<br />
+rm -rf pg_*_files<br /></code></p>
+</div></div></div>          </div>
+  </div>
+
+  <ul class="links inline"><li class="comment_forbidden first last"><span><a href="../user/login?destination=comment%252Freply%252F25677%2523comment-form">Log in</a> to post comments</span></li>
+</ul></div>
+<a id="comment-16968"></a>
+<div class="comment even">
+
+  <div class="clearfix">
+
+    <span class="submitted">March 18, 2013 - 12:11 — <span class="username">helour</span></span>
+
+  
+  
+        <h3><a href="../comment/16968#comment-16968" class="permalink" rel="bookmark">improved new version available</a></h3>
+    
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>I have wrote new version. Where I can upload it?<br />
+No answers?</p>
+<p>OK,<br />
+I have created new thread with new plugin  "Export Layers to single multiple pages PDF"</p>
+</div></div></div>          </div>
+  </div>
+
+  <ul class="links inline"><li class="comment_forbidden first last"><span><a href="../user/login?destination=comment%252Freply%252F25677%2523comment-form">Log in</a> to post comments</span></li>
+</ul></div>
+<a id="comment-16080"></a>
+<div class="comment odd">
+
+  <div class="clearfix">
+
+    <span class="submitted">November 20, 2012 - 02:29 — <span class="username">christopherbalz</span></span>
+
+  
+  
+        <h3><a href="../comment/16080#comment-16080" class="permalink" rel="bookmark">OS X: OSError: [Errno 2] No such file or directory</a></h3>
+    
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>On GIMP 2.6.11 on Mac OS X Mountain Lion, I get this error (and additionally, the dialog seems odd in that it forces me to pick a file name from a file browser, when what I wish to do is save the file as a new file):</p>
+<p>Traceback (most recent call last):<br />
+  File "/tmp/skl/Gimp.app/Contents/Resources/lib/gimp/2.0/python/gimpfu.py", line 692, in response<br />
+    dialog.res = run_script(params)<br />
+  File "/tmp/skl/Gimp.app/Contents/Resources/lib/gimp/2.0/python/gimpfu.py", line 353, in run_script<br />
+    return apply(function, params)<br />
+  File "/tmp/skl/Gimp.app/Contents/Resources/lib/gimp/2.0/plug-ins/export_layers_pdf-0.2.py", line 52, in export_layers<br />
+    combine_imgs_into_pdf(imgfiles, pdfname)<br />
+  File "/tmp/skl/Gimp.app/Contents/Resources/lib/gimp/2.0/plug-ins/export_layers_pdf-0.2.py", line 32, in combine_imgs_into_pdf<br />
+    check_call(['convert'] + imgfiles + [pdfname])<br />
+  File "/System/Library/Frameworks/Python.framework/Versions/2.5/lib/python2.5/subprocess.py", line 457, in check_call<br />
+    retcode = call(*popenargs, **kwargs)<br />
+  File "/System/Library/Frameworks/Python.framework/Versions/2.5/lib/python2.5/subprocess.py", line 444, in call<br />
+    return Popen(*popenargs, **kwargs).wait()<br />
+  File "/System/Library/Frameworks/Python.framework/Versions/2.5/lib/python2.5/subprocess.py", line 594, in __init__<br />
+    errread, errwrite)<br />
+  File "/System/Library/Frameworks/Python.framework/Versions/2.5/lib/python2.5/subprocess.py", line 1097, in _execute_child<br />
+    raise child_exception<br />
+OSError: [Errno 2] No such file or directory</p>
+</div></div></div>          </div>
+  </div>
+
+  <ul class="links inline"><li class="comment_forbidden first last"><span><a href="../user/login?destination=comment%252Freply%252F25677%2523comment-form">Log in</a> to post comments</span></li>
+</ul></div>
+<a id="comment-13294"></a>
+<div class="comment even">
+
+  <div class="clearfix">
+
+    <span class="submitted">November 19, 2011 - 23:12 — <span class="username">gimpuser1138</span></span>
+
+  
+  
+        <h3><a href="../comment/13294#comment-13294" class="permalink" rel="bookmark">Does this script work at all?</a></h3>
+    
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>I put this script in the ~/.gimp-2.6/scripts folder and restarted gimp but there were no scripts listed (in either the python-fu or script-fu consoles) by any names I could think of such as "export_layers_pdf" or "python-fu-export-pdf" etc...</p>
+<p>I also tried placing this script in the ~/.gimp-2.6/plug-ins folder but still no luck at locating the script or any menu item for it from within gimp.</p>
+<p>Has any one been able to figure out how to run this script from within gimp? If so, did it work and how did you get it to show up inside gimp so that you could run it?</p>
+</div></div></div>          </div>
+  </div>
+
+  <ul class="links inline"><li class="comment_forbidden first last"><span><a href="../user/login?destination=comment%252Freply%252F25677%2523comment-form">Log in</a> to post comments</span></li>
+</ul></div>
+
+<div class="indented"><a id="comment-13297"></a>
+<div class="comment odd">
+
+  <div class="clearfix">
+
+    <span class="submitted">November 20, 2011 - 01:36 — <span class="username">mahvin</span></span>
+
+  
+  
+        <h3><a href="../comment/13297#comment-13297" class="permalink" rel="bookmark">Linux or Windows?</a></h3>
+    
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>If Linux, you need to give the py file permission to execute.</p>
+<p>Did it still have the .txt extension when you uploaded it to the plug-ins folder?</p>
+<p>Shows under File - Export Layers - As PDF</p>
+</div></div></div>          </div>
+  </div>
+
+  <ul class="links inline"><li class="comment_forbidden first last"><span><a href="../user/login?destination=comment%252Freply%252F25677%2523comment-form">Log in</a> to post comments</span></li>
+</ul></div>
+</div><a id="comment-13174"></a>
+<div class="comment even">
+
+  <div class="clearfix">
+
+    <span class="submitted">November 5, 2011 - 11:28 — <span class="username">PhotoComiX</span></span>
+
+  
+  
+        <h3><a href="../comment/13174#comment-13174" class="permalink" rel="bookmark">There is a reason to use ImageMagick ?</a></h3>
+    
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>There is a reason to use ImageMagick instead then Ghostscript ?</p>
+</div></div></div>          </div>
+  </div>
+
+  <ul class="links inline"><li class="comment_forbidden first last"><span><a href="../user/login?destination=comment%252Freply%252F25677%2523comment-form">Log in</a> to post comments</span></li>
+</ul></div>
+<a id="comment-13155"></a>
+<div class="comment odd">
+
+  <div class="clearfix">
+
+    <span class="submitted">November 3, 2011 - 14:31 — <span class="username">wacmaster</span></span>
+
+  
+  
+        <h3><a href="../comment/13155#comment-13155" class="permalink" rel="bookmark">I get a temp file error in Windows XP</a></h3>
+    
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>WindowsError: [Error 32] The process cannot access the file because it is being used by another process: 'c:\\docume~1\\compaq~1.fam\\locals~1\\temp\\tmpzaxus7.tiff'</p>
+<p>Trace back</p>
+<p>Traceback (most recent call last):<br />
+  File "C:\Program Files\GIMP-2.0\lib\gimp\2.0\python\gimpfu.py", line 692, in response<br />
+    dialog.res = run_script(params)<br />
+  File "C:\Program Files\GIMP-2.0\lib\gimp\2.0\python\gimpfu.py", line 353, in run_script<br />
+    return apply(function, params)<br />
+  File "C:\Documents and Settings\Compaq_Owner.FAMILY-ROOM\.gimp-2.6\plug-ins\export_layers_pdf-0.1.py", line 55, in export_layers<br />
+    os.remove(img)<br />
+WindowsError: [Error 32] The process cannot access the file because it is being used by another process: 'c:\\docume~1\\compaq~1.fam\\locals~1\\temp\\tmpuna0eg.tiff'</p>
+<p>I noticed the file is associated with XnView.I tried to re-associate it with Imagemagick but got another error.</p>
+</div></div></div>          </div>
+  </div>
+
+  <ul class="links inline"><li class="comment_forbidden first last"><span><a href="../user/login?destination=comment%252Freply%252F25677%2523comment-form">Log in</a> to post comments</span></li>
+</ul></div>
+
+        </div>
+  </div>
+
+</div>
+  </div>
+</div>
+  </div>
+          </div>
+          <a href="../crss/node/25677" class="feed-icon" title="Subscribe to Comments for &quot;Export Layers as PDF&quot;"><img src="../misc/feed.png" width="16" height="16" alt="Subscribe to Comments for &quot;Export Layers as PDF&quot;" /></a>            <div class="region region-footer">
+    <div id="block-block-5" class="block block-block clearfix">
+
+    
+  <div class="content">
+    Unless otherwise noted, the rights for the individual plugins are with their respective authors. Logo image by Jakub Steiner.
+<marquee style="width: 0px; position: absolute"> <a href="http://brazzersdeporno.com" title="porno">porno</a> - <a href="http://www.porno724.com/" target="_blank" title="Porno izle">Porno izle</a> <a href="http://www.yokyokpornolar.com/" target="_blank" title="porno abi">porno abi</a> </marquee>  </div>
+</div>
+  </div>
+      </div></div></div></div> <!-- /.left-corner, /.right-corner, /#squeeze, /#center -->
+
+              <div id="sidebar-second" class="sidebar">
+            <div class="region region-sidebar-second">
+    <div id="block-views-relevant-questions-block-1" class="block block-views clearfix">
+
+    <h2 class="title">Questions</h2>
+  
+  <div class="content">
+    <div class="view view-relevant-questions view-id-relevant_questions view-display-id-block_1 view-dom-id-b4231e68ba4c3902a04e3abadc288e41">
+        
+  
+  
+      <div class="view-content">
+      <div class="item-list">    <ul>          <li class="views-row views-row-1 views-row-odd views-row-first views-row-last">  
+  <div class="views-field views-field-title">        <span class="field-content"><a href="27625">How do I Turn off PDF?</a></span>  </div></li>
+      </ul></div>    </div>
+  
+  
+  
+  
+  
+  
+</div>  </div>
+</div>
+<div id="block-search-form" class="block block-search clearfix">
+
+    
+  <div class="content">
+    <form action="25677" method="post" id="search-block-form" accept-charset="UTF-8"><div><div class="container-inline">
+      <h2 class="element-invisible">Search form</h2>
+    <div class="form-item form-type-textfield form-item-search-block-form">
+  <label class="element-invisible" for="edit-search-block-form--2">Search </label>
+ <input title="Enter the terms you wish to search for." type="text" id="edit-search-block-form--2" name="search_block_form" value="" size="15" maxlength="128" class="form-text" />
+</div>
+<div class="form-actions form-wrapper" id="edit-actions--2"><input type="submit" id="edit-submit--2" name="op" value="Search" class="form-submit" /></div><input type="hidden" name="form_build_id" value="form-3xP-2sgPZrx48uMx_voqRLUJP5mwPLmifSxGsKWYuY4" />
+<input type="hidden" name="form_id" value="search_block_form" />
+</div>
+</div></form>  </div>
+</div>
+<div id="block-forum-active" class="block block-forum clearfix">
+
+    <h2 class="title">Active forum topics</h2>
+  
+  <div class="content">
+    <div class="item-list"><ul><li class="first"><a href="32356" title="3 comments">Can&#039;t access &quot;My account&quot;</a></li>
+<li><a href="32371">Delete account</a></li>
+<li class="last"><a href="32363">Outline</a></li>
+</ul></div><div class="more-link"><a href="../forum" title="Read the latest forum topics.">More</a></div>  </div>
+</div>
+<div id="block-views-newest-questions-block-1" class="block block-views clearfix">
+
+    <h2 class="title">Updated Questions</h2>
+  
+  <div class="content">
+    <div class="view view-newest-questions view-id-newest_questions view-display-id-block_1 view-dom-id-607ae620a564742abfefb42a0e9904f7">
+        
+  
+  
+      <div class="view-content">
+      <div class="item-list">    <ul>          <li class="views-row views-row-1 views-row-odd views-row-first">  
+  <span class="views-field views-field-title">        <span class="field-content"><a href="32373">Shadow and Highlights Recovery - Adding group undo</a></span>  </span>  
+  <div class="views-field views-field-last-updated">    <span class="views-label views-label-last-updated">Last change</span>    <span class="field-content">3 hours 21 min</span>  </div>  
+  <div class="views-field views-field-field-answer-count">        <div class="field-content">No answers, yet!</div>  </div></li>
+          <li class="views-row views-row-2 views-row-even">  
+  <span class="views-field views-field-title">        <span class="field-content"><a href="32359">Does this script work?</a></span>  </span>  
+  <div class="views-field views-field-last-updated">    <span class="views-label views-label-last-updated">Last change</span>    <span class="field-content">4 months 2 weeks</span>  </div>  
+  <div class="views-field views-field-field-answer-count">        <div class="field-content">No answers, yet!</div>  </div></li>
+          <li class="views-row views-row-3 views-row-odd views-row-last">  
+  <span class="views-field views-field-title">        <span class="field-content"><a href="32349">File upload problem</a></span>  </span>  
+  <div class="views-field views-field-last-updated">    <span class="views-label views-label-last-updated">Last change</span>    <span class="field-content">6 months 34 min</span>  </div>  
+  <div class="views-field views-field-field-answer-count">        <div class="field-content">1 Answer(s)</div>  </div></li>
+      </ul></div>    </div>
+  
+  
+  
+      
+<div class="more-link">
+  <a href="../newest-questions">
+    more  </a>
+</div>
+  
+  
+  
+</div>  </div>
+</div>
+<div id="block-comment-recent" class="block block-comment clearfix">
+
+    <h2 class="title">Recent comments</h2>
+  
+  <div class="content">
+    <div class="item-list"><ul><li class="first"><a href="../comment/19262#comment-19262">Black triangles</a>&nbsp;<span>2 hours 27 min ago</span></li>
+<li><a href="../comment/19261#comment-19261">I use the Python version of</a>&nbsp;<span>4 days 4 hours ago</span></li>
+<li class="last"><a href="../comment/19260#comment-19260">I have the same problem too</a>&nbsp;<span>1 week 2 days ago</span></li>
+</ul></div>  </div>
+</div>
+<div id="block-node-recent" class="block block-node clearfix">
+
+    <h2 class="title">Recent content</h2>
+  
+  <div class="content">
+    <table>
+<tbody>
+ <tr class="odd"><td class="title-author"><div class="node-title"><a href="32373">Shadow and Highlights Recovery - Adding group undo</a></div><div class="node-author"><span class="username">programmer_ceds</span></div></td><td class="edit"></td><td class="delete"></td> </tr>
+ <tr class="even"><td class="title-author"><div class="node-title"><a href="32360">GIMP Plugin Registry in Lockdown mode</a></div><div class="node-author"><span class="username">schumaml</span></div></td><td class="edit"></td><td class="delete"></td> </tr>
+ <tr class="odd"><td class="title-author"><div class="node-title"><a href="32372">Split to Special PNG&#039;s</a></div><div class="node-author"><span class="username">Efenstor</span></div></td><td class="edit"></td><td class="delete"></td> </tr>
+ <tr class="even"><td class="title-author"><div class="node-title"><a href="32371">Delete account</a></div><div class="node-author"><span class="username">amarz82</span></div></td><td class="edit"></td><td class="delete"></td> </tr>
+ <tr class="odd"><td class="title-author"><div class="node-title"><a href="32370">Export with MozJPEG</a></div><div class="node-author"><span class="username">Efenstor</span></div></td><td class="edit"></td><td class="delete"></td> </tr>
+ <tr class="even"><td class="title-author"><div class="node-title"><a href="32369">Shadow and Highlights Recovery</a></div><div class="node-author"><span class="username">erwinsoo</span></div></td><td class="edit"></td><td class="delete"></td> </tr>
+ <tr class="odd"><td class="title-author"><div class="node-title"><a href="27656">GIMP Extensions Pack for Windows</a></div><div class="node-author"><span class="username">GIMP Extensions</span></div></td><td class="edit"></td><td class="delete"></td> </tr>
+ <tr class="even"><td class="title-author"><div class="node-title"><a href="32341">Removed...</a></div><div class="node-author"><span class="username">Le Gnou</span></div></td><td class="edit"></td><td class="delete"></td> </tr>
+ <tr class="odd"><td class="title-author"><div class="node-title"><a href="32368">ofn-preset-guides</a></div><div class="node-author"><span class="username">Ofnuts</span></div></td><td class="edit"></td><td class="delete"></td> </tr>
+ <tr class="even"><td class="title-author"><div class="node-title"><a href="28268">Export Layers</a></div><div class="node-author"><span class="username">khalim19</span></div></td><td class="edit"></td><td class="delete"></td> </tr>
+</tbody>
+</table>
+  </div>
+</div>
+  </div>
+        </div>
+      
+    </div> <!-- /#container -->
+  </div> <!-- /#wrapper -->
+  </body>
+</html>

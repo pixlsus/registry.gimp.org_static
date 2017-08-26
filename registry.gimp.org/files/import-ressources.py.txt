@@ -1,0 +1,106 @@
+#!/usr/bin/env python
+
+'''
+Import Ressources into Gimp user folder
+2010 Cedric GEMY
+
+This script runs only when called from within gimp.
+The GUI widgets displayed are done by PyGimp, calling other libraries.  See .../python/gimpui.py.
+
+2010/06/25 : V.1 : simple import
+TODO :
+- test extension before installing
+- unzip if necessary
+- add relaunch message if plugin
+- multi import
+- managing special Mac OS folders
+- auto installer
+
+GUI style guide: 
+  Don't use the capitalization shown here for descriptions, just capitalize the first letter.
+  Do use the colon after the description.
+  Do use keyboard shortcuts (underbar).
+  Use the ellipsis ... after the menu item if plugin opens a dialog.
+'''
+
+import os, os.path
+
+def uncompress():
+  pass
+
+def install(filename,ressource):
+  os.rename(filename,os.path.join(os.path.expanduser("~"),'.gimp-2.6',ressource,os.path.basename(filename)))
+  if ressource=="brushes":
+  	pdb.gimp_brushes_refresh()
+  elif ressource=="palettes":
+  	pdb.gimp_palettes_refresh()
+  elif ressource=="fonts":
+  	pdb.gimp_fonts_refresh()
+  elif ressource=="gradients":
+  	pdb.gimp_gradients_refresh()
+  elif ressource=="patterns":
+  	pdb.gimp_patterns_refresh()
+  elif ressource=="scripts":
+  	pdb.script_fu_refresh()
+  	
+
+def create_brush():
+  #convert to BW
+  #contrast increase
+  #delete white background
+  pass
+
+def test_file(extension,filename):
+  archives_extensions = ('.zip','.tar','.gz','.bz2','.rar')
+  extensions={
+    ".gbr":"brushes",
+    ".vbr":"brushes",
+    ".abr":"brushes",
+    ".gih":"brushes",
+    ".gpl":"palettes",
+    ".pat":"patterns",
+    ".scm":"scripts",
+    ".py":"plug-ins",
+    ".exe":"plug-ins",
+    ".otf":"fonts",
+    ".ttf":"fonts",
+    ".ggr":"gradients",
+  }
+  for key, value in extensions.items():
+  	if key==extension:
+  		install(filename,value)
+
+def plugin_main(timg, tdrawable,filename):
+  filename_split=os.path.splitext(filename)
+  print "filename:"+filename
+  test_file(filename_split[1],filename)
+
+try:
+    # succeeds if path includes gimpfu (ie invoked from Gimp app as a plugin)
+    from gimpfu import *    
+    
+    register(
+        "python_fu_import_brush_A",
+        "Import Brushes and other ressources into Gimp",
+        "Import your new brushes set into gimp and other ressources like scripts, plugins, fonts as well",
+        "Cedric Gemy (cedric.gemy @ gmail.com)",
+        "Copyright 2010 Cedric GEMY under GPL",
+        "2010",
+        "<Image>/Edit/_Import Ressources...",
+        "", # image types: blank means don't care but no image param
+        [
+        (PF_FILENAME, "filename", "Filename A :", 0),
+        ],
+        [],
+        plugin_main
+        )
+    main()
+    
+except:
+    '''
+    invoked standalone.  For testing, you might call plug-in main with testing parameters,
+    but you would first need to import the proper PyGimp modules,
+    so its unless your plugin doesn't do much with Gimp,
+    its easier to test invoked from Gimp.
+    '''
+    pass

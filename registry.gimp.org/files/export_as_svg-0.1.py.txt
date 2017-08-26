@@ -1,0 +1,93 @@
+#!/usr/bin/env python
+# -*- coding: <utf-8> -*-
+# Author: Erdem Guven <zuencap@yahoo.com>
+# Copyright 2010 Erdem Guven
+# Copyright 2009 Chris Mohler
+# "Only Visible" and filename formatting introduced by mh
+# License: GPL v3+
+# Version 0.1
+# GIMP plugin to export as SVG
+
+from gimpfu import *
+import os, re
+
+gettext.install("gimp20-python", gimp.locale_directory, unicode=True)
+
+def get_image_name(img):
+	imgname = img.name.decode('utf-8')
+	regex = re.compile("[^-\w]", re.UNICODE) 
+	return regex.sub('_', imgname)
+
+def format_filename(imagename, layer):
+	layername = layer.name.decode('utf-8')
+	regex = re.compile("[^-\w]", re.UNICODE) 
+	filename = imagename + '-' + regex.sub('_', layername) + '.png'
+	return filename
+
+def export_as_svg(img, drw, path, only_visible=False, inkscape_layers=True):
+	dupe = img.duplicate()
+	
+	imagename = get_image_name(img)
+	images = ""
+	
+	for layer in dupe.layers:
+		if not only_visible or layer.visible:
+			filename = format_filename(imagename, layer)
+			fullpath = os.path.join(path, filename);
+			pdb.file_png_save_defaults(dupe, dupe.layers[0], fullpath, filename)
+			
+			style=""
+			if layer.opacity != 100.0:
+				style="opacity:"+str(layer.opacity/100.0)+";"
+			if not layer.visible:
+				style+="display:none"
+			if style != "":
+				style = 'style="'+style+'"'
+				
+			image = ""
+			if inkscape_layers:
+				image = '<g inkscape:groupmode="layer" inkscape:label="%s" %s>' % (layer.name.decode('utf-8'),style)
+				style = ""
+			image += ('<image xlink:href="%s" x="%d" y="%d" width="%d" height="%d" %s/>\n' % 
+				(fullpath,layer.offsets[0],layer.offsets[1],layer.width,layer.height,style))
+			if inkscape_layers:
+				image += '</g>'
+			images = image + images
+		dupe.remove_layer(layer)
+	
+	svgpath = os.path.join(path, imagename+".svg");
+	svgfile = open(svgpath, "w")
+	svgfile.write("""<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Generator: GIMP export as svg plugin -->
+
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" """)
+	if inkscape_layers:
+		svgfile.write('xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" ')
+	svgfile.write('width="%d" height="%d">' % (img.width, img.height));
+	svgfile.write(images);
+	svgfile.write("</svg>");
+
+			
+register(
+	proc_name=("python-fu-export-as-svg"),
+	blurb=("Export as SVG"),
+	help=("Export an svg file and an individual PNG file per layer."),
+	author=("Erdem Guven <zuencap@yahoo.com>"),
+	copyright=("Erdem Guven"),
+	date=("2010"),
+	label=("Export as SVG"),
+	imagetypes=("*"),
+	params=[
+		(PF_IMAGE, "img", "Image", None),
+		(PF_DRAWABLE, "drw", "Drawable", None),
+		(PF_DIRNAME, "path", "Save PNGs here", os.getcwd()),
+		(PF_BOOL, "only_visible", "Only Visible Layers?", False),
+		(PF_BOOL, "inkscape_layers", "Create Inkscape Layers?", True),
+		   ],
+	results=[],
+	function=(export_as_svg), 
+	menu=("<Image>/File"), 
+	domain=("gimp20-python", gimp.locale_directory)
+	)
+
+main()
