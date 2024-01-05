@@ -7,37 +7,37 @@
 <link rel="shortcut icon" href="../files/favicon.png" type="image/png" />
 <meta name="Generator" content="Drupal 7 (http://drupal.org)" />
   <title>GIMP Plugin Registry | A repository of optional extensions for the GIMP.</title>
-  <style type="text/css" media="all">@import url("../modules/system/system.base.css?n48fl6");
-@import url("../modules/system/system.menus.css?n48fl6");
-@import url("../modules/system/system.messages.css?n48fl6");
-@import url("../modules/system/system.theme.css?n48fl6");</style>
-<style type="text/css" media="all">@import url("../modules/aggregator/aggregator.css?n48fl6");
-@import url("../modules/book/book.css?n48fl6");
-@import url("../modules/comment/comment.css?n48fl6");
-@import url("../sites/all/modules/date/date_api/date.css?n48fl6");
-@import url("../sites/all/modules/date/date_popup/themes/datepicker.1.7.css?n48fl6");
-@import url("../sites/all/modules/date/date_repeat_field/date_repeat_field.css?n48fl6");
-@import url("../modules/field/theme/field.css?n48fl6");
-@import url("../sites/all/modules/mollom/mollom.css?n48fl6");
-@import url("../modules/node/node.css?n48fl6");
-@import url("../modules/poll/poll.css?n48fl6");
-@import url("../modules/search/search.css?n48fl6");
-@import url("../modules/user/user.css?n48fl6");
-@import url("../modules/forum/forum.css?n48fl6");
-@import url("../sites/all/modules/views/css/views.css?n48fl6");</style>
-<style type="text/css" media="all">@import url("../sites/all/modules/ctools/css/ctools.css?n48fl6");
-@import url("../sites/all/modules/rate/rate.css?n48fl6");
-@import url("../sites/all/modules/tagclouds/tagclouds.css?n48fl6");
-@import url("../sites/all/modules/panels/css/panels.css?n48fl6");</style>
-<style type="text/css" media="all">@import url("../files/color/garland-5ac73a91/style.css?n48fl6");</style>
-<style type="text/css" media="print">@import url("../themes/garland/print.css?n48fl6");</style>
+  <style type="text/css" media="all">@import url("../modules/system/system.base.css");
+@import url("../modules/system/system.menus.css");
+@import url("../modules/system/system.messages.css");
+@import url("../modules/system/system.theme.css");</style>
+<style type="text/css" media="all">@import url("../modules/aggregator/aggregator.css");
+@import url("../modules/book/book.css");
+@import url("../modules/comment/comment.css");
+@import url("../sites/all/modules/date/date_api/date.css");
+@import url("../sites/all/modules/date/date_popup/themes/datepicker.1.7.css");
+@import url("../sites/all/modules/date/date_repeat_field/date_repeat_field.css");
+@import url("../modules/field/theme/field.css");
+@import url("../sites/all/modules/mollom/mollom.css");
+@import url("../modules/node/node.css");
+@import url("../modules/poll/poll.css");
+@import url("../modules/search/search.css");
+@import url("../modules/user/user.css");
+@import url("../modules/forum/forum.css");
+@import url("../sites/all/modules/views/css/views.css");</style>
+<style type="text/css" media="all">@import url("../sites/all/modules/ctools/css/ctools.css");
+@import url("../sites/all/modules/rate/rate.css");
+@import url("../sites/all/modules/tagclouds/tagclouds.css");
+@import url("../sites/all/modules/panels/css/panels.css");</style>
+<style type="text/css" media="all">@import url("../files/color/garland-5ac73a91/style.css");</style>
+<style type="text/css" media="print">@import url("../themes/garland/print.css");</style>
 
 <!--[if lt IE 7]>
-<link type="text/css" rel="stylesheet" href="http://registry.gimp.org/themes/garland/fix-ie.css?n48fl6" media="all" />
+<link type="text/css" rel="stylesheet" href="http://registry.gimp.org/themes/garland/fix-ie.css" media="all" />
 <![endif]-->
   <script type="text/javascript" src="../misc/jquery.js?v=1.4.4"></script>
 <script type="text/javascript" src="../misc/jquery.once.js?v=1.2"></script>
-<script type="text/javascript" src="../misc/drupal.js?n48fl6"></script>
+<script type="text/javascript" src="../misc/drupal.js"></script>
 <script type="text/javascript">
 <!--//--><![CDATA[//><!--
 jQuery.extend(Drupal.settings, {"basePath":"\/","pathPrefix":"","ajaxPageState":{"theme":"garland","theme_token":"L0uGgXmBwULHTk33In68ff1ETpGxYQsFf4Oj_--nJ3w","js":{"misc\/jquery.js":1,"misc\/jquery.once.js":1,"misc\/drupal.js":1},"css":{"modules\/system\/system.base.css":1,"modules\/system\/system.menus.css":1,"modules\/system\/system.messages.css":1,"modules\/system\/system.theme.css":1,"modules\/aggregator\/aggregator.css":1,"modules\/book\/book.css":1,"modules\/comment\/comment.css":1,"sites\/all\/modules\/date\/date_api\/date.css":1,"sites\/all\/modules\/date\/date_popup\/themes\/datepicker.1.7.css":1,"sites\/all\/modules\/date\/date_repeat_field\/date_repeat_field.css":1,"modules\/field\/theme\/field.css":1,"sites\/all\/modules\/mollom\/mollom.css":1,"modules\/node\/node.css":1,"modules\/poll\/poll.css":1,"modules\/search\/search.css":1,"modules\/user\/user.css":1,"modules\/forum\/forum.css":1,"sites\/all\/modules\/views\/css\/views.css":1,"sites\/all\/modules\/ctools\/css\/ctools.css":1,"sites\/all\/modules\/rate\/rate.css":1,"sites\/all\/modules\/tagclouds\/tagclouds.css":1,"sites\/all\/modules\/panels\/css\/panels.css":1,"themes\/garland\/style.css":1,"themes\/garland\/print.css":1,"themes\/garland\/fix-ie.css":1}}});
@@ -76,7 +76,7 @@ jQuery.extend(Drupal.settings, {"basePath":"\/","pathPrefix":"","ajaxPageState":
   
   <div class="content">
     <ul class="menu"><li class="first leaf"><a href="../node/25574" title="FAQ &amp; How To&#039;s">FAQ &amp; How To&#039;s</a></li>
-<li class="leaf active-trail"><a href="../glossary.1" title="" class="active-trail active">Content By Name</a></li>
+<li class="leaf active-trail"><a href="../glossary/1" title="" class="active-trail active">Content By Name</a></li>
 <li class="collapsed"><a href="../aggregator">Feed aggregator</a></li>
 <li class="leaf"><a href="../popular">Popular content</a></li>
 <li class="leaf"><a href="../node/25392" title="Report Spam Here">Report Spam Here</a></li>
@@ -134,7 +134,7 @@ jQuery.extend(Drupal.settings, {"basePath":"\/","pathPrefix":"","ajaxPageState":
   
   
       <div class="view-content">
-        <span class="views-summary views-summary-unformatted">        <a href="&#32;"> </a>
+        <span class="views-summary views-summary-unformatted">        <a href="_">_</a>
           (7)
       </span>  <span class="views-summary views-summary-unformatted">     |     <a href="&quot;" class="active">&QUOT;</a>
           (3)

@@ -1,3 +1,0 @@
-http://registry.gimp.org was downloaded on 2017-08-25 at 18:53 PST using the commmand:
-
-wget -rkpNc -e robots=off http://registry.gimp.org

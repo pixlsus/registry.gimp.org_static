@@ -76,7 +76,7 @@ jQuery.extend(Drupal.settings, {"basePath":"\/","pathPrefix":"","ajaxPageState":
   
   <div class="content">
     <ul class="menu"><li class="first leaf"><a href="../node/25574" title="FAQ &amp; How To&#039;s">FAQ &amp; How To&#039;s</a></li>
-<li class="leaf active-trail"><a href="../glossary.1" title="" class="active-trail active">Content By Name</a></li>
+<li class="leaf active-trail"><a href="../glossary/1" title="" class="active-trail active">Content By Name</a></li>
 <li class="collapsed"><a href="../aggregator">Feed aggregator</a></li>
 <li class="leaf"><a href="../popular">Popular content</a></li>
 <li class="leaf"><a href="../node/25392" title="Report Spam Here">Report Spam Here</a></li>
@@ -134,7 +134,7 @@ jQuery.extend(Drupal.settings, {"basePath":"\/","pathPrefix":"","ajaxPageState":
   
   
       <div class="view-content">
-        <span class="views-summary views-summary-unformatted">        <a href="&#32;"> </a>
+        <span class="views-summary views-summary-unformatted">        <a href="_">_</a>
           (7)
       </span>  <span class="views-summary views-summary-unformatted">     |     <a href="&quot;">&QUOT;</a>
           (3)
@@ -515,10 +515,10 @@ jQuery.extend(Drupal.settings, {"basePath":"\/","pathPrefix":"","ajaxPageState":
     </div>
   
       <h2 class="element-invisible">Pages</h2><div class="item-list"><ul class="pager"><li class="pager-current first">1</li>
-<li class="pager-item"><a title="Go to page 2" href="http://registry.gimp.org/glossary/p?page=1">2</a></li>
-<li class="pager-item"><a title="Go to page 3" href="http://registry.gimp.org/glossary/p?page=2">3</a></li>
-<li class="pager-next"><a title="Go to next page" href="http://registry.gimp.org/glossary/p?page=1">next ›</a></li>
-<li class="pager-last last"><a title="Go to last page" href="http://registry.gimp.org/glossary/p?page=2">last »</a></li>
+<li class="pager-item"><a title="Go to page 2" href="p1">2</a></li>
+<li class="pager-item"><a title="Go to page 3" href="p2">3</a></li>
+<li class="pager-next"><a title="Go to next page" href="p1">next ›</a></li>
+<li class="pager-last last"><a title="Go to last page" href="p2">last »</a></li>
 </ul></div>  
   
   

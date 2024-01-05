@@ -80,7 +80,7 @@ jQuery.extend(Drupal.settings, {"basePath":"\/","pathPrefix":"","ajaxPageState":
   
   <div class="content">
     <ul class="menu"><li class="first leaf active-trail"><a href="25574" title="FAQ &amp; How To&#039;s" class="active-trail active">FAQ &amp; How To&#039;s</a></li>
-<li class="leaf"><a href="../glossary.1" title="">Content By Name</a></li>
+<li class="leaf"><a href="../glossary/1" title="">Content By Name</a></li>
 <li class="collapsed"><a href="../aggregator">Feed aggregator</a></li>
 <li class="leaf"><a href="../popular">Popular content</a></li>
 <li class="leaf"><a href="25392" title="Report Spam Here">Report Spam Here</a></li>
